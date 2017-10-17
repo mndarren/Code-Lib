@@ -1,0 +1,92 @@
+//CSCI591(301) Sec1 <Zhao Xie>
+//@date 11/03/2013
+/**@file PLinkedQueue.template*/
+
+template <class ItemType>
+PLinkedQueue<ItemType>::PLinkedQueue(const PLinkedQueue<ItemType>& q)
+{
+  if (q.front == NULL)
+  {
+    front = NULL;
+	count = 0;
+  }
+  else
+  {
+    front = get_node(q.front->data,q.front->priority,NULL);
+	count = q.count;
+	Node* temp1 = q.front->next;
+	Node* temp2 = front;
+	while(temp1 !=NULL)
+	{
+	  temp2->next = get_node(temp1->data,temp1->priority,NULL);
+      temp2 = temp2->next;
+	  temp1 = temp1->next;
+	}
+	temp1 = temp2 = NULL;
+  }
+}
+template <class ItemType>
+PLinkedQueue<ItemType>::~PLinkedQueue()
+{
+  Node* temp = front;
+  while(front != NULL)
+  {
+    front = front->next;
+    delete temp;
+    temp = front;	
+  }
+}
+template <class ItemType>
+void PLinkedQueue<ItemType>::enqueue(ItemType& entry,int pri)
+{
+  Node* p=front;
+  if (front == NULL||pri > front->priority)
+    front = get_node(entry,pri,NULL);
+  else if (front->next == NULL && pri<=front->priority)
+    front->next = get_node(entry,pri,front);
+  else
+  {
+	while (p->next != NULL && pri<=p->next->priority)
+	  p = p->next;
+	p->next = get_node(entry,pri,p->next);
+  }
+  count++;
+}
+template <class ItemType>
+ItemType PLinkedQueue<ItemType>::dequeue()
+{
+  if (front != NULL)
+  {
+    ItemType temp = front->data;
+	Node* p = front;
+	front = front->next;
+	delete p;
+	p=NULL;
+	count--;
+	return temp;
+  }
+}
+template <class ItemType>
+typename PLinkedQueue<ItemType>::Node* PLinkedQueue<ItemType>::
+                        get_node(ItemType entry,int pri,Node* link)
+{
+  Node* temp = new Node();
+  temp->data = entry;
+  temp->priority = pri;
+  temp->next = link;
+  return temp;
+}
+		  
+template <class ItemType>
+ostream& operator<< (ostream& out_q,
+            const PLinkedQueue<ItemType>& q)
+{
+  typename PLinkedQueue<ItemType>::Node* p;
+  p = q.front;
+  while(p != NULL)
+  {
+     out_q <<p->data<<' '<<p->priority<<' ';
+	 p = p->next;
+  }
+  return out_q;
+}

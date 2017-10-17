@@ -1,0 +1,96 @@
+//CSCI591(301) Sec1 <Zhao Xie>
+//project 7 Due:11/12/2013
+/**@file LinkedQueue.template*/
+
+template <class ItemType>
+LinkedQueue<ItemType>::LinkedQueue(const LinkedQueue<ItemType>& q)
+{
+  if (q.front == NULL)
+  {
+    front = NULL;
+	rear = NULL;
+	count = 0;
+  }
+  else
+  {
+    front = get_node(q.front->data,NULL);
+	count = q.count;
+	Node* temp1 = q.front->next;
+	Node* temp2 = front;
+	while(temp1 !=NULL)
+	{
+	  temp2->next = get_node(temp1->data,NULL);
+      temp2 = temp2->next;
+	  temp1 = temp1->next;
+	}
+	rear = temp2;
+	temp1 = temp2 = NULL;
+  }
+}
+template <class ItemType>
+LinkedQueue<ItemType>::~LinkedQueue()
+{
+  Node* temp = front;
+  while(front != NULL)
+  {
+    front = front->next;
+    delete temp;
+    temp = front;	
+  }
+  temp = NULL;
+}
+template <class ItemType>
+void LinkedQueue<ItemType>::enqueue(ItemType& entry)
+{
+  if (rear != NULL)
+  {
+    rear->next = get_node(entry,NULL);
+    rear = rear->next;
+	count++;
+  }
+  else
+  {
+    front = get_node(entry,NULL);
+	rear = front;
+	count++;
+  }
+}
+template <class ItemType>
+ItemType LinkedQueue<ItemType>::dequeue()
+{
+  if (front != NULL)
+  {
+    ItemType temp = front->data;
+	Node* p = front;
+	front = front->next;
+	delete p;
+	p=NULL;
+	count--;
+	if(front==NULL)
+	   rear=NULL;
+	return temp;
+  }
+}
+template <class ItemType>
+typename LinkedQueue<ItemType>::Node* LinkedQueue<ItemType>::
+                        get_node(ItemType entry,Node* link)
+{
+  Node* temp = new Node();
+  temp->data = entry;
+  temp->next = link;
+  return temp;
+}
+		  
+template <class ItemType>
+ostream& operator<< (ostream& out_q,
+            const LinkedQueue<ItemType>& q)
+{
+  typename LinkedQueue<ItemType>::Node* p;
+  p = q.front;
+  while(p != NULL)
+  {
+     out_q <<p->data<<' ';
+	 p = p->next;
+  }
+  return out_q;
+}
