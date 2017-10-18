@@ -1,4 +1,4 @@
--- Example 1:
+-- Example 1: (Tested)
 -- Create TABLESPACE, PROFILE, user, and password verify function
 
 -- Create Table Space
@@ -122,7 +122,7 @@ ALTER PROFILE Develop_Prof LIMIT
 set serveroutput on;
 --testing
 
---Example 2:
+--Example 2: (Tested)
 -- Create Package, procedure, function and trigger
 -- Make sure correct System date format
 BEGIN
@@ -215,3 +215,33 @@ END Over_Payment_Trig;
 show errors;
 SET SERVEROUTPUT ON;
 
+
+--Example 3:
+-- Dynamic SQL 1
+Declare
+    Inv_id_v  number;
+	Inv_amt_v number;
+	stmt_v    varchar2;
+Begin
+    Inv_id_v    := &Invoice_ID;
+	Inv_amt_v   := &Invoice_amount;
+	stmt_v      := 'update invoices set Invoice_total = Invoice_total + '
+	               || inv_amount || ' '|| 'where invoice_id = '
+				   || inv_id_v;
+	execute IMMEDIATE stmt_v;
+END;
+/
+
+--Dynamic SQL 2
+Set serveroutput on;
+DECLARE
+    stmt_v   varchar2(60);
+	Inv_id_v number(6);
+	Inv_Rec  Invoices%Rowtype;
+begin
+    Inv_ID_v    := &invoice_ID;
+	stmt_v      := 'select * from Invoices where Invoice_ID = :id';
+	execute immediate stmt_v into Inv_rec Using inv_id_v;
+	dbms_output.put_line(Inv_rec.Invoice_total);
+END;
+/
