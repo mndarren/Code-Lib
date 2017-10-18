@@ -1,0 +1,117 @@
+-- Got it from Youtube
+Step 1: download oracle 12c in oracle website
+
+http://www.oracle.com/technetwork/dat...
+
+Step 2: create group and user install oracle
+ #groupadd oinstall
+ #groupadd dba
+ #groupadd oper
+ #useradd -G dba,oper -g oinstall oracle
+ #passwd oracle
+ 
+Step 3: create folder install oracle 
+ #mkdir -p /u01/app/oracle/product/12.1/db_1
+ #mkdir -p /u01/setup
+ #chown -R oracle:oinstall /u01
+ #chmod -R 775 /u01
+
+Step 4: Set parameter
+ #vi /etc/sysctl.conf
+ add the following lines
+ fs.file-max = 6815744
+ kernel.sem = 250 32000 100 128
+ kernel.shmmni = 4096
+ kernel.shmall = 1073741824
+ kernel.shmmax = 4398046511104
+ net.core.rmem_default = 262144
+ net.core.rmem_max = 4194304
+ net.core.wmem_default = 262144
+ net.core.wmem_max = 1048576
+ fs.aio-max-nr = 1048576
+ net.ipv4.ip_local_port_range = 9000 65500
+ #/sbin/sysctl -p
+ #vi /etc/security/limits.conf
+ add the following lines
+ oracle   soft   nofile    1024
+ oracle   hard   nofile    65536
+ oracle   soft   nproc    16384
+ oracle   hard   nproc    16384
+ oracle   soft   stack    10240
+ oracle   hard   stack    32768
+
+Step 5: Install the following packages if they are not already present.
+ yum install binutils -y
+ yum install compat-libcap1 -y
+ yum install compat-libstdc++-33 -y
+ yum install compat-libstdc++-33.i686 -y
+ yum install gcc -y
+ yum install gcc-c++ -y
+ yum install glibc -y
+ yum install glibc.i686 -y
+ yum install glibc-devel -y
+ yum install glibc-devel.i686 -y
+ yum install ksh -y
+ yum install libgcc -y
+ yum install libgcc.i686 -y
+ yum install libstdc++ -y
+ yum install libstdc++.i686 -y
+ yum install libstdc++-devel -y
+ yum install libstdc++-devel.i686 -y
+ yum install libaio -y
+ yum install libaio.i686 -y
+ yum install libaio-devel -y
+ yum install libaio-devel.i686 -y
+ yum install libXext -y
+ yum install libXext.i686 -y
+ yum install libXtst -y
+ yum install libXtst.i686 -y
+ yum install libX11 -y
+ yum install libX11.i686 -y
+ yum install libXau -y
+ yum install libXau.i686 -y
+ yum install libxcb -y
+ yum install libxcb.i686 -y
+ yum install libXi -y
+ yum install libXi.i686 -y
+ yum install make -y
+ yum install sysstat -y
+ yum install unixODBC -y
+ yum install unixODBC-devel -y
+ now, i installed all packages 
+Step 6: add in hosts file
+ #vi /etc/hosts
+ add the following lines
+ 192.168.10.100 oracle.test.com oracle.test
+ oracle.test is hostname and 192.168.10.100 is ip address
+ 
+Step 7: Set environmental variable for user ORACLE
+ #su - oracle
+ $ cd ~
+ $ vi .bash_profile
+ add the following lines
+ # Oracle Settings
+ export TMP=/tmp
+ export TMPDIR=$TMP
+ export ORACLE_HOSTNAME=oracle.test
+ export ORACLE_UNQNAME=dbtest
+ export ORACLE_BASE=/u01/app/oracle
+ export ORACLE_HOME=$ORACLE_BASE/product/12.1/db_1
+ export ORACLE_SID=dbtest
+ export PATH=/usr/sbin:$PATH
+ export PATH=$ORACLE_HOME/bin:$PATH
+ export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib
+ export CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
+
+Step 8: Upload files to server using user Oracle
+
+Step 9: Unzip files
+$unzip linuxamd64_12c_database_1of2.zip.zip
+$unzip linuxamd64_12c_database_2of2.zip.zip
+
+Step 10: Install oracle DB
+$xhost +
+$cd /u01/setup/database
+$./runInstaller
+now, install ORACLE DATABSE using DBCA
+$dbca

@@ -9,12 +9,15 @@ Cpp Lib
 2. trie data struction (Funny, it can contain the whole English words)
 3. other simple ones
 
-SQL Lib
--------
+SQL Lib (Oracle 12c)
+--------------------
 1. examples include creating (Package, Procedure, Function, Trigger, Profile, Tablespace,
                               User, Password_verify_function, and Dynamic SQL)
 2. SQLsummary indicates Basic SQL stuff
 3. SQLsummaryDBA states Concepts about DBA
+4. DBAcommands shows multiple commands for DBA
+5. How to install Oracle 12c on Linux
+6. How to fix connection issue
 
-Linux Lib
-----------
+Data Security Lib (on Linux)
+----------------------------
