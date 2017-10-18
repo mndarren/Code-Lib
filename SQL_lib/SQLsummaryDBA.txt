@@ -13,8 +13,8 @@ Types: Row trigger and statement trigger
 
 ---3. Privs
     -- DBA_TAB_Privs, User_TAB_Privs, Role_Tab_Privs
-    -- DBA_Sys_Privs, ..
-	-- DBA_Role_Privs, ..
+    -- DBA_Sys_Privs, User_Sys_Privs, Role_Sys_Privs
+    -- DBA_Role_Privs, User_Role_Privs, Role_Role_Privs
 ---4. PL/SQL (Procedure Language)
     -- Type: char, varchar, number, Date, binary_Integer
 	-- Large Object Data type: CLOB, BLOB, BFILE
@@ -66,8 +66,4 @@ End;
 end if;
 /
 show error;
-
-
-
-
 
