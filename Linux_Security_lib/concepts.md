@@ -17,14 +17,14 @@
    class D: 224-239 (Reserved for Multicasting)
    class E: 240-254 (Experimental/used for research)
    ```
-   ![alt text]()
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/IP_classes.PNG)
 4. Private IP addresses
    ```
    class A: 10.0.0.0/8
    class B: 172.16.0.0/16 -> 172.31.0.0/16
    class C: 192.168.0.0/16
    ```
-   ![alt text]()
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/private_IP.PNG)
 5. Headers structure
    IP header:
    TCP header:
@@ -32,5 +32,5 @@
    ICMP header:
 6. Linux structure
    Kernel -> Module -> Daemon -> Applications
-   ![alt text]()
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/Linux_structure.PNG)
 7. 
