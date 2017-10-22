@@ -8,7 +8,7 @@
    layer 4 (transport layer)  (TCP/UDP/ICMP Header) xx/8/8 B
    layer 5 (data/payload layer)
    ```
-   ![alt text]()
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/packet_layers.PNG)
 3. IP 5 classes
    ```
    class A: 1-127 (N.H.H.H) (127.0.0.0/8 for loopback)
@@ -31,6 +31,6 @@
    UDP header:
    ICMP header:
 6. Linux structure
-   Kernel -> Module -> Daemon -> Applications
+   Kernel -> Module -> Daemon -> Applications  
    ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/Linux_structure.PNG)
 7. 
