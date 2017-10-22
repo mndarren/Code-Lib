@@ -10,10 +10,10 @@
    ```
 3. Check netstat  
    ```
-   $netstat -an                   # print litsening and established ports
-   $netstat -i                    # like $ifconfig
-   $netstat -r                    # routing table
-   $sudo netstat -apeen | more    # all protocols ethernet number format
+   $netstat -an                        # print litsening and established ports
+   $netstat -i                         # like $ifconfig
+   $netstat -r                         # routing table
+   $sudo netstat -apeen | grep java    # all protocols ethernet number format for java
    ```
 4. Trace IP or Domain hops
    ```
@@ -46,4 +46,5 @@
    $mpstat -A     # all CPU stat
    $uname -a      # info of Linux
    ```
-10. 
+10. `mount | grep nfs`   # find location of nfs
+11. 

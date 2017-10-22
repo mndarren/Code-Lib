@@ -1,4 +1,5 @@
 # Basic Concepts
+=================
 1. Socket: `net.node.port`
 2. Packet: Five layers 
    ```
@@ -54,6 +55,7 @@
    /etc/networks  # network names to ip addresses
    /etc/protocols # contain all protocols
    /etc/services  # contain all services
+   /etc/pid#/maps # view process in memory (rwsp, read|write|shared|protected)
    ```
 10. Port types
    ```
@@ -91,4 +93,27 @@
    LDAPS       636       TCP/UDP
    NFS         2049
    ```   
-13. 
+13. Terms
+   ```
+   MAC  --Media Access Control
+   LLC  --Logical Link Control
+   DNS  --Domain Name System
+   TCP  --Transission Control Protocol
+   UDP  --User Datagram Protocol
+   ARP  --Address Resolution Protocol
+   LDAP --Lightweight Directory Access Protocol
+   DHCP --Dynamic Host Configuration Protocol
+   HTTP --Hypertext Transfer Protocol
+   SNMP --Simple Network Management Protocol
+   ```
+14. 7 file types
+   ```
+   -  --file
+   d  --directory
+   p  --pipe
+   c  --character
+   l  --link
+   b  --block
+   s  --socket
+   ```
+15. 
