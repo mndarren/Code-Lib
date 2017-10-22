@@ -75,22 +75,25 @@
    ```
 12. Top 20 ports
    ```
-   Echo        7      
+   Echo        7         TCP/UDP
    FTP         20/21     TCP
-   FTPS        989/990   TCP  --encrypted
-   SSH/SCP     22        TCP  --encrypted
+   SFTP        115       TCP      --encrypted
+   FTPS        989/990   TCP      --encrypted
+   SSH/SCP     22        TCP      --encrypted
    Telnet      23        TCP
-   SMTP        25        TCP  --used for sending email
-   SMTPS       465       TCP  --encrypted
-   POP3        110       TCP  --used for receiving email
-   POP3S       995       TCP  --encrypted
+   SMTP        25        TCP      --used for sending email
+   SMTPS       465       TCP      --encrypted
+   POP3        110       TCP      --used for receiving email
+   POP3S       995       TCP      --encrypted
    DNS         53        TCP
    DHCP        67/68     UDP
    HTTP        80        TCP
-   HTTPS       443       TCP  --encrypted
+   HTTPS       443       TCP      --encrypted
+   Kerberos    88        TCP/UDP  --464 for Kerberos v5
    sunrpc      111   
+   SNMP        161/162
    LDAP        389   
-   LDAPS       636       TCP/UDP
+   LDAPS       636       TCP/UDP  --encrypted
    NFS         2049
    ```   
 13. Terms

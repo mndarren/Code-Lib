@@ -36,7 +36,7 @@
    $lsmod    # list modules
    $lsof     # list open files
    ```
-8. `whereis rpcinfo`       # find where is the rpcinfo
+8. `whereis rpcinfo`       # find where is the rpcinfo  
    `$/usr/sbin/rpcinfo`    # rpc call to rpc server, show all registered services on rpcbind
 
 9. Check inportant info
