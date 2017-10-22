@@ -1,0 +1,8 @@
+# Basic Network Commands
+
+1. $arp -a    # Print out ARP table <br /><br />
+2. $dig stcloudstate.edu     # get IP address  
+   $dig -x 199.17.59.234     # get domain related to IP  
+   $nslookup  199.17.59.234  # the same to previous  
+   $whois stcloudstate.edu   # print out info related to the IP or domain <br /><br />
+3. 
