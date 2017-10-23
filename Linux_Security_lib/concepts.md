@@ -51,6 +51,7 @@
 9. Important config files
    ```
    /etc/fstab     # accessible fs
+   /etc/motd      # message of today
    /etc/hosts     # names to ip addresses
    /etc/networks  # network names to ip addresses
    /etc/protocols # contain all protocols
@@ -110,6 +111,7 @@
    HTTP --Hypertext Transfer Protocol
    SNMP --Simple Network Management Protocol
    CSMA/CD --Carrier Sensor Multiple Access/Collision Detection
+   UUCP --Unix to Unix Copy Protocol
    ```
 14. 7 file types
    ```

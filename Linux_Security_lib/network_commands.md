@@ -42,8 +42,8 @@
 9. Check inportant info
    ```
    $vmstat        # VM stat
-   $mpstat -P ALL   # Multiprocessing stat for all CPU (if 0, for CPU 0)
-   $mpstat -A     # all CPU stat
+   $mpstat -P ALL # Multiprocessing stat for all CPU (if 0, for CPU 0)
+   $mpstat -A     # all CPU stat (R-running,D-Uninterruptible Sleep,S-sleep,T-stopped,W-pagging,X-dead,Z-zombie)
    $uname -a      # info of Linux
    ```
 10. `mount | grep nfs`   # find location of nfs
@@ -62,4 +62,13 @@
    2) `fuser -v -n tcp 1234` 
    3) `fuser -k 1234/tcp`   #kill process which created the port
 14. `$history | grep nc`    #list all about nc command
-15. 
+15. `$klist`                #list ticket cache of Kerberos **Hacker like this**
+16. `$w` OR `$who -uH`      #**Hacker like IDLE**
+17. sha512sum
+   ```
+   $sha512sum xxx > sha512xxx
+   $sha512sum -c sha512xxx        #check it **the xxx should be in the same folder**
+   $cat sha512xxx | sha512sum -c  #echo check
+   ```
+18. `$top -d 0.00001`             #most severe denial of service **Hacker like it**
+19. 
