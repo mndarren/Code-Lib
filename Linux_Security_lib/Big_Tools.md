@@ -1,5 +1,5 @@
 # Attacker Tools and Security Tools
-1. Tcpdump (Attacker and Security)  
+1. Tcpdump (Attacker and Security) (Good packet sniffer)
    ```
    1) $sudo tcpdump port 23 -e -n -vvv -X -i lo -c 33 -w filename
    2) $sudo tcpdump arp -n -vvv -X -c6     #icmp as well
@@ -8,7 +8,8 @@
       (2) $tcpdump 'ip[0] & 0x0f > 5' or `$tcpdump 'ip[0] & 15 > 5'` #TOS
       (3) $tcpdump 'tcp'    #collect TCP records
       (4) $tcpdump 'ip[19] = 0xff' OR $tcpdump 'ip[19] = 255'
-      (5) $?
+      (5) $tcpdump '(tcp[13] & 0x02 = 2) && (ip[2:2] - tcp[12] & 0xf0>>4*4 - ip[0] & 0x0f*4 > 0)'
+          # data shouldn't be transported in a SYN packet
    ```
 2. Nmap (Attacker)
    ```
@@ -24,18 +25,21 @@
       -sM (TCP Mainon scan: including NULL, FIN, and Xmas)
       -sI (Idle scan)
       -sO (IP protocol scan)
+      -sP (ping scan, ICMP ECHO REQUEST and then TCP ping if no ICMP reply)
       -sn (ping scan, no port scan)
+      -sR (RPC scan)
       -Pn (no ping, treat all host online)
       -b (FTP bounce scan)
-      -oN/-oX/-oS/-oG <file>(output in nomal,XML,script,Grepable format)
-      -oA <basename>(output in 3 major formats)
-      -T (paranoid0|sneaky1|polite2|normal3|aggressive4|insane5) (1,2 for evation of IDS)
-   3) $time nmap -sX -p 0-100 199.17.59.234/24 -T 5  #scan more IP
+      -oN/-oX/-oS/-oG <file> (output in nomal,XML,script,Grepable format)
+      -oA <basename> (output in 3 major formats)
+      -T (paranoid0|sneaky1|polite2|normal3|aggressive4|insane5) (1,2 for evasion of IDS)
+   3) $time nmap -sX -p 0-100 -vvv 199.17.59.234/24 -T 5  #scan more IP
    ```
-3. Netcat (Attacker) (Swiss Army Knife) (netcat,ncat,nc)
+3. Netcat (Attacker and security) (Swiss Army Knife) (netcat,ncat,nc)  
+   (connect to somewhere, listen for inbound, tunnel to somewhere)
    ```
-   1) $nc -v -o xxx2 127.0.0.1 22    #output a file
-   2) $nc -v -c 'echo this is a test' -l -p 1235 -t   #char string, listen TCP, port 1235, answer telnet
+   1) $nc -v -o xxx2 127.0.0.1 22    #connect somewhere, output a file
+   2) $nc -v -c 'echo this is a test' -l -p 1235 -t   #create bogus service
       $telnet 127.0.0.1 1235
    3) $nc -vv -l -c './logtrap' localhost -p 1236 -t -o xxzz  #run a script file
       $sudo tcpdump port 1236 -n -vvv -X -i lo -c 66 -s 200
@@ -43,7 +47,7 @@
       $ps -aux | grep <pid>
       $telnet localhost 1236
       $sudo netstat -apeen | grep 1236
-   4) $nc -l 1237 | nc 127.0.0.1 111&  #redirect port ?
+   4) $nc -l 1237 | nc 127.0.0.1 111  #redirect port, user connectting 1237 will go to 111
    ```
    Script file: logtrap
    ```
@@ -81,10 +85,28 @@
    1) 
 
 7. Ramdisk (for better performace)
-
-8. GPG (security encryption)
    ```
-   $gpg -c zzz483     #**3 times for more secure**
+   1) Create ramdisk
+      $free    #check memory available
+      $sudo mkdir -p /mnt/ramdisk  #create directory
+      $sudo mount -t tmpfs -o size=100m tmpfs /mnt/ramdisk  #create ramdisk
+      $df   #check it out
+   2) sudo cat -n sqllog > /mnt/ramdisk/sqllog2 #load sqllog into ramdisk with line #
+   3) time cat /mnt/ramdisk/sqllog2 | grep "%27+or+27%"  #get location
+   ```
+   Run script file
+   ```
+   echo This is a script file to perform stateful inspection for sql injections
+   mount -t tmpfs -o size=512m tmpfs /mnt/ramdisk
+   sudo cat -n mysqllog > /mnt/ramdisk/mysqllog2
+   cat /mnt/ramdisk/mysqllog2 | grep "%27+or+27%"
+   rm /mnt/ramdisk/mysqllog2
+   unmount /mnt/ramdisk
+   echo end of script
+   ```
+8. GPG (security encryption)  **3 times for more secure**
+   ```
+   $gpg -c zzz483
    $ls -l zzz483*
    $file zzz483.gpg
    $cat zzz483.gpg

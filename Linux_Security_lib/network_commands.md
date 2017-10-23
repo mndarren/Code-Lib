@@ -33,7 +33,6 @@
 7. List stuff
    ```
    $ls -l    # list all in current folder with permission
-   $getfacl filename # permission show
    $lsmod    # list modules
    $lsof     # list open files
    $lsblk    # list block
@@ -64,6 +63,8 @@
    ```
    1) $kill -9 <pid#>           # kill process anyway  
    2) $kill -s <signal> <pid#>  # kill can send signal to a process, default TERM
+   	  $kill -SIGTSTP 1126   #stop pid
+   	  $kill -SIGCONT 1126   #restart pid
    ```
 13. Fuser  --find which process is using a file or directory or a socket
    ```
@@ -87,8 +88,7 @@
    2) $echo 'Another line' >> /tmp/tmp_ls  #append a new line
    3) $find '' 2> stderr_log.txt   #standard error
    4) $wc '' 2>> stderr_log.txt    #append error
-   3) $grep < /etc/passwd    #as input ?
-   4) http://teaching.idallen.com/cst8207/17f/notes/200_redirection.html#redirection-of-standard-input-from-a-file-file 
+   3) < for input, << for input append  
    ```
 20. Multiple commands
    ```
@@ -120,4 +120,25 @@
    $wc /etc/magic | tee magic_count.txt  #create a new file or overwrite the file
    `$ls ~ | grep *tar | tr e E >> ls_log.txt`  #find and replace e to E
    ```
-25. 
+25. Check if your linux using UUID (using it to manage hard drives easily)
+   ```
+   $cat /proc/cmdline
+   $cat /etc/fstab
+   $findfs UUID=a98fee64-4820-4802-8fe5-2e6e07208980
+   ```
+26. Getfacl
+   ```
+   $getfacl ~/www2/bios # permission show
+   $nfs4_getfacl ~/www2/bios
+   $nfs4_getfacl -H  #<type>:<flags>:<principal>:<permission>
+   ```
+27. ss --display more socket and state information, like `$netstat`
+   ```
+   $ss -itoea | grep 5000  #internal TCP info, TCP,FIN-wait-1,Detail,All
+   ```
+28. Watch --execute a program periodically, showing output fullscreen
+   ```
+   $watch -n 1 ls -l xxxx
+   $chmod 777 xxxx
+   ```
+29. 
