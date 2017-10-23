@@ -80,7 +80,26 @@
    7) $xxd ~/register583 # check the primary data
    ```
 5. dd (Data Dump)
-
+   ```
+   1) clone hard disk 
+      $dd if=/dev/sda of=/dev/sdb
+   2) backup a partition to a file
+      $dd if=/dev/sda2 of=~/hda2disk.img
+      $dd if=~/hda2disk.img of=/dev/sdb3   #restore
+   3) compress a big file
+      $dd if=/dev/sda2 | bzip2 hdadisk.img.bz2
+   4) Wipe delete volume
+      $dd if=/dev/zero of=/dev/sdb    #all bits are zero
+      $for i in {1..10}; do dd if=/dev/random of=/dev/sdb; done   #multiple times
+   5) create virtual swap space
+      $dd if=/dev/zero of=/swapfile bs=1024 count=200000    #block size, blocks
+   6) ddrescue to recover data
+      $apt-get install gddrescue    #install
+      $ddrescue -f -n /dev/sdx /dev/sdy rescue.log
+      $ddrescue -d -f -r3 /dev/sdx /dev/sdy rescue.log
+      $fsck -f /dev/sdy     #sdy is a bad disk
+   7) 
+   ```
 6. strace (Security debug tool)  http://www.thegeekstuff.com/2011/11/strace-examples
    1) 
 

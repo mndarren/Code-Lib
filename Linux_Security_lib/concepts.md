@@ -131,9 +131,9 @@
    255  --Cisco default
    ```
 16. Diff between Reject connection and Drop connection   
+   ```
    1) Deny(Reject,sending an ICMP destination-unreachable back): close server -> client tried to connect server -> kernel reply refused for safety
    2) Drop: (prohibit a packet from passing. send no response)
-   ```
    Create a new chain:
    iptables -N LOG_AND_DROP
    iptables -A LOG_AND_DROP -j LOG --log-prefix "Source host denied "
@@ -146,9 +146,11 @@
    ```
 17. **English Domain** --(DNS)--> **Number IP address** --(ARP)--> **Data Link(MAC)**
 18. Stateful Inspection (See details for Ramdisk in Big_Tools.md)<br/>
+   ```
    It's not so respectful because:  
    1) 75% attacks coming at Application level
    2) encryption will not detect the attacks
+   ```
 19. AS (Autonomous System)  --cloud zones #**Virtual zone environment**
 20. Timing Vectors<br/>
     Why do we need it? Because:
