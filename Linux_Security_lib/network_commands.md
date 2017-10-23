@@ -1,6 +1,6 @@
 # Basic Network Commands
 
-1. `$arp -a`    # Print out ARP table  
+1. `$/usr/sbin/arp -a`    # Print out ARP table  
 2. Check IP or Domain info
    ```
    $dig stcloudstate.edu     # get IP address (UDP)
@@ -33,11 +33,17 @@
 7. List stuff
    ```
    $ls -l    # list all in current folder with permission
+   $getfacl filename # permission show
    $lsmod    # list modules
    $lsof     # list open files
+   $lsblk    # list block
    ```
-8. `$whereis rpcinfo`       # find where is the rpcinfo  
-   `$/usr/sbin/rpcinfo`    # rpc call to rpc server, show all registered services on rpcbind
+8. Info command
+   ```
+   $whereis rpcinfo       # find where is the rpcinfo  
+   $/usr/sbin/rpcinfo    # rpc call to rpc server, show all registered services on rpcbind
+   $modinfo nfs          #print out module info
+   ```
 
 9. Check inportant info
    ```
@@ -55,27 +61,34 @@
    $xxd  <filename>      # check file primary data
    ```
 12. Kill  
-   1) `$kill -9 <pid#>`           # kill process anyway  
-   2) `$kill -s <signal> <pid#>`  # kill can send signal to a process, default TERM
-13. Fuser  --find which process is using a file or directory or a socket  
-   1) `nc -l -p 1234`   #create a port listening
-   2) `fuser -v -n tcp 1234` 
-   3) `fuser -k 1234/tcp`   #kill process which created the port
+   ```
+   1) $kill -9 <pid#>           # kill process anyway  
+   2) $kill -s <signal> <pid#>  # kill can send signal to a process, default TERM
+   ```
+13. Fuser  --find which process is using a file or directory or a socket
+   ```
+   1) nc -l -p 1234   #create a port listening
+   2) fuser -v -n tcp 1234
+   3) fuser -k 1234/tcp   #kill process which created the port
+   ```
 14. `$history | grep nc`    #list all about nc command
 15. `$klist`                #list ticket cache of Kerberos **Hacker like this**
 16. `$w` OR `$who -uH`      #**Hacker like IDLE**
-17. sha512sum
+17. sha512sum **the xxx and sha512xxx should be in the same folder**
    ```
    $sha512sum xxx > sha512xxx
-   $sha512sum -c sha512xxx        #check it **the xxx should be in the same folder**
+   $sha512sum -c sha512xxx        #check it
    $cat sha512xxx | sha512sum -c  #echo check
    ```
 18. `$top -d 0.00001`             #most severe denial of service **Hacker like it**
-19. Redirection
+19. Redirection  **ctl + d** to end of file
    ```
    1) $ls > /tmp/tmp_ls  #create new file containing the output of ls
    2) $echo 'Another line' >> /tmp/tmp_ls  #append a new line
-   3) $grep < /etc/passwd    #as input
+   3) $find '' 2> stderr_log.txt   #standard error
+   4) $wc '' 2>> stderr_log.txt    #append error
+   3) $grep < /etc/passwd    #as input ?
+   4) http://teaching.idallen.com/cst8207/17f/notes/200_redirection.html#redirection-of-standard-input-from-a-file-file 
    ```
 20. Multiple commands
    ```
@@ -102,4 +115,9 @@
       $tar -tvf archive.tar         # List all files in archive.tar verbosely.
       $tar -xf archive.tar          # Extract all files from archive.tar.
    ```
-24. 
+24. Filters for pipe (find, grep, wc, tee, and tr)
+   ```
+   $wc /etc/magic | tee magic_count.txt  #create a new file or overwrite the file
+   `$ls ~ | grep *tar | tr e E >> ls_log.txt`  #find and replace e to E
+   ```
+25. 

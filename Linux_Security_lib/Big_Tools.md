@@ -2,7 +2,8 @@
 1. Tcpdump (Attacker and Security)  
    ```
    1) $sudo tcpdump port 23 -e -n -vvv -X -i lo -c 33 -w filename
-   2) tcpdump filter --<protocol header> [offset:length] <relation> <value>  
+   2) $sudo tcpdump arp -n -vvv -X -c6     #icmp as well
+   3) tcpdump filter --<protocol header> [offset:length] <relation> <value>  
       (1) $tcpdump 'ip[9] = 1'  # find ICMP records
       (2) $tcpdump 'ip[0] & 0x0f > 5' or `$tcpdump 'ip[0] & 15 > 5'` #TOS
       (3) $tcpdump 'tcp'    #collect TCP records
@@ -76,7 +77,7 @@
    ```
 5. dd (Data Dump)
 
-6. strace (Security debug tool)  
+6. strace (Security debug tool)  http://www.thegeekstuff.com/2011/11/strace-examples
    1) 
 
 7. Ramdisk (for better performace)
