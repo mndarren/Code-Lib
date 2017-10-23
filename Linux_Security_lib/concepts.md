@@ -5,7 +5,7 @@
    ```
    layer 1 (physical layer)
    layer 2 (link layer) (Ethernet/Frame Header): 14 B
-   layer 3 (internet layer)   (IP Header): 20 B
+   layer 3 (network layer)   (IP Header): 20 B
    layer 4 (transport layer)  (TCP/UDP/ICMP Header) xx/8/8 B
    layer 5 (data/payload layer)
    ```
@@ -101,13 +101,15 @@
    MAC  --Media Access Control
    LLC  --Logical Link Control
    DNS  --Domain Name System
-   TCP  --Transission Control Protocol
-   UDP  --User Datagram Protocol
+   TCP  --Transission Control Protocol (6)
+   UDP  --User Datagram Protocol (17)
+   ICMP --Internet Control Message Protocol (1)
    ARP  --Address Resolution Protocol
    LDAP --Lightweight Directory Access Protocol
    DHCP --Dynamic Host Configuration Protocol
    HTTP --Hypertext Transfer Protocol
    SNMP --Simple Network Management Protocol
+   CSMA/CD --Carrier Sensor Multiple Access/Collision Detection
    ```
 14. 7 file types
    ```
@@ -119,4 +121,13 @@
    b  --block
    s  --socket
    ```
-15. 
+15. TTL default length
+   ```
+   64   --Linux default
+   128  --Windows default
+   255  --Cisco default
+   ```
+16. Diff between Reject connection and Drop connection   
+   1) Reject: close server -> client tried to connect server -> kernel reply refused for safety
+   2) Drop:
+17. 
