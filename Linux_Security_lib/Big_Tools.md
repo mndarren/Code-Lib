@@ -7,7 +7,7 @@
       (2) $tcpdump 'ip[0] & 0x0f > 5' or `$tcpdump 'ip[0] & 15 > 5'` #TOS
       (3) $tcpdump 'tcp'    #collect TCP records
       (4) $tcpdump 'ip[19] = 0xff' OR $tcpdump 'ip[19] = 255'
-      (5) $
+      (5) $?
    ```
 2. Nmap (Attacker)
    ```
@@ -21,8 +21,10 @@
       -sW (TCP Window scan),
       -sX (TCP Xmas scan: including FIN, PSH and URG),
       -sM (TCP Mainon scan: including NULL, FIN, and Xmas)
+      -sI (Idle scan)
+      -sO (IP protocol scan)
       -sn (ping scan, no port scan)
-      -Pn (no ping)
+      -Pn (no ping, treat all host online)
       -b (FTP bounce scan)
       -oN/-oX/-oS/-oG <file>(output in nomal,XML,script,Grepable format)
       -oA <basename>(output in 3 major formats)
@@ -32,13 +34,15 @@
 3. Netcat (Attacker) (Swiss Army Knife) (netcat,ncat,nc)
    ```
    1) $nc -v -o xxx2 127.0.0.1 22    #output a file
-   2) $nc -v -c 'echo this is a test' -l -p 1235 -t   #char string, listen, port 1235, answer telnet
+   2) $nc -v -c 'echo this is a test' -l -p 1235 -t   #char string, listen TCP, port 1235, answer telnet
       $telnet 127.0.0.1 1235
-   3) $nc -v -l -c './logtrap' localhost -p 1236 -t   #run a script file
+   3) $nc -vv -l -c './logtrap' localhost -p 1236 -t -o xxzz  #run a script file
       $sudo tcpdump port 1236 -n -vvv -X -i lo -c 66 -s 200
+      $netstat -apeen | grep nc    #grab pid
+      $ps -aux | grep <pid>
       $telnet localhost 1236
       $sudo netstat -apeen | grep 1236
-   4) $nc -l 1237 | nc 127.0.0.1 111&  #redirect port
+   4) $nc -l 1237 | nc 127.0.0.1 111&  #redirect port ?
    ```
    Script file: logtrap
    ```
@@ -60,10 +64,10 @@
    ```
    1) $./add # run program and keep it running
       $ps -al | grep add # find pid (say 11334)
-   2) $gdb --pid 11334 
-   	  $info registers                #rdx, rdi  
-   	  $x rsi   OR $x/i $rsi  
-   	  $x/64ca <r8 address>  
+   2) $gdb --pid 11334
+   	  $info registers                #rdx, rdi
+   	  $x rsi   OR $x/i $rsi
+   	  $x/64ca <r8 address>
    3) $cat /proc/pid#/maps | more    # check useful memory addresses, using another putty session
    4) $dump memory ~/register583 0x777777777 0x777777877  #dump data into a file
    5) $detach pid#       #disconnect the process, **otherwise we cannot kill the process**, attach pid#
@@ -74,3 +78,16 @@
 
 6. strace (Security debug tool)  
    1) 
+
+7. Ramdisk (for better performace)
+
+8. GPG (security encryption)
+   ```
+   $gpg -c zzz483     #**3 times for more secure**
+   $ls -l zzz483*
+   $file zzz483.gpg
+   $cat zzz483.gpg
+   $xxd zzz483.gpg
+   $gpg -d zzz483.gpg
+   ```
+9. 

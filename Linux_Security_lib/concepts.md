@@ -131,5 +131,6 @@
    ```
 16. Diff between Reject connection and Drop connection   
    1) Reject: close server -> client tried to connect server -> kernel reply refused for safety
-   2) Drop:
-17. 
+   2) Drop: 
+17. **English Domain** --(DNS)--> **Number IP address** --(ARP)--> **Data Link(MAC)**
+18. 

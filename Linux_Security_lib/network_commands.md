@@ -36,7 +36,7 @@
    $lsmod    # list modules
    $lsof     # list open files
    ```
-8. `whereis rpcinfo`       # find where is the rpcinfo  
+8. `$whereis rpcinfo`       # find where is the rpcinfo  
    `$/usr/sbin/rpcinfo`    # rpc call to rpc server, show all registered services on rpcbind
 
 9. Check inportant info
@@ -71,4 +71,35 @@
    $cat sha512xxx | sha512sum -c  #echo check
    ```
 18. `$top -d 0.00001`             #most severe denial of service **Hacker like it**
-19. 
+19. Redirection
+   ```
+   1) $ls > /tmp/tmp_ls  #create new file containing the output of ls
+   2) $echo 'Another line' >> /tmp/tmp_ls  #append a new line
+   3) $grep < /etc/passwd    #as input
+   ```
+20. Multiple commands
+   ```
+   1) $ls -l ; cat /etc/passwd
+   2) $date && ls -l
+   ```
+21. Backticks:
+   ```
+   $kill `cat /var/run/named/named.pid`
+   ```
+22. Find
+   ```
+   $find . -atime 7
+   $find . -name core -exec rm {} \; #find all named core file and delete them
+   $find . -size -100k               #find all size less than 100k files
+   ```
+23. Compression
+   ```
+   1) $gzip myfile.txt          #myfile.txt.gz
+      $gzip -d myfile.txt.gz    #decompress
+     `$gzip -9 *.html`         #compress multiple files
+   2) bzip2    #same to the previous
+   3) $tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.
+      $tar -tvf archive.tar         # List all files in archive.tar verbosely.
+      $tar -xf archive.tar          # Extract all files from archive.tar.
+   ```
+24. 
