@@ -1,0 +1,63 @@
+Script started on June  5, 2014 12:16:41 AM CDT
+> make
+cc  -o Interface Interface.c
+cc -o Server Server.c
+> ./Interface 
+Input command:
+element = 0:    id = 987654,    odometer = 201200,      gallons = 4.000000 
+element = 1:    id = red,       odometer = 89712,       gallons = 13.500000 
+element = 2:    id = red,       odometer = 90229,       gallons = 15.300000 
+element = 3:    id = red,       odometer = 89114,       gallons = 0.000000 
+element = 4:    id = 987654,    odometer = 201001,      gallons = 0.000000 
+element = 5:    id = 987654,    odometer = 201111,      gallons = 5.200000 
+element = 6:    id = 987654,    odometer = 201612,      gallons = 25.299999 
+element = 7:    id = red,       odometer = 89300,       gallons = 7.100000 
+element = 8:    id = green,     odometer = 518, gallons = 61.000000 
+element = 9:    id = green,     odometer = 879, gallons = 50.000000 
+element = 10:   id = green,     odometer = 216, gallons = 20.000000 
+element = 11:   id = green,     odometer = 16,  gallons = 0.000000 
+mpg,red
+response: Average MPG = 31.058498 
+Input command:
+mpg,green
+response: Average MPG = 6.587786 
+Input command:
+mpg.green
+response: invalid command.
+Input command:
+mpg,987654
+response: Average MPG = 17.710144 
+Input command:
+list,red
+response: 
+        odometer = 0,   gallons = 0.000000
+        odometer = 89114,       gallons = 0.000000
+        odometer = 89300,       gallons = 7.100000
+        odometer = 89712,       gallons = 13.500000
+Input command:
+list,green
+response: 
+        odometer = 16,  gallons = 0.000000
+        odometer = 216, gallons = 20.000000
+        odometer = 518, gallons = 61.000000
+        odometer = 879, gallons = 50.000000
+Input command:
+list,987654
+response: 
+        odometer = 90229,       gallons = 15.300000
+        odometer = 201001,      gallons = 0.000000
+        odometer = 201111,      gallons = 5.200000
+        odometer = 201200,      gallons = 4.000000
+Input command:
+abc
+response: invalid command.
+Input command:
+exit
+response: Server complete.
+Interface: child process (14831) completed.
+Interface: child process exit status = 0.
+Interface: Complete.
+> exit
+exit
+
+script done on June  5, 2014 12:18:02 AM CDT

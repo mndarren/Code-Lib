@@ -98,7 +98,17 @@
       $ddrescue -f -n /dev/sdx /dev/sdy rescue.log
       $ddrescue -d -f -r3 /dev/sdx /dev/sdy rescue.log
       $fsck -f /dev/sdy     #sdy is a bad disk
-   7) 
+   7) convert file format between ASCII and EBCDIC
+      $dd if=ascii.txt of=ebcdic.txt conv=ebcdic
+      $dd if=ebcdic.txt if=ascii.txt conv=ascii
+   8) Logical size to physical block size
+      $dd if=ascii.txt of=fsync.txt conv=sync
+   9) Create random file
+      $dd if=/dev/random of=ranfile bs=1k count=1
+   10) Not overwrite the existing file
+      $dd if=ascii.txt of=comma.txt conv=excl
+   11) Readable random file
+      $base64 /dev/urandom | head -c 100 > urand.txt
    ```
 6. strace (Security debug tool)  http://www.thegeekstuff.com/2011/11/strace-examples
    1) 
@@ -132,4 +142,10 @@
    $xxd zzz483.gpg
    $gpg -d zzz483.gpg
    ```
-9. 
+9. Pipe (named or unnamed)
+   ```
+   $mkfifo pipexz      #create a named pipe
+   $ls -l > pipexz     #write into pipe
+   $cat < pipexz       #read from pipe
+   ```
+10. 

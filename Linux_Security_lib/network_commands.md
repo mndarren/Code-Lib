@@ -32,7 +32,7 @@
    ```
 7. List stuff
    ```
-   $ls -l    # list all in current folder with permission
+   $ls -las  # list all in current folder with permission and block number
    $lsmod    # list modules
    $lsof     # list open files
    $lsblk    # list block
@@ -55,9 +55,11 @@
 11. Check file metadata
    ```
    $file <filename>      # check file type format
+   $stat --format "%F" <filename> #the same to $file
    $cat  <filename>      # show file content if ASCII
-   $stat <filename>      # show file detail metadata
+   $stat <filename>      # show file detail metadata, "%y" --last modification, "%o" --number of blocks
    $xxd  <filename>      # check file primary data
+   Note: output of stat, the link number shows the hard links.
    ```
 12. Kill  
    ```
@@ -141,4 +143,10 @@
    $watch -n 1 ls -l xxxx
    $chmod 777 xxxx
    ```
-29. 
+29. Links (**Cannot make a across partition hard link**)
+   ```
+   $ln -s sourceFile newSymbolicLink  #create a symbolic link
+   $ln sourceFile newHardLink         #create a hard link
+   $rm newSymbolicLink
+   $rm newHardLink
+   ```

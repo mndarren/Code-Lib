@@ -1,4 +1,4 @@
-# Basic Concepts
+# Basic Client/Server Security & Data Security Concepts (Debian)
 =================
 1. Socket: `net.node.port`
 2. Packet: Five layers 
@@ -113,6 +113,9 @@
    CSMA/CD --Carrier Sensor Multiple Access/Collision Detection
    UUCP --Unix to Unix Copy Protocol
    UUID --Universally Unique Identifiers
+   SSL  --Security Socket Layer
+   NAS  --Network Attached Storage
+   RAID --Redundant Array of Independant Disks
    ```
 14. 7 file types
    ```
@@ -168,4 +171,7 @@
     3) **if complexity is greater than three, make sure each network link is protected**
 24. Pseudo terminal process id<br/>
     `$ps -aux | grep dguster`   # output pts/0 pts/2 mean pseudo terminal
-25. 
+25. Hard character (can be printed out) and Soft character (first 32 non-printing characters)
+26. Swap --part of disk as memory
+27. Character device (Memory), Block device (disk)
+28. 
