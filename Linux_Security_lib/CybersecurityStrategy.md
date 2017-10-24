@@ -3,13 +3,10 @@
 
 1. Strategy: close all permission for sensitive files, modify it using script file
    ```
-   $sudo chmod 000 myPass.txt
+   $chmod -rwx myPass.txt
    $./changeMyPass
    ```
-   Script file: changeMyPass
-   ```
-   ?
-   ```
+   [changeMyPass.sh]
 2. Log policy
    ```
    1) keep 7 versions
@@ -20,4 +17,27 @@
    ```
 3. Policy: Backup data (Redundency, 3 replicas)
 4. Policy: Don't let people download data to laptop, only deal with it online.
-5. 
+5. Remember:"Default is dangerous!", so change DB default settings, root id (0), /etc/shadow etc.  
+   Hacker's likes
+   ```
+   /etc/passwd
+   /etc/shadow
+   /var/logs
+   ```
+6. Log Data Analysis example
+   ```
+   $cat syslog.1 | wc -l    #total events
+   $cat syslog.1 | grep "authentication fail" | wc -l   #failed authentication events
+   failed events/total events = 4/2223 = .224%
+   Policy: set up a risk alert for that!
+   ```
+7. Policy hot spots:
+   ```
+   $w -o              #need policy to reduce limit IDLE times
+   $top -d 0.0001     #need policy cannot < 1 minute
+   $vmstat 1          #1 second
+   ```
+8. Passwd hack in the worst order:
+   ```
+   ldap compromise -> system shadow -> Fred password in name server cache -> system passwd
+   ```

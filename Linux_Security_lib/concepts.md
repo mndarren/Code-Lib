@@ -96,6 +96,7 @@
    LDAP        389   
    LDAPS       636       TCP/UDP  --encrypted
    NFS         2049
+   Protected   0-1023
    ```   
 13. Terms
    ```
@@ -120,6 +121,9 @@
    VBR  --Volume Boot Record
    Nyble--4 bits, half byte, nibble, nybble
    PTR  --Public Test Region, used to reverse IP addr
+   VPN  --Virtual Private Network (double encrypted)
+   PID  --a chunk of code in memory
+   OSPF --Open Shortest Path First
    ```
 14. 7 file types
    ```
@@ -252,4 +256,19 @@
    01: means rle
    45: E
    2b: nubmer of E
+   ```
+40. Laws
+   ```
+   Murphy's Law:"Anything that can go wrong will go wrong!"
+   Linus's Law:"Given enough eyeballs, all bugs are shallow!"
+   Miller's Law:"At any time, we can concerntrat on only approximately seven chunks!"
+   Brooks's Law:"Adding personel to a late software project makes it then later!"
+   Guster:"We cannot stop hacker, but can slow them down!"
+   Guster:"The most robust is the use of file hashes!"
+   ```
+41. output of time command
+   ```
+   real time: cpu time + waiting time
+   user time: application time
+   sys  time: cpu time
    ```

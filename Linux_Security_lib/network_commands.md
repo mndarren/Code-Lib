@@ -171,3 +171,6 @@
    $cat > indexneg.txt  #-3 -5 -7
    $awk -f ./awkindexlu -v indexes="`indexneg.txt`" indexed.dat | sort -n
    ```
+35. `perf stat -B java class PrimeByVector`  #performance analysis tool
+36. `$uptime`   #how long box is running
+37. 
