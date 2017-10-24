@@ -124,6 +124,6 @@
    #named pipe can do multiprocess communication, unnamed pipe cannot;
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    ```
-   [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/encServ.sh)
+   [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/encServ.sh)  
    [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/encCli.sh)
 9. 
