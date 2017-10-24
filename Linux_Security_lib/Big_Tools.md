@@ -110,10 +110,7 @@
    11) Readable random file
       $base64 /dev/urandom | head -c 100 > urand.txt
    ```
-6. strace (Security debug tool)  http://www.thegeekstuff.com/2011/11/strace-examples
-   1) 
-
-7. Ramdisk (for better performace)
+6. Ramdisk (for better performace)
    ```
    1) Create ramdisk
       $free    #check memory available
@@ -133,7 +130,7 @@
    unmount /mnt/ramdisk
    echo end of script
    ```
-8. GPG (security encryption)  **3 times for more secure**
+7. GPG (security encryption)  **3 times for more secure**
    ```
    $gpg -c zzz483
    $ls -l zzz483*
@@ -142,10 +139,13 @@
    $xxd zzz483.gpg
    $gpg -d zzz483.gpg
    ```
-9. Pipe (named or unnamed) [unnamed pipe example](https://github.com/mndarren/Code-Lib/blob/master/cpp_lib/unnamed_pipe/Interface.c)
+8. Pipe (named:user level && unnamed:kernel level) [unnamed pipe example](https://github.com/mndarren/Code-Lib/blob/master/cpp_lib/unnamed_pipe/Interface.c)
    ```
    $mkfifo pipexz      #create a named pipe
    $ls -l > pipexz     #write into pipe
    $cat < pipexz       #read from pipe
+   #named pipe can be used in network communication, unnamed pipe cannot;
+   #named pipe can do multiprocess communication, unnamed pipe cannot;
+   #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    ```
-10. 
+9. 

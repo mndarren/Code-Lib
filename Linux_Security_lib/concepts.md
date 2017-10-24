@@ -116,6 +116,10 @@
    SSL  --Security Socket Layer
    NAS  --Network Attached Storage
    RAID --Redundant Array of Independant Disks
+   MBR  --Master Boot Record
+   VBR  --Volume Boot Record
+   Nyble--4 bits, half byte, nibble, nybble
+   PTR  --Public Test Region, used to reverse IP addr
    ```
 14. 7 file types
    ```
@@ -174,4 +178,56 @@
 25. Hard character (can be printed out) and Soft character (first 32 non-printing characters)
 26. Swap --part of disk as memory
 27. Character device (Memory), Block device (disk)
-28. 
+28. sda1 --system drive, physical disk a, logical partition 1
+29. 3 levels access rights
+   ```
+   1) kernel level
+   2) root level
+   3) user level
+   ```
+30. 3 data locations
+   ```
+   1) network (most dangerous) #local, fiber, Ethernet, loopback. tcpdump
+   2) memory   #cache, shared buffer. dd, xxd
+   3) disk     #xxd
+   ```
+31. layered security
+   ```
+   1) cloud -> zone -> host
+   2) fs -> dir -> file
+   ```
+32. file formats
+   ```
+   1) binary format  #faster, encapsulated, encrypted binary
+   2) ASCII format
+   3) EBCDIC format
+   ```
+33. Primary data
+   ```
+   #Hackers really wants
+   #Hexdecimal numbers
+   #Example: www.sun.com (no), 156.151.59.36 (yes)
+   ```
+34. CIA (Confidentiality, Integrity, availability)
+   ```
+   CI: positive relation
+   CA: negative relation
+   IA: negative relation
+   ```
+35. 2 tasks of process
+   ```
+   1) copy data
+   2) calculate data
+   ```
+36. IO     NIO    java lib
+   ```
+   IO: stream oriented, blocking IO
+   NIO: buffered oriented, Non-blocking IO, Selectors
+   Buffered oriented: check if buffer contains all data you need; make sure not to overwrite data you have not processed
+   Blocking IO: when a thread invoke read() or write(), the thread is blocked until finished read or write
+   Non-blocking IO: thread can do other things even if not finish r or w
+   Selectors: a thread can monitor multiple channels
+   ```
+37. Kerberos --a network authentication protocol, created by MIT. Protected from against eavesdropping and replay attacks
+    Ldap is used to holding authoritative information about accounts;
+    Kerberos is used to manage credentials securely.

@@ -150,3 +150,15 @@
    $rm newSymbolicLink
    $rm newHardLink
    ```
+30. Check cache and buffer speed
+   ```
+   $sudo hdparm -tT /dev/sda1    #cache faster than buffer
+   ```
+31. `$cal -j`   #days of year
+32. Check out file physical size
+   ```
+   $ls -las data.txt   #block #
+   $sudo blockdev --getbsz /dev/sda1  #block size
+   #block size * # of blocks = physical size
+   ```
+33. `strace -p 18523`   #pid, used to trace process read and write 
