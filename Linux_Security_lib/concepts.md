@@ -219,7 +219,7 @@
    1) copy data
    2) calculate data
    ```
-36. IO     NIO    java lib
+36. IO   and  NIO  in  java lib
    ```
    IO: stream oriented, blocking IO
    NIO: buffered oriented, Non-blocking IO, Selectors
@@ -228,6 +228,28 @@
    Non-blocking IO: thread can do other things even if not finish r or w
    Selectors: a thread can monitor multiple channels
    ```
-37. Kerberos --a network authentication protocol, created by MIT. Protected from against eavesdropping and replay attacks
-    Ldap is used to holding authoritative information about accounts;
-    Kerberos is used to manage credentials securely.
+37. Kerberos and LDAP
+   ```
+   Kerberos --a network authentication protocol, created by MIT. Protected from against eavesdropping and replay attacks
+   Ldap is used to holding authoritative information about accounts;
+   Kerberos is used to manage credentials securely.
+   ```
+38. Java primitive Data type size
+   ```
+   boolean: default (false), 1 bit
+   char:    default (\u0000), Unicode character, 2 Bytes
+   byte:    default (0),   1 B
+   short:   default (0),   2 B
+   int:     default (0),   4 B
+   long:    default (0),   8 B
+   float:   default (0.0), 4 B
+   double:  default (0.0), 8 B
+   ```
+39. Compression via RLE (run length encoding)
+   ```
+   013011 = a string of 17 0's and reduction 14 bytes (17 - 3)
+   01452b = a string of 43 E's and reduction 40 bytes (43 - 3)
+   01: means rle
+   45: E
+   2b: nubmer of E
+   ```

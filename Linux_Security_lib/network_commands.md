@@ -162,3 +162,12 @@
    #block size * # of blocks = physical size
    ```
 33. `strace -p 18523`   #pid, used to trace process read and write 
+34. Random Access
+   ```
+   $head -$((${RANDOM} % `wc -l < car.csv` + 2)) car.csv | tail -1  #random query
+   $awk -f ./awkindexlu -v indexes="1 2 3 4 5 6 7 10" indexed.dat | sort -n
+   $cat > index.txt    #2 4 6 8
+   $awk -f ./awkindexlu -v indexes="`index.txt`" indexed.dat | sort -n
+   $cat > indexneg.txt  #-3 -5 -7
+   $awk -f ./awkindexlu -v indexes="`indexneg.txt`" indexed.dat | sort -n
+   ```
