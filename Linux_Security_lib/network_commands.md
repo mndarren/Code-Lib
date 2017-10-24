@@ -164,7 +164,7 @@
 33. `strace -p 18523`   #pid, used to trace process read and write 
 34. Random Access
    ```
-   $head -$((${RANDOM} % `wc -l < car.csv` + 2)) car.csv | tail -1  #random query
+   $head -$((${RANDOM} % `wc -l < car.csv` + 2)) car.csv | tail -1  #random query, head: first n line, tail: last n lines
    $awk -f ./awkindexlu -v indexes="1 2 3 4 5 6 7 10" indexed.dat | sort -n
    $cat > index.txt    #2 4 6 8
    $awk -f ./awkindexlu -v indexes="`index.txt`" indexed.dat | sort -n
@@ -173,4 +173,7 @@
    ```
 35. `perf stat -B java class PrimeByVector`  #performance analysis tool
 36. `$uptime`   #how long box is running
-37. 
+37. pmap --report memory map of a process
+   ```
+   $pmap -x 28961 | grep stack
+   ```

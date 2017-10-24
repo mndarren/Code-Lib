@@ -1,6 +1,19 @@
 # Cybersecurity Strategies
 
-
+0. Things related to managing data
+   ```
+   size
+   format
+   access method
+   who can access
+   location
+   retrieval speed
+   versions
+   redundancy
+   information hiding
+   ability to tamper with the file
+   un-intended copies of the data
+   ```
 1. Strategy: close all permission for sensitive files, modify it using script file
    ```
    $chmod -rwx myPass.txt
@@ -40,4 +53,9 @@
 8. Passwd hack in the worst order:
    ```
    ldap compromise -> system shadow -> Fred password in name server cache -> system passwd
+   ```
+9. Commands for analysis
+   ```
+   $netstat -s       #show the health of these software components
+   $route -C         #Kernel IP routing cache
    ```
