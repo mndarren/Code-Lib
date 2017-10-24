@@ -105,7 +105,7 @@
    2) sudo cat -n sqllog > /mnt/ramdisk/sqllog2 #load sqllog into ramdisk with line #
    3) time cat /mnt/ramdisk/sqllog2 | grep "%27+or+27%"  #get location
    ```
-   [monitorLog.sh]((https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/monitorLog.sh))
+   [monitorLog.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/monitorLog.sh)
 7. GPG (security encryption)  **3 times for more secure**
    ```
    $gpg -c zzz483
