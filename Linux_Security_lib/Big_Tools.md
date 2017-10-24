@@ -148,4 +148,6 @@
    #named pipe can do multiprocess communication, unnamed pipe cannot;
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    ```
+   encServ.sh
+   ![alt text]()
 9. 
