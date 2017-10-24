@@ -149,5 +149,7 @@
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    ```
    encServ.sh
-   ![alt text]()
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encServ.sh)
+   encCli.sh
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encCli.sh)
 9. 
