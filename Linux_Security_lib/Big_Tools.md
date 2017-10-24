@@ -49,7 +49,7 @@
       $sudo netstat -apeen | grep 1236
    4) $nc -l 1237 | nc 127.0.0.1 111  #redirect port, user connectting 1237 will go to 111
    ```
-   [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/logtrap.sh)
+   [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/logtrap.sh)
 4. gdb (Attacker and Security) --dump data from register  
    ```
    1) $./add # run program and keep it running
@@ -105,7 +105,7 @@
    2) sudo cat -n sqllog > /mnt/ramdisk/sqllog2 #load sqllog into ramdisk with line #
    3) time cat /mnt/ramdisk/sqllog2 | grep "%27+or+27%"  #get location
    ```
-   [monitorLog.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/monitorLog.sh)
+   [monitorLog.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/monitorLog.sh)
 7. GPG (security encryption)  **3 times for more secure**
    ```
    $gpg -c zzz483
@@ -124,6 +124,6 @@
    #named pipe can do multiprocess communication, unnamed pipe cannot;
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    ```
-   [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encServ.sh)
-   [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/encCli.sh)
+   [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/encServ.sh)
+   [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/encCli.sh)
 9. 

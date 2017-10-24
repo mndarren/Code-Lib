@@ -9,7 +9,7 @@
    layer 4 (transport layer)  (TCP/UDP/ICMP Header) xx/8/8 B
    layer 5 (data/payload layer)
    ```
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/packet_layers.png)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/packet_layers.png)
 3. IP 5 classes
    ```
    class A: 1-127 (N.H.H.H) (127.0.0.0/8 for loopback)
@@ -18,26 +18,26 @@
    class D: 224-239 (Reserved for Multicasting)
    class E: 240-254 (Experimental/used for research)
    ```
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/IP_classes.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/IP_classes.PNG)
 4. Private IP addresses
    ```
    class A: 10.0.0.0/8
    class B: 172.16.0.0/16 -> 172.31.0.0/16
    class C: 192.168.0.0/16
    ```
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/private_IP.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/private_IP.PNG)
 5. Headers structure  
    IP header:  
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/IP_header.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/IP_header.PNG)
    TCP header:  
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/TCP_header.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/TCP_header.PNG)
    UDP header:  
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/UDP_header.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/UDP_header.PNG)
    ICMP header:  
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/ICMP_header.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/ICMP_header.PNG)
 6. Linux structure
    Kernel -> Module -> Daemon -> Applications  
-   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/Linux_structure.PNG)
+   ![alt text](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/pic/Linux_structure.PNG)
 7. /usr/sbin: Unix System Resources/System binary
 8. TCP flags
    ```
