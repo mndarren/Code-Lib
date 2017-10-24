@@ -142,7 +142,7 @@
    $xxd zzz483.gpg
    $gpg -d zzz483.gpg
    ```
-9. Pipe (named or unnamed)
+9. Pipe (named or unnamed) [unnamed pipe example]()
    ```
    $mkfifo pipexz      #create a named pipe
    $ls -l > pipexz     #write into pipe
