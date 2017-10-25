@@ -3,6 +3,10 @@
 This repository includes some interesting data structures and algorithms.
 Collect basic funny code files that I did before in different programming languages
 
+Java Lib
+--------
+1. design_patterns introduces famous design patterns with related code;
+
 Cpp Lib
 -------
 1. 6 sorts algorithms (Bubble, selection, Assersion, quick, merge, Radix)
@@ -19,3 +23,7 @@ SQL Lib (Oracle 12c)
 
 Data Security Lib (on Linux)
 ----------------------------
+1. CybersecurityStrategy introduces important points to set up security policies;
+2. Big_Tools includes tcpdump, nmap, gpg, netcat, gdb, dd, ramdisk, pipe, etc;
+3. concepts show basic concepts related to network security, Data Assurance;
+4. network_commands focuses on the high level network commands
