@@ -28,7 +28,7 @@
    $chmod -rwx myPass.txt
    $./changeMyPass
    ```
-   [changeMyPass.sh](https://github.com/mndarren/Code-Lib/blob/master/Linux_Security_lib/resource/bash_code/readPass.sh)
+   [changeMyPass.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/readPass.sh)
 2. Log policy
    ```
    1) keep 7 versions

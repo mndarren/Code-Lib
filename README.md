@@ -15,8 +15,7 @@ Cpp Lib
 
 SQL Lib (Oracle 12c)
 --------------------
-1. examples include creating (Package, Procedure, Function, Trigger, Profile, Tablespace,
-                              User, Password_verify_function, and Dynamic SQL)
+1. examples include creating (Package, Procedure, Function, Trigger, Profile, Tablespace, User, Password_verify_function, and Dynamic SQL)
 2. DBAcommands shows multiple commands for DBA
 3. Basic SQL stuff (SQLsummary, SQLsummaryDBA)
 4. Debug stuff (How to install Oracle 12c on Linux, How to fix connection issue)
