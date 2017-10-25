@@ -6,6 +6,7 @@ package singleton;
  * @author Bill Pugh
  */
 public class BillPughSingleton {
+	//other variables
 	private BillPughSingleton(){};
 	private static class SingletonHelper{
 		private static final BillPughSingleton INSTANCE = new BillPughSingleton();
@@ -13,5 +14,6 @@ public class BillPughSingleton {
 	public static BillPughSingleton getInstance(){
 		return SingletonHelper.INSTANCE;
 	}
+	//other methods
 
 }
