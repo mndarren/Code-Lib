@@ -37,4 +37,7 @@
    [Computer Simulation](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/factory)
 3. Builder
    ```
+   1) Used too many arguments to pass from client program.
+   2) Example in JDK: java.lang.StringBuilder#append()
    ```
+   [Builder Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/builder/PFManager.java)
