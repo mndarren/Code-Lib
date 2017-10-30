@@ -26,7 +26,15 @@
       Used in core java classes also. for example java.lang.Runtime, java.awt.Desktop.
    5) Introduced 2 best versions (Bill Pugh, enum)
    ```
+   [Bill Pugh Singleton](https://github.com/mndarren/Code-Lib/blob/master/java_lib/resource/singleton/BillPughSingleton.java)  
+   [enum Singleton](https://github.com/mndarren/Code-Lib/blob/master/java_lib/resource/singleton/EnumSingleton.java)
 2. Factory Method
    ```
-   1) 
+   1) Used when we have a super class with multiple subclasses and based on input, we need to return one of the sub-class.
+   2) Benefit: Removed instantiation of actual implementation classes from client code, making it more robust, less coupled and easy to extend.
+   3) Example in JDK: java.util.Calendar, ResourceBundle, NumberFormat
+   ```
+   [Computer Simulation](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/factory)
+3. Builder
+   ```
    ```
