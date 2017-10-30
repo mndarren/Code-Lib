@@ -47,7 +47,14 @@
       $ps -aux | grep <pid>
       $telnet localhost 1236
       $sudo netstat -apeen | grep 1236
-   4) $nc -l 1237 | nc 127.0.0.1 111  #redirect port, user connectting 1237 will go to 111
+   4) $nc -l 1237 | nc 127.0.0.1 111     #redirect port, user connectting 1237 will go to 111.
+      $nc -l 12345 | nc www.google.com 80  
+      #request will be sent to google, but the response will not be sent to the browser.
+   5) $mkfifo backpipe
+      $nc -l 12345 0<backpipe | nc www.google.com 80 1>backpipe   #redirect input and output
+   6) $ncat -l 12345 -c 'nc www.google.com 80'                    #one shot output
+   7) $nc -v -n -z -w 1 127.0.0.1 1-1000   
+      #port scanning, -n prevents DNS lookup, -z not receive any data, -w 1 connection timeout after 1 second of inactivity
    ```
    [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/logtrap.sh)
 4. gdb (Attacker and Security) --dump data from register  
@@ -123,6 +130,8 @@
    #named pipe can be used in network communication, unnamed pipe cannot;
    #named pipe can do multiprocess communication, unnamed pipe cannot;
    #named pipe exists in FS, independently from process, unnamed pipe vanished as soon as it's closed or complete execution
+   $mkfifo backpipe
+   $nc -l 12345 0<backpipe | nc www.google.com 80 1>backpipe  #redirect input and output
    ```
    [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/encServ.sh)  
    [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/encCli.sh)
