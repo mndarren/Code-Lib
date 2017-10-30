@@ -67,7 +67,7 @@
       user@HOST2$ncat HOST1 9899 < inputfile   #one-file sending server
    14)user@HOST1$ncat -l 9899 < inputfile
       user@HOST2$ncat HOST1 9899 > outputfile  #one-file receiving server
-   15)Encrypted file transfer
+   15)Encrypted file transfer  #scp will create another connection
       When SSH in, add -L 31000:127.0.0.1:31000
       On the remote: nc -lvnp 31000 127.0.0.1 > file
       On the local: nc -v -w 2 127.0.0.1 31000 < file
