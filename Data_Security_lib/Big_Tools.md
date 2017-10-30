@@ -58,6 +58,19 @@
    8) $nc -l -p 1234 -e /bin/sh    #run this command in IP 192.168.1.2, -e redirected input and output via network socket
       $nc 192.168.1.2 1234         #in another computer of the same network
       $ls -las                     #Making any process a server
+   9) $ncat --sh-exec "ncat example.org 80" -l 8080 --keep-open  #redirect port 8080 on local port 80
+   10)$ncat --exec "/bin/bash" -l 8081 --keep-open                #for world access freely
+   11)$ncat --exec "/bin/bash" --max-conns 3 --allow 192.168.0.0/24 -l 8081 --keep-open
+      #limit access to hosts on local network, max connection to 3
+   12)$ncat -l --proxy-type http localhost 8888 #create an HTTP proxy server on localhost port 8888
+   13)user@HOST1$ncat -l 9899 > outputfile
+      user@HOST2$ncat HOST1 9899 < inputfile   #one-file sending server
+   14)user@HOST1$ncat -l 9899 < inputfile
+      user@HOST2$ncat HOST1 9899 > outputfile  #one-file receiving server
+   15)Encrypted file transfer
+      When SSH in, add -L 31000:127.0.0.1:31000
+      On the remote: nc -lvnp 31000 127.0.0.1 > file
+      On the local: nc -v -w 2 127.0.0.1 31000 < file
    ```
    [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/logtrap.sh)
 4. gdb (Attacker and Security) --dump data from register  
