@@ -1,5 +1,11 @@
 # Basic Client/Server Security & Data Security Concepts (Debian)
 =================
+0. Linux Family Classification
+   ```
+   Server and Corporative: RedHat, SuSe, Fedora, CentOS
+   Education and home: Ubuntu, Debian
+   Pen and Security: Kali, Onion
+   ```
 1. Socket: `net.node.port`
 2. Packet: Five layers 
    ```
