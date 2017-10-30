@@ -1,6 +1,6 @@
 ### Design Patterns
-===================
-0. 23 design patterns from Gang of Four
+===================  
+0. design patterns with 23 types from Gang of Four
    ```
    Creational               Structural           Behavioral
    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
