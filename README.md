@@ -6,6 +6,7 @@ Collect basic funny code files that I did before in different programming langua
 Java Lib
 --------
 1. design_patterns introduces famous design patterns with related code;
+   [Design Patters](https://github.com/mndarren/Code-Lib/blob/master/java_lib/design_patterns.md)
 
 Cpp Lib
 -------
@@ -26,3 +27,7 @@ Data Security Lib (on Linux)
 2. Big_Tools includes tcpdump, nmap, gpg, netcat, gdb, dd, ramdisk, pipe, etc;
 3. concepts show basic concepts related to network security, Data Assurance;
 4. network_commands focuses on the high level network commands
+[Big Tools](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/Big_Tools.md)  
+[Concepts](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/concepts.md)  
+[Cybersecurity Strategy](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/CybersecurityStrategy.md)  
+[Network Commands](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/network_commands.md)
