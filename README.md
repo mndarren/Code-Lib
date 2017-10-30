@@ -10,7 +10,7 @@ Java Lib
 
 Cpp Lib
 -------
-1. 6 sorts algorithms (Bubble, selection, Assersion, quick, merge, Radix)
+1. 6 sorts algorithms (Bubble, selection, Assersion, quick, merge, Radix) [sorts](https://github.com/mndarren/Code-Lib/blob/master/cpp_lib/sorting/Sort.h)
 2. trie data struction (Funny, it can contain the whole English words)
 3. other simple ones
 
