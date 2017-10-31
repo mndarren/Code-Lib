@@ -12,7 +12,7 @@
    ```
    $netstat -an                        # print litsening and established ports
    $netstat -i                         # like $ifconfig
-   $netstat -r                         # routing table
+   $netstat -r                         # routing table and check zones
    $sudo netstat -apeen | grep java    # all protocols ethernet number format for java
    ```
 4. Trace IP or Domain hops
@@ -39,9 +39,9 @@
    ```
 8. Info command
    ```
-   $whereis rpcinfo       # find where is the rpcinfo  
-   $/usr/sbin/rpcinfo    # rpc call to rpc server, show all registered services on rpcbind
-   $modinfo nfs          #print out module info
+   $whereis rpcinfo                   # find where is the rpcinfo  
+   $/usr/sbin/rpcinfo   -p 10.10.3.18 # rpc call to rpc server, show all registered services on rpcbind
+   $modinfo nfs                       #print out module info
    ```
 
 9. Check inportant info
@@ -176,4 +176,12 @@
 37. pmap --report memory map of a process
    ```
    $pmap -x 28961 | grep stack
+   ```
+38. `$id`   #show detail of current user
+39. `$chmod o+t ~/stickeyDir`   #prevent deleting this directory
+40. touch command, used to hide hacker foot print
+   ```
+   $touch filename
+   $touch -m filename    #change modification time
+   $touch -c -t 0101011111 filename #change access and modification time
    ```

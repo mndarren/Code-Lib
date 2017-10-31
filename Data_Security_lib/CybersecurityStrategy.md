@@ -39,12 +39,14 @@
    ```
 3. Policy: Backup data (Redundency, 3 replicas)
 4. Policy: Don't let people download data to laptop, only deal with it online.
-5. Remember:"Default is dangerous!", so change DB default settings, root id (0), /etc/shadow etc.  
+5. Remember:"Default is dangerous!", so change DB default settings.  
    Hacker's likes
    ```
    /etc/passwd
    /etc/shadow
    /var/logs
+   root id (0)
+   stop touch command, because hacker uses it to hide his foot print. use finger print to check file integration
    ```
 6. Log Data Analysis example
    ```
@@ -67,4 +69,9 @@
    ```
    $netstat -s       #show the health of these software components
    $route -C         #Kernel IP routing cache
+   ```
+10. Two ways to find bad process id
+   ```
+   $ps -aux | grep java
+   $lsof -t ~/javaclass/keyfile.txt
    ```
