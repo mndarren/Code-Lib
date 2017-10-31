@@ -1,5 +1,5 @@
 # Basic Network Commands
-
+===========================  
 1. `$/usr/sbin/arp -a`    # Print out ARP table  
 2. Check IP or Domain info
    ```

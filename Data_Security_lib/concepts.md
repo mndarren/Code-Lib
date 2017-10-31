@@ -1,5 +1,5 @@
 # Basic Client/Server Security & Data Security Concepts (Debian)
-=================
+================================================================  
 0. Linux Family Classification
    ```
    Server and Corporative: RedHat, SuSe, Fedora, CentOS
