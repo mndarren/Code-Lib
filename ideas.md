@@ -1,6 +1,6 @@
 # Ideas
 =========  
-Some ideas poped up occasionally. In order to losing them, record good ones here for the future.
+Some ideas poped up occasionally. In order not to losing them, record good ones here for the future.
 
 1. Create a playbook that can be run to revert VM to the orig state.
 2. Image search!
