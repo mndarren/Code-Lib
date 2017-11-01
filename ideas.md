@@ -1,5 +1,5 @@
 # Ideas
-=========  
+=========   
 Some ideas poped up occasionally. In order not to losing them, record good ones here for the future.
 
 1. Create a playbook that can be run to revert VM to the orig state.
@@ -12,4 +12,3 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
    and he will return the correct one. playbook does not provide specific path for that anymore.
 7. Create your own cloud using public storage space (Google drive, dropbox, box, icloud, one drive)
    Need to figure out a algorithm to connect them togather.
-8. 
