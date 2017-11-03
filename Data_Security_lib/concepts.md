@@ -286,3 +286,9 @@
 44. Off dc1.bcrl.local and dc2.bcrl.local, but user still can login. Why?  
     Because of cache containing user info, so Hacker likes cache.
 45. Finger print: after sum, cksum, md5sum, sha256sum, sha512sum signature file => finger print
+46. Timestamps of `$stat filename`
+    ```
+    Access - the last time the file was read
+    Modify - the last time the file was modified (content has been modified)
+    Change - the last time meta data of the file was changed (e.g. permission)
+    ```

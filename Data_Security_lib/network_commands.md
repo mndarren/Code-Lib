@@ -181,7 +181,7 @@
 39. `$chmod o+t ~/stickeyDir`   #prevent deleting this directory
 40. touch command, used to hide hacker foot print
    ```
-   $touch filename
-   $touch -m filename    #change modification time
+   $touch filename                  #change all timestamps
+   $touch -m filename               #change modification time
    $touch -c -t 0101011111 filename #change access and modification time
    ```
