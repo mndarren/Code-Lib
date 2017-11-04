@@ -292,3 +292,15 @@
     Modify - the last time the file was modified (content has been modified)
     Change - the last time meta data of the file was changed (e.g. permission)
     ```
+47. About fork()
+   ```
+   # child process will share all the segments like text, stack, heap etc when initialization.
+   # In case of any change of child, a separate copy of stack and heap segments are prepared for child.
+   # The text segment is read-only so both parent and child share the same text segment.
+   # Linux kernel views thread as process. Linux supports threads at user level only.
+   ```
+48. Linux Threads vs Light Weight Processes
+   ```
+   # Threads in Linux are nothing but a flow of execution of the process. A process containing multiple execution flows is known as multi-threaded process.
+   # The main difference between LWP and normal process is that LWPs share same address space and other resources like open files etc.
+   ```
