@@ -304,3 +304,7 @@
    # Threads in Linux are nothing but a flow of execution of the process. A process containing multiple execution flows is known as multi-threaded process.
    # The main difference between LWP and normal process is that LWPs share same address space and other resources like open files etc.
    ```
+49. The relationship between Thread, Process, process group, session    
+   A session contains a number of process group,  
+   A process group contains a number of process,  
+   A process contains a number of threads.  
