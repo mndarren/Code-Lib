@@ -76,3 +76,19 @@
    $lsof -t ~/javaclass/keyfile.txt
    ```
 11. Moving data: Encrypted, duplicated and conpressed data before moving through any pipe.
+12. Risk Assessment --Justifying Countermeasure Priority
+   ```
+   Step1, create severiry table
+          Involves super user: 5
+          Involves executable code: 4
+          Attack on OS resource: 3
+          Attack on a service: 2
+          Attack on documentation/versioning/protocol: 1
+   Step2, grab data from log file
+          $cat secure | grep root | wc -l    #3652
+          $cat secure | grep root | grep password | wc -l   #2433
+          $uptime    #19days 2:24
+   Step3, Calculate attack coefficient
+          Attack coefficient on incidence level: 2433 * 5 = 12165
+          Attack coefficient on temporal average: 2433 / (19 * 24 + 2) = 2433/458 =~ 5.3 IPH * 5 = 26.5
+   ```
