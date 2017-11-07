@@ -12,3 +12,4 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
    and he will return the correct one. playbook does not provide specific path for that anymore.
 7. Create your own cloud using public storage space (Google drive, dropbox, box, icloud, one drive)
    Need to figure out a algorithm to connect them togather.
+8. Create a new character that does not belong to a-z or A-Z or 0-9 or other specials so that hacker will never break a password with this character via brute force approach.
