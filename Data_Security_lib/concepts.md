@@ -151,7 +151,8 @@
    ```
 16. Diff between Reject connection and Drop connection   
    ```
-   1) Deny(Reject,sending an ICMP destination-unreachable back): close server -> client tried to connect server -> kernel reply refused for safety
+   1) Deny(Reject,sending an ICMP destination-unreachable back): close server  
+      -> client tried to connect server -> kernel reply refused for safety
    2) Drop: (prohibit a packet from passing. send no response)
    Create a new chain:
    iptables -N LOG_AND_DROP
@@ -161,7 +162,8 @@
    iptables -A INPUT -s z.z.z.z/32 -j LOG_AND_DROP
    iptables -A INPUT -s y.y.y.y/32 -j LOG_AND_DROP
    iptables -A INPUT -s a.a.a.a/32 -j LOG_AND_DROP
-   Note: Make sure you flush existing rules before adding the above rules. Otherwise you'll still have the misleading rule in there that is logging but not denying.
+   Note: Make sure you flush existing rules before adding the above rules.  
+   Otherwise you'll still have the misleading rule in there that is logging but not denying.
    ```
 17. **English Domain** --(DNS)--> **Number IP address** --(ARP)--> **Data Link(MAC)**
 18. Stateful Inspection (See details for Ramdisk in Big_Tools.md)<br/>
@@ -173,16 +175,23 @@
 19. AS (Autonomous System)  --cloud zones #**Virtual zone environment**
 20. Timing Vectors<br/>
     Why do we need it? Because:
-    Attacker monitor our port traffic, and use it to spoof us to connect their bogus host. Then they can get our username and password. Timing Vectors can detect such attacks.
+    Attacker monitor our port traffic, and use it to spoof us to connect their bogus host.  
+    Then they can get our username and password. Timing Vectors can detect such attacks.
 21. Etag/Cookies<br/>
-    Etag, or Entity tag, is part of HTTP, used for web cache validation. Web server does not need to send a full response if content no change.
-    Cookies,or HTTP cookie, web cookie, browser cookie, contains state information from server sending. Used for anthentication, confirmation of user session. **Hacker wants to get your cookie data**
+    Etag, or Entity tag, is part of HTTP, used for web cache validation.  
+    Web server does not need to send a full response if content no change.
+    Cookies,or HTTP cookie, web cookie, browser cookie, contains state information  
+    from server sending. Used for anthentication, confirmation of user session.  
+    **Hacker wants to get your cookie data**
 22. Vulnerable Services<br/>
-    1) UUCP is one of the most dangerous because unencrypted and poor authentication method. **Never use unencrypted ports**
+    1) UUCP is one of the most dangerous because unencrypted and poor authentication method.  
+       **Never use unencrypted ports**
     2) **ports not defined in /etc/services should be defined in /etc/service.local**
-    3) All services within (netstat -a) should be monitored and undocumented services should be disable. **Hacker likes bogus ports**
+    3) All services within (netstat -a) should be monitored and undocumented services  
+       should be disable. **Hacker likes bogus ports**
 23. Client/Server Architecture<br/>
-    1) **Perform everything possible on the client side** because it'll improve performance, reduce network traffic, reduce network stream compromised.
+    1) **Perform everything possible on the client side** because it'll improve performance,  
+       reduce network traffic, reduce network stream compromised.
     2) **TCP over UDP for more secure**
     3) **if complexity is greater than three, make sure each network link is protected**
 24. Pseudo terminal process id<br/>
@@ -235,14 +244,17 @@
    ```
    IO: stream oriented, blocking IO
    NIO: buffered oriented, Non-blocking IO, Selectors
-   Buffered oriented: check if buffer contains all data you need; make sure not to overwrite data you have not processed
-   Blocking IO: when a thread invoke read() or write(), the thread is blocked until finished read or write
+   Buffered oriented: check if buffer contains all data you need;  
+                      make sure not to overwrite data you have not processed
+   Blocking IO: when a thread invoke read() or write(),  
+                the thread is blocked until finished read or write
    Non-blocking IO: thread can do other things even if not finish r or w
    Selectors: a thread can monitor multiple channels
    ```
 37. Kerberos and LDAP
    ```
-   Kerberos --a network authentication protocol, created by MIT. Protected from against eavesdropping and replay attacks
+   Kerberos --a network authentication protocol, created by MIT.  
+              Protected from against eavesdropping and replay attacks
    Ldap is used to holding authoritative information about accounts;
    Kerberos is used to manage credentials securely.
    ```
@@ -302,8 +314,10 @@
    ```
 48. Linux Threads vs Light Weight Processes
    ```
-   # Threads in Linux are nothing but a flow of execution of the process. A process containing multiple execution flows is known as multi-threaded process.
-   # The main difference between LWP and normal process is that LWPs share same address space and other resources like open files etc.
+   # Threads in Linux are nothing but a flow of execution of the process.  
+     A process containing multiple execution flows is known as multi-threaded process.
+   # The main difference between LWP and normal process is   
+     that LWPs share same address space and other resources like open files etc.
    ```
 49. The relationship between Thread, Process, process group, session    
    ```
