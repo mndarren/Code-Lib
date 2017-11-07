@@ -208,5 +208,4 @@
       8 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 1 Sep 21 00:09 xxxx
    BCRL\zhao.xie@eros:~$ ls -lsa xxxx
       4 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 207 Sep 21 00:09 xxxx
-
    ```
