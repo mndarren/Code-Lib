@@ -306,6 +306,22 @@
    # The main difference between LWP and normal process is that LWPs share same address space and other resources like open files etc.
    ```
 49. The relationship between Thread, Process, process group, session    
+   ```
    A session contains a number of process group,  
    A process group contains a number of process,  
    A process contains a number of threads.  
+   ```
+50. Floating point (Sign + exponent + mantissa)
+   ```
+   2^0    = 1,   --0111 1111 (127 exponent bits)
+   2^1    = 2,   --1000 0000 (128)
+   2^(-1) = 1/2, --0111 1110 (126)
+   float:  1 + 8  + 23 = 32 bits
+   double: 1 + 11 + 52 = 64 bits
+   float:  1 = 3F 80 00 00
+   double: 1 = 3F F0 00 00 00 00 00 00
+   float:  2 = 40 00 00 00
+   double: 2 = 40 00 00 00 00 00 00 00
+   float:  3 = 40 40 00 00
+   double: 3 = 40 08 00 00 00 00 00 00
+   ```
