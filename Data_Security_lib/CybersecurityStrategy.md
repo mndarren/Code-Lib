@@ -99,4 +99,4 @@
    Event analysis of auth fail log *curve plane*.
    **fail2ban.log and secure.log can be used together to find the attacker**
    ```
-14. 
+14. Centralized Logging

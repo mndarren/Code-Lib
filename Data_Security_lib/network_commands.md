@@ -185,3 +185,28 @@
    $touch -m filename               #change modification time
    $touch -c -t 0101011111 filename #change access and modification time
    ```
+41. ls -ls file1 vs stat file1 about block number (default block size 1024 vs 512)
+   ```
+   BCRL\zhao.xie@eros:~$ stat xxxx
+      File: ‘xxxx’
+      Size: 207             Blocks: 8          IO Block: 524288 regular file
+      Device: 24h/36d Inode: 3670230     Links: 1
+      Access: (0755/-rwxr-xr-x)  Uid: (1018168823/BCRL\zhao.xie)   Gid:       (1018167809/BCRL\domain^users)
+      Access: 2017-11-03 12:09:47.152237162 -0500
+      Modify: 2017-09-21 00:09:52.000000000 -0500
+      Change: 2017-11-03 12:09:40.556236833 -0500
+       Birth: -
+   BCRL\zhao.xie@eros:~$ ls -las xxxx
+      4 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 207 Sep 21 00:09 xxxx
+   BCRL\zhao.xie@eros:~$ du xxxx
+      4       xxxx
+   BCRL\zhao.xie@eros:~$ stat --format=%b xxxx   #show number of blocks
+      8
+   BCRL\zhao.xie@eros:~$ stat --format=%B xxxx   #show block size
+      512
+   BCRL\zhao.xie@eros:~$ ls -lsa --block-size=512 xxxx
+      8 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 1 Sep 21 00:09 xxxx
+   BCRL\zhao.xie@eros:~$ ls -lsa xxxx
+      4 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 207 Sep 21 00:09 xxxx
+
+   ```
