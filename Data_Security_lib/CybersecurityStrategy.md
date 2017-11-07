@@ -92,3 +92,11 @@
           Attack coefficient on incidence level: 2433 * 5 = 12165
           Attack coefficient on temporal average: 2433 / (19 * 24 + 2) = 2433/458 =~ 5.3 IPH * 5 = 26.5
    ```
+13. Rist Analysis by Tyhpe/source or destination
+   ```
+   Critical, Severe, and Moderate attacks *bar graph*;
+   Common Vulnerabilities *pie chart*.
+   Event analysis of auth fail log *curve plane*.
+   **fail2ban.log and secure.log can be used together to find the attacker**
+   ```
+14. 
