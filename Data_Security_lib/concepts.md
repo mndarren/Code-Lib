@@ -340,3 +340,9 @@
    float:  3 = 40 40 00 00
    double: 3 = 40 08 00 00 00 00 00 00
    ```
+51. Target Acquisition
+   ```
+   #Target acquisition typically the first step of the types of common external threats.
+   #It's the detection, identification, and location of a target in sufficient detail
+   to permit the effective employment of lethal and non-lethal means.
+   ```
