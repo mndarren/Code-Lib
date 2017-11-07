@@ -75,3 +75,4 @@
    $ps -aux | grep java
    $lsof -t ~/javaclass/keyfile.txt
    ```
+11. Moving data: Encrypted, duplicated and conpressed data before moving through any pipe.
