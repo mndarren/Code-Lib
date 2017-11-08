@@ -74,7 +74,7 @@
       On the local: nc -v -w 2 127.0.0.1 31000 < file
    ```
    [logtrap.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/logtrap.sh)
-4. gdb (Attacker and Security) --dump data from register  
+4. gdb (Attacker) --Find memory address from register and dump data  
    ```
    1) $./add # run program and keep it running
       $ps -al | grep add # find pid (say 11334)
