@@ -41,3 +41,10 @@
    2) Example in JDK: java.lang.StringBuilder#append()
    ```
    [Builder Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/builder/PFManager.java)
+4. Abstract Factory
+   ```
+   1) It's "factory of factory" and can be easily extended to accommodate more products.
+   2) It's robust and avoid conditional logic of Factory pattern.
+   3) I used Singleton and Builder pattern also in this example.
+   ```
+   [Abstract Factory Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/AbstractFactory)
