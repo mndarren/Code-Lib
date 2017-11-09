@@ -5,8 +5,7 @@ package singleton;
  */
 public enum EnumSingleton {
 	INSTANCE;
-	//other variables
-	private EnumSingleton(){};
-	//other methods
+	//variables
+	//methods
 
 }
