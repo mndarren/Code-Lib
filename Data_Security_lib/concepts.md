@@ -347,3 +347,13 @@
    #It's the detection, identification, and location of a target in sufficient detail
    to permit the effective employment of lethal and non-lethal means.
    ```
+52. Cloud zone
+   ```
+   Cloud zone refers to splitting a network cloud into different partitions via netmask and gateway.
+   For example, for a network 199.17.59.x/24, there are 199.17.59.1 – 199.17.59.254
+   IP addresses that we can use. If mask = 255.255.255.0, they are in the same group.
+   When we use netmask 255.255.255.192, the cloud actually was separated into 4 zones 
+   (199.17.59.1-63, 199.17.59.64-127, 199.17.59.128-191, 199.17.59.192-254)
+   because this mask means our network becomes 199.17.59.x/26. That is, in x part, 
+   there are first 2 bits fixed and these 2 bits can be (00,01,10 and 11) which makes 4 zones.
+   ```
