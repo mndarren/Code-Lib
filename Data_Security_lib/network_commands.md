@@ -14,6 +14,7 @@
    $netstat -i                         # like $ifconfig
    $netstat -r                         # routing table and check zones
    $sudo netstat -apeen | grep java    # all protocols ethernet number format for java
+   $netstat -pave | more
    ```
 4. Trace IP or Domain hops
    ```
@@ -28,13 +29,27 @@
 6. Check processes
    ```
    $ps -aux | grep sshd      # find sshd pid
+      D --uninterruptible sleep
+      R --Running or runnable (on run queue)
+      S --Interrutible sleep (waiting for an event to complete)
+      T --Stopped, either by a job control signal or because it is being traced
+      W --paging (not valid since kernel 2.6)
+      X --dead (should never be seen)
+      Z --Defunct ("zombie") process, terminated but not reaped by its parent
    $ps -ALF | grep python    # list all python related
+   $ps -ely
+   $ps -jHax | grep 1135200103 (tty of sshd)
+   $ps -ejH
+   $ps -eHx
+   $ps -axZ
    ```
 7. List stuff
    ```
    $ls -las  # list all in current folder with permission and block number
    $lsmod    # list modules
    $lsof     # list open files
+   $lsof -t ~/keyfile.txt  #find pid related to a given file
+   $lsof -p 481            #check the file related pid
    $lsblk    # list block
    ```
 8. Info command
@@ -112,6 +127,8 @@
    1) $gzip myfile.txt          #myfile.txt.gz
       $gzip -d myfile.txt.gz    #decompress
      `$gzip -9 *.html`         #compress multiple files
+      $cat b1 b2 b3 | gzip > allb.gz
+      $gzip -l allb.gz
    2) bzip2    #same to the previous
    3) $tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.
       $tar -tvf archive.tar         # List all files in archive.tar verbosely.
@@ -161,7 +178,8 @@
    $sudo blockdev --getbsz /dev/sda1  #block size
    #block size * # of blocks = physical size
    ```
-33. `strace -p 18523`   #pid, used to trace process read and write 
+33. `strace -p 18523`   #pid, used to trace process read and write  
+    `strace -C /usr/bin/who`  #trace command who
 34. Random Access
    ```
    $head -$((${RANDOM} % `wc -l < car.csv` + 2)) car.csv | tail -1  #random query, head: first n line, tail: last n lines
@@ -178,7 +196,8 @@
    $pmap -x 28961 | grep stack
    ```
 38. `$id`   #show detail of current user
-39. `$chmod o+t ~/stickeyDir`   #prevent deleting this directory
+39. `$chmod o+t ~/stickeyDir`   #prevent deleting this directory  
+    `$chmod 1754 ~/stickydir`   #1 means sticky bit set
 40. touch command, used to hide hacker foot print
    ```
    $touch filename                  #change all timestamps

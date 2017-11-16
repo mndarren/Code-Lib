@@ -358,3 +358,13 @@
    because this mask means our network becomes 199.17.59.x/26. That is, in x part, 
    there are first 2 bits fixed and these 2 bits can be (00,01,10 and 11) which makes 4 zones.
    ```
+53. Sticky wicket
+   ```
+   There are other flags besides rwx, one of the most useful is the sticky bit which can be
+   used in directories to prevent deletion of that directory and its content by other users
+   even though they have write permissions on the directory contents.
+   This limits delete rights to only the owner and the root. Sticky bits can be set either
+   symbolically or numerically.
+   $chmod o+t ~/stickydir
+   $chmod 1754 ./stickydir
+   ```
