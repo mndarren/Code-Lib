@@ -174,7 +174,7 @@
 31. `$cal -j`   #days of year
 32. Check out file physical size
    ```
-   $ls -las data.txt   #block #
+   $ls -las data.txt   #block # check out 41
    $sudo blockdev --getbsz /dev/sda1  #block size
    #block size * # of blocks = physical size
    ```
