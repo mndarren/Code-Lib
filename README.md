@@ -8,7 +8,7 @@ Java Lib
 1. design_patterns introduces famous design patterns with related code;  
    [Design Patters](https://github.com/mndarren/Code-Lib/blob/master/java_lib/design_patterns.md)
 
-Cpp Lib
+C & C++ Lib
 -------
 1. 6 sorts algorithms (Bubble, selection, Assersion, quick, merge, Radix) [Sorts](https://github.com/mndarren/Code-Lib/blob/master/cpp_lib/sorting/Sort.h)
 2. trie data struction (Funny, it can contain the whole English words)
