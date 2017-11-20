@@ -34,6 +34,8 @@
       -oN/-oX/-oS/-oG <file> (output in nomal,XML,script,Grepable format)
       -oA <basename> (output in 3 major formats)
       -T (paranoid0|sneaky1|polite2|normal3|aggressive4|insane5) (1,2 for evasion of IDS)
+      -O (enable OS detection)
+      -A (similar to -O)
    3) $time nmap -sX -p 0-100 -vvv 199.17.59.234/24 -T 5  #scan more IP
    ```
 3. Netcat (Attacker and security) (Swiss Army Knife) (netcat,ncat,nc)  
