@@ -67,6 +67,22 @@
    $uname -a      # info of Linux
    ```
 10. `mount | grep nfs`   # find location of nfs
+   ```
+   Common mount options:
+   rw     --Mounts the FS for reading and writing
+   ro     --reading only
+   noexec --limits execution of dangerous code
+   nosuid --Limits inheritance of super-user rights
+   nouser --Disallows an ordinary user to mount or unmount FS
+   user   --allows ...
+   auto   --Allows FS to be mounted automatically using mount -a command
+   noauto --Default behavior disallows ...
+   async  --All I/O to FS should be done asynchronously
+   noatime--Do not update inode access times on this FS
+   nodev  --Do not interpret character or block special devices on the FS
+   defaults-Provides an alias for async, auto,dev,exec,nouser,rw,suid
+   remount--Remounts the FS in case it is already mounted
+   ```
 11. Check file metadata
    ```
    $file <filename>      # check file type format
