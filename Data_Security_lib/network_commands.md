@@ -179,7 +179,8 @@
    #block size * # of blocks = physical size
    ```
 33. `strace -p 18523`   #pid, used to trace process read and write  
-    `strace -C /usr/bin/who`  #trace command who
+    `strace -C /usr/bin/who`  #trace command who<br/>
+    strace can trace unnamed pipes and named pipes. **Hacker like that**
 34. Random Access
    ```
    $head -$((${RANDOM} % `wc -l < car.csv` + 2)) car.csv | tail -1  #random query, head: first n line, tail: last n lines
