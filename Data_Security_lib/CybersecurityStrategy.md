@@ -101,6 +101,6 @@
    ```
 14. Centralized Logging
 15. Digital Signature Algorithm<br/>
-   ![atl DS](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/DS.PNG)
+   ![alt DS](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/DS.PNG)
 16. Integrity Management 9 principles
-   !
+   ![alt Integrity](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/Integrity9principles.PNG)
