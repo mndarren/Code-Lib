@@ -1,5 +1,6 @@
 package abstractFactory;
 
+//using builder pattern here since there are 3 vars in this class
 public class ServerFactory implements ComputerAbstractFactory{
 	private String ram;
 	private String hdd;
