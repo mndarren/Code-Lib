@@ -27,3 +27,11 @@
    ```
    call search_for_guitar();
    ```
+5. MetaData
+   ```
+   source mysqlsampledatabase.sql;   # run script file
+   show processlist;                 # show ID and user name
+   show privileges;                  # show privileges
+   show status;                      # show DB engine number of threads created and running
+   show columns from customers;      # show table stucture
+   ```
