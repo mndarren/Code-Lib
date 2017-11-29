@@ -46,35 +46,31 @@ end;
 /
 
 -- Step 2: Create policy function; when DBA643, s/he should see all records
-Create or Replace FUNCTION Sec_Fun_Cust (P_schema_name IN varchar2, P_object_name IN varchar2) Return varchar2 IS
-BEGIN
-  IF USER <> 'DBA643' then
-    return 'CTL_SEC_USER = USER';
-  ELSE
-    return '';
-  END IF; 
-END;
-/
-exec DBMS_RLS.DROP_Policy('DBA643', 'Branches', 'Row_Owner_Sec');
---exec DBMS_RLS.ADD_Policy ('DBA643','Branches','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
-BEGIN
-  DBMS_RLS.ADD_POLICY (object_schema     => 'DBA643',
-                       object_name       => 'Branches',
-                       policy_name       => 'Row_Owner_Sec',
-                       function_schema   => 'DBA643',
-                       policy_function   => 'Sec_Fun_Cust',
-                       statement_types   => 'SELECT, UPDATE, DELETE, INSERT',
-                       update_check      => TRUE);
-END;
-/
-exec DBMS_RLS.DROP_Policy('DBA643', 'Customers', 'Row_Owner_Sec');
-exec DBMS_RLS.ADD_Policy ('DBA643','Customers','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
---exec DBMS_RLS.DROP_Policy('DBA643', 'Branch_Managers', 'Row_Owner_Sec');
---exec DBMS_RLS.ADD_Policy ('DBA643','Branch_Managers','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
-exec DBMS_RLS.DROP_Policy('DBA643', 'Financial_Products', 'Row_Owner_Sec');
-exec DBMS_RLS.ADD_Policy ('DBA643','Financial_Products','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
-exec DBMS_RLS.DROP_Policy('DBA643', 'Transactions', 'Row_Owner_Sec');
-exec DBMS_RLS.ADD_Policy ('DBA643','Transactions','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
+--Create or Replace FUNCTION Sec_Fun_Cust (P_schema_name IN varchar2, P_object_name IN varchar2) Return varchar2 IS
+--BEGIN
+--  IF USER <> 'DBA643' then
+--    return 'CTL_SEC_USER = USER';
+--  ELSE
+--    return '';
+--  END IF; 
+--END;
+--/
+--exec DBMS_RLS.DROP_Policy('DBA643', 'Branches', 'Row_Owner_Sec');
+--BEGIN
+--  DBMS_RLS.ADD_POLICY (object_schema     => 'DBA643',
+--                       object_name       => 'Branches',
+--                       policy_name       => 'Row_Owner_Sec',
+--                       function_schema   => 'DBA643',
+--                       policy_function   => 'Sec_Fun_Cust',
+--                       statement_types   => 'SELECT, UPDATE, DELETE, INSERT',
+--                       update_check      => TRUE);
+--END;
+--exec DBMS_RLS.DROP_Policy('DBA643', 'Customers', 'Row_Owner_Sec');
+--exec DBMS_RLS.ADD_Policy ('DBA643','Customers','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
+--exec DBMS_RLS.DROP_Policy('DBA643', 'Financial_Products', 'Row_Owner_Sec');
+--exec DBMS_RLS.ADD_Policy ('DBA643','Financial_Products','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
+--exec DBMS_RLS.DROP_Policy('DBA643', 'Transactions', 'Row_Owner_Sec');
+--exec DBMS_RLS.ADD_Policy ('DBA643','Transactions','Row_Owner_Sec','DBA643','Sec_Fun_Cust','SELECT, UPDATE, DELETE, INSERT',TRUE);
 
 -- Step 3: create users: BAdmin and CAdmin
 -- Create Table Space
