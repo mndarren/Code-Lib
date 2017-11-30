@@ -1,0 +1,50 @@
+#testInfra command
+testinfra --connection=ssh --ansible-inventory=jenkins.inv --use-sshpass tests/redhat.py -v     #for linux
+
+testinfra --connection=winrm --ansible-inventory=jenkins.inv --use-sshpass tests/redhat.py -v   #for windows
+
+testinfra --connection=auto --use-sshpass -vs --ansible-inventory=inv test.py
+
+# Check out setup
+ansible <hostname> -m setup -i jenkins.inv
+
+ansible-galaxy install -r requirements.yml
+ansible-playbook local.yml -i jenkins.inv
+
+# About git
+git add
+git commit -m ""
+git push --set-upstream origin ansible_training
+
+# undo git add
+git reset HEAD <file> 
+
+# undo git commit
+git reset --soft HEAD^
+git reset HEAD path/to/unwanted_file
+
+git revert HEAD
+
+# remove file from repo -f (force rm)
+git rm -f file1.txt
+git commit -m "remove file1.txt"
+#git rm --cashed file1.txt # remove file from repo not from fs
+git push origin branch_name
+
+# fix conflix with other guys commit and merge
+git checkout master -- ./tasks/solaris.py
+
+# How to enable ACL and EA
+tune2fs -o acl /dev/sdXY
+tune2fs -o user_xattr /dev/sdXY
+
+# run multi playbooks (little tool)
+python run_palybooks.py --password 'xxxxxx' --target_host 10.81.92.135 --hostname darren --bitbucket_user Darren.Xie --playbooks playbook-oracle11g_db2_suse_11.3,playbook-mint,playbook-oracle11g_db2_suse_11.3
+
+# ESX things
+CPU_CMD  = 'esxcli hardware cpu global get'
+MEM_CMD  = 'esxcli hardware memory get'
+FS_CMD   = 'esxcli storage filesystem list'
+OS_CMD   = 'esxcli system version get'
+FQDN_CMD = 'esxcli system hostname get'
+VM_LIST  = 'esxcli vm process list'
