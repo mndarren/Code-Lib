@@ -46,6 +46,7 @@
 7. List stuff
    ```
    $ls -las  # list all in current folder with permission and block number
+   $ls -al   # list all file with metadata and total
    $lsmod    # list modules
    $lsof     # list open files
    $lsof -t ~/keyfile.txt  #find pid related to a given file
@@ -56,7 +57,9 @@
    ```
    $whereis rpcinfo                   # find where is the rpcinfo  
    $/usr/sbin/rpcinfo   -p 10.10.3.18 # rpc call to rpc server, show all registered services on rpcbind
-   $modinfo nfs                       #print out module info
+   $modinfo nfs                       # print out module info
+   $ps -fe | grep rpc                 # 
+   $file /usr/bin/rpcgen              # easy to generate RPC programs in C using rpcgen
    ```
 
 9. Check inportant info
@@ -245,3 +248,4 @@
    BCRL\zhao.xie@eros:~$ ls -lsa xxxx
       4 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 207 Sep 21 00:09 xxxx
    ```
+42. `$chkconfig` RedHat command to check runlevels for services.

@@ -104,3 +104,8 @@
    ![alt DS](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/DS.PNG)
 16. Integrity Management 9 principles
    ![alt Integrity](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/Integrity9principles.PNG)
+17. Policy: a program not running as suppose to, but the log file comes to the rescue  
+   ```
+   $ps -fp `cat /var/run/rpc.statd.pid`       #not run appropriately
+   $cat /var/log/messages | grep rpc          #log message will log this action
+   ```

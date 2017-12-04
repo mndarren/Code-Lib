@@ -368,3 +368,34 @@
    $chmod o+t ~/stickydir
    $chmod 1754 ./stickydir
    ```
+54. How is Linux more secure than Windows
+   ```
+   1) Each file has permission. Even if a use runs a malicious program, that program inherits 
+      the user's permissions, and so cannot do anything that the user themselves could not do.
+   2) Each file has the system's file type identifier embedded in the file itself instead of 
+      relying on an extension. So one cannot fool system with it.
+   3) outside processes are treated as public processes, so a web page with a malicious executable
+      program embedded in it cannot affect the use's files without permission.
+   ```
+55. `sm-notify` A helper program that notifies NFS peers after the local system reboots.  
+    `rpc.statd` The local NFS lock manager alerts its local `rpc.statd` of each remote peer that should  
+                be monitored. When the local system reboots, the `sm-notify` command nitifies   
+                the NSMservice on monitored peers of the reboot. When a remote reboots, that peer  
+                notifies the local `rpc.statd`, which in turn passes the reboot notification back  
+                to the local NFS lock manager.  
+    For each NFS client or server machine to be monitored, `rpc.statd` creates a file /var/lib/nfs/sm.  
+    If transport encapsulation is enabled, Encapsulation is alive and well  
+    `TCP_WRAPPERS SUPPORT` This `rpc.statd` version is protected by the tcp_wrapper library. You have to  
+                           give the client access to `rpc.statd` if they should be allowed to use it.  
+                           To allow connects from clients of the .bar.com domain you could use the line  
+                           in /etc/hosts.allow:  statd: .bar.com  
+56. Runlevels (Level & purpose) the init program reads the /etc/inittab file to determine the behavior for each runlevel when booting
+   ```
+   0 -> Halt                            --shut down system
+   1 -> Single-user mode                --without networking, start daemons, or allow non-root logins (usually aliased as s or S)
+   6 -> Reboot                          --Reboot the system
+   2 -> Multi-user mode                 --without networking or start daemons
+   3 -> Multi-user mode with networking --starts the system normally
+   5 -> X11 mode                        --runlevel 3 and the X Window System
+   4 -> Undefined                       --Not used/User-definable
+   ```
