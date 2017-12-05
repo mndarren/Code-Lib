@@ -249,3 +249,4 @@
       4 -rwxr-xr-x 1 BCRL\zhao.xie BCRL\domain^users 207 Sep 21 00:09 xxxx
    ```
 42. `$chkconfig` RedHat command to check runlevels for services.
+43. 

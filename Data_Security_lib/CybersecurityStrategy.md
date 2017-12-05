@@ -130,3 +130,33 @@
    16) All .txt files must have read rights granted only on the user and group level.
    17) All rights modification using the chmod command must be logged in the filerights.log.
    ```
+19. iptable setting of Firewalls in limiting Risks
+   ```
+   1) Basic
+         BLOCK_THIS_IP="192.8.14.22"
+         iptables -A INPUT -s "$BLOCK_THIS_IP" -j DROP
+
+         BLOCK_THIS_NET="192.8.4.0/24"
+         iptables -A INPUT -s "$BLOCK_THIS_NET" -j DENY
+
+         ACCEPT_THIS_PORT="22"
+         iptables -A INPUT -i eth0 -p tcp -s 192.101.14.0/24 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+   2) Accept these ports
+         iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,53,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+         iptables -A OUTPUT -o eth0 -p tcp -m multiport --dports 22,53,80,443 -m state --state ESTABLISHED -j ACCEPT
+
+   3) Limit traffic
+         iptables -A INPUT -p tcp --dport 80 -m limit --limit 15/minute --limit-burst 50 -j ACCEPT
+
+   4) Load Balancing
+         iptables -A PREROUTING -i eth0 -p tcp --dport 22.53,80,443 -m state --state NEW -m nth --counter 0
+              --every 3 --packet 0 -j DNAT --to-destination 192.16.11.11:443
+
+         iptables -A PREROUTING -i eth0 -p tcp --dport 22.53,80,443 -m state --state NEW -m nth --counter 0
+              --every 3 --packet 1 -j DNAT --to-destination 192.16.11.12:443
+
+         iptables -A PREROUTING -i eth0 -p tcp --dport 22.53,80,443 -m state --state NEW -m nth --counter 0
+              --every 3 --packet 2 -j DNAT --to-destination 192.16.11.13:443
+   5) Algorithm:  (K4+O4)/L4 * (N4/(N4+1))
+   ```
