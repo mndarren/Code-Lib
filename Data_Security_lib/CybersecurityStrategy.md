@@ -160,3 +160,21 @@
               --every 3 --packet 2 -j DNAT --to-destination 192.16.11.13:443
    5) Algorithm:  (K4+O4)/L4 * (N4/(N4+1))
    ```
+20. Fault tolerance policy
+   ```
+   We are bound by Murphy's law, which states that if something can go wrong it will!
+   @the effectiveness of policy implementation can be determined
+   @For example: a policy may be devised that requires all production hosts to have an availability 
+     percentage of 99.5%
+   @To accomplish this an on-line replica that automatically takes over the in the event of a production
+     host failure needs to be implemented.
+
+   Ex1: cat ha-log | wc -l  #4459
+        cat ha-log | grep heartbeat | grep "Resources being acquired" | wc -l  #4
+        A: probability coefficient: 4/4459 = ~.0009
+   Ex2: cat ha-log-up | wc -l   #1194  5 minute granularity (5 * 1149 = 5970 minutes)
+        cat ha-log-up | grep host1 | grep dn | wc -1    #1 means host1 down once
+        cat ha-log-up | grep host1 | grep dn            # show the timestamp detail for the down
+        cat ha-log-up | grep repl1 | grep dn            # nothing  means no down for replica host
+        A: probability for host1: 1/1194 = ~.0008, but that for both: 0/1194 = 0
+   ```
