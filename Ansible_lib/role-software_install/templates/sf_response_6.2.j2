@@ -1,0 +1,12 @@
+our %CFG;
+
+$CFG{accepteula}=1;
+$CFG{opt}{configure}=1;
+$CFG{opt}{install}=1;
+$CFG{opt}{installallpkgs}=1;
+$CFG{opt}{vxkeyless}=1;
+$CFG{opt}{prodmode}="SF Basic";
+$CFG{prod}="SF62";
+$CFG{systems}=[ qw({{ ansible_hostname}}) ];
+
+1;

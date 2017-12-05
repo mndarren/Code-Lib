@@ -1,0 +1,59 @@
+---
+# SF downloading url
+artifactory_url: #need add link
+artifactory_path: #need add path
+whitelist_redhat_sf6: ['6.4', '6.5', '6.7', '6.8']
+whitelist_redhat_sf7: ['6.7', '6.8', '7.2', '7.3']
+
+# linux attributes
+sf_version: '6.2'
+linux_tmp: /var/tmp
+linux_install:
+  linux_sf_url: "{{ artifactory_url }}/{{ artifactory_path }}"
+  '6.2':
+    response_file: sf_response_6.2.j2
+    install_package: #package with gz compression
+    pkg_deps:
+      RedHat6:
+        - "libstdc++.i686"
+        - "pam.i686"
+        - "libudev.i686"
+        - "nss-softokn-freebl.i686"
+        - "glibc.i686"
+      RedHat7: []
+      Suse11: []
+    sf_installer:
+      RedHat7: "{{ linux_tmp }}/dvd3-sfbasic/rhel7_x86_64/installer"
+      RedHat6: "{{ linux_tmp }}/dvd3-sfbasic/rhel6_x86_64/installer"
+      Suse11: "{{ linux_tmp }}/dvd3-sfbasic/sles11_x86_64/installer"
+  '7.3':
+    install_package: #package with gz compression
+    response_file: sf_response_7.3.j2
+    pkg_deps:
+      RedHat6: []
+      RedHat7: []
+      Suse11: []
+    sf_installer:
+      RedHat7: "{{ linux_tmp }}/dvd1-redhatlinux/rhel7_x86_64/installer"
+      RedHat6: "{{ linux_tmp }}/dvd1-redhatlinux/rhel6_x86_64/installer"
+      Suse11: "{{ linux_tmp }}/dvd1-redhatlinux/sles11_x86_64/installer"
+
+# windows attributes
+win_tmp: "C:\\SF"
+windows_install:
+  win_sf_url: "{{ artifactory_url }}/{{ artifactory_path }}"
+  win_dotnet: NDP451-KB2858728-x86-x64-AllOS-ENU.exe
+  sf_win_license: NEZE-JC9K-NXFE-P4MR-OC8C-63NP
+  python_file: python-2.7.12.amd64.msi
+  '6.1':
+    install_package: #package with zip compression
+    sf_installer: "{{ win_tmp }}\\downloadable_sfw_basic-win\\Setup.exe"
+  '7.3':
+    install_package: #package with zip compression
+    sf_installer: "{{ win_tmp }}\\InfoScale-7.3\\Setup.exe"
+
+sf_install_cmd_win:
+  '6.1': CMD /C """{{ windows_install[sf_version].sf_installer }} /s SOLUTIONS=1 INSTALL_MODE=1
+         INSTALLDIR=C:\StorageFoundation licensekey={{ windows_install.sf_win_license }} reboot=0 telemetry=0 getpatchinfo=0"""
+  '7.3': CMD /C """{{ windows_install[sf_version].sf_installer }} /s SOLUTIONS=1 INSTALL_MODE=1
+         INSTALLDIR=C:\StorageFoundation reboot=0 telemetry=0 getpatchinfo=0"""

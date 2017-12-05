@@ -1,0 +1,43 @@
+---
+- name: Check if sf is installed
+  win_stat:
+      path: "" #path to sf.ext
+  register: sf
+
+- block:
+    - name: create directory structure
+      win_file: "path={{ win_tmp }} state=directory"
+
+    - name: download necessary sf
+      win_get_url:
+          dest: "{{ win_tmp }}\\{{ item }}"
+          url: "{{ windows_install.win_sf_url }}\\{{ item }}"
+      with_items:
+        - "{{ windows_install[sf_version].install_package }}"
+        - "{{ windows_install.python_file }}"
+        - "{{ windows_install.win_dotnet }}"
+
+    - name: unzip sf
+      win_unzip:
+          src: "{{ win_tmp }}\\{{ windows_install[sf_version].install_package }}"
+          dest: "{{ win_tmp }}"
+          recurse: no
+          rm: true
+
+    - name: installing python package
+      win_msi: "path={{ win_tmp }}\\{{ windows_install.python_file }} wait=true"
+
+    - name: installing .net 451 offline package
+      raw: CMD /C "{{ win_tmp }}\\{{ windows_install.win_dotnet }} /passive /norestart"
+
+    - name: installing sf
+      raw: "{{ sf_install_cmd_win[sf_version] }}"
+
+    - name: reboot system
+      win_reboot:
+  when: not sf.stat.exists
+  rescue:
+    - debug: msg="Failed to install sf"
+
+- name: delete installer tmp directory for Windows
+  win_file: path="{{ win_tmp }}" state=absent

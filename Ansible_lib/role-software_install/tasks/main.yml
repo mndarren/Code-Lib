@@ -1,0 +1,17 @@
+---
+- include: main_lnx.yml
+  when: ( sf_version == '6.2' and
+          ((ansible_os_family == 'RedHat' and ansible_distribution_version in whitelist_redhat_sf6) or
+          (ansible_os_family == 'Suse' and ansible_distribution_version  == '11.3') ) ) or
+        ( sf_version == '7.3' and
+          (ansible_os_family == 'RedHat' and ansible_distribution_version in whitelist_redhat_sf7))
+
+- include: main_win.yml
+  when: ( sf_version == '6.1' and
+          ansible_os_family == 'Windows' and
+          (ansible_os_name == "Microsoft Windows Server 2008 R2 Standard" or
+          ansible_os_name == "Microsoft Windows Server 2008 R2 Enterprise") ) or
+        ( sf_version == '7.3' and
+          ansible_os_family == 'Windows' and
+          (ansible_os_name == "Microsoft Windows Server 2012 R2 Datacenter" or
+          ansible_os_name == "Microsoft Windows Server 2016 Datacenter") )
