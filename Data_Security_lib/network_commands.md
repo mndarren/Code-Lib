@@ -36,7 +36,7 @@
       W --paging (not valid since kernel 2.6)
       X --dead (should never be seen)
       Z --Defunct ("zombie") process, terminated but not reaped by its parent
-   $ps -ALF | grep python    # list all python related
+   $ps -ALF | grep python    # list all python related lwps
    $ps -ely
    $ps -jHax | grep 1135200103 (tty of sshd)
    $ps -ejH
@@ -189,6 +189,9 @@
 30. Check cache and buffer speed
    ```
    $sudo hdparm -tT /dev/sda1    #cache faster than buffer
+   $sudo hdparm -I /dev/sda      #show device detail info
+   $sudo fdisk -l                #display disk parameters
+   $sudo dmidecode | more        #include bus size
    ```
 31. `$cal -j`   #days of year
 32. Check out file physical size
@@ -206,10 +209,12 @@
    $awk -f ./awkindexlu -v indexes="1 2 3 4 5 6 7 10" indexed.dat | sort -n
    $cat > index.txt    #2 4 6 8
    $awk -f ./awkindexlu -v indexes="`index.txt`" indexed.dat | sort -n
+   $awk '{print $1","$2","$3}' < index.txt > index.csv
    $cat > indexneg.txt  #-3 -5 -7
    $awk -f ./awkindexlu -v indexes="`indexneg.txt`" indexed.dat | sort -n
    ```
-35. `perf stat -B java class PrimeByVector`  #performance analysis tool
+35. `perf stat -B java class PrimeByVector`  #performance analysis tool  
+    `perf stat -B sleep 5`
 36. `$uptime`   #how long box is running
 37. pmap --report memory map of a process
    ```
@@ -259,3 +264,4 @@
    wmware-toolbox-cmd stat cuplimit       #CPU limit info
    wmware-toolbox-cmd stat sessionid      #current session ID
    ```
+44. ` logger -i Log an event and login `ssh james1@eros`& `
