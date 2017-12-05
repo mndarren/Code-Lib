@@ -411,3 +411,9 @@
    8) Programming Application Development Server (java, C, C++ and etc.)
    9) Data-Base Application Server (MySQL, SQL queries, DB tuning and etc.)
    ```
+58. qubit: a unit of quantum information (0, 1, 0&1)
+   ```
+   Quantum mechanism allows the qubit to be in superposition of both states at the same time, a property that's
+   fundamental to quantum computing.
+   Quantum computers exploit two phenomena --entanglement and superposition-- to process information differently 
+   ```
