@@ -19,7 +19,7 @@
    ```
    Layer 1, network layer: VPN, honeynet, IDS/IPS, SSL, cloud zones
    Layer 2, Memory layer: pipe
-   Layer 3, OS layer: Credentials, 2-factor anthentication, periodly change password, ldap and Kerberos
+   Layer 3, OS layer: Credentials, 2-factor anthentication, periodly change password, ldap and Kerberos, virtual drives
    Layer 4, FS layer: soft link to data, change location, change folder name
    Layer 5, Data layer: Digital signature, Compress data, chmod data and use script to modify data, Diff format data, encrypted data
    ```
