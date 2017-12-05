@@ -417,3 +417,15 @@
    fundamental to quantum computing.
    Quantum computers exploit two phenomena --entanglement and superposition-- to process information differently 
    ```
+59. Centralized logging
+   ```
+   1) It helps protect resources;
+   2) It provides data that can be used to ensure individual accountability
+   3) it providesa single collection point in distributed systems
+   4) By exporting logs to a centralized location it is more difficult for hackers to cover their tracks
+   5) It will generate vast amounts of data so an effective management strategy is required
+   6) Computer resources are limited and must be protected from both internal and external abuse
+      Internal threat causes more damage, and internal problems may not be intentional
+   7) Because of distributed resources logging should be centralized and still provide pointers to applications and devices
+   8) Granularity must be considered to limit the volume of data recorded (by means of audit reduction tools)
+   ```
