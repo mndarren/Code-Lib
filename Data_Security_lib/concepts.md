@@ -399,3 +399,15 @@
    5 -> X11 mode                        --runlevel 3 and the X Window System
    4 -> Undefined                       --Not used/User-definable
    ```
+57. 9 servers architecture
+   ```
+   1) Time Server, VM host (running Linux)
+   2) Main Client Access Server. SSH login (Firewall will forward all port22 traffic to this partition)
+   3) Secondary Client Access Server.(as backup if partition 1 locks up, Firewall forward alternate port to this)
+   4) Global Authentication Server (OpenLDAP/Kerberos5-MIT)
+   5) Network Address Resolution Server (DNS/DHCP/LDAP)
+   6) E-Mail Server (Linux mail server installed)
+   7) Global File System Server for Home Folders (NFS Mounted)
+   8) Programming Application Development Server (java, C, C++ and etc.)
+   9) Data-Base Application Server (MySQL, SQL queries, DB tuning and etc.)
+   ```

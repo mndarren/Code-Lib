@@ -161,3 +161,12 @@
    ```
    [encServ.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/encServ.sh)  
    [encCli.sh](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/bash_code/encCli.sh)
+9. StromBringer (famous with nmap and ncat) focus on layer 2 (MAC = 48 bits = 12 Hex)
+   ```
+   $./e-ping lo 00 00 00 00 00 00   00 00 00 00 00 00  #only way to catch packet by tcpdump with e-ping utility
+   $./e-stat virnet0                                   #using utility e-stat to see the traffic
+   $./e-listen virnet0                                 #using utility e-listen to see a trace of traffic
+   $./psend2 venet0:0 adr 00 00 00 00 00 00 addr 7E EE 93 EB B1 C2 #(P10 trace)  #broadcast packets to real mac
+   $./scripts/Strombringer.sh venet0:0                 #lock up the virtual terminal, using strombringer shell
+   $./nfork                                            #1048 means thresh hold before denial service
+   ```
