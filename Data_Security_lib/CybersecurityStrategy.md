@@ -109,3 +109,24 @@
    $ps -fp `cat /var/run/rpc.statd.pid`       #not run appropriately
    $cat /var/log/messages | grep rpc          #log message will log this action
    ```
+18. UDP Autonomous System Level Policy (Example Model)
+   ```
+   1) All non-public information data traveling on an internet interface must be encrypted.
+   2) Time to live setting must not exceed 8 hops on internal networks.
+   3) The UDP protocol must not be used to transport sensitive data.
+   4) Packet segmentation must not be allowed on payloads less than 1446 bytes.
+   5) Packet patterns for application should be recorded and used to identify anomalies and scripts
+      devised to block the attack at the firewall level.
+   6) Packets with bad chsums must not be allowed to pass any interface except local.
+   7) Level 3 packet id must vary if TCP is used on the transport layer.
+   8) All script files must be registered in scripts.local.
+   9) All open server ports must be registered in services or services.local.
+   10) All packets timeout must be logged.
+   11) All packet sniffer users must be registered in the sudoers file.
+   12) No sensitive data may travel any internal interface using UDP or in unencrypted format.
+   13) All packet traffic must be logged in the packet.log file.
+   14) All processes executed by the script must be logged in the syslog file.
+   15) All server processes linked to the OS must use version 6 of the transport protocol.
+   16) All .txt files must have read rights granted only on the user and group level.
+   17) All rights modification using the chmod command must be logged in the filerights.log.
+   ```
