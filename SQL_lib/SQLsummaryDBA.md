@@ -95,3 +95,9 @@
    CURRENT_SUER might be changed in the same session;
    SESSION_USER will be the same in the same session.
    ```
+11. show objects and kill session
+   ```
+   select * from Obj;    #show all objects including table index, function, procedure, etc
+   select s.sid, s.serial#, s.username, s.program From v$session s;
+   ALTER SYSTEM KILL SESSION 'sid.serial#' IMMEDIATE;
+   ```
