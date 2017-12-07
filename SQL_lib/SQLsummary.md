@@ -1,10 +1,14 @@
-SQL Basic Summary
+# SQL Summary
+================
+0. Architecture
+```
      |-DDL  Definition: Drop, Create, Alter
 SQL:-|-DML  Minipulation Insert, Update, DELETE
      |-DCL  CONTROL      GRANT, Revoke
      |-DQ   Query        SELECT from where group by having
-	 
--- 1. ALTER
+```	 
+1. ALTER
+```
 (1) Alter table employee
           Add Constraint Employee_Salary_NN Check (hourly_salary >= 0);
 (2) Alter Table Employee
@@ -16,8 +20,9 @@ SQL:-|-DML  Minipulation Insert, Update, DELETE
 (5) Alter SYSTEM Kill Session ...;
 (6) Alter Trigger eval_change_trig DISABLE; -- ENABLE
     ALter Table evaluation DISABLE ALL Triggers;
-
---- 2. Insert update delete
+```
+2. Insert update delete
+```
 (1) Insert into Employee (Emp_ID, First_name, Last_Name)
 			Values (201781, 'Joe', 'Smith');
 (2) Update Employee
@@ -36,8 +41,9 @@ SQL:-|-DML  Minipulation Insert, Update, DELETE
 										   3, Inv_Date+30, null);
 (6) Delete From Employee
 		where Comp_ID = 201; -- mark delete, trunc
-
---- 3. Grant priviledges(Object, System)
+```
+3. Grant priviledges(Object, System)
+```
 (1) Grant select, update, delete
 		ON Employee
 		TO Jode, Achen, JSmith;
@@ -56,8 +62,18 @@ SQL:-|-DML  Minipulation Insert, Update, DELETE
     -- DBA_Role_Privs, ..
 (9) with grant option   --Object privilege
     with admin option   --System privilege
-
--- 4. Function parameters and test
+```
+4. Function parameters and test
+```
 (1) IN, OUT, INOUT
 (2) Test procedure: CALL/EXEC
 (3) Test function: select function() from dual;
+```
+5. Query using CASE
+```
+SELECT CompanyName, (CASE WHEN Fax IS NULL
+	                      THEN 'No Fax'
+	                      ELSE Fax END) AS Fax
+FROM Comstomers
+WHERE CompanyName LIKE 'A%';
+```
