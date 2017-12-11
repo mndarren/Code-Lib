@@ -52,6 +52,8 @@
    $lsof -t ~/keyfile.txt  #find pid related to a given file
    $lsof -p 481            #check the file related pid
    $lsblk    # list block
+   $sudo lshw -short -C disk
+   $sudo lshw -class disk -class storage
    ```
 8. Info command
    ```
@@ -187,12 +189,17 @@
    $rm newSymbolicLink
    $rm newHardLink
    ```
-30. Check cache and buffer speed
+30. Check hardware, like cache and buffer speed, specs
    ```
    $sudo hdparm -tT /dev/sda1    #cache faster than buffer
+   $sudo hdparm -t /dev/mem
    $sudo hdparm -I /dev/sda      #show hardware specs
+   $cat /proc/cpuinfo
+   $cat /proc/meminfo
+   $cat /proc/diskstats
    $sudo fdisk -l                #display disk parameters
    $sudo dmidecode | more        #include bus size
+   $iostat -x 1
    ```
 31. `$cal -j`   #days of year
 32. Check out file physical size
