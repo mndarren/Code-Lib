@@ -266,4 +266,8 @@
    wmware-toolbox-cmd stat sessionid      #current session ID
    ```
 44. ` logger -i Log an event and login `ssh james1@eros`& `
+   ```
+   & --the shell executes the command in the background in a subshell. The shell
+   does not wait for the command to finish, and return status is 0.
+   ```
 45. Find user ID that owns a daemon `cat /etc/passwd | grep mysql`
