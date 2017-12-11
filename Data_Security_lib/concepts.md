@@ -443,3 +443,13 @@
    Java Pipe is used to communicate between 2 threads running in the same JVM, not work between different JVM (different process).
    Linux Pipe can be used to communicate in different address spaces.
    ```
+62. Delay
+   ```
+   1) Given that the network delay on the Internet in the US might often take .5 seconds in each direction,
+      it's important to optimize each of the parameters.
+   2) This whole algorithm is based on queuing theory, which means that there is an ineraction
+      among all the parameters.
+   3) a delay of .0005 instead of .0001 at the first parameter won't result .0004 seconds of additional
+      response time. Rather, it'll propagate through the entire algorithm and the delay will get a little
+      longer with added wait time at each successive parameter. (say 12 parameters, will wholy delay .8192)
+   ```
