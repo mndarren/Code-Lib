@@ -265,9 +265,17 @@
    wmware-toolbox-cmd stat cuplimit       #CPU limit info
    wmware-toolbox-cmd stat sessionid      #current session ID
    ```
-44. ` logger -i Log an event and login `ssh james1@eros`& `
+44. Logger
    ```
+   1) $logger -i Log an event and login `ssh james1@eros`& 
    & --the shell executes the command in the background in a subshell. The shell
    does not wait for the command to finish, and return status is 0.
+   2) $cat display
+      logger -i -f $1
+      echo $PPID
+      cat zztop
+      $./display zztop
+      26533
+      I Darren Get paid
    ```
 45. Find user ID that owns a daemon `cat /etc/passwd | grep mysql`
