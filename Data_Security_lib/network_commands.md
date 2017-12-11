@@ -190,7 +190,7 @@
 30. Check cache and buffer speed
    ```
    $sudo hdparm -tT /dev/sda1    #cache faster than buffer
-   $sudo hdparm -I /dev/sda      #show device detail info
+   $sudo hdparm -I /dev/sda      #show hardware specs
    $sudo fdisk -l                #display disk parameters
    $sudo dmidecode | more        #include bus size
    ```
