@@ -92,7 +92,8 @@
    $stat --format "%F" <filename> #the same to $file
    $cat  <filename>      # show file content if ASCII
    $stat <filename>      # show file detail metadata, "%y" --last modification, "%o" --number of blocks
-   $xxd  <filename>      # check file primary data
+   $xxd  <filename>      # check file primary data if ASCII
+   $xxd -E ebcdic.txt    #if EBCDIC type
    Note: output of stat, the link number shows the hard links.
    ```
 12. Kill  
@@ -265,3 +266,4 @@
    wmware-toolbox-cmd stat sessionid      #current session ID
    ```
 44. ` logger -i Log an event and login `ssh james1@eros`& `
+45. Find user ID that owns a daemon `cat /etc/passwd | grep mysql`

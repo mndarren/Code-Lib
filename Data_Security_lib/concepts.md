@@ -429,3 +429,17 @@
    7) Because of distributed resources logging should be centralized and still provide pointers to applications and devices
    8) Granularity must be considered to limit the volume of data recorded (by means of audit reduction tools)
    ```
+60. Container (a mechanism to store data)
+   ```
+   Access: indexed, LIFO, FIFO
+   Search: sequential file or random file
+   Size: static or dynamic (array or ArrayList/Vector), logical size or physical size
+   Action: create, report size, insert, remove, delete, access
+   Content: values or reference (link or not)
+   Type: ASCII, EBCDIC, others
+   ```
+61. Difference between Java Pipe and Linux Pipe
+   ```
+   Java Pipe is used to communicate between 2 threads running in the same JVM, not work between different JVM (different process).
+   Linux Pipe can be used to communicate in different address spaces.
+   ```
