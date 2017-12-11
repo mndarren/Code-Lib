@@ -221,8 +221,14 @@
    $cat > indexneg.txt  #-3 -5 -7
    $awk -f ./awkindexlu -v indexes="`indexneg.txt`" indexed.dat | sort -n
    ```
-35. `perf stat -B java class PrimeByVector`  #performance analysis tool  
-    `perf stat -B sleep 5`
+35. Performance
+   ```
+   `perf stat -B java class PrimeByVector`  #performance analysis tool  
+   `perf stat -B sleep 5`
+   $time cat /etc/services
+   $time cat /ramdisk/services
+   $time cat services
+   ```
 36. `$uptime`   #how long box is running
 37. pmap --report memory map of a process
    ```
