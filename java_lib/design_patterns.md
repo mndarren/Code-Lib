@@ -30,8 +30,10 @@
    [enum Singleton](https://github.com/mndarren/Code-Lib/blob/master/java_lib/resource/singleton/EnumSingleton.java)
 2. Factory Method
    ```
-   1) Used when we have a super class with multiple subclasses and based on input, we need to return one of the sub-class.
-   2) Benefit: Removed instantiation of actual implementation classes from client code, making it more robust, less coupled and easy to extend.
+   1) Used when we have a super class with multiple subclasses and based on input, 
+      we need to return one of the sub-class.
+   2) Benefit: Removed instantiation of actual implementation classes from client code, 
+      making it more robust, less coupled and easy to extend.
    3) Example in JDK: java.util.Calendar, ResourceBundle, NumberFormat
    ```
    [Computer Simulation](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/factory)
@@ -50,7 +52,8 @@
    [Abstract Factory Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/AbstractFactory)
 5. Prototype
    ```
-   *Basic idea*: Situation (Object creation is a costly affair, lots of time and resources, and a similar object already existing).
+   *Basic idea*: Situation (Object creation is a costly affair, lots of time and resources,
+   and a similar object already existing).
                  Action (clone the existing object and change it)
    ```
    [Prototype Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/prototype)
