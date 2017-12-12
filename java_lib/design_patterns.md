@@ -33,7 +33,7 @@
    1) Used when we have a super class with multiple subclasses and based on input, 
       we need to return one of the sub-class.
    2) Benefit: Removed instantiation of actual implementation classes from client code, 
-      making it more robust, less coupled and easy to extend.
+               making it more robust, less coupled and easy to extend.
    3) Example in JDK: java.util.Calendar, ResourceBundle, NumberFormat
    ```
    [Computer Simulation](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/factory)
@@ -53,13 +53,13 @@
 5. Prototype
    ```
    *Basic idea*: Situation (Object creation is a costly affair, lots of time and resources,
-   and a similar object already existing).
+                            and a similar object already existing).
                  Action (clone the existing object and change it)
    ```
    [Prototype Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/prototype)
 6. Observer
    ```
    *Basic idea*: Define a one-to-many dependency between objects so that when one object changes state, 
-   all its dependents are notified and updated automatically. (GoF)
+                 all its dependents are notified and updated automatically. (GoF)
    ```
    [Observer Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/observer)
