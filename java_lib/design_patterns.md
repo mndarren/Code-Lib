@@ -48,3 +48,10 @@
    3) I used Singleton and Builder pattern also in this example.
    ```
    [Abstract Factory Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/AbstractFactory)
+5. Prototype
+   ```
+   *Basic idea*: Situation (Object creation is a costly affair, lots of time and resources, and a similar object already existing).
+                 Action (clone the existing object and change it)
+   [Prototype Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/prototype)
+   ```
+6. Observer
