@@ -52,6 +52,11 @@
    ```
    *Basic idea*: Situation (Object creation is a costly affair, lots of time and resources, and a similar object already existing).
                  Action (clone the existing object and change it)
-   [Prototype Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/prototype)
    ```
+   [Prototype Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/prototype)
 6. Observer
+   ```
+   *Basic idea*: Define a one-to-many dependency between objects so that when one object changes state, 
+   all its dependents are notified and updated automatically. (GoF)
+   ```
+   [Observer Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/observer)
