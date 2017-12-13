@@ -1,5 +1,5 @@
 # SQL Summary
-================
+=======================  
 0. Architecture
 ```
      |-DDL  Definition: Drop, Create, Alter
