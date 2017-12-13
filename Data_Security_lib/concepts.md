@@ -482,3 +482,10 @@
     final static byte SC_EXTERNALIZABLE = 0x04;
     final static byte SC_ENUM = 0x10;
    ```
+64. False positive vs. False negative
+   ```
+   False positive is a result that indicates a condition exists when it does not. 
+         eg: A boy who cried wolf
+   False negative is a result that indicates a condition does not hold while in fact it does.
+         eg: A truely guilty prisoner who is acquitted of a crime. 
+   ```

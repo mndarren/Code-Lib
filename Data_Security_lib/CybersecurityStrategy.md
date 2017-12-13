@@ -202,3 +202,14 @@
    7) TCP over UDP to reduce network risk
    8) least permission for sensitive data
    ```
+23. Design Principles for Security 8
+   ```
+   1) Least Privilege (only privileges for "need to do")
+   2) Fail-Safe Defaults (by default to deny all access)
+   3) Economy of Mechanism (as simple as possible, less go wrong, easy to fix)
+   4) Complete Mediation (All accesses should be checked)
+   5) Open Design (should not depend on secrecy. "security through obscurity" not good)
+   6) Separation of Privilege (should not grant permission based on single condition)
+   7) Least Common Mechanism (mechanism to access resources should not be shared. global var dangerous)
+   8) Psychological Acceptability (should not make the resources more difficult to access)
+   ```
