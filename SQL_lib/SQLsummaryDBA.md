@@ -104,6 +104,7 @@
 12. Auditing
    ```
    1) FGA (Fine-Gained Auditing) -- only select, insert, update and delete types for FGA
+      Stored: SYS.FGA_LOG$, View: DBA_FGA_Audit_Trail
    EXEC DBMS_FGA.add_policy(object_Schema   => 'DBA643',
                             object_name     => 'Cust', 
                             policy_name     => 'AUDIT_SELECT_Policy', 
@@ -112,6 +113,8 @@
                             audit_column_opts => DBMS_FGA.ALL_COLUMNS,   -- by default
                             statement_types => 'SELECT');  
    2) Standard Auditing
+      Stored: SYS.Aud$, View: DBA_Audit_Trail
+      Currently auditing: DBA_stmt_Audit_Opts, DBA_obj_Audit_Opts, DBA_Pri_Audit_Opts
       i) Statement (no object specified, DDL)
          AUDIT Create Table;
          AUDIT Create Trigger;
@@ -138,3 +141,4 @@
    4) Where to store the audit data (OS, XML, DB, XML_Extended, DB_Extended)
       ALTER SYSTEM set audit_trail = DB scope = SPfile;
    ```
+13. 
