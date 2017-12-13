@@ -101,3 +101,40 @@
    select s.sid, s.serial#, s.username, s.program From v$session s;
    ALTER SYSTEM KILL SESSION 'sid.serial#' IMMEDIATE;
    ```
+12. Auditing
+   ```
+   1) FGA (Fine-Gained Auditing) -- only select, insert, update and delete types for FGA
+   EXEC DBMS_FGA.add_policy(object_Schema   => 'DBA643',
+                            object_name     => 'Cust', 
+                            policy_name     => 'AUDIT_SELECT_Policy', 
+                            audit_column    => 'Cus_no,Cus_CREDIT_LIMIT', 
+                            audit_condition => 'CUS_CREDIT_LIMIT >= 1000', 
+                            audit_column_opts => DBMS_FGA.ALL_COLUMNS,   -- by default
+                            statement_types => 'SELECT');  
+   2) Standard Auditing
+      i) Statement (no object specified, DDL)
+         AUDIT Create Table;
+         AUDIT Create Trigger;
+         AUDIT Create View By Scott By Access; 
+         AUDIT Create Session whenever not successful;
+         NOAUDIT Create Table;
+         NOAUDIT Create View By Scott;
+      ii) Object (no user specified, DML & DQ)
+         Audit SELECT On Scott.Emp By Access Whenever Not Successful;
+         Audit UPDATE On Scott.Emp By Access;
+         Audit INSERT On Scott.Emp By Access;
+         Audit DELETE On Scott.Emp By Access;
+         NoAudit SELECT On Scott.Emp Whenever Not Successful;
+         NoAudit UPDATE ON Scott.Emp
+      iii) Privilege (DCL & DBA events)
+      	 AUDIT Create Any Table by Scott By Access;
+         AUDIT GRANT ANY OBJECT PRIVILEGE By Access;
+         AUDIT GRANT ANY PRIVILEGE by Allen By Access;
+         AUDIT GRANT ANY ROLE By Access;
+         noAUDIT Create Any Table by Scott;
+         noAUDIT GRANT ANY OBJECT PRIVILEGE;
+         noAUDIT GRANT ANY ROLE;
+   3) User-defined Auditing
+   4) Where to store the audit data (OS, XML, DB, XML_Extended, DB_Extended)
+      ALTER SYSTEM set audit_trail = DB scope = SPfile;
+   ```
