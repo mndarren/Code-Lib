@@ -178,3 +178,27 @@
         cat ha-log-up | grep repl1 | grep dn            # nothing  means no down for replica host
         A: probability for host1: 1/1194 = ~.0008, but that for both: 0/1194 = 0
    ```
+21. Risk assessment: assessment is solid data from which to determine risk often it is important  
+            to identify those events that could potentially cause the most damage and deal with them first.  
+            These events could generate high risk based on their individual severity alone,  
+            their high frequency of incidence or an interaction of both.
+   ```
+   1) host level: Log analysis (Data from $ls /var/log/)
+      i)Attack coefficient (a. incidence level  [secure events # * severity # from severity table]
+                            b. temporal average [secure events # / uptime hrs * severity # from severity table])
+      ii)Event analysis (draw curve in plane)
+   2) network level: Check network risk (Data from $netstat -s)
+   3) temporal levle: Check routing cache (Data from $route -C)
+   ```
+22. Related policies
+   ```
+   1) auditing software via processes ($ls /proc/pid)
+   2) using pipe to transfer data to avoid network risk and memory risk
+   3) disable dangerous tools and services (like Strace) to reduce risk
+   4) change default setting to slow hackers
+   5) using Linux over Windows as server since Linux has multiple layers
+   6) using encapsulation in transferring data (encryption, compression, VPN, virtualization
+      TCP wrapper, links, SSL, PIPE ip encapsulation, file hash digital signature, layered security)
+   7) TCP over UDP to reduce network risk
+   8) least permission for sensitive data
+   ```
