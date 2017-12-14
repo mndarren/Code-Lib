@@ -12,7 +12,7 @@
                   Service Proxy (Java and .Net), Gateway to the world
    2) Disadvantages: Single point failure risk, extra level indirection to decreased performance.
    ```
-   [!ESB]()
+   ![ESB](https://github.com/mndarren/Code-Lib/blob/master/java_lib/resource/ESB.PNG)
 4. EJB (Enterprise Java Beans)
 
 5. JSP (Java Server Pages)
