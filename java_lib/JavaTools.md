@@ -16,3 +16,16 @@
 4. EJB (Enterprise Java Beans)
 
 5. JSP (Java Server Pages)
+
+6. SOAP vs. REST
+   ```
+   No.   SOAP                                      REST
+   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   1    XML-based message protocol                Architectural style
+   2    Use WSDL for communication                Use SML or JSON
+   3    Invoke services by calling RPC method     Simple call services via URL path
+   4    no return human readable result           readable return with XML or JSON
+   5    Transfer over HTTP, SMTP or FTP           only HTTP
+   6    JavaScript can call SOAP, but difficult   easy to call from JavaScript
+   7    Performance is not great compared to REST  Better performance
+   ```
