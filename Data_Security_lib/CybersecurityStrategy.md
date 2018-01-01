@@ -75,7 +75,7 @@
    $ps -aux | grep java
    $lsof -t ~/javaclass/keyfile.txt
    ```
-11. Moving data: Encrypted, duplicated and conpressed data before moving through any pipe.
+11. Moving data: Encrypted, duplicated and compressed data before moving through any pipe.
 12. Risk Assessment --Justifying Countermeasure Priority
    ```
    Step1, create severiry table
@@ -92,7 +92,7 @@
           Attack coefficient on incidence level: 2433 * 5 = 12165
           Attack coefficient on temporal average: 2433 / (19 * 24 + 2) = 2433/458 =~ 5.3 IPH * 5 = 26.5
    ```
-13. Rist Analysis by Tyhpe/source or destination
+13. Rist Analysis by Type/source or destination
    ```
    Critical, Severe, and Moderate attacks *bar graph*;
    Common Vulnerabilities *pie chart*.
@@ -213,3 +213,5 @@
    7) Least Common Mechanism (mechanism to access resources should not be shared. global var dangerous)
    8) Psychological Acceptability (should not make the resources more difficult to access)
    ```
+24. Kerberos Authentication Algorithm<br/>
+   ![alt Kerberos](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/Kerberos.PNG)

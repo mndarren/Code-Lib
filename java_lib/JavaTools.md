@@ -17,7 +17,7 @@
 
 5. JSP (Java Server Pages)
 
-6. SOAP vs. REST
+6. SOAP(Simple Object Access Protocol) vs. REST(REpresentational State Transfer)
    ```
    No.   SOAP                                      REST
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -27,5 +27,5 @@
    4    no return human readable result           readable return with XML or JSON
    5    Transfer over HTTP, SMTP or FTP           only HTTP
    6    JavaScript can call SOAP, but difficult   easy to call from JavaScript
-   7    Performance is not great compared to REST  Better performance
+   7   Performance is not great compared to REST  Better performance
    ```
