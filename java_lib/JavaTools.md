@@ -4,8 +4,8 @@
    [JAXB Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/jaxb)
 
 2. JMS (Java Message Service)<br/>
-   i) P2P Messaging Domain
-   ii) Pub/Sub Messaging Domain
+   i) P2P Messaging Domain<br/>
+   ii) Pub/Sub Messaging Domain<br/>
    [JMS Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/JMS)
 
 3. ESB (Enterprise Service Bus)
