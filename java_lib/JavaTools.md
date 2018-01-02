@@ -3,8 +3,10 @@
 1. JAXB (Java Architecture XML Binding)  
    [JAXB Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/jaxb)
 
-2. JMS (Java Message Service)  
-
+2. JMS (Java Message Service)<br/>
+   i) P2P Messaging Domain
+   ii) Pub/Sub Messaging Domain
+   [JMS Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/JMS)
 
 3. ESB (Enterprise Service Bus)
    ```
@@ -29,3 +31,4 @@
    6    JavaScript can call SOAP, but difficult   easy to call from JavaScript
    7   Performance is not great compared to REST  Better performance
    ```
+7. JNDI (Java Naming Directory Interface)
