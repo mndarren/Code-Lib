@@ -63,3 +63,4 @@
                  all its dependents are notified and updated automatically. (GoF)
    ```
    [Observer Example](https://github.com/mndarren/Code-Lib/tree/master/java_lib/resource/observer)
+7. Strategy
