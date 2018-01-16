@@ -1,5 +1,5 @@
 # Job Hunting Tips
-==============================
+==============================   
 0. Applying Tips
 ```
 a. Prepare 3 different versions of resume to apply different job position, like Java or C#.
