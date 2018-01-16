@@ -11,7 +11,7 @@ W: 952.232.4883 I M: 763.226.0865
 Visit us on          
 Apply for open IT positions at: www.kellycareernetwork.com
 ```
-2. St. Cloud Java Developer
+2. St. Cloud Java Developer (Stearns Bank)
 ```
 Ryan Collins
 Senior Recruiter and Account Manager
@@ -19,7 +19,7 @@ Direct | 651-256-7422 | rcollins@dahlconsulting.com
 418 County Road D East, St. Paul, MN  55117
 www.dahl.jobs | Refer a Friend & Earn Rewards | referral@dahlconsulting.com
 ```
-3. Phone call Follow up
+3. Phone call Follow up (SuperValu Intern)
 ```
 Kelly Rechtzigel | Recruiter
 T 952-563-2858  | Krechtzi@TEKsystems.com
