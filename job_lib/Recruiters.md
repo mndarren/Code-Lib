@@ -19,4 +19,10 @@ Direct | 651-256-7422 | rcollins@dahlconsulting.com
 418 County Road D East, St. Paul, MN  55117
 www.dahl.jobs | Refer a Friend & Earn Rewards | referral@dahlconsulting.com
 ```
-3. 
+3. Phone call Follow up
+```
+Kelly Rechtzigel | Recruiter
+T 952-563-2858  | Krechtzi@TEKsystems.com
+8500 Normandale Lake Bvld Suite 1130
+5800 West 84th Street Bloomington, MN 55437 
+```
