@@ -1,6 +1,6 @@
 # Interview Questions from Real Company
 =====================================================
-1. Stearns Bank (phone interview)
+1. Current Job (phone interview)
 ```
 1) Tell me about yourself?
 2) Why would you like work with our company?
@@ -16,7 +16,7 @@
 12) What benefits did you get from Maverick?
 13) Why did you choose Computer Science major?
 ```
-2. Stearns Bank (onsite interview)
+2. Current Job (onsite interview)
 ```
 1) Introduce Data dealing with experience?
 2) Introduce NICE project without technical words?
