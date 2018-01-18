@@ -16,3 +16,4 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 9. Solve problem of Guo Wengui mobile attack to control his ship and car.
 10. Develop a program to implement security policies.
 11. Build a cell phone with completely saperated physical 2 parts: the old phone call and text message, and smart phone with app WiFi. Since Skygofree and Pegasus present.
+12. About AI, probablly in the future AI technology will get so high that Robot can control everything. We need to create a virus to destroy all of them.
