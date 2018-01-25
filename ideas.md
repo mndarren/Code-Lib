@@ -13,7 +13,7 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 7. Create your own cloud using public storage space (Google drive, dropbox, box, icloud, one drive)
    Need to figure out a algorithm to connect them togather.
 8. Create a new character that does not belong to a-z or A-Z or 0-9 or other specials so that hacker will never break a password with this character via brute force approach.
-9. Solve problem of Guo Wengui mobile attack to control his ship and car.
+9. Solve problem of Guo Wengui mobile attack to control his ship and car via his cell phone.
 10. Develop a program to implement security policies.
 11. Build a cell phone with completely saperated physical 2 parts: the old phone call and text message, and smart phone with app WiFi. Since Skygofree and Pegasus present.
 12. About AI, probablly in the future AI technology will get so high that Robot can control everything. We need to create a virus to destroy all of them.
