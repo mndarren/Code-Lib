@@ -26,3 +26,12 @@
     by value -- immutable value (tuple, str, int) Assignment operation will create new object
     by reference -- mutable value (list, dict, set)
     ```
+17. HTTP status
+    ```
+    100-199  info msg
+    200-299  success msg
+    300-399  redirection
+    400-499  client error
+    500-599  server error
+    ```
+ 
