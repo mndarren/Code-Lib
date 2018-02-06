@@ -71,5 +71,55 @@
        (4) Additional security steps are taken when computer are unattended
    Impact if happens:
        (1) Legal penalty you and your institute
-       (2) 
+       (2) Financial loss
+       (3) Take away customer sense of security
+       (4) Institute experience negative publicity
+       (5) Lose job
+   ```
+6. Attack 3 themes & how to use
+   ```
+   Blatant Behaviors
+       (1) Dumpster diving
+       (2) Shoulder surfing
+       (3) Theft
+       (4) Vendor Access
+       (5) Desk/Countertop skimming (lock screen before leaving)
+   Trust Trampling
+       i) Social Networking
+          (1) policy (institute resources, internet access)
+          (2) username & password (unique, not use in financial)
+          (3) to access profile as "private" & enable all secure option
+          (4) only access people that you know
+          (5) never share personal data (SSN, account #, passwords, BOD, high school name, city of birth, etc)
+          (6) messages (distributing malware/virus)
+       ii) Social Engineering (charm, intimidation, playing on your desire to help sb.)
+           (1) player: forgetful customer, government official, senior manager
+   High-Tech Hijinks
+       i) spying
+          (1) keylogging with virus
+          (2) baiting (left DVD/CD, USB flash drive)
+       ii) pretending
+          (1) pharming (fake version website)
+          (2) phishing (Email to link to bad website)
+          (3) smishing (text to verify info, fake bank)
+          (4) vishing (voiceover, internet protocol)
+   How to use
+       i) True name Fraud (create a new account)
+       ii) Account Takeover Fraud (intercept credit card)
+       iii) Unauthorized Transaction (change address)
+       iv) Warning Sign: addr change, credit line increase request, 
+           card replacement followed by addr change, dorment/inactive accounts
+   ```
+7. SECURE method
+   ```
+   Storing/Filing Doc (secure location, careful paper, not leave visible with other customer, secure info before leaving)
+   Eliminating files/paperworks (shredding/locked receptacles)
+   Computer/workstation setup (screen/lock)
+   Username/password Confidentiality (no one to share, not write down)
+   Requiring Proper Identification (6 primary forms)
+       physical description, photograph, signature, recognized as an official ID, 
+       info difficult to duplicate, info verifiable and renewable
+   Exchanging info safely
+       avoid exchange info verbally (write down to pass him/her)
+       let customer write down SSN, finish to return
    ```
