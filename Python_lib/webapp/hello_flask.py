@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, escape, session
+from flask import copy_current_request_context
 from vsearch import search4letters
+from threading import Thread
 # import mysql.connector
 from DBcm import UseDatabase, ConnectionError, CredentialsError, SQLError
 from checker import check_logged_in
@@ -24,6 +26,7 @@ dbconfig = {'host': '127.0.0.1',
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
 
+    @copy_current_request_context
     def log_request(req: 'flask_request', res: str) -> None:
         """Log details of the web request and the results."""
         raise Exception("something awful just happened.")
@@ -43,7 +46,8 @@ def do_search() -> 'html':
     title = 'Here are your results:'
     results = str(search4letters(phrase, letters))
     try:
-      log_request(request, results)
+      t = Thread(target = log_request, args=(request, results))
+      t.start()
     except Exception as err:
       print('**** Logging failed with this error: ', str(err))
     return render_template('results.html',
