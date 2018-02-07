@@ -34,4 +34,25 @@
     400-499  client error
     500-599  server error
     ```
- 
+ 18. Context Manager & Decorator
+    ```
+    Context Manager will be a class with 3 dunder functions: __init__, __enter__ and __exit__.
+    Decorator will be a function whose argument is a function and return is a function.
+        i) Decorator is a functon;
+        ii) A decorator takes the decorated function as arg;
+        iii) A decorator returns a new function;
+        iv) A decorator maintains the decorated function's signature.
+    ```
+19. Great arguments
+    ```
+    *args: will pass into a list of arguments;
+    **kwargs: will pass into a dict of arguments.
+    ```
+20. Web is stateless. Don't store your webapp state in global variables.
+21. Common Error Handling
+    ```
+    i) DB connection fails;
+    ii) App is subjected to an attack;
+    iii) Take a long time to execute operation;
+    iv) Function calls fail.
+    ```
