@@ -56,3 +56,9 @@
     iii) Take a long time to execute operation;
     iv) Function calls fail.
     ```
+22. The best things in Python
+    ```
+    i) context manager (creating your own with statement)
+    ii) decorator (creating your own decorator)
+    iii) comprehension (listcomp, dictcomp and setcomp)
+    ```
