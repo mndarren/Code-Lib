@@ -73,12 +73,10 @@
 23. virtualenv
     ```
     1) $sudo -H pip3 install virtualenv     #install pip3
-    2) $mkdir somewhere/virtualenvs #create a new dir
-    3) $virtualenv somewhere/virtualenvs/<project-name> --no-site-packages   #create a virtualenv
-    4) $cd somewhere/virtualenvs/<project-name>/bin
-       $source activate                                  #activate virtualenv
-    5) $deactivate                                       #deactivate virtualenv
-    6) $rm -rf somewhere/virtualenvs/<project-name>      #delete virtualenv
+    2) $virtualenv -p python3 venv          #create a virtualenv
+    3) $source venv/bin/activate                                  #activate virtualenv
+    4) $deactivate                                       #deactivate virtualenv
+    5) $rm -rf somewhere/virtualenvs/<project-name>      #delete virtualenv
     ```
 24. collections, itertools & functools
     ```
@@ -100,3 +98,17 @@
 26. new keywords: async & await
 27. Test: doctest (very useful), unittest (complained), py.test (programmers like it)
 28. Debug, SQL & code checker (pdb, sqlalchemy, pylint)
+29. Underscore meaning
+    ```
+    1) store the last expression in interpreter
+    2) ignore value
+    3) private var, method or class (not really private)
+    4) single_trailing_underscore_ for avoiding keyword conflict
+    5) mangling method. e.g. __method()   =>  _ClassName__method()
+    6) magic method e.g.  __init__()
+    7) As internationalization (i18n) or Localization (l10n) e.g. Django frameword, gettext()
+    8) digital separator e.g.
+        dec_base = 1_000_000
+        bin_base = 0b_1111_0000
+        hex_base = 0x_1234_abcd
+    ```
