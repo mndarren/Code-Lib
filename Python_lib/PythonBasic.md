@@ -61,4 +61,12 @@
     i) context manager (creating your own with statement)
     ii) decorator (creating your own decorator)
     iii) comprehension (listcomp, dictcomp and setcomp)
+         more_dests = [dest.title() for dest in flights.values()]
+         just_freeports = {convert2ampm(k): v.title()
+                            for k, v in flights.items()
+                            if v == 'FREEPORT'}
+
+        [] for listcomp, {} for dictcomp and setcomp, () for generator
+        generator gets better performance than listcomp when big data
+        generator function
     ```
