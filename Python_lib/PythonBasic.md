@@ -70,3 +70,33 @@
         generator gets better performance than listcomp when big data
         generator function
     ```
+23. virtualenv
+    ```
+    1) $sudo -H pip3 install virtualenv     #install pip3
+    2) $mkdir somewhere/virtualenvs #create a new dir
+    3) $virtualenv somewhere/virtualenvs/<project-name> --no-site-packages   #create a virtualenv
+    4) $cd somewhere/virtualenvs/<project-name>/bin
+       $source activate                                  #activate virtualenv
+    5) $deactivate                                       #deactivate virtualenv
+    6) $rm -rf somewhere/virtualenvs/<project-name>      #delete virtualenv
+    ```
+24. collections, itertools & functools
+    ```
+    collections (OrderedDict, Counter, ChainMap)
+    itertools (product, permutations, combinations, combinations_with_replacement)
+        product('ABCD', repeat=2)
+        permutations('ABCD', 2)
+        combinations('ABCD', 2)
+        combinations_with_replacement('ABCD', 2)
+    functools (partial)
+    ```
+25. Running code concurrently
+    ```
+    threading
+    multiprocessing
+    asyncio
+    concurrent.futures
+    ```
+26. new keywords: async & await
+27. Test: doctest (very useful), unittest (complained), py.test (programmers like it)
+28. Debug, SQL & code checker (pdb, sqlalchemy, pylint)
