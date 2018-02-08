@@ -29,7 +29,7 @@ def do_search() -> 'html':
     @copy_current_request_context
     def log_request(req: 'flask_request', res: str) -> None:
         """Log details of the web request and the results."""
-        raise Exception("something awful just happened.")
+        # raise Exception("something awful just happened.")
         with UseDatabase(dbconfig) as cursor:
             _SQL = """insert into log
                   (phrase, letters, ip, browser_string, results)

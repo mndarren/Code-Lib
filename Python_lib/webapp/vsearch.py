@@ -5,7 +5,8 @@ def search4vowels(word):
     return bool(found)
 
 
-def search4letters(phase: str, letters: str='aeiou') -> set:
+def search4letters(phrase: str, letters: str='aeiou') -> set:
     """Return a set of the 'letters' found in 'phase'."""
-    return set(letters).intersection(set(phase))
+    # return set(letters).intersection(set(phase))
+    return {v for v in letters if v in phrase}
 
