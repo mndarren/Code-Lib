@@ -105,10 +105,73 @@
     3) private var, method or class (not really private)
     4) single_trailing_underscore_ for avoiding keyword conflict
     5) mangling method. e.g. __method()   =>  _ClassName__method()
-    6) magic method e.g.  __init__()
+    6) magic method e.g.  __init__()  __slots__ = ['name', 'identifier']
     7) As internationalization (i18n) or Localization (l10n) e.g. Django frameword, gettext()
     8) digital separator e.g.
         dec_base = 1_000_000
         bin_base = 0b_1111_0000
         hex_base = 0x_1234_abcd
+    ```
+30. Python Tips
+    ```
+    1) __slots__ will reduce RAM waste 40-50% (dict -> set)
+    2) Pdb importance
+        $python -m pdb my_script.py   #small program
+        pdb.set_trace()               #inside script
+        c -- continue
+        w -- show context
+        a -- arguments
+        s -- step inside function
+        n -- next to have function reached or return
+    3) Generator: generate values on the fly, not store in memory
+        generator function will not return value, yield it.
+        generator requires fewer resources. e.g.
+        def fibon(n):
+            a = b = 1
+            for i in range(n):
+                yield a
+                a, b = b, a + b
+        for x in fibon(1000000):
+            print(x)
+        my_string = "Yasoob"
+        my_iter = iter(my_string)
+        print(next(my_iter))
+        # Output: 'Y'
+    4) Map, Filter & Reduce
+        Map e.g.
+       		items = [1, 2, 3, 4, 5]
+       		squared = list(map(`lambda x: x**2, items`))
+       		def multiply(x):
+       		    return (`x*x`)
+       		def add(x):
+       		    return (x+x)
+       		funcs = [multiply, add]
+       		for i in range(5):
+       		    value = list(map(lambda x: x(i), funcs))
+       		    print(value)
+       		# Output:
+       		# [0, 0]
+       		# [1, 2]
+       		# [4, 4]
+       		# [9, 6]
+       		# [16, 8]
+       	Filter e.g.
+       		number_list = range(-5, 5)
+			less_than_zero = list(filter(lambda x: x < 0, number_list))
+			print(less_than_zero)
+			# Output: [-5, -4, -3, -2, -1]
+		Reduce e.g.
+			product = 1
+			list = [1, 2, 3, 4]
+			for num in list:
+			    product = product * num
+			# product = 24
+			from functools import reduce
+			product = reduce((lambda x, y: x * y), [1, 2, 3, 4])
+			# Output: 24
+    5) set Data Structure (difference, intersection)
+    	some_list = ['a', 'b', 'c', 'b', 'd', 'm', 'n', 'n']
+		duplicates = set([x for x in some_list if some_list.count(x) > 1])
+		print(duplicates)
+		# Output: set(['b', 'n'])
     ```
