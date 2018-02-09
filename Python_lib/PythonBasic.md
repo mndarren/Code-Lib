@@ -174,4 +174,12 @@
 		duplicates = set([x for x in some_list if some_list.count(x) > 1])
 		print(duplicates)
 		# Output: set(['b', 'n'])
+	6) Ternary Operators e.g.
+		condition = True
+		print(2 if condition else 1/0)
+		#Output is 2
+		print((1/0, 2)[condition])
+		#ZeroDivisionError is raised
+	7) Decorators (functions which modify the functionality of another function)
+	
     ```
