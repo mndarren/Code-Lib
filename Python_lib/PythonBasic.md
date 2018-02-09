@@ -73,18 +73,104 @@
 23. virtualenv
     ```
     1) $sudo -H pip3 install virtualenv     #install pip3
-    2) $virtualenv -p python3 venv          #create a virtualenv
+    2) $virtualenv -p python3 venv          #--system-site-packages, --site-packages
     3) $source venv/bin/activate                                  #activate virtualenv
     4) $deactivate                                       #deactivate virtualenv
     5) $rm -rf somewhere/virtualenvs/<project-name>      #delete virtualenv
     ```
 24. collections, itertools & functools
     ```
-    collections (OrderedDict, Counter, ChainMap)
+    collections (deque, namedtuple, enum.Enum, defaultdict, OrderedDict, Counter, ChainMap)
+    	defaultdict --without needing to check if key is present or not;
+    		some_dict = {}
+			some_dict['colours']['favourite'] = "yellow"
+			# Raises KeyError: 'colours'
+			import collections
+			tree = lambda: collections.defaultdict(tree)
+			some_dict = tree()
+			some_dict['colours']['favourite'] = "yellow"
+			# Works fine
+			import json
+			print(json.dumps(some_dict))
+			# Output: {"colours": {"favourite": "yellow"}}
+		OrderedDict --keep entries sorted
+			from collections import OrderedDict
+			colours = OrderedDict([("Red", 198), ("Green", 170), ("Blue", 160)])
+			for key, value in colours.items():
+			    print(key, value)
+		Count  --count items
+			from collections import Counter
+			colours = (
+			    ('Yasoob', 'Yellow'),
+			    ('Ali', 'Blue'),
+			    ('Arham', 'Green'),
+			    ('Ali', 'Black'),
+			    ('Yasoob', 'Red'),
+			    ('Ahmed', 'Silver'),
+			)
+			favs = Counter(name for name, colour in colours)
+			print(favs)
+			# Output: Counter({
+			#    'Yasoob': 2,
+			#    'Ali': 2,
+			#    'Arham': 1,
+			#    'Ahmed': 1
+			# })
+			with open('filename', 'rb') as f:
+			    line_count = Counter(f)
+			print(line_count)
+		deque  --Is kinda a queue
+			d = deque(range(5))
+			print(len(d))
+			# Output: 5
+			d.popleft()
+			# Output: 0
+			d.pop()
+			# Output: 4
+			print(d)
+			# Output: deque([1, 2, 3])
+			d = deque(maxlen=30)
+			d = deque([1,2,3,4,5])
+			d.extendleft([0])
+			d.extend([6,7,8])
+			print(d)
+			# Output: deque([0, 1, 2, 3, 4, 5, 6, 7, 8])
+		namedtuple --immutable dict, self-document
+			from collections import namedtuple
+			Animal = namedtuple('Animal', 'name age type')
+			perry = Animal(name="perry", age=31, type="cat")
+			print(perry)
+			# Output: Animal(name='perry', age=31, type='cat')
+			print(perry.name)
+			# Output: 'perry'
+			print(perry._asdict())  #convert it into a dict
+			# Output: OrderedDict([('name', 'Perry'), ('age', 31), ...
+		enum.Enum
+			from collections import namedtuple
+			from enum import Enum
+			class Species(Enum):
+			    cat = 1
+			    dog = 2
+			    horse = 3
+			    aardvark = 4
+			    butterfly = 5
+			    owl = 6
+			    platypus = 7
+			    dragon = 8
+			    unicorn = 9
+			    # The list goes on and on...
+			    # But we don't really care about age, so we can use an alias.
+			    kitten = 1
+			    puppy = 2
+			Animal = namedtuple('Animal', 'name age type')
+			perry = Animal(name="Perry", age=31, type=Species.cat)
+			drogon = Animal(name="Drogon", age=4, type=Species.dragon)
+			tom = Animal(name="Tom", age=75, type=Species.cat)
+			charlie = Animal(name="Charlie", age=2, type=Species.kitten)
     itertools (product, permutations, combinations, combinations_with_replacement)
-        product('ABCD', repeat=2)
-        permutations('ABCD', 2)
-        combinations('ABCD', 2)
+        product('ABCD', repeat=2) #with AA
+        permutations('ABCD', 2)  #no AA format
+        combinations('ABCD', 2)  #no AA
         combinations_with_replacement('ABCD', 2)
     functools (partial)
     ```
@@ -181,5 +267,16 @@
 		print((1/0, 2)[condition])
 		#ZeroDivisionError is raised
 	7) Decorators (functions which modify the functionality of another function)
-	
+		Point: if great() is a function, and print(great) will print out the code of great;
+											 print(great()) will execute the great() and print out the return.
+		Where to use: check authorization, Logging, 
+			from functools import wraps
+			def logit(func):
+			    @wraps(func)
+			    def with_logging`(*args, **kwargs)`:
+			        print(func.__name__ + " was called")
+			        return func`(*args, **kwargs)`
+			    return with_logging
+	8) global, usually not to be used
+	9) 
     ```
