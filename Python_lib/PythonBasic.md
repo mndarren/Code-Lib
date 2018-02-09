@@ -343,5 +343,14 @@
 		class A(object):
     		def __init__(self, a, b, c, d, e, f):
     		    self.__dict__.update({k: v for k, v in locals().items() if k != 'self'})
-    14)
+    14) for/else loop
+    	for n in range(2, 10):
+   			for x in range(2, n):
+   			    if n % x == 0:
+   			        print`( n, 'equals', x, '*', n/x)`
+   			        break
+   			else:
+   			    # loop fell through without finding a factor
+   			    print(n, 'is a prime number')
+   	15) 
     ```
