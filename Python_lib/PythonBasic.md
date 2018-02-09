@@ -278,5 +278,70 @@
 			        return func`(*args, **kwargs)`
 			    return with_logging
 	8) global, usually not to be used
-	9) 
+	9) Enumerate
+		for counter, value in enumerate(some_list):
+    		print(counter, value)
+    	my_list = ['apple', 'banana', 'grapes', 'pear']
+		counter_list = list(enumerate(my_list, 1))
+		print(counter_list)
+		# Output: [(1, 'apple'), (2, 'banana'), (3, 'grapes'), (4, 'pear')]
+	10) Object introspection
+		dir
+			my_list = [1, 2, 3]
+			dir(my_list)
+			# Output: ['__add__', '__class__', '__contains__', '__delattr__', '__delitem__',
+			# '__delslice__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__',
+			# '__getitem__', '__getslice__', '__gt__', '__hash__', '__iadd__', '__imul__',
+			# '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__',
+			# '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__',
+			# '__setattr__', '__setitem__', '__setslice__', '__sizeof__', '__str__',
+			# '__subclasshook__', 'append', 'count', 'extend', 'index', 'insert', 'pop',
+			# 'remove', 'reverse', 'sort']
+		type & id
+			name = "Yasoob"
+			print(id(name))
+			# Output: 139972439030304
+		inspect
+			import inspect
+			print(inspect.getmembers(str))
+			# Output: [('__add__', <slot wrapper '__add__' of ... ...>)]
+	11) try/except/else/finally
+		try:
+		    print('I am sure no exception is going to occur!')
+		except Exception:
+		    print('exception')
+		else:
+		    # any code that should only run if no exception occurs in the try,
+		    # but for which exceptions should NOT be caught
+		    print('This would only run if no exception occurs. And an error here '
+		          'would NOT be caught.')
+		finally:
+		    print('This would be printed in every case.')
+	12) Lambda
+		add = lambda x, y: x + y
+		print(add(3, 5))
+		# Output: 8
+		a = [(1, 2), (4, 1), (9, 10), (13, -3)]
+		a.sort(key=lambda x: x[1])
+		print(a)
+		# Output: [(13, -3), (4, 1), (1, 2), (9, 10)]
+		##parallel sorting of lists ??
+		data = zip(list1, list2)
+		data.sort()
+		list1, list2 = map(lambda t: list(t), zip`(*data)`)
+	13) One-Liners
+		Simple Web Server
+			# Python 2
+			python -m SimpleHTTPServer
+			# Python 3
+			python -m http.server
+		Json PPrint $cat file.json | python -m json.tool
+		python -m cProfile my_script.py  #Profiling a script
+		python -c "import csv,json;print json.dumps(list(csv.reader(open('csv_file.csv')))  #csv to json
+		print(list(itertools.chain`(*a_list)`))   #List Flattening
+		##one-line constructor
+		class A(object):
+    		def __init__(self, a, b, c, d, e, f):
+    		    self.__dict__.update({k: v for k, v in locals().items() if k != 'self'})
+    14)
     ```
