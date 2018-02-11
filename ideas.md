@@ -1,9 +1,9 @@
 # Ideas
-=========   
+=========<br>
 Some ideas poped up occasionally. In order not to losing them, record good ones here for the future.
 
 1. Create a playbook that can be run to revert VM to the orig state.
-2. Image search!
+2. Image search! (solved by cloud vision by Google 2017 or early)
 3. Web UI using smart phone UI style.
 4. Create a process jail for bad process. Once our IDS catches a bad process, throw it into the process jail immediately.
    Not just kill them, because killing them will tell attacker that we found them. Use time to catch out the attacker.
