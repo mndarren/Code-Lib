@@ -6,7 +6,7 @@
    Location: University of St. Thomas - Schulze Hall
    KeyNote: From Zero to ML on GCP (GCP: Google Cloud Platform, ML: Machine Learning)
    Link: https://devfest.mn/
-   [Schedule]()
+   [Schedule](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/DevFest2018schedule.PNG)
    ```
 1. Keynote: From Zero to ML on GCP (from Sara Robinson)
 
