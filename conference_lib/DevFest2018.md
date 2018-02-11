@@ -14,9 +14,9 @@
    ii) 6 resources to solve an ML problem
    iii) TensorFlow and ML Engine
    iv) Training and Serving
+   v) presentation link: https://speakerdeck.com/sararob/from-zero-to-ml-on-google-cloud-platform
    ```
    ![alt 6 resources](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/sixResourcesML.PNG)
-   [ppt.pdf]()
 2. Don't wait for Pentesting: Code Securely Now (from Paula Merns)
 
 3. Serveless Machine Learning: An Introduction (from Bret McGowen)
