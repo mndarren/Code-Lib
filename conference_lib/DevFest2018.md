@@ -1,4 +1,4 @@
-# DevFest 2018
+# DevFest 2018 (ML)
 ====================================<br>
 0. Basic Info
    ```
@@ -9,7 +9,11 @@
    ```
    [Schedule](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/DevFest2018schedule.PNG)
 1. Keynote: From Zero to ML on GCP (from Sara Robinson)
-
+   ```
+   i) Custom model -> AutoML -> ML APIs
+   ii) 6 resources to solve an ML problem
+   ![alt 6 resources]()
+   ```
 2. Don't wait for Pentesting: Code Securely Now (from Paula Merns)
 
 3. Serveless Machine Learning: An Introduction (from Bret McGowen)
