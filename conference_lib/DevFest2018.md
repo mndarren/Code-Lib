@@ -12,7 +12,7 @@
    ```
    i) Custom model -> AutoML -> ML APIs
    ii) 6 resources to solve an ML problem
-   ![alt 6 resources]()
+   ![alt 6 resources](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/sixResourcesML.PNG)
    ```
 2. Don't wait for Pentesting: Code Securely Now (from Paula Merns)
 
