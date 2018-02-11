@@ -354,3 +354,9 @@
    			    print(n, 'is a prime number')
    	15) 
     ```
+ 31. Python Security (SAST & DAST)
+    ```
+    1) Static code analysis tools (PEP, unittest, pylint and bandit)
+    2) DASTProxy from eBay
+    3) Sqreen monitoring your app in real-time
+    ```
