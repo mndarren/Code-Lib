@@ -41,12 +41,12 @@
 	He used a new approach to show his presentation with a lot of non-tech pictures (New way but don't like it)<br>
 	no test -> some test -> TDD
 5. Modular Architecture for big App and Big Team (from Phil, Evan, Chris Mechronic)<br>
+	
+6. Web Components and Enterprise Architecture (from Jim Lowell)<br>
 	--The best one is he I think.<br>
 	--Polymer, Angular, Firebase, Node, AuthO, DevOps = PeopleNet<br>
 	--New idea: developer connect to the users<br>
 	--New term: sercurity box is used<br>
-	![alt archi]()
-6. Web Components and Enterprise Architecture (from Jim Lowell)
-
-7. Kubernetes: Concepts and Implementation (from Ryan)
-
+	![alt archi](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/PeopleNetArchitecture.jpg)
+7. Kubernetes: Concepts and Implementation (from Ryan)<br>
+	It's a good tool to deploy App
