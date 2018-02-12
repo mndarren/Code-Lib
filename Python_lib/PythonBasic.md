@@ -227,7 +227,7 @@
        		items = [1, 2, 3, 4, 5]
        		squared = list(map(lambda x: x**2, items))
        		def multiply(x):
-       		    return (`x*x`)
+       		    return (x*x)
        		def add(x):
        		    return (x+x)
        		funcs = [multiply, add]
@@ -268,14 +268,15 @@
 	7) Decorators (functions which modify the functionality of another function)
 		Point: if great() is a function, and print(great) will print out the code of great;
 											 print(great()) will execute the great() and print out the return.
-		Where to use: check authorization, Logging, 
+		Where to use: check, authorization, Logging
 			from functools import wraps
 			def logit(func):
 			    @wraps(func)
-			    def with_logging`(*args, **kwargs)`:
+			    def with_logging(*args, **kwargs):
 			        print(func.__name__ + " was called")
-			        return func`(*args, **kwargs)`
+			        return func(*args, **kwargs)
 			    return with_logging
+		##for more details, go to see the practice code
 	8) global, usually not to be used
 	9) Enumerate
 		for counter, value in enumerate(some_list):
@@ -327,7 +328,7 @@
 		##parallel sorting of lists ??
 		data = zip(list1, list2)
 		data.sort()
-		list1, list2 = map(lambda t: list(t), zip`(*data)`)
+		list1, list2 = map(lambda t: list(t), zip(*data))
 	13) One-Liners
 		Simple Web Server
 			# Python 2
@@ -337,7 +338,7 @@
 		Json PPrint $cat file.json | python -m json.tool
 		python -m cProfile my_script.py  #Profiling a script
 		python -c "import csv,json;print json.dumps(list(csv.reader(open('csv_file.csv')))  #csv to json
-		print(list(itertools.chain`(*a_list)`))   #List Flattening
+		print(list(itertools.chain(*a_list)))   #List Flattening
 		##one-line constructor
 		class A(object):
     		def __init__(self, a, b, c, d, e, f):
@@ -346,12 +347,60 @@
     	for n in range(2, 10):
    			for x in range(2, n):
    			    if n % x == 0:
-   			        print`( n, 'equals', x, '*', n/x)`
+   			        print( n, 'equals', x, '*', n/x)
    			        break
    			else:
    			    # loop fell through without finding a factor
    			    print(n, 'is a prime number')
-   	15) 
+   	15) C extensions
+   		#For Linux
+		$  gcc -shared -Wl,-soname,adder -o adder.so -fPIC add.c
+		#For Mac
+		$ gcc -shared -Wl,-install_name,adder.so -o adder.so -fPIC add.c
+		from ctypes import *
+		#load the shared object file
+		adder = CDLL('./adder.so')
+		#Find sum of integers
+		res_int = adder.add_int(4,5)
+		print "Sum of 4 and 5 = " + str(res_int)
+		#Find sum of floats
+		a = c_float(5.5)
+		b = c_float(4.1)
+		add_float = adder.add_float
+		add_float.restype = c_float
+		print "Sum of 5.5 and 4.1 = ", str(add_float(a, b))
+		#link: http://book.pythontips.com/en/latest/python_c_extension.html
+	16. Python 2+3
+		try:
+    		import urllib.request as urllib_request  # for Python 3
+		except ImportError:
+    		import urllib2 as urllib_request  # for Python 2
+    17. Coroutines
+    	generators are data producers, coroutines are data consumers.
+    	def grep(pattern):
+    		print("Searching for", pattern)
+   			while True:
+        		line = (yield)
+        		if pattern in line:
+            		print(line)
+        search = grep('coroutine')
+		next(search)
+		# Output: Searching for coroutine
+		search.send("I love you")
+		search.send("Don't you love me?")
+		search.send("I love coroutines instead!")
+		# Output: I love coroutines instead!
+		search.close()
+	18. Function Caching
+		from functools import lru_cache
+		@lru_cache(maxsize=32)
+		def fib(n):
+    		if n < 2:
+        		return n
+    		return fib(n-1) + fib(n-2)
+		>>> print([fib(n) for n in range(10)])
+		# Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+		fib.cache_clear()
     ```
  31. Python Security (SAST & DAST)
     ```
