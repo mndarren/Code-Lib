@@ -267,7 +267,7 @@
 		#ZeroDivisionError is raised
 	7) Decorators (functions which modify the functionality of another function)
 		Point: if great() is a function, and print(great) will print out the code of great;
-											 print(great()) will execute the great() and print out the return.
+				  print(great()) will execute the great() and print out the return.
 		Where to use: check, authorization, Logging
 			from functools import wraps
 			def logit(func):
