@@ -1,5 +1,5 @@
 # Python Basic
-===========================
+===========================<br>
 1. Don't mix tabs & spaces!
 2. Everything is an object!
 3. OOP is optional.
@@ -20,7 +20,6 @@
     generate distributed file, 
     Package Installer for Python(PIP)
     ```
-
 16. argument
     ```
     by value -- immutable value (tuple, str, int) Assignment operation will create new object
@@ -34,7 +33,7 @@
     400-499  client error
     500-599  server error
     ```
- 18. Context Manager & Decorator
+ 18. Context Manager & Decorator<br>
     ```
     Context Manager will be a class with 3 dunder functions: __init__, __enter__ and __exit__.
     Decorator will be a function whose argument is a function and return is a function.
