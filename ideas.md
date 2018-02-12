@@ -18,5 +18,5 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 11. Build a cell phone with completely saperated physical 2 parts: the old phone call and text message, and smart phone with app WiFi. Since Skygofree and Pegasus present.
 12. About AI, probablly in the future AI technology will get so high that Robot can control everything. We need to create a virus to destroy all of them.
 13. put security step in Lifecycle Model (process)
-14. Microservice Architectural --to describe a particular way of designing software app as suites of independently deployable services. While there is no precise definition of this architectural style, there are certion common characteristics around organization around business capability, automated deployment, intelligence in the endpoints, and decentralized control of languages and data.<br>
+14. Microservice Architectural --to describe a particular way of designing software app as suites of **independently deployable services**. While there is no precise definition of this architectural style, there are certion common characteristics around organization around business capability, automated deployment, intelligence in the endpoints, and decentralized control of languages and data.<br>
 ![alt Monoliths&Microservices](https://github.com/mndarren/Code-Lib/blob/master/references/microservices.PNG)
