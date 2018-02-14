@@ -22,3 +22,35 @@
 	listen_addresses = '*'
 	sudo service postgresql restart
 	```
+5. Querying JSON in Postgres
+	```
+	CREATE TABLE json_test (
+	  id serial primary key,
+	  data jsonb
+	);
+	INSERT INTO json_test (data) VALUES 
+	  ('{}'),
+	  ('{"a": 1}'),
+	  ('{"a": 2, "b": ["c", "d"]}'),
+	  ('{"a": 1, "b": {"c": "d", "e": true}}'),
+	  ('{"b": 2}');
+	SELECT * FROM json_test;
+	SELECT * FROM json_test WHERE data = '{"a":1}';
+	SELECT * FROM json_test WHERE data @> '{"a":1}';
+	SELECT * FROM json_test WHERE data <@ '{"a":1}';
+	SELECT * FROM json_test WHERE data ? 'a';
+	SELECT * FROM json_test WHERE data ?| array['a', 'b'];
+	SELECT * FROM json_test WHERE data ?& array['a', 'b'];
+	SELECT * FROM json_test WHERE data ->> 'a' > '1';  --compare value
+	SELECT * FROM json_test WHERE data -> 'b' > '1';   --comparison between primitives, objects and arrays
+	--Give me objects where element b has a child object that has element c equal to the string "d".
+	SELECT * FROM json_test WHERE data #> '{b,c}' = '"d"';
+	SELECT * FROM json_test WHERE data #>> '{b,c}' = 'd';  --not JSON object comparison
+	--a json null is different to an SQL NULL.
+	INSERT INTO json_test (data) 
+	VALUES ('[]'), ('[1,2,"a"]'), ('null'), ('1E7'), ('"abc"');
+	SELECT * FROM json_test;
+	SELECT * FROM json_test WHERE data ->> 'a' > '1'; **Error! for get operator**
+	SELECT * FROM json_test WHERE data @> '{}' AND data ->> 'a' > '1';  --works
+	SELECT * FROM json_test WHERE data @> '[]' AND data ->> 1 = '2';
+	```
