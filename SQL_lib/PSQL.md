@@ -41,7 +41,7 @@
 	SELECT * FROM json_test WHERE data ? 'a';
 	SELECT * FROM json_test WHERE data ?| array['a', 'b'];
 	SELECT * FROM json_test WHERE data ?& array['a', 'b'];
-	SELECT * FROM json_test WHERE data ->> 'a' > '1';  --compare value
+	SELECT * FROM json_test WHERE data ->> 'a' > '1';  --compare value (only int and str)
 	SELECT * FROM json_test WHERE data -> 'b' > '1';   --comparison between primitives, objects and arrays
 	--Give me objects where element b has a child object that has element c equal to the string "d".
 	SELECT * FROM json_test WHERE data #> '{b,c}' = '"d"';
