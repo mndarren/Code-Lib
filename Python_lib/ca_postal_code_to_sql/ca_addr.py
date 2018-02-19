@@ -62,7 +62,10 @@ def run():
         city_set = set({})
         uuid_city = None
         uuid_code = None
-        with codecs.open(r'/home/dxie/code/output/provinceSQL.dat', 'w', encoding='latin-1') as province_sql, open(r'/home/dxie/code/output/citySQL.dat', 'w', encoding='latin-1') as city_sql, open(r'/home/dxie/code/output/codeSQL.dat', 'w', encoding='latin-1') as code_sql, open(r'/home/dxie/code/output/placeSQL.dat', 'w', encoding='latin-1') as place_sql:
+        with codecs.open(r'/home/dxie/code/output/provinceSQL.dat', 'w', encoding='latin-1') as province_sql, \
+                    open(r'/home/dxie/code/output/citySQL.dat', 'w', encoding='latin-1') as city_sql, \
+                    open(r'/home/dxie/code/output/codeSQL.dat', 'w', encoding='latin-1') as code_sql, \
+                    open(r'/home/dxie/code/output/placeSQL.dat', 'w', encoding='latin-1') as place_sql:
             for ca_postal_code in organize_data(orig):
                 # check if abbr for province
                 if ca_postal_code.province in abbr_provinces.keys():
@@ -71,8 +74,10 @@ def run():
                     abbr_prov = 'NONE'
                 # generate province SQL file
                 if ca_postal_code.province not in province_set:
-                    province_sql.write(u"\t('CA-%s', 'CA', '%s', 'PROVINCE', '%s'),\n" % (abbr_prov, abbr_prov, ca_postal_code.province))
-                    print("('CA-%s', 'CA', '%s', 'PROVINCE', '%s')," % (abbr_prov, abbr_prov, ca_postal_code.province))
+                    province_sql.write(u"\t('CA-%s', 'CA', '%s', 'PROVINCE', '%s'),\n" % \
+                        (abbr_prov, abbr_prov, ca_postal_code.province))
+                    print("('CA-%s', 'CA', '%s', 'PROVINCE', '%s')," % \
+                        (abbr_prov, abbr_prov, ca_postal_code.province))
                     province_set.add(ca_postal_code.province)
                 # generate city SQL file
                 if ca_postal_code.city not in city_set:
