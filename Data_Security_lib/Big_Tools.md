@@ -177,4 +177,10 @@
    apt-get install xrdp
    service xrdp start
    service xrdp-sesman start
+   # if got error
+   apt-get remove gnome-core
+   apt-get install lxde-core lxde kali-defaults kali-root-login desktop-base
+   update-alternatives --config x-session-manager
+   		# choose /usr/bin/startlxde
+   reboot
    ```
