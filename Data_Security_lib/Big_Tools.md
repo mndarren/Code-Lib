@@ -170,3 +170,11 @@
    $./scripts/Strombringer.sh venet0:0                 #lock up the virtual terminal, using strombringer shell
    $./nfork                                            #1048 means thresh hold before denial service
    ```
+10. How to remote Kali
+   ```
+   apt-get update && apt-get upgrade
+   apt-get dist-upgrade
+   apt-get install xrdp
+   service xrdp start
+   service xrdp-sesman start
+   ```
