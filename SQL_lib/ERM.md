@@ -11,4 +11,10 @@
 	4) Isolate Independent Multiple Relationships
 	5) Isolate Semantically Related Multiple Relationships
 	```
-2. 
+2. Terms
+	```
+	ANSI --American National Standard Institute
+	OLAP --Online Analytical Processing
+	OLTP --Online Transactional Processing
+	POC  --Proof of Concept
+	```

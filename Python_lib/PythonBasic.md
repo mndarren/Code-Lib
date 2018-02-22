@@ -72,7 +72,7 @@
 23. virtualenv
     ```
     1) $sudo -H pip3 install virtualenv     #install pip3
-    2) $virtualenv -p python3 venv          #--system-site-packages, --site-packages
+    2) $virtualenv --python python3.6 venv          #--system-site-packages, --site-packages
     3) $source venv/bin/activate                                  #activate virtualenv
     4) $deactivate                                       #deactivate virtualenv
     5) $rm -rf somewhere/virtualenvs/<project-name>      #delete virtualenv
