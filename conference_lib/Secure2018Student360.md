@@ -30,7 +30,7 @@
       iv) Leadership<br>
       v) Looking for bright, technology, hardworking employee<br>
 
-4. Navigating you first 5 years<br>
+4. Navigating you first 5 years (from Mike Rogers, Britanee TeBrake)<br>
    People hire people that they KNOW, LIKE & TRUST (Key)
    ```
    1) Competitive Mindset
@@ -45,6 +45,7 @@
    5) Summarizing all meetings (good react)
    6) Choose a mantor
    7) Identify your 5. (Family, Career, Friend) they lift you up, not drag down
+   8) Email: mike@honucomsulting.com britanee@leadingedge-talent.com
    ```
 5. Using Augmented Reality in Cybersecurity Education (from Faisal Kaleem)
    ```
@@ -52,4 +53,5 @@
    2) Play Cybersecurity Games
    3) New Hololens (cost $15,000)
    4) Features: will add more features (2 cameras)
+   5) Email: Faisal.Kaleem@metrostate.edu Phone: 651-793-1238
    ```
