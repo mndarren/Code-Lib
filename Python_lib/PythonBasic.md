@@ -69,6 +69,7 @@
         generator gets better performance than listcomp when big data
         generator function
     ```
+    [Generator Example](https://github.com/mndarren/Code-Lib/blob/master/Python_lib/pythonPractice/request.py)
 23. virtualenv
     ```
     1) $sudo -H pip3 install virtualenv     #install pip3
@@ -186,7 +187,14 @@
 29. Underscore meaning
     ```
     1) store the last expression in interpreter
-    2) ignore value
+    2) ignore value. **Note: using double __ to ignore value since single _ will conflict i18n translation**
+    # Ignore a value when unpacking
+	x, _, y = (1, 2, 3) # x = 1, y = 3 
+	# Ignore the multiple values. It is called "Extended Unpacking" which is 	available in only Python 3.x
+	x, *_, y = (1, 2, 3, 4, 5) # x = 1, y = 5  
+	# Ignore the index
+	for _ in range(10):     
+	    do_something()
     3) private var, method or class (not really private)
     4) single_trailing_underscore_ for avoiding keyword conflict
     5) mangling method. e.g. __method()   =>  _ClassName__method()
