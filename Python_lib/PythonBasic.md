@@ -421,3 +421,8 @@
     2) DASTProxy from eBay
     3) Sqreen monitoring your app in real-time
     ```
+32. Performance comparison<br>
+	--If you require a list of results almost always use a list comprehension.<br>
+	--If no results are required, using a simple loop is simpler to read and faster to run.<br>
+	--Never use the builtin map, unless its more aesthetically appealing for that piece of code<br>
+	  and your application does not need the speed improvement.
