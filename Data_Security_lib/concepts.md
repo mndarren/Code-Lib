@@ -135,6 +135,7 @@
    AS   --Autonomous System (multiple computers, multiple domains, multiple clouds)
    VLAN --Virtual Local Area Network
    VT   --Virtualization Technology
+   DMZ  --Demilitarized Zone
    ```
 14. 7 file types
    ```
