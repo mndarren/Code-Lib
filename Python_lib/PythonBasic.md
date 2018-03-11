@@ -64,7 +64,6 @@
          just_freeports = {convert2ampm(k): v.title()
                             for k, v in flights.items()
                             if v == 'FREEPORT'}
-
         [] for listcomp, {} for dictcomp and setcomp, () for generator
         generator gets better performance than listcomp when big data
         generator function
@@ -207,7 +206,13 @@
     ```
 30. Python Tips
     ```
-    1) __slots__ will reduce RAM waste 40-50% (dict -> set)
+    1) __slots__ will **reduce RAM waste 40-50%** (dict -> set)
+    	class MyClass(object):
+		    __slots__ = ['name', 'identifier']
+		    def __init__(self, name, identifier):
+		        self.name = name
+		        self.identifier = identifier
+		        self.set_up()
     2) Pdb importance
         $python -m pdb my_script.py   #small program
         pdb.set_trace()               #inside script
