@@ -426,3 +426,12 @@
 	--If no results are required, using a simple loop is simpler to read and faster to run.<br>
 	--Never use the builtin map, unless its more aesthetically appealing for that piece of code<br>
 	  and your application does not need the speed improvement.
+33. Partial<br>
+	```
+	def multiply(a, b):
+		return(a*b)
+
+	def square = partial(multiply a, a)
+
+	print(square(4))
+	```
