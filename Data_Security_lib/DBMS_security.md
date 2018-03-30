@@ -9,3 +9,5 @@
    4) Data encryption (Digital Signature, Kerberos)
    5) DB Auditing (Standard, FGA, user-defined)
    ```
+2. DBDetective
+   Using RAM and Storage snapshot to detect DBA privilege bad activities.
