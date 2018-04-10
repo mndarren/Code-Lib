@@ -435,3 +435,9 @@
 
 	print(square(4))
 	```
+34. Regex
+	```
+	myregex = re.compile(?p<which>(?:up)|(?:down))
+	match = myregex.match(some_string)
+	word_matched = match.groups('which')
+	```
