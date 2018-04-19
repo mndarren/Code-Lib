@@ -1,0 +1,10 @@
+# bash code
+==================================
+1. export a path to PATH (in ~/.bashrc)
+	```
+	#darrenX added the following
+	export MINISHIFT="$HOME/minishift-1.16.0-linux-amd64"
+	if [ -d "/usr/local/bin" ] ; then
+   		PATH="$PATH:$MINISHIFT"
+	fi
+	```
