@@ -21,3 +21,4 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 14. Microservice Architectural --to describe a particular way of designing software app as suites of **independently deployable services**. While there is no precise definition of this architectural style, there are certion common characteristics around organization around business capability, automated deployment, intelligence in the endpoints, and decentralized control of languages and data.<br>
 ![alt Monoliths&Microservices](https://github.com/mndarren/Code-Lib/blob/master/references/microservices.PNG)
 15. Create a little file to contain all little tools (methods) which are commonly used. (doing it)
+16. Create a pointing app for Scrum team by using the current web site (pointingpoker.com)
