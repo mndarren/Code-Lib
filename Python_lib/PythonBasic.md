@@ -441,3 +441,6 @@
 	match = myregex.match(some_string)
 	word_matched = match.groups('which')
 	```
+35. Static methods call<br>
+	Instance (object) call is better then class call because when refining code to change<br>
+	static method into instance method, don't need to change the original code.
