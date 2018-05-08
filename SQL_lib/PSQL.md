@@ -54,3 +54,6 @@
 	SELECT * FROM json_test WHERE data @> '{}' AND data ->> 'a' > '1';  --works
 	SELECT * FROM json_test WHERE data @> '[]' AND data ->> 1 = '2';
 	```
+4. Tip for query something in this table not in another table<br/>
+	one should always use LEFT JOIN / IS NULL or NOT EXISTS rather than NOT IN to find the missing values.
+
