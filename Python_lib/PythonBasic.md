@@ -493,5 +493,16 @@
 		@dataclass
 		class Deck:  # Will NOT work
 		    cards: List[PlayingCard] = make_french_deck()
-	(2) 
+	(2) Without a break
+		def contains_magic_number(list, magic_number):
+		   for i in list:
+		       if i == magic_number:
+		           print("This list contains the magic number.")
+		           # added break statement here
+		           break
+		   else:
+		       print("This list does NOT contain the magic number.")
+		ontains_magic_number(range(10), 5)
+		# This list contains the magic number.
+	(3)
 	```
