@@ -1,5 +1,6 @@
 # Python Basic
 ===========================<br>
+0. https://docs.quantifiedcode.com/python-anti-patterns/
 1. Don't mix tabs & spaces!
 2. Everything is an object!
 3. OOP is optional.
@@ -430,9 +431,7 @@
 	```
 	def multiply(a, b):
 		return(a*b)
-
 	def square = partial(multiply a, a)
-
 	print(square(4))
 	```
 34. Regex
@@ -444,3 +443,55 @@
 35. Static methods call<br>
 	Instance (object) call is better then class call because when refining code to change<br>
 	static method into instance method, don't need to change the original code.
+36. Python 3.7 DataClass vs NamedTuple
+	```
+	(1) the same to comparison
+		>>> queen_of_hearts = NamedTupleCard('Q', 'Hearts')
+		>>> queen_of_hearts.rank
+		'Q'
+		>>> queen_of_hearts
+		NamedTupleCard(rank='Q', suit='Hearts')
+		>>> queen_of_hearts == NamedTupleCard('Q', 'Hearts')
+		True
+		from dataclasses import dataclass
+		@dataclass
+		class DataClassCard:
+		    rank: str
+		    suit: str
+		>>> queen_of_hearts = DataClassCard('Q', 'Hearts')
+		>>> queen_of_hearts.rank
+		'Q'
+		>>> queen_of_hearts
+		DataClassCard(rank='Q', suit='Hearts')
+		>>> queen_of_hearts == DataClassCard('Q', 'Hearts')
+		True
+	(2) dataclass has default value, namedtuple does not
+		from dataclasses import dataclass
+		@dataclass
+		class Position:
+		    name: str
+		    lon: float = 0.0
+		    lat: float = 0.0
+	(3) dataclass is a regular class, NamedTuple is a tuple
+		dataclass can be added methods in it.
+	(4) default factory, field, default, metadata for dataclass
+		@dataclass
+		class Deck:
+    		cards: List[PlayingCard] = field(default_factory=make_french_deck)
+    	from dataclasses import dataclass, field
+		@dataclass
+		class Position:
+		    name: str
+		    lon: float = field(default=0.0, metadata={'unit': 'degrees'})
+		    lat: float = field(default=0.0, metadata={'unit': 'degrees'})
+	```
+37. Tip: Most common anti-patterns in Python (Don't do these)
+	```
+	(1) using mutable default argument
+		from dataclasses import dataclass
+		from typing import List
+		@dataclass
+		class Deck:  # Will NOT work
+		    cards: List[PlayingCard] = make_french_deck()
+	(2) 
+	```
