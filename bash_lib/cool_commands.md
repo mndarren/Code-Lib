@@ -20,7 +20,7 @@
 	```
 	nautilus --browser ~/some/directory
 	```
-4. Remote Desktop Ubuntu
+4. Remote Desktop Ubuntu 16.04
 	```
 	1) Desktop Sharing from search
 	2) Check 'Allow other users to view your desktop'
@@ -32,7 +32,16 @@
 	4) Download VNC on your Windows, Open VNC and login with IP and password.
 	5) Click 'Allow' from VM console
 	```
-5. Remote Desktop Ubuntu (another way)
+5. Remote Desktop Ubuntu 16.04(another way)
 	```
-	
+	1) Download Tigervnc deb package (link: https://github.com/mndarren/Code-Lib/tree/master/bash_lib/resource)
+	2) cd Download
+	   unzip tigervncserver_1.6.80-4_amd64.zip
+	   sudo dpkg -i tigervncserver_1.6.80-4_amd64.deb
+	   sudo apt-get -f install  # make sure install all dependencies
+	   sudo dpkg -i tigervncserver_1.6.80-4_amd64.deb
+	3) sudo apt-get install xrdp -y  # install xrdp
+	   echo unity>~/.xsession  # OR $sudo sed -i.bak '/fi/a #xrdp multi-users \n unity \n' /etc/xrdp/startwm.sh
+	4) run script (resource/set_kb.bash)
+	5) test using sesman-XVnc
 	```
