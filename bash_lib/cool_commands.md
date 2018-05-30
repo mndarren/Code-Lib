@@ -15,4 +15,8 @@
 	7) sudo ./vmware-install.pl -d
 	8) sudo reboot
 	```
-3. 
+3. Open file explorer from terminal
+	```
+	nautilus --browser ~/some/directory
+	```
+4. 
