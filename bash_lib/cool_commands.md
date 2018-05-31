@@ -45,4 +45,16 @@
 	sudo service ssh status
 	sudo nano /etc/ssh/sshd_config
 	```
-7. 
+7. Install pip
+	```
+	sudo apt-get install python-pip python-dev build-essential
+	sudo pip install --upgrade pip
+	sudo pip install --upgrade virtualenv
+	```
+8. Install python3.6
+	```
+	sudo add-apt-repository ppa:deadsnakes/ppa   # OR ppa:jonathonf/python-3.6
+	sudo apt-get update
+	sudo apt-get install python3.6
+	```
+9. 
