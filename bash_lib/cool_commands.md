@@ -19,6 +19,8 @@
 3. Open file explorer from terminal
 	```
 	nautilus --browser ~/some/directory
+	Alt + F1    # open search
+	Alt + F2    # open file explorer
 	```
 4. Remote Desktop Ubuntu 16.04
 	```
@@ -32,16 +34,10 @@
 	```
 5. Remote Desktop Ubuntu 16.04(another way)
 	```
-	1) Download Tigervnc deb package (link: https://github.com/mndarren/Code-Lib/tree/master/bash_lib/resource)
-	2) cd Download
-	   unzip tigervncserver_1.6.80-4_amd64.zip
-	   sudo dpkg -i tigervncserver_1.6.80-4_amd64.deb
-	   sudo apt-get -f install  # make sure install all dependencies
-	   sudo dpkg -i tigervncserver_1.6.80-4_amd64.deb
-	3) sudo apt-get install xrdp -y  # install xrdp
-	   echo unity>~/.xsession  # OR $sudo sed -i.bak '/fi/a #xrdp multi-users \n unity \n' /etc/xrdp/startwm.sh
-	4) run script (resource/set_kb.bash)
-	5) test using sesman-XVnc
+	1) sudo apt-get install xrdp -y  # install xrdp
+	2) echo mate-session> ~/.xsession
+	3) sudo apt-get install mate-core
+	5) test using sesman-XVnc by RDP of Windows
 	```
 6. Install SSH on Ubuntu
 	```
