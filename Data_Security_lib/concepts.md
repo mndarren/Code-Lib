@@ -494,6 +494,6 @@
     Idea: Google didn't put those sensitive service behind VPN, but put them on public Web.<br/>
           Those login sensitive services are based on users' ID status, not network.<br/>
     DevOps or DevSecOps (Development Security Operations)<br/>
-    Infrastructure as Code, Security Policy as Code
+    Infrastructure as Code, Security Policy as Code<br/>
     Microservices, Container(Docker), Orchestrators(Kubernetes), Non-server Tech
 
