@@ -490,3 +490,10 @@
    False negative is a result that indicates a condition does not hold while in fact it does.
          eg: A truely guilty prisoner who is acquitted of a crime. 
    ```
+65. Beyond Corp -- Google Security Model <br/>
+    Idea: Google didn't put those sensitive service behind VPN, but put them on public Web.<br/>
+          Those login sensitive services are based on users' ID status, not network.<br/>
+    DevOps or DevSecOps (Development Security Operations)<br/>
+    Infrastructure as Code, Security Policy as Code<br/>
+    Microservices, Container(Docker), Orchestrators(Kubernetes), Non-server Tech
+

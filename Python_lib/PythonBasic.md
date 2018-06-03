@@ -526,4 +526,48 @@
 		# Traceback (most recent call last):
 		#   File "e0235.py", line 27, in <module>
 		#     r.divide_by_zero()
+	(4) 
+	```
+38. Really Basic Stuff
+	```
+	0) class: field, method, property
+	1) Filed: static field (belong to class), common field (belongs to obj)
+	    class Province:
+	    	# static field
+	    	contry = 'US'
+	    	def __init__(self, name)
+	    		# common field
+	    		self.name = name
+	    obj = Province('Minnesota')
+	    print obj.name
+	    Province.country
+	2) Method: common method, @staticmethod, @classmethod
+	3) Property
+		class Goods:
+			def __init__(self):
+				self.orig_price = 100
+				self.discount = 0.8
+			@property
+			def price(self):
+				return self.orig_price * self.discount
+			@price.setter
+			def price(self, value)
+				self.orig_price = value
+			@price.deltter
+			def price(self)
+				del self.orig_price
+		obj = Goods()
+		obj.price   	 # no () getter
+		obj.price = 200  # setter
+		del obj.price    # deltter
+		# Another way to define property
+		class Foo:
+			
+			def get_bar(self):
+				return 'Blah'
+			def set_bar(self, value):
+
+			BAR = property(get_bar)
+		obj = Foo()
+		print obj.BAR
 	```
