@@ -1,4 +1,4 @@
-# Cool Commands
+# Cool Commands 4 Ubuntu
 ==================================
 1. search a file from Linux
 	```
@@ -57,4 +57,19 @@
 	sudo apt-get update
 	sudo apt-get install python3.6
 	```
-9. 
+# Cool Commands 4 Redhat7
+=====================================
+1. How to change IP addr
+	```
+	1) nmcli dev status
+	2) nmcli connection show
+	3) nmcli con show ens160
+	4) add a new network card if necessary
+	5) nmcli con add con-name ens224 type ethernet \
+		ifname ens224 ip4 10.31.31.222 gw4 10.31.31.1
+	6) nmcli dev status
+	7) nmcli con mod ens224 ipv4.addresses "10.31.31.223"
+	8) nmcli con up ens224
+	9) ifconfig ens224
+	10) nmcli con del ens224   # delete iface
+	```
