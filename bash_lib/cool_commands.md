@@ -66,9 +66,9 @@
 	3) nmcli con show ens160
 	4) add a new network card if necessary
 	5) nmcli con add con-name ens224 type ethernet \
-		ifname ens224 ip4 10.31.31.222 gw4 10.31.31.1
+		ifname ens224 ip4 10.31.31.222 gw4 10.31.0.1
 	6) nmcli dev status
-	7) nmcli con mod ens224 ipv4.addresses "10.31.31.223"
+	7) nmcli con mod ens224 ipv4.addresses "10.31.31.223/16" ipv4.dns "10.10.4.6 10.10.4.7"
 	8) nmcli con up ens224
 	9) ifconfig ens224
 	10) nmcli con del ens224   # delete iface
