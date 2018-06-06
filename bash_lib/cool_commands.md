@@ -73,3 +73,6 @@
 	9) ifconfig ens224
 	10) nmcli con del ens224   # delete iface
 	```
+2. Disable the virbr0 permanently 'virsh net-autostart default --disable'<br/>
+	OR 'systemctl disable libvirtd.service'
+3. 
