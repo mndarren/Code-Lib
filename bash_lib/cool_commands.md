@@ -57,6 +57,7 @@
 	sudo apt-get update
 	sudo apt-get install python3.6
 	```
+
 # Cool Commands 4 Redhat7
 =====================================
 1. How to change IP addr
@@ -73,6 +74,23 @@
 	9) ifconfig ens224
 	10) nmcli con del ens224   # delete iface
 	```
-2. Disable the virbr0 permanently 'virsh net-autostart default --disable'<br/>
-	OR 'systemctl disable libvirtd.service'
-3. 
+2. Disable the virbr0 permanently `virsh net-autostart default --disable`<br/>
+	OR `systemctl disable libvirtd.service` OR `virsh net-destroy default`
+	Start virbr0 `virsh net-start default`
+	Edit virbr0 `virsh net-edit default`
+
+# Cool Commands 4 Debian9
+================================================
+1. Restart network `/etc/init.d/networking restart`
+2. Set up Source list 
+	```
+	nano /etc/apt/source.list
+	deb http://archive.canonical.com/ubuntu maverick partner
+	deb-src http://archive.canonical.com/ubuntu maverick partner
+	## This software is not part of Ubuntu, but is offered by third-party
+	## developers who want to ship their latest software.
+	deb http://extras.ubuntu.com/ubuntu maverick main
+	deb-src http://extras.ubuntu.com/ubuntu maverick main
+	deb http://us.archive.ubuntu.com/ubuntu/ maverick multiverse 	restricted universe main
+	deb-src http://us.archive.ubuntu.com/ubuntu/ maverick multiverse 	restricted universe main #Added by software-properties
+	```
