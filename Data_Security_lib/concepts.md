@@ -496,4 +496,3 @@
     DevOps or DevSecOps (Development Security Operations)<br/>
     Infrastructure as Code, Security Policy as Code<br/>
     Microservices, Container(Docker), Orchestrators(Kubernetes), Non-server Tech
-
