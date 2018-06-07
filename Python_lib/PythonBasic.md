@@ -600,4 +600,30 @@
 	__str__ is the same to to_string() in Java;
 	__repr__ is usually used to html or something else
 	```
-43. 
+43. How to use partial()
+	```
+	from functools import partial
+
+	def power(base, exponent):
+		return base ** exponent
+
+	square = partial(power, exponent=2)
+	cube = partial(power, exponent=3)
+
+	def test_partials():
+		assert square(2) == 4
+		assert cube(2) == 8
+
+	def test_power_partials():
+    	# List to store the partials
+    	power_partials = [partial(power, exponent=x) for x in range(1, 11)]
+    	
+    	# Test the first power
+    	assert power_partials[0](2) == 2
+
+    	# Test the fifth power
+    	assert power_partials[4](2) == 32
+
+    	# Test the tenth power
+    	assert power_partials[9](2) == 1024
+	```
