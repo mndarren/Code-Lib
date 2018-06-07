@@ -595,3 +595,9 @@
 	something is not None  # true
 	bool(something)  # false
 	```
+42. __str__ vs. __repr__
+	```
+	__str__ is the same to to_string() in Java;
+	__repr__ is usually used to html or something else
+	```
+43. 
