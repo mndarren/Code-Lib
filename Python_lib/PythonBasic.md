@@ -580,3 +580,12 @@
 	spam == fxxk  # true
 	spam is fxxk  # false
 	```
+40. Tuple is mutable
+	```
+	spam = ('Darren', 'Xie', ['girl', 'boy'])
+	fxxk = ('Darren', 'Xie', ['girl', 'boy'])
+	spam == fxxk  # true
+	spam is fxxk  # false
+	spam[2].append('man')
+	spam == fxxk  # false
+	```

@@ -94,3 +94,5 @@
 	deb http://us.archive.ubuntu.com/ubuntu/ maverick multiverse 	restricted universe main
 	deb-src http://us.archive.ubuntu.com/ubuntu/ maverick multiverse 	restricted universe main #Added by software-properties
 	```
+3. List all users `cut -d: -f1 /etc/passws`
+4. 
