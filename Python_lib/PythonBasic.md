@@ -589,3 +589,9 @@
 	spam[2].append('man')
 	spam == fxxk  # false
 	```
+41. Be careful with 'is not None' (if input is empty string, might get wrong)
+	```
+	something = ''
+	something is not None  # true
+	bool(something)  # false
+	```
