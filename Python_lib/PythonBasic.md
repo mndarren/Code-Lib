@@ -2,7 +2,7 @@
 ===========================<br>
 0. https://docs.quantifiedcode.com/python-anti-patterns/
 1. Don't mix tabs & spaces!
-2. Everything is an object!
+2. Everything is an object!  # means 3 things: value + type + id
 3. OOP is optional.
 4. Key should be initialized!
 5. set() -- union(), difference(), intersection()
@@ -562,12 +562,21 @@
 		del obj.price    # deltter
 		# Another way to define property
 		class Foo:
-			
 			def get_bar(self):
 				return 'Blah'
 			def set_bar(self, value):
-
 			BAR = property(get_bar)
 		obj = Foo()
 		print obj.BAR
+	```
+39. Diff between is and ==
+	```
+	spam = ['Darren', 'Xie']
+	papapa = spam  # pointing to the same object
+	id(spam) == id(papapa)  # true
+	spam is papapa  # true
+	spam == papapa  # true
+	fxxk = ['Darren', 'Xie']
+	spam == fxxk  # true
+	spam is fxxk  # false
 	```
