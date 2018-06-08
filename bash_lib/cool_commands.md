@@ -12,6 +12,7 @@
 	4) ls /mnt/cdrom
 	5) tar xzvf /mnt/cdrom/VMwareTools-x.x.x-xxxx.tar.gz -C /tmp/
 	6) cd /tmp/vmware-tools-distrib/
+	7) sudo apt-get install net-tools  # for installing ifconfig
 	7) sudo ./vmware-install.pl
 	8) sudo reboot
 	9) vmware-toolbox-cmd -v
@@ -36,7 +37,7 @@
 	```
 	1) sudo apt-get install xrdp -y  # install xrdp
 	2) echo mate-session> ~/.xsession
-	3) sudo apt-get install mate-core
+	3) sudo apt-get install mate-core -y
 	5) test using sesman-XVnc by RDP of Windows
 	```
 6. Install SSH on Ubuntu
@@ -79,7 +80,7 @@
 	Start virbr0 `virsh net-start default`
 	Edit virbr0 `virsh net-edit default`
 
-# Cool Commands 4 Debian9
+# Cool Commands 4 Debian8
 ================================================
 1. Restart network `/etc/init.d/networking restart`
 2. Set up Source list 
