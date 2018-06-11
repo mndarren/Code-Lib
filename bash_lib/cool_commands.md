@@ -59,6 +59,14 @@
 	sudo apt-get install python3.6
 	```
 9. logout `who -u`  `sudo kill "pid"`
+10. update version from 16 to 18
+	```
+	sudo apt update && sudo apt dist-upgrade && sudo apt autoremove
+	sudo apt-get install update-manager-core
+	sudo nano /etc/update-manager/release-upgrades  # Prompt=lts
+	sudo do-release-upgrade -d  # -y
+	reboot
+	```
 
 # Cool Commands 4 Redhat7
 =====================================
