@@ -13,9 +13,9 @@
 	5) tar xzvf /mnt/cdrom/VMwareTools-x.x.x-xxxx.tar.gz -C /tmp/
 	6) cd /tmp/vmware-tools-distrib/
 	7) sudo apt-get install net-tools  # for installing ifconfig
-	7) sudo ./vmware-install.pl
-	8) sudo reboot
-	9) vmware-toolbox-cmd -v
+	8) sudo ./vmware-install.pl
+	9) sudo reboot
+	10) vmware-toolbox-cmd -v
 	```
 3. Open file explorer from terminal
 	```
@@ -58,6 +58,7 @@
 	sudo apt-get update
 	sudo apt-get install python3.6
 	```
+9. logout `who -u`  `sudo kill "pid"`
 
 # Cool Commands 4 Redhat7
 =====================================
