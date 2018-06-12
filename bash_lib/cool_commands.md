@@ -36,8 +36,9 @@
 5. Remote Desktop Ubuntu 16.04(another way)
 	```
 	1) sudo apt-get install xrdp -y  # install xrdp
-	2) echo mate-session> ~/.xsession
-	3) sudo apt-get install mate-core -y
+	2) sudo systemctl enable xrdp
+	3) echo mate-session> ~/.xsession
+	4) sudo apt-get install mate-core -y
 	5) test using sesman-XVnc by RDP of Windows
 	```
 6. Install SSH on Ubuntu
@@ -67,6 +68,7 @@
 	sudo do-release-upgrade -d  # -y
 	reboot
 	```
+11. 
 
 # Cool Commands 4 Redhat7
 =====================================
