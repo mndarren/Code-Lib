@@ -496,3 +496,6 @@
     DevOps or DevSecOps (Development Security Operations)<br/>
     Infrastructure as Code, Security Policy as Code<br/>
     Microservices, Container(Docker), Orchestrators(Kubernetes), Non-server Tech
+66. Conjur -- Security Policy as Code<br/>
+  https://github.com/cyberark/conjur<br/>
+  https://www.conjur.org/get-started/try-conjur.html<br/>

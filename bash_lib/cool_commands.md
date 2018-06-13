@@ -25,7 +25,7 @@
 	```
 4. Remote Desktop Ubuntu 16.04
 	```
-	1) Desktop Sharing from search
+	1) Desktop Sharing from search (Alt+F1) # gnome-control-center sharing
 	2) Check 'Allow other users to view your desktop'
 			 'Allow other users to control your desktop'
 			 'Require the user to enter this password'
