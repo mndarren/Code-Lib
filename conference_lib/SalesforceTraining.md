@@ -93,8 +93,79 @@
 	17) Apex code modify customer obj <- only users with "Modify All Data" permission allows.
 	18) How to do Role Hierarchies? Roles -> create -> assign users to role -> add -> save
 	19) Sharing Rules: extend access with Sharing Rules
+			Prerequisite: org-wide default -- Private/Public Read Only
+			3 components: Share which records? ownership OR criteria-based sharing (based on field value, not ownership)
+						  With which users? public group = individual users + roles + roles&subordinates + other public groups
+						  What access? Read-only OR R/W
+			How? Public Groups -> new -> settings -> save
+			     Sharing Settings -> Manage Sharing Settings for -> rules new -> based on record owner -> settings -save
+```
+4. Calculations
+```
+	1) Formular Editor (white space no matter, case sensitive)
+		Power of One on obj (10 account * 3 opportunities = 30 records)
+		functions: LEN(), Hyperlink(), Round(), AND()
+		How? Manage Object -> Field -> new -> Formular
+	2) Implement Roll up Summary Field (based on master-detail relationship)
+		Summary: COUNT, SUM, MAX, MIN
+		How? Obj Manager -> Fields -> new -> roll up summary (Ex: Account (summary obj) --> Opportunities (summerized obj))
+	3) Create Validation Rules (to obj, fields, campaign members, case milestone)
+		How? obj manager -> Account -> validation rules -> new -> error message
+		Ex: AND (NOT (ISBLANK(AccountNumber)),
+				 NOT (ISNUMBER(AccountNumber)))
+			YEAR(My_Date__c) <> YEAR (TODAY())  -- must be in current year
+			(Salary_Max__c - Salary_Min__c) > 20000  -- must within 20000
+			AND (RIGHT(Web_Site__c, 4) <> ".COM",
+				 RIGHT(Web_Site__c, 4) <> ".com",
+				 RIGHT(Web_Site__c, 4) <> ".ORG",
+				 RIGHT(Web_Site__c, 4) <> ".org",
+				 RIGHT(Web_Site__c, 4) <> ".NET",
+				 RIGHT(Web_Site__c, 4) <> ".net")
+```
+5. Lightning Flow Process Automation (Process Builder (send), Cloud Flow Designer (send, retrieve))
+```
+	1) when to use which: Guide visual Experience -- Cloud Flow Designer
+						  Behind Screen Auto  -- Cloud Flow Designer, Process Builder, Apex
+						  Approval Auto  -- Approval
+	   Process (record created, record updated, platform event occurs) 
+	   --> Flows (guide automate experience, add more functionality, start process when click) 
+	   --> Apex (more complex functionality)
+	2) Process Builder 
+		3 components: trigger (when to run), 
+					  at lease 1 criteria node (whether or not execute action) (set filter, formular, always run),
+					  at lease 1 action(what to do) (immediate action, scheduled action)
+		3 types: Record change (create or edit)
+		         Invacable (called by another)
+		         Platform event (msg received)
+		How? setup -> process Builder -> Add trigger (add obj, choose obj, save) -> add criteria (add row, Advanced Yes -- Ignore)
+		     -> Add schedule -> add action
+		Tip: Deactivate Validate Rules if conflict
+    3) Cloud Flow Designer 
+    	3 blocks: Elements (drag it)
+    			  Connectors (set path next to do)
+    			  Resources (set start from)
+    	4 types of Element: Screen (adding fields, add Lightning components)
+    					    Logic (control flow create branches, update data)
+    					    Actions (Apex code)
+    					    Integration (Local Actions or Apex code) tie-in platform event
+    	How? setup -> Flows -> new flow -> add screen add fields -> create the record (Record Create Element, create new variable)
+    	     -> create second screen -> finish flow -> connect element -> set start element -> save name -> activate flow (setup -> Flows -> activate)
+    	How to add Flow to Home? Lightning App Builder -> new -> Home -> clone default page -> drag -> Activate -> test -> add Run Flow
+    	How to enable Lightning? setup -> Process Automation Settings -> Enable Lightning Runtime for Flow
+    4) Combine Flow and Process (Process cannot grab ID of existing record)
+    	4 types of Flow variables: Variable (a value), sObject (a record), sObject collection (* record), Collection (set of same data type)
+    5) Approval initial submission action (lock record),
+    			final rejection action (Rejected),
+    			final approval action (Approved, unlock record)
+    	How to create Email Template? setup -> Email Template -> new -> settings -> save
+    	How to approval? setup -> Approval Process -> new (jump start wizard) -> Configure -> Final      
+```
+6. Apex
 ```
 
+```
+7. SOQL and SOSL
+```
 SOQL Ex:
 	public class ContactSearch {
 	
@@ -128,3 +199,4 @@ SOSL Ex:
 			return searchList;
 	    }
 	}
+```
