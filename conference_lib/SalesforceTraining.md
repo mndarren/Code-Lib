@@ -194,7 +194,7 @@ SOSL Ex:
 
 	    public static List<List<sObject>> searchContactsAndLeads(String target){
 	        
-	        List<List<sObject>> searchList = [FIND target IN ALL FIELDS 
+	        List<List<sObject>> searchList = [FIND :target IN ALL FIELDS 
 	                                          RETURNING Contact(FirstName,LastName), Lead(FirstName,LastName)];
 			return searchList;
 	    }
