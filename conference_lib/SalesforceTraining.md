@@ -166,6 +166,46 @@
 ```
 7. SOQL and SOSL
 ```
+Apex Ex:
+public class EmailManager {
+    // Public method
+    public void sendMail(String address, String subject, String body) {
+        // Create an email message object
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[] {address};
+        mail.setToAddresses(toAddresses);
+        mail.setSubject(subject);
+        mail.setPlainTextBody(body);
+        // Pass this email message to the built-in sendEmail method 
+        // of the Messaging class
+        Messaging.SendEmailResult[] results = Messaging.sendEmail(
+                                 new Messaging.SingleEmailMessage[] { mail });
+        
+        // Call a helper method to inspect the returned results
+        inspectResults(results);
+    }
+    
+    // Helper method
+    private static Boolean inspectResults(Messaging.SendEmailResult[] results) {
+        Boolean sendResult = true;
+        
+        // sendEmail returns an array of result objects.
+        // Iterate through the list to inspect results. 
+        // In this class, the methods send only one email, 
+        // so we should have only one result.
+        for (Messaging.SendEmailResult res : results) {
+            if (res.isSuccess()) {
+                System.debug('Email sent successfully');
+            }
+            else {
+                sendResult = false;
+                System.debug('The following errors occurred: ' + res.getErrors());                 
+            }
+        }
+        
+        return sendResult;
+     }
+}
 SOQL Ex:
 	public class ContactSearch {
 	
@@ -199,4 +239,143 @@ SOSL Ex:
 			return searchList;
 	    }
 	}
+Trigger Ex:
+trigger ContextExampleTrigger on Account (before insert, after insert, after delete) {
+    if (Trigger.isInsert) {
+        if (Trigger.isBefore) {
+            // Process before insert
+            for (Account a : Trigger.New){  // bulk insert
+            	a.Description = 'New Description!'
+        	}
+        } else if (Trigger.isAfter) {
+            // Process after insert
+        }        
+    }
+    else if (Trigger.isDelete) {
+        // Process after delete
+    }
+}
+
+trigger AddRelatedRecord on Account(after insert, after update) {
+    List<Opportunity> oppList = new List<Opportunity>();
+    
+    // Get the related opportunities for the accounts in this trigger
+    Map<Id,Account> acctsWithOpps = new Map<Id,Account>(
+        [SELECT Id,(SELECT Id FROM Opportunities) FROM Account WHERE Id IN :Trigger.New]);
+    
+    // Add an opportunity for each account if it doesn't already have one.
+    // Iterate through each account.
+    for(Account a : Trigger.New) {
+        System.debug('acctsWithOpps.get(a.Id).Opportunities.size()=' + acctsWithOpps.get(a.Id).Opportunities.size());
+        // Check if the account already has a related opportunity.
+        if (acctsWithOpps.get(a.Id).Opportunities.size() == 0) {
+            // If it doesn't, add a default opportunity
+            oppList.add(new Opportunity(Name=a.Name + ' Opportunity',
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=a.Id));
+        }           
+    }
+    if (oppList.size() > 0) {
+        insert oppList;
+    }
+}
+trigger AccountDeletion on Account (before delete) {
+   
+    // Prevent the deletion of accounts if they have related opportunities.
+    for (Account a : [SELECT Id FROM Account
+                     WHERE Id IN (SELECT AccountId FROM Opportunity) AND
+                     Id IN :Trigger.old]) {
+        Trigger.oldMap.get(a.Id).addError(
+            'Cannot delete account with related opportunities.');
+    }
+    
+}
+
+public class CalloutClass {
+    @future(callout=true)
+    public static void makeCallout() {
+        HttpRequest request = new HttpRequest();
+        // Set the endpoint URL.
+        String endpoint = 'http://yourHost/yourService';
+        request.setEndPoint(endpoint);
+        // Set the HTTP verb to GET.
+        request.setMethod('GET');
+        // Send the HTTP request and get the response.
+        HttpResponse response = new HTTP().send(request);
+    }
+}
+trigger CalloutTrigger on Account (before insert, before update) {
+    CalloutClass.makeCallout();
+}
+trigger AccountAddressTrigger on Account (before insert, before update) {
+    for(Account a : Trigger.new){
+        If (a.Match_Billing_Address__c == true && a.BillingPostalCode!=Null) {
+            a.ShippingPostalCode = a.BillingPostalCode;
+        }   
+    }
+}
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the accounts and their related opportunities.
+    List<Account> acctsWithOpps = 
+        [SELECT Id,(SELECT Id,Name,CloseDate FROM Opportunities) 
+         FROM Account WHERE Id IN :Trigger.New];
+  
+    // Iterate over the returned accounts    
+    for(Account a : acctsWithOpps) { 
+        Opportunity[] relatedOpps = a.Opportunities;  
+        // Do some other processing
+    }
+}
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the related opportunities for the accounts in this trigger.
+    List<Opportunity> relatedOpps = [SELECT Id,Name,CloseDate FROM Opportunity
+        WHERE AccountId IN :Trigger.New];
+  
+    // Iterate over the related opportunities    
+    for(Opportunity opp : relatedOpps) { 
+        // Do some other processing
+    }
+}
+trigger AddRelatedRecord on Account(after insert, after update) {
+    List<Opportunity> oppList = new List<Opportunity>();
+    
+    // Add an opportunity for each account if it doesn't already have one.
+    // Iterate over accounts that are in this trigger but that don't have opportunities.
+    for (Account a : [SELECT Id,Name FROM Account
+                     WHERE Id IN :Trigger.New AND
+                     Id NOT IN (SELECT AccountId FROM Opportunity)]) {
+        // Add a default opportunity for this account
+        oppList.add(new Opportunity(Name=a.Name + ' Opportunity',
+                                   StageName='Prospecting',
+                                   CloseDate=System.today().addMonths(1),
+                                   AccountId=a.Id)); 
+    }
+    
+    if (oppList.size() > 0) {
+        insert oppList;
+    }
+}
+
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
+
+      List<Task> OpTasklist = new List<Task>();
+    
+    // Iterate over opportunities that are in this trigger and have a stage of "Closed Won"
+    for (Opportunity op: [SELECT id FROM Opportunity 
+                          WHERE Id IN :Trigger.New AND
+                          StageName =: 'Closed Won']) {
+                              
+                              if (((Trigger.IsUpdate) && (Trigger.oldMap.get(op.Id).StageName != 'Closed Won')) || 
+                                  (Trigger.IsInsert)) {
+                                      OpTaskList.add(new Task (Subject='Follow Up Test Task', 
+                                                               WhatId = op.Id)); }          
+                          }
+    
+    If (OpTaskList.size() > 0) { 
+        Insert OpTaskList ;
+    } 
+}
 ```
