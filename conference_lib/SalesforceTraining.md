@@ -379,3 +379,59 @@ trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
     } 
 }
 ```
+8. Apex Test
+```
+public class TemperatureConverter {
+    // Takes a Fahrenheit temperature and returns the Celsius equivalent.
+    public static Decimal FahrenheitToCelsius(Decimal fh) {
+        Decimal cs = (fh - 32) * 5/9;
+        return cs.setScale(2);
+    }
+}
+@isTest
+private class TemperatureConverterTest {
+    @isTest static void testWarmTemp() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(70);
+        System.assertEquals(21.11,celsius);
+    }
+    
+    @isTest static void testFreezingPoint() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(32);
+        System.assertEquals(0,celsius);
+    }
+    @isTest static void testBoilingPoint() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(212);        
+        System.assertEquals(100,celsius,'Boiling point temperature is not expected.');
+    } 
+    
+    @isTest static void testNegativeTemp() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(-10);
+        System.assertEquals(-23.33,celsius);
+    }
+      
+}
+@isTest
+public class TestVerifyDate {
+
+    @isTest static void testDate(){
+        Date date1 = System.today();
+        Date date2 = date1.addDays(10);
+        Date date3 = date1.addDays(30);
+        Date date4 = date1.addDays(40);
+        Integer totalDays = Date.daysInMonth(date1.year(), date1.month());
+        Date lastDay = Date.newInstance(date1.year(), date1.month(), totalDays);
+        
+        Date d = VerifyDate.CheckDates(date1, date2);
+        System.assertEquals(date2, d);
+        
+        d = VerifyDate.CheckDates(date1, date3);
+        System.assertEquals(date3, d);
+        
+        d = VerifyDate.CheckDates(date1, date4);
+        System.assertEquals(lastDay, d);
+        
+        d = VerifyDate.CheckDates(date2, date1);
+        System.assertEquals(lastDay, d);
+    }
+}
+```
