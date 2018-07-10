@@ -517,3 +517,127 @@ public class TestDataFactory {
 
 Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
 ```
+9. Visualforce
+```
+<apex:page standardController="Contact" >
+    <apex:form >
+        
+        <apex:pageBlock title="Edit Contact">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!Contact.FirstName}"/>
+                <apex:inputField value="{!Contact.LastName}"/>
+                <apex:inputField value="{!Contact.Email}"/>
+                <apex:inputField value="{!Contact.Birthdate}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>
+
+{! $User.FirstName & ' ' & $User.LastName }
+
+<p>The year today is {! YEAR(TODAY()) }</p>
+<p>Tomorrow will be day number  {! DAY(TODAY() + 1) }</p>
+<p>Let's find a maximum: {! MAX(1,2,3,4,5,6,5,4,3,2,1) } </p>
+<p>The square root of 49 is {! SQRT(49) }</p>
+<p>Is it true?  {! CONTAINS('salesforce.com', 'force.com') }</p>
+
+<p>{! IF( CONTAINS('salesforce.com','force.com'), 
+     'Yep', 'Nope') }</p>
+<p>{! IF( DAY(TODAY()) < 15, 
+     'Before the 15th', 'The 15th or after') }</p>
+({! IF($User.isActive, $User.Username, 'inactive') })
+
+<apex:page showHeader="false">
+    <apex:pageBlock title="User Status">
+        <apex:pageBlockSection columns="1">
+            
+            {!$User.FirstName } {!$User.LastName } ({!$User.Username })
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>
+
+//controller
+<apex:page standardController="Contact">
+    
+    <apex:pageBlock title="Contact Summary">
+        <apex:pageBlockSection>
+        	
+            First Name: {! Contact.FirstName } <br/>
+            Last Name: {! Contact.LastName } <br/>
+            Owner Email: {! Contact.Owner.Email} <br/>
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+
+//OUtput components
+<apex:detail relatedList="false"/>  // too much to disable related list
+<apex:relatedList list="Opportunities" pageSize="5"/>  //display related record
+
+//instead of detail
+<apex:outputField value="{! Account.Name }"/>
+<apex:outputField value="{! Account.Phone }"/>
+<apex:outputField value="{! Account.Industry }"/>
+<apex:outputField value="{! Account.AnnualRevenue }"/>
+
+//Display a table
+<apex:pageBlock title="Contacts">
+   <apex:pageBlockTable value="{!Account.contacts}" var="contact">
+      <apex:column value="{!contact.Name}"/>
+      <apex:column value="{!contact.Title}"/>
+      <apex:column value="{!contact.Phone}"/>
+   </apex:pageBlockTable>
+</apex:pageBlock>
+//challenge
+<apex:page standardController="Opportunity">
+    <apex:outputField value="{! Opportunity.Name }"/>
+	<apex:outputField value="{! Opportunity.Amount }"/>
+	<apex:outputField value="{! Opportunity.CloseDate }"/>
+	<apex:outputField value="{! Opportunity.Account.Name}"/>
+</apex:page>
+
+//form
+<apex:page standardController="Account">
+    <apex:form>
+    
+    <apex:pageBlock title="Edit Account">
+    <apex:pageMessages/>
+        <apex:pageBlockSection columns="1">
+    	<apex:inputField value="{! Account.Name }"/>
+    	<apex:inputField value="{! Account.Phone }"/>        
+    	<apex:inputField value="{! Account.Industry }"/>        
+    	<apex:inputField value="{! Account.AnnualRevenue }"/>
+	</apex:pageBlockSection>
+        <apex:pageBlockButtons>
+            <apex:commandButton action="{! save }" value="Save" />        
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Contacts">
+    	<apex:pageBlockTable value="{!Account.contacts}" var="contact">
+        	<apex:column>
+            	<apex:outputLink
+                	value="{! URLFOR($Action.Contact.Edit, contact.Id) }">
+                	Edit
+            	</apex:outputLink>
+            	&nbsp;
+            	<apex:outputLink
+                	value="{! URLFOR($Action.Contact.Delete, contact.Id) }">
+                	Del
+            	</apex:outputLink>
+        	</apex:column>
+        	<apex:column value="{!contact.Name}"/>
+        	<apex:column value="{!contact.Title}"/>
+        	<apex:column value="{!contact.Phone}"/>
+    	</apex:pageBlockTable>
+	</apex:pageBlock>
+    
+    </apex:form>
+</apex:page>
+```
