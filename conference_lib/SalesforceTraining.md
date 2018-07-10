@@ -640,4 +640,201 @@ Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
     
     </apex:form>
 </apex:page>
+
+//list controller
+<apex:page standardController="Contact" recordSetVar="contacts">
+    <apex:pageBlock title="Contacts List" id="contacts_list">
+        
+            Filter: 
+            <apex:selectList value="{! filterId }" size="1">
+                <apex:selectOptions value="{! listViewOptions }"/>
+                <apex:actionSupport event="onchange" reRender="contacts_list"/>
+            </apex:selectList>
+        
+        <!-- Contacts List -->
+        <apex:pageBlockTable value="{! contacts }" var="ct">
+            <apex:column value="{! ct.FirstName }"/>
+            <apex:column value="{! ct.LastName }"/>
+            <apex:column value="{! ct.Email }"/>
+            <apex:column value="{! ct.Account.Name }"/>
+        </apex:pageBlockTable>
+        
+    </apex:pageBlock>
+</apex:page>
+
+<!-- Pagination -->
+<table style="width: 100%"><tr>
+    <td>
+        Page: <apex:outputText 
+    		value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
+    </td>            
+    <td align="center">
+        <!-- Previous page -->
+		<!-- active -->
+		<apex:commandLink action="{! Previous }" value="« Previous"
+     		rendered="{! HasPrevious }"/>
+		<!-- inactive (no earlier pages) -->
+		<apex:outputText style="color: #ccc;" value="« Previous"
+     		rendered="{! NOT(HasPrevious) }"/>
+		&nbsp;&nbsp;  
+		<!-- Next page -->
+		<!-- active -->
+		<apex:commandLink action="{! Next }" value="Next »"
+     		rendered="{! HasNext }"/>
+		<!-- inactive (no more pages) -->
+		<apex:outputText style="color: #ccc;" value="Next »"
+     		rendered="{! NOT(HasNext) }"/>
+    </td>
+    
+    <td align="right">
+        Records per page:
+		<apex:selectList value="{! PageSize }" size="1">
+    		<apex:selectOption itemValue="5" itemLabel="5"/>
+    		<apex:selectOption itemValue="20" itemLabel="20"/>
+    		<apex:actionSupport event="onchange" reRender="contacts_list"/>
+		</apex:selectList>
+    </td>
+</tr></table>
+
+//Challenge
+<apex:page standardController="Account" recordSetVar="Accounts" >
+   <apex:pageblock>
+       <apex:repeat var="a" value="{!Accounts}" rendered="true" id="account_list">
+           <li>
+               <apex:outputLink value="/{!a.ID}" >
+                   <apex:outputText value="{!a.Name}"/>
+               </apex:outputLink>
+           </li>
+       </apex:repeat>
+   </apex:pageblock>
+</apex:page>
+
+//static resource ($Resource | URLFOR())
+How? setup -> Static Resources -> new JQuery choose file public -> save
+{! $Resource.jQuery}
+<apex:page>
+    
+    <!-- Add the static resource to page's <head> -->
+    <apex:includeScript value="{! $Resource.jQuery }"/>
+    
+    <!-- A short bit of jQuery to test it's there -->
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(document).ready(function() {
+            jQuery("#message").html("Hello from jQuery!");
+        });
+    </script>
+    
+    <!-- Where the jQuery message will appear -->
+    <h1 id="message"></h1>
+    
+</apex:page>
+
+Tip: when creating Static Resource with zip file, if > 5MB, remove /demo/ directory and upload a smaller one.
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false">
+    
+    <!-- Add static resources to page's <head> -->
+    <apex:stylesheet value="{!
+          URLFOR($Resource.jQueryMobile,'jquery.mobile-1.4.5/jquery.mobile-1.4.5.css')}"/>
+    <apex:includeScript value="{! $Resource.jQuery }"/>
+    <apex:includeScript value="{!
+         URLFOR($Resource.jQueryMobile,'jquery.mobile-1.4.5/jquery.mobile-1.4.5.js')}"/>
+    <div style="margin-left: auto; margin-right: auto; width: 50%">
+        <!-- Display images directly referenced in a static resource -->
+        <h3>Images</h3>
+        <p>A hidden message:
+            <apex:image alt="eye" title="eye"
+                 url="{!URLFOR($Resource.jQueryMobile, 'jquery.mobile-1.4.5/images/icons-png/eye-black.png')}"/>
+            <apex:image alt="heart" title="heart"
+                 url="{!URLFOR($Resource.jQueryMobile, 'jquery.mobile-1.4.5/images/icons-png/heart-black.png')}"/>
+            <apex:image alt="cloud" title="cloud"
+                 url="{!URLFOR($Resource.jQueryMobile, 'jquery.mobile-1.4.5/images/icons-png/cloud-black.png')}"/>
+        </p>
+    <!-- Display images referenced by CSS styles,
+         all from a static resource. -->
+    <h3>Background Images on Buttons</h3>
+    <button class="ui-btn ui-shadow ui-corner-all
+         ui-btn-icon-left ui-icon-action">action</button>
+    <button class="ui-btn ui-shadow ui-corner-all
+         ui-btn-icon-left ui-icon-star">star</button>
+    </div>
+</apex:page>
+
+//challenge
+<apex:page showHeader="false" >
+    <!-- Add static resources to page's <head> -->
+    <apex:image value="{! URLFOR($Resource.vfimagetest,'cats/kitten1.jpg')}"/>
+</apex:page>
+
+//Customer Controller
+How? create controller class -> use it in VF page
+public class ContactsListController {
+    private String sortOrder = 'LastName';
+    
+	public List<Contact> getContacts() {
+    
+    	List<Contact> results = Database.query(
+        	'SELECT Id, FirstName, LastName, Title, Email ' +
+        	'FROM Contact ' +
+        	'ORDER BY ' + sortOrder + ' ASC ' +
+        	'LIMIT 10'
+    	);
+    	return results;
+	}
+	public void sortByLastName() {
+    	this.sortOrder = 'LastName';
+	}
+    
+	public void sortByFirstName() {
+    	this.sortOrder = 'FirstName';
+	}
+}
+<apex:page controller="ContactsListController">
+    <apex:form>
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+            
+            <!-- Contacts List -->
+			<apex:pageBlockTable value="{! contacts }" var="ct">
+    			<apex:column value="{! ct.FirstName }">
+    				<apex:facet name="header">
+        				<apex:commandLink action="{! sortByFirstName }" 
+            				reRender="contacts_list">First Name
+        				</apex:commandLink>
+    				</apex:facet>
+				</apex:column>
+				<apex:column value="{! ct.LastName }">
+    				<apex:facet name="header">
+       	 				<apex:commandLink action="{! sortByLastName }" 
+            				reRender="contacts_list">Last Name
+        				</apex:commandLink>
+    				</apex:facet>
+				</apex:column>
+    			<apex:column value="{! ct.Title }"/>
+    			<apex:column value="{! ct.Email }"/>
+    
+			</apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+
+//Apex properties
+public MyObject__c myVariable { get; set; }
+//challenge
+public class NewCaseListController {
+
+    public List<Case> getNewCases() {
+    
+    	List<Case> results = [Select Id, CaseNumber FROM Case WHERE status = 'New'];
+    	return results;
+	}
+}
+<apex:page controller="NewCaseListController">
+  <apex:repeat var="case" value="{!NewCases}">
+  <li>
+  <apex:outputLink value="/{!case.id}">
+      {!case.id} {!case.CaseNumber}
+  </apex:outputLink>
+  </li>
+  </apex:repeat>
+</apex:page>
 ```
