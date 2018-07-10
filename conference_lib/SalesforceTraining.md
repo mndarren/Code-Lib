@@ -434,4 +434,86 @@ public class TestVerifyDate {
         System.assertEquals(lastDay, d);
     }
 }
+@isTest
+private class TestAccountDeletion {
+    @isTest static void TestDeleteAccountWithOneOpportunity() {
+        // Test data setup
+        // Create an account with an opportunity, and then try to delete it
+        Account acct = new Account(Name='Test Account');
+        insert acct;
+        Opportunity opp = new Opportunity(Name=acct.Name + ' Opportunity',
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=acct.Id);
+        insert opp;
+        
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(acct, false);
+        Test.stopTest();
+        // Verify 
+        // In this case the deletion should have been stopped by the trigger,
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot delete account with related opportunities.',
+                             result.getErrors()[0].getMessage());
+    }
+    
+}
+@isTest
+public class TestRestrictContactByName {
+
+    @isTest static void TestInsertContactWithInvalidLastName() {
+        // Test data setup
+        // Create a contact with the last name INVALIDNAME
+        Contact cont = new Contact(FirstName = 'John ', LastName = 'INVALIDNAME');
+            
+        // Perform test
+        Test.startTest();
+        Database.SaveResult result = Database.insert(cont, false);
+        Test.stopTest();
+
+        // Verify 
+        // In this case the insert operation should have been stopped by the trigger,
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('The Last Name "INVALIDNAME" is not allowed for DML',
+                             result.getErrors()[0].getMessage());
+    
+    }
+   
+}
+Create Test Data for Apex Test
+@isTest
+public class TestDataFactory {
+    public static List<Account> createAccountsWithOpps(Integer numAccts, Integer numOppsPerAcct) {
+        List<Account> accts = new List<Account>();
+        
+        for(Integer i=0;i<numAccts;i++) {
+            Account a = new Account(Name='TestAccount' + i);
+            accts.add(a);
+        }
+        insert accts;
+        
+        List<Opportunity> opps = new List<Opportunity>();
+        for (Integer j=0;j<numAccts;j++) {
+            Account acct = accts[j];
+            // For each account just inserted, add opportunities
+            for (Integer k=0;k<numOppsPerAcct;k++) {
+                opps.add(new Opportunity(Name=acct.Name + ' Opportunity ' + k,
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=acct.Id));
+            }
+        }
+        // Insert all opportunities for all accounts.
+        insert opps;
+        
+        return accts;
+    }
+}
+
+Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
 ```
