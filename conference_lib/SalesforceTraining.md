@@ -952,6 +952,15 @@
 			Log level: NONE, ERROR, WARN, INFO, DEBUG, FINE, FINER, FINEST (they are cumulative)
 			Tip: log level depends on log event. ApexCode events start logging at INFO, if setting ERROR, get nothing
 			How? Debug -> Change Log Levels
-	6) Inspect Objects at Checkpoints
-
+	6) Inspect Objects at Checkpoints (Heap, Symbols)
+		How? setup breakpoint -> run code -> checkpoint tab -> double click
+	7) SOSL challenge:
+	List<List<Contact>> contacts = [FIND 'Mission Control' IN ALL FIELDS RETURNING Contact(FirstName, LastName, Phone, Email, Title)];
+	Contact[] cons = (Contact[])contacts[0];
+    for (Contact c : cons){
+        System.debug(c.Lastname +', '+c.Firstname);
+    }
+```
+12. Search Solution Basics
+```
 ```
