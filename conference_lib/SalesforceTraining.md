@@ -915,3 +915,43 @@
 		  </apex:repeat>
 		</apex:page>
 ```
+11. Developer Console
+```
+	1) Developer Console doesn't have version control or conflict resolution. Be careful to avoid overwrite other code
+	2) How to setup Workspace? Workspace -> new
+		When switching workspace, Workspace -> Workspace Manager Workspace -> Switch Workspace
+	3) How to create a Lightning Component? File -> New -> Lightning Component -> submit -> save
+	4) VF Page challenge
+<apex:page sidebar="false">
+   <h1>Station Status</h1>
+   <apex:form id="stationReadinessChecklist">
+      <apex:pageBlock title="Station Readiness Checklist">
+         <!--Second Section-->
+         <apex:pageBlockSection title="Fuel Tanks">
+            <apex:inputCheckbox immediate="true"/>Tank 1
+            <apex:inputCheckbox immediate="true"/>Tank 2
+            <apex:inputCheckbox immediate="true"/>Tank 3
+            <apex:inputCheckbox immediate="true"/>Tank 4
+            <apex:inputCheckbox immediate="true"/>Tank 5
+            <apex:inputCheckbox immediate="true"/>Tank 6
+         </apex:pageBlockSection>
+         <apex:pageBlockButtons>
+            <!--Adding Save Button-->
+            <apex:commandButton value="Save" action="{!save}"/>
+         </apex:pageBlockButtons>
+      </apex:pageBlock>
+   </apex:form>
+</apex:page>
+	5) View debug log (System.debug())
+		Log Inspector -- easier to view large logs. (View Log Panels)
+			How? Debug -> view Log Panels
+		Perspective Manager How? Debug -> Switch Perspectives
+			How to create own Perspective? 
+			Switch log level -> Execute Code (with open log checked) -> Debug -> View Log Panels -> choose -> Save Perspective As
+		Log Categories (ApexCode, Database(DML, SOQL, SOSL))
+			Log level: NONE, ERROR, WARN, INFO, DEBUG, FINE, FINER, FINEST (they are cumulative)
+			Tip: log level depends on log event. ApexCode events start logging at INFO, if setting ERROR, get nothing
+			How? Debug -> Change Log Levels
+	6) Inspect Objects at Checkpoints
+
+```
