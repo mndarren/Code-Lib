@@ -258,6 +258,25 @@
 					 Wing*        --  * means 0 or more char
 					 Wing?        --  ? means 1 char
 					 AND ()   can be used as well
+		Order by Ex:
+			FIND {Cloud Kicks} RETURNING Account (Name, Industry ORDER BY Name)
+		Limit n Ex:
+			FIND {Cloud Kicks} RETURNING Account (Name, Industry ORDER BY Name LIMIT 10)
+		Offset n Ex:
+			FIND {Cloud Kicks} RETURNING Account (Name, Industry ORDER BY Name LIMIT 10 OFFSET 25)
+		WITH DIVIDION Ex:
+		    FIND {Cloud Kicks} RETURNING Account (Name, Industry)
+    	       WITH DIVISION = 'Global'
+		WITH DATA CATEGORY Ex:
+		    FIND {race} RETURNING KnowledgeArticleVersion
+               (Id, Title WHERE PublishStatus='online' and language='en_US')
+               WITH DATA CATEGORY Location__c AT America__c
+        WITH NETWORK Ex:
+            FIND {first place} RETURNING User (Id, Name),
+               FeedItem (id, ParentId WHERE CreatedDate = THIS_YEAR Order by CreatedDate DESC)
+               WITH NETWORK = '00000000000001'
+        WITH PRICEBOOK Ex:
+            Find {shoe} RETURNING Product2 WITH PricebookId = '01sxx0000002MffAAE'
 		Ex:
 		List<List<sObject>> searchList = [FIND 'Wingo OR SFDC' IN ALL FIELDS 
 		                   RETURNING Account(Name),Contact(FirstName,LastName,Department)];
@@ -961,6 +980,14 @@
         System.debug(c.Lastname +', '+c.Firstname);
     }
 ```
-12. Search Solution Basics
+12. Search Solution Basics (most-used SF feature)
 ```
+	1) Create a record, the search engine comes along, make a copy of the data, and breaks up the content into smaller pieces called tokens. Store these tokens in the search index, along with a link back to the original record.
+	2) APIs SOQL, SOSL
+	   Query(REST) and query()(SOAP) - Executes a SOQL query
+	   Search(REST) and search()(SOAP)- Executes a SOSL text strinig search
+	3) SF Federated Search connector built by OpenSearch standard engine
+	4) Single obj search, Multiple obj search, Custom obj search
+	5) Optimize Search Result
+	      How? setup -> Synonyms -> choose
 ```
