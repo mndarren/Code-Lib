@@ -56,4 +56,14 @@
 	```
 4. Tip for query something in this table not in another table<br/>
 	one should always use LEFT JOIN / IS NULL or NOT EXISTS rather than NOT IN to find the missing values.
+5. Character Type
+	```
+	character varying(n), varcahar(n)  -- variable length with limit
+	character(n), char(n)  -- fixed-length, blank padded
+	text  -- variable unlimited length
+	1) if one explicitly casts a value to varchar(n) or char(n), over-length value will be truncated to n char without raising an error.
+	2) char without length specifier => will be char(1)
+	   varchar without length => will accept strings of any size.
+	3) in fact character(n) is usually the slowest of the three because of its additional storage costs. In most situations text or character varying should be used instead.
+	```
 
