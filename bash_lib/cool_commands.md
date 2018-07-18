@@ -68,7 +68,15 @@
 	sudo do-release-upgrade -d  # -y
 	reboot
 	```
-11. 
+11. How to set up mount
+	```
+	sudo mkdir /extracts
+	sudo chown dxie:dxie -R /extracts
+	sudo mkdir /extracts/any
+	sudo nano /etc/fstab  # append # //network/info      /extracts/any cifs    credentials=/extracts/crutch.res,noauto,users      0       0
+	sudo nano /extracts/crutsh.res  # add username= password= domain= in 3 separated lines
+	mount /extracts/any
+	```
 
 # Cool Commands 4 Redhat7
 =====================================
