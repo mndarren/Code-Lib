@@ -77,6 +77,12 @@
 	sudo nano /extracts/crutsh.res  # add username= password= domain= in 3 separated lines
 	mount /extracts/any
 	```
+12. How to set up DBVisualizer
+	```
+	# Download DBVisualizer rpm version first
+	sudo rpm -i download_file
+	dbvis
+	```
 
 # Cool Commands 4 Redhat7
 =====================================
