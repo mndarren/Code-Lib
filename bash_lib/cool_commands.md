@@ -122,3 +122,17 @@
 	```
 3. List all users `cut -d: -f1 /etc/passws`
 4. 
+
+# Cool Commands 4 CentOS7
+================================================
+1. How to use scp to transfer file from Ubuntu to CentOS VM of VirtualBox
+	```
+	# situation: firewall never let 22(SSH) port go thru, Guest plugin was installed failed
+	1) re-setup dynamic IP
+	   $ dhclient -r
+	   $ dhclient
+	2) Network setting (VirtualBox) -> NAT & Port Forwarding
+	   Host IP   Host Port   Guest IP   Guest Port
+	   127.0.0.1  2222       127.0.0.1   22
+	3) scp -P 2222 source_file dxie@127.0.0.1:/home/dxie
+	```
