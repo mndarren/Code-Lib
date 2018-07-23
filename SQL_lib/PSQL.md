@@ -3,7 +3,7 @@
 1. Install pgSQL: sudo apt-get install postgresql-9.6 <br>
 		sudo apt-get install pgadmin3
 2. Setting password<br>
-	`sudo -u postgres psql postgres`
+	`sudo -U postgres psql postgres`
 	`\password postgres`
 	`\q`
 3. Allowing local connection
@@ -16,6 +16,7 @@
 4. Allowing remote connection
 	```
 	/etc/postgresql/9.6/main/pg_hba.conf
+	local   all   postgres   md5
 	local   all   all     md5 (changed to the following)
 	host    all   all   0.0.0.0/0   trust
 	/etc/postgresql/9.6/main/postgresql.conf
@@ -66,4 +67,10 @@
 	   varchar without length => will accept strings of any size.
 	3) in fact character(n) is usually the slowest of the three because of its additional storage costs. In most situations text or character varying should be used instead.
 	```
-
+6. How to test roles
+	```
+	\du  --display all users/roles
+	SELECT table_catalog, table_schema, table_name, privilege_type
+	FROM   information_schema.table_privileges 
+	WHERE  grantee = 'sw_developer_role';
+	```
