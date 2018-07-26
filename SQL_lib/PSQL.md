@@ -70,7 +70,30 @@
 6. How to test roles
 	```
 	\du  --display all users/roles
+	/* show privileges for the role */
 	SELECT table_catalog, table_schema, table_name, privilege_type
 	FROM   information_schema.table_privileges 
 	WHERE  grantee = 'sw_developer_role';
+	/* switch user */
+	Set session authorization peter;
+	/* show current user */
+	SELECT SESSION_USER, CURRENT_USER;
+	 session_user | current_user 
+--------------+--------------
+ peter        | peter
+
+SET ROLE 'paul';
+
+SELECT SESSION_USER, CURRENT_USER;
+
+ session_user | current_user 
+--------------+--------------
+ peter        | paul
 	```
+7. Show role privileges:
+	```
+	SELECT table_catalog, table_schema, table_name, privilege_type
+	FROM   information_schema.table_privileges 
+	WHERE  grantee = 'middleware_app_role';
+	```
+8. 
