@@ -78,17 +78,8 @@
 	Set session authorization peter;
 	/* show current user */
 	SELECT SESSION_USER, CURRENT_USER;
-	 session_user | current_user 
---------------+--------------
- peter        | peter
-
-SET ROLE 'paul';
-
-SELECT SESSION_USER, CURRENT_USER;
-
- session_user | current_user 
---------------+--------------
- peter        | paul
+	SET ROLE 'paul';
+	SELECT SESSION_USER, CURRENT_USER;
 	```
 7. Show role privileges:
 	```
@@ -96,4 +87,10 @@ SELECT SESSION_USER, CURRENT_USER;
 	FROM   information_schema.table_privileges 
 	WHERE  grantee = 'middleware_app_role';
 	```
-8. 
+8. Show all tables: 
+	\du <br/>
+	SELECT * FROM pg_catalog.pg_tables;<br/>
+9. export SQL
+	```
+	pg_dump -U username dbname > dbexport.pgsql
+	```
