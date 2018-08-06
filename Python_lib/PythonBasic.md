@@ -627,3 +627,15 @@
     	# Test the tenth power
     	assert power_partials[9](2) == 1024
 	```
+44. iterator
+	```
+	1) list, tuple, string, etc. are iterable.
+	2) must implement __iter__() and __next__().
+
+	```
+45. dict.get()
+	```
+	dict = {'Name': 'Zabra', 'Age': 7}
+	print "Value : %s" %  dict.get('Age')
+	print "Value : %s" %  dict.get('Education', "Never")
+	```
