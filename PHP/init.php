@@ -2,7 +2,7 @@
 
 $host = "mysql11.000webhost.com";
 $user = "a3952107_darren";
-$password = "Xzmxhl921";
+$password = "password";
 $db = "a3952107_scsu";
 
 $con = mysqli_connect($host,$user,$password,$db);
