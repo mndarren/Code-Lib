@@ -1,6 +1,9 @@
+# find largest palindrom numbers
 numbers = [12345, 6754, 9087, 1234562349240234234235645754632, 12123344213, 12359235934894378437238923892398575624]
 
 def isPalindrom(num):
+    if len(num) < 3:
+        return true
     num_str = str(num)
     num_enum = enumerate(num_str)
     index_last = len(num_str) - 1
