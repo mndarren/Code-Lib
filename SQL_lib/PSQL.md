@@ -94,3 +94,7 @@
 	```
 	pg_dump -U username dbname > dbexport.pgsql
 	```
+10. How to make a copy of DB
+	```
+	CREATE DATABASE my_database_review WITH TEMPLATE my_database OWNER postgres;
+	```
