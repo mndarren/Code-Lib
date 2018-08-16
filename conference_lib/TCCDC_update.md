@@ -24,3 +24,4 @@
 13. Set up register page at front side
 14. Set up Login page at front side
 15. Connect front page to the Database on the back side
+16. Get more good video and update Video Gallery
