@@ -1,4 +1,4 @@
-# Update Website 8/13/2018
+# Update Website From 8/13/2018
 ================================
 1. Remove phone number 651-246-5735 (Done)
 2. Move Dance of Joy - IX 2018
