@@ -18,10 +18,16 @@
    4) Admin user will be responsible for confirming payment for each student.
    ```
 9. Implement Database (Done)
-10. Get more pretty photos and update Photo Gallery
-11. Latest News needs to be updated
-12. Program Page video is broken, need to be fixed
-13. Set up register page at front side
-14. Set up Login page at front side
-15. Connect front page to the Database on the back side
-16. Get more good video and update Video Gallery
+10. Add a logo (Wu in Chinese) (Done)
+11. Get more pretty photos and update Photo Gallery (Done)
+12. Latest News needs to be updated
+13. Program Page video is broken, need to be fixed
+14. Set up register page at front side
+15. Set up Login page at front side
+16. Connect front page to the Database on the back side
+17. Get more good video and update Video Gallery
+18. Add all Posters on the Web site (Done)
+19. Update a title for each perfect photo
+20. Update title and description for each video
+21. Home page bad numbers should be deleted （Done)
+22. Email should be official .org, so we need to apply it.
