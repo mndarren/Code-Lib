@@ -21,7 +21,7 @@
 10. Add a logo (Wu in Chinese) (Done)
 11. Get more pretty photos and update Photo Gallery (Done)
 12. Latest News needs to be updated
-13. Program Page video is broken, need to be fixed
+13. Program Page video is broken, need to be fixed（Done)
 14. Set up register page at front side
 15. Set up Login page at front side
 16. Connect front page to the Database on the back side
@@ -30,4 +30,5 @@
 19. Update a title for each perfect photo
 20. Update title and description for each video
 21. Home page bad numbers should be deleted （Done)
-22. Email should be official .org, so we need to apply it.
+22. Email should be official .org, so we need to apply it. (Done)
+23. Found a lot of photoes from background, updated Photo Gallery (Done)
