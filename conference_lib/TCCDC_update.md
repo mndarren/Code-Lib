@@ -1,7 +1,7 @@
 # Update Website From 8/13/2018
 ================================
 1. Remove phone number 651-246-5735 (Done)
-2. Move Dance of Joy - IX 2018
+2. Move Dance of Joy - IX 2018 (Done)
 3. Change instructor description (Done)<br/>
     Add Yuan Hui instead of Zhao Huanru;<br/>
     Remove Luyao Che and Jun Zhou;<br/>
@@ -20,7 +20,7 @@
 9. Implement Database (Done)
 10. Add a logo (Wu in Chinese) (Done)
 11. Get more pretty photos and update Photo Gallery (Done)
-12. Latest News needs to be updated
+12. Latest News needs to be updated (Done)
 13. Program Page video is broken, need to be fixed（Done)
 14. Set up register page at front side
 15. Set up Login page at front side
@@ -32,3 +32,4 @@
 21. Home page bad numbers should be deleted （Done)
 22. Email should be official .org, so we need to apply it. (Done)
 23. Found a lot of photoes from background, updated Photo Gallery (Done)
+24. Updated phone number, adding back private one (Done)
