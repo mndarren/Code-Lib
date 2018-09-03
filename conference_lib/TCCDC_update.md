@@ -33,3 +33,4 @@
 22. Email should be official .org, so we need to apply it. (Done)
 23. Found a lot of photoes from background, updated Photo Gallery (Done)
 24. Updated phone number, adding back private one (Done)
+25. Update Daolan description (TCCDC Artistic Director) (Done)
