@@ -83,7 +83,15 @@
 	sudo rpm -i download_file
 	dbvis
 	```
-
+13. tmux
+	```
+	tmux
+	tmux ls
+	tmux attach -t 0
+	tmux new -s database  # session name: database
+	tmux rename-session -t 0 database
+	tmux attach -t database
+	```
 # Cool Commands 4 Redhat7
 =====================================
 1. How to change IP addr
