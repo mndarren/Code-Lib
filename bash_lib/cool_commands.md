@@ -89,8 +89,10 @@
 	tmux ls
 	tmux attach -t 0
 	tmux new -s database  # session name: database
-	tmux rename-session -t 0 database
-	tmux attach -t database
+	tmux rename-session -t 0 database  # rename session
+	tmux attach -t database  # attach session
+	tmux detach  # return basic terminal
+	tmux kill-sever  # destroy all sessions and kill all processes
 	```
 # Cool Commands 4 Redhat7
 =====================================
