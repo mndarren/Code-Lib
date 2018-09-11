@@ -36,3 +36,5 @@
 25. Update Daolan description (TCCDC Artistic Director) (Done)
 26. Add Belly Dance vedio (Done)
 27. Update the locations online (Done)
+28. Add SSL on the website (Done)
+29. 
