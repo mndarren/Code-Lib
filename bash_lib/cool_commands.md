@@ -94,6 +94,17 @@
 	tmux detach  # return basic terminal
 	tmux kill-sever  # destroy all sessions and kill all processes
 	```
+14. install grails
+	```
+	curl -s https://get.sdkman.io | bash
+	source "$HOME/.sdkman/bin/sdkman-init.sh"
+	sdk install grails
+	grails -version
+	grails create-app com.vogella.grails.guestbook
+	grails run-app
+	http://localhost:8080/
+	```
+
 # Cool Commands 4 Redhat7
 =====================================
 1. How to change IP addr
@@ -146,3 +157,4 @@
 	   127.0.0.1  2222       127.0.0.1   22
 	3) scp -P 2222 source_file dxie@127.0.0.1:/home/dxie
 	```
+
