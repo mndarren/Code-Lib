@@ -102,7 +102,7 @@
 	grails -version
 	grails create-app com.vogella.grails.guestbook
 	grails run-app
-	http://localhost:8080/
+	http://localhost:8080/com.vogella.grails.guestbook
 	```
 
 # Cool Commands 4 Redhat7
