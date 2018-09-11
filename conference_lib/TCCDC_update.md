@@ -34,3 +34,7 @@
 23. Found a lot of photoes from background, updated Photo Gallery (Done)
 24. Updated phone number, adding back private one (Done)
 25. Update Daolan description (TCCDC Artistic Director) (Done)
+26. Add Belly Dance vedio (Done)
+27. Update the locations online (Done)
+28. Add SSL on the website (Done)
+29. 
