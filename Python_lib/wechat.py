@@ -4,11 +4,11 @@ from wxpy import *
 import requests
 import random
 
-bot = Bot()
+# bot = Bot()
 
 
 # linux执行登陆请调用下面的这句
-# bot = Bot(console_qr=2,cache_path="botoo.pkl")
+bot = Bot(console_qr=2,cache_path="botoo.pkl")
 def get_news():
     """获取金山词霸每日一句，英文和翻译"""
     url = "http://open.iciba.com/dsapi/"
