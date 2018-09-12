@@ -991,3 +991,11 @@
 	5) Optimize Search Result
 	      How? setup -> Synonyms -> choose
 ```
+13. How to setup Intellij for SF
+```
+   1) install plugin 'jetforcer' (30 days permission try OR License)
+   2) create new project with setting up connecting to the SF sandbox (user and pass)
+   3) select objects that we need and save it 'mySet'. download them automatically.
+   4) setup version control (git clone)
+   5) modify code to update
+```
