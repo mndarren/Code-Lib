@@ -104,6 +104,20 @@
 	grails run-app
 	http://localhost:8080/com.vogella.grails.guestbook
 	```
+15. crontab  # from the Greek word "Chronos", which means "time", tab - table
+	```
+	┌───────────── minute (0 - 59)
+	│ ┌───────────── hour (0 - 23) 
+	│ │ ┌───────────── day of month (1 - 31)
+	│ │ │ ┌───────────── month (1 - 12)
+	│ │ │ │ ┌───────────── day of week (0 - 6) (Sunday to Saturday;
+	│ │ │ │ │                           7 is also Sunday on some systems)
+	│ │ │ │ │
+	│ │ │ │ │
+	* * * * *  command to execute
+	0 16 1,10,22 * * tells cron to run a task at 4 PM (which is the 16th hour) on the 1st, 10th and 22nd day of every month.
+	pip install python-crontab
+	```
 
 # Cool Commands 4 Redhat7
 =====================================
