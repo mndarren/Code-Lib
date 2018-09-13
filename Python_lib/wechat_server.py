@@ -2,7 +2,7 @@
 
 """
 Developer: Darren Zhao Xie
-Module: wechat_monthly
+Module: wechat_server
 """
 from __future__ import unicode_literals
 from threading import Timer
@@ -13,6 +13,7 @@ import socket
 
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
 PORT = 64422        # Port to listen on (non-privileged ports are > 1023)
+COUNT = 3
 # bot = Bot()  # in Windows
 # linux执行登陆请调用下面的这句
 bot = Bot(console_qr=2,cache_path="botoo.pkl")
@@ -47,15 +48,15 @@ def run_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
-        conn, addr = s.accept()
-        with conn:
-            print('Connected by', addr)
-            while True:
+        while True:
+            conn, addr = s.accept()
+            with conn:
+                print('Connected by', addr)
                 data = conn.recv(1024)
-                if not data:
-                    break
-                # conn.sendall(data)
-                send_news(data)
+                if data:
+                    send_news(data)
+                    conn.sendall(data)
+                    data = None
 
 
 if __name__ == "__main__":
