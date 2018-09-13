@@ -5,7 +5,11 @@ Purpose: Drawing tool from Turtle will be use to simiplify drawing picture by Tu
 Module: dzx_draw.py
 '''
 
-import turtle #import turtle so we can use it
+import turtle
+
+
+class draw():
+    
 wn = turtle.Screen() #set the screen to wn
 bob = turtle.Turtle() #and set bob as our turtle
 
