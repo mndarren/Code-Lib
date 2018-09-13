@@ -37,4 +37,4 @@
 26. Add Belly Dance vedio (Done)
 27. Update the locations online (Done)
 28. Add SSL on the website (Done)
-29. 
+29. Update 2018 Fall schedule again(updated version 5) (Done)
