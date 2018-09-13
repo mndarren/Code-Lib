@@ -52,6 +52,7 @@
 	sudo apt-get install python-pip python-dev build-essential
 	sudo pip install --upgrade pip
 	sudo pip install --upgrade virtualenv
+	sudo apt install python3-pip
 	```
 8. Install python3.6
 	```
