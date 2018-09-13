@@ -101,8 +101,13 @@
 	source "$HOME/.sdkman/bin/sdkman-init.sh"
 	sdk install grails
 	grails -version
-	grails create-app com.vogella.grails.guestbook
-	grails run-app
+	grails create-app com.vogella.grails.guestbook  # @ grails-app/conf/application.yml/ to speccify a default package
+	grails list-profiles  # list all profiles
+	grails create-app myApp -profile rest-api
+	grails create-app myApp -profile org.grails.profiles:react:1.0.2
+	grails profile-info plugin  # get detaied info about a profile
+	grailsw run-app  # without installed grails
+	grails run-app   # which installed grails
 	http://localhost:8080/com.vogella.grails.guestbook
 	```
 15. crontab  # from the Greek word "Chronos", which means "time", tab - table
