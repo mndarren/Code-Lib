@@ -146,5 +146,16 @@ dependencies {
     runtime 'mysql:mysql-connector-java:5.1.40'
 }
 # application.yml
-
+dataSource:
+    pooled: true
+    jmxExport: true
+    driverClassName: com.mysql.jdbc.Driver   
+    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    username: sa
+    password: testing
+environments:
+    development:
+        dataSource:
+            dbCreate: update
+            url: jdbc:mysql://127.0.0.1:3306/myapp
 ```

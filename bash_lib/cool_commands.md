@@ -124,6 +124,16 @@
 	0 16 1,10,22 * * tells cron to run a task at 4 PM (which is the 16th hour) on the 1st, 10th and 22nd day of every month.
 	pip install python-crontab
 	```
+16. remove and reinstall mysql-server
+```
+sudo apt-get remove --purge mysql*
+sudo apt-get purge mysql*
+sudo apt-get autoremove
+sudo apt-get autoclean
+sudo apt-get remove dbconfig-mysql
+sudo apt-get dist-upgrade
+sudo apt-get install mysql-server
+```
 
 # Cool Commands 4 Redhat7
 =====================================
