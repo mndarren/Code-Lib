@@ -150,3 +150,14 @@ cron.write()
 
 print job.env
 ```
+9. tab
+```
+from crontab import CronTab
+
+system_cron = CronTab()
+user_cron = CronTab('root')
+file_cron = CronTab(tabfile='filename.tab')
+mem_cron = CronTab(tab="""
+  * * * * * command
+""")
+```

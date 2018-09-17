@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-"""
-Developer: Darren Zhao Xie
-Module: wechat_server
-"""
+
+#Developer: Darren Zhao Xie
+#Module: wechat_server
+
 from __future__ import unicode_literals
 from threading import Timer
 from wxpy import *
@@ -28,7 +28,7 @@ def get_news():
     return content, note
 
 
-def send_news(msg, friends=['Shang']):
+def send_news(msg, friends=['Merry']):
     try:
         for friend in friends:
             contents = get_news()
@@ -54,9 +54,8 @@ def run_server():
                 print('Connected by', addr)
                 data = conn.recv(1024)
                 if data:
-                    send_news(data)
+                    send_news(data.decode('utf-8'))
                     conn.sendall(data)
-                    data = None
 
 
 if __name__ == "__main__":
