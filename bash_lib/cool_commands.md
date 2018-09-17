@@ -118,6 +118,7 @@
 	* * * * *  command to execute
 	0 16 1,10,22 * * tells cron to run a task at 4 PM (which is the 16th hour) on the 1st, 10th and 22nd day of every month.
 	pip install python-crontab
+	sudo service cron reload  # reload cron after having updated
 	```
 
 # Cool Commands 4 Redhat7
