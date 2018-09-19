@@ -7,7 +7,7 @@ Module: wechat_client
 from __future__ import unicode_literals
 import socket
 import json
-from wechat.constants import Constants
+from constants import *
 
 
 class WechatClient:
@@ -21,10 +21,10 @@ class WechatClient:
 
     def run(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((Constants.HOST, Constants.PORT))
+            s.connect((HOST, PORT))
             # convert dict to str and then convert str to bytes
             s.sendall((json.dumps(self.json_msg)).encode())
-            data = s.recv(Constants.BUFFER_SIZE)
+            data = s.recv(BUFFER_SIZE)
 
         print('Received', repr(data.decode('utf-8')))
 

@@ -5,8 +5,7 @@ Developer: Darren Zhao Xie
 Module: wechat_merry
 """
 from wechat_client import WechatClient
-from constants import night_msg
+from constants import merry_bth_msg
 
-client = WechatClient(msg=night_msg)
+client = WechatClient(msg=merry_bth_msg)
 client.run()
-
