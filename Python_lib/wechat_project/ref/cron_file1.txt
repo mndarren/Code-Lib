@@ -1,0 +1,12 @@
+# createdby Darren Zhao Xie
+# use /bin/sh to run commands
+SHELL=/bin/sh
+
+# mail any output to darren
+#MAILTO=darrenx
+
+# time zone setting
+CRON_TZ=America/New_York
+
+# on 1st day of every month sending msg to shang
+30 9 2 * *       python3 /home/dxie/code/wechat/wechat_shang.py # wechat_schedule
