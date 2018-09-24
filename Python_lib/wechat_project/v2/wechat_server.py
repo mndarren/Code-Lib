@@ -9,6 +9,8 @@ from __future__ import unicode_literals
 from wxpy import *
 import socket
 import json
+import time
+import random
 
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
 PORT = 64422        # Port to listen on (non-privileged ports are > 1023)
@@ -28,10 +30,14 @@ def send_msgs(msgs, friends=friends):
         for friend in friends:
             # 你朋友的微信名称，不是备注，也不是微信帐号。
             my_friend = bot.friends().search(friend)[0]
+            ran_int = random.randint(0, 10)
+            time.sleep(ran_int)
             for msg in msgs:
-            	my_friend.send(msg)
+                my_friend.send(msg)
+                ran_int = random.randint(0, 5)
+                time.sleep(ran_int)
         # for msg in msgs:
-        # 	bot.self.send(msg)
+        #   bot.self.send(msg)
         # bot.self.send(u"以上消息发送给了" + json.dumps(friends))
     except Exception as e:
         # 你的微信名称，不是微信帐号。

@@ -5,6 +5,7 @@ Developer: Darren Zhao Xie
 Module: wechat_client
 Purpose: I'm a Messager. Tell me messages and related friends, 
          I'll send messages to your friends.
+NOTE: after sent 49 friends and 98 msgs using loop, Wechat server blocked me
 """
 from __future__ import unicode_literals
 import socket

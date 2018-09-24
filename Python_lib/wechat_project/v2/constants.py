@@ -21,14 +21,14 @@ jiaozhou_friends = ['Dongyou', 'LiqiangSun', 'WeiSun']
 relatives = ['ChongXie', 'WeiXie', 'Shang', 'Merry', 'Monica', 'Haixia', 'Chunlin', 'Angang', 'Huifeng',
 			 'Huixian', 'YulingSun', 'FengWang', 'Laolao', 'Laoye', 'HangLi', 'BoLiu',
 			 'DuoZhang', 'WD', 'WJ', 'ChuangXie', 'Jianmiao', 'cici', 'YonghuaYang', 'Yaoyao',
-			 'Yisa', 'XuZhang']
+			 'Yisa', 'XuZhang']  # total 26
 scsu_friends = ['Chen, Mo', 'ChengLuo', 'Hu,Jie', 'Machine', 'Shengti', 'RuiZhao', 
 				'ClashOfClan', 'Dejian', 'HangYin', 'Jerry', 'Jim Chen',  'ShengQian',
-				'QianWang', 'Wei Zheng', 'ChaoXiong', 'Weiwei', 'MengqingHe', 'Zhao Ji']
+				'QianWang', 'ChaoXiong', 'Weiwei', 'MengqingHe', 'Zhao Ji']  # total 17
 sdcy_friends = ['Cui,', 'Changying', 'Hu,Hang', 'LW', 'Xiangwen', 'ChunxiaTan', 'LiWang', 'Xiangjun',
-				'Yabin', 'XinhuaYang', 'Yin Wen', 'Changsong', 'LongYu', 'knospe','Hongbo']
-g97 = ['WeiWang', 'Lao Hu', 'Xiangzhen', 'zhangmeng']
-tccdc_friends = ['Che..', 'Ciccy', 'Jing Li', 'Taoyuan', 'JianlingYuan']
+				'Yabin', 'XinhuaYang', 'Yin Wen', 'Changsong', 'LongYu', 'knospe','Hongbo']  # total 15
+g97 = ['WeiWang', 'RenzhongHu', 'Xiangzhen', 'zhangmeng']
+tccdc_friends = ['Che..', 'QianXu', 'JingLi', 'Taoyuan', 'JianlingYuan', 'Rosemary']
 classmates = jiaozhou_friends + sdcy_friends + g97
 
 phone_friends = ['Shang']
