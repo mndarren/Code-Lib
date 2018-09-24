@@ -18,6 +18,9 @@ friends = ['Merry']
 # bot = Bot()  # in Windows
 # linux执行登陆请调用下面的这句
 bot = Bot(console_qr=2,cache_path="botoo.pkl")
+# add myself as a friend
+# bot.self.add()
+# bot.self.accept()
 
 
 def send_msgs(msgs, friends=friends):
@@ -27,10 +30,14 @@ def send_msgs(msgs, friends=friends):
             my_friend = bot.friends().search(friend)[0]
             for msg in msgs:
             	my_friend.send(msg)
+        # for msg in msgs:
+        # 	bot.self.send(msg)
+        # bot.self.send(u"以上消息发送给了" + json.dumps(friends))
     except Exception as e:
         # 你的微信名称，不是微信帐号。
         my_friend = bot.friends().search(OWNER)[0]
         my_friend.send(u"今天消息发送失败了")
+        # bot.self.send(u"今天消息发送失败了")
         print(e)
 
 
