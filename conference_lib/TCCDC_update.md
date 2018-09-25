@@ -40,3 +40,4 @@
 29. Update 2018 Fall schedule again(updated version 5) (Done)
 30. Add a counter to do statistics (total and last month and last week)
 31. Add go links for Chinese people
+32. Add Chinese in MN partition in Website (Done)

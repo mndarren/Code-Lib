@@ -16,7 +16,7 @@ MSG_PORT = 64422        # Port to listen on (non-privileged ports are > 1023)
 MSG_BUFFER_SIZE = 1024
 
 ######################### Friends Categories #################################################
-common = ['Kellen', 'Even\'s Dad', 'Even\'s Mum', 'Mike Xie', 'MOMO', 'Fenlan', 'Liu Doctor', 'ZhangLaoshi']
+common = ['Kellen', 'Even\'s Dad', 'Mike Xie', 'MOMO', 'Fenlan', 'Liu Doctor', 'ZhangLaoshi']
 jiaozhou_friends = ['Dongyou', 'LiqiangSun', 'WeiSun']
 relatives = ['ChongXie', 'WeiXie', 'Shang', 'Merry', 'Monica', 'Haixia', 'Chunlin', 'Angang', 'Huifeng',
 			 'Huixian', 'YulingSun', 'FengWang', 'Laolao', 'Laoye', 'HangLi', 'BoLiu',
