@@ -159,3 +159,39 @@ environments:
             dbCreate: update
             url: jdbc:mysql://127.0.0.1:3306/myapp
 ```
+10. Controllers
+```
+./grailsw create-controller org.grails.guides.Home  # Grails adds the *Controller suffix automatically.
+# Actions are public methods in a controller, which can respond to requests.
+# create a view in views/home/index.gsp   # gsp ~ html
+1) URL Mapping
+package org.grails.guides
+
+class UrlMappings {
+
+    static mappings = {
+        "/$controller/$action?/$id?(.$format)?"{  
+            constraints {
+                // apply constraints here
+            }
+        }
+
+        "/"(view:"/index")   
+        "500"(view:'/error')
+        "404"(view:'/notFound')
+    }
+}
+2) Scaffolding
+# dynamic scaffolding (VehicleController.groovy, the same to others)
+package org.grails.guides
+
+class VehicleController {
+    static scaffold = Vehicle
+}
+# With the scaffold property set, Grails will now generate all necessary CRUD (Create, Read, Update, Delete) actions for the respective domain classes
+# Static Scaffolding
+./grailsw generate-views Vehicle
+./grailsw generate-controller Vehicle
+./grailsw generate-all Vehicle             # generate controller and view
+./grailsw generate-all Vehicle -force      # override existing files
+```
