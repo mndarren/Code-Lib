@@ -38,3 +38,9 @@
 27. Update the locations online (Done)
 28. Add SSL on the website (Done)
 29. Update 2018 Fall schedule again(updated version 5) (Done)
+30. Add a counter to do statistics (total and last month and last week) (Done)
+31. Add go links for Chinese people （Done)
+32. Add Chinese in MN partition in Website (Done)
+33. Update West-Wayzata class (Done)
+34. Update new class schedule and new registration form (Done)
+35. Add Amazon Smile on website
