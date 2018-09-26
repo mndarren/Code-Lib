@@ -142,13 +142,13 @@
     ```
 16. remove and reinstall mysql-server
 ```
-sudo apt-get remove --purge mysql*
+sudo apt-get remove --purge mysql* -y
 sudo apt-get purge mysql*
-sudo apt-get autoremove
+sudo apt-get autoremove -y
 sudo apt-get autoclean
 sudo apt-get remove dbconfig-mysql
 sudo apt-get dist-upgrade
-sudo apt-get install mysql-server
+sudo apt-get install mysql-server -y
 ```
 17. How to setup time zone to UTC
 ```
