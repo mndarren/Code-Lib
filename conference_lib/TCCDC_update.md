@@ -44,3 +44,4 @@
 33. Update West-Wayzata class (Done)
 34. Update new class schedule and new registration form (Done)
 35. Add Amazon Smile on website
+36. Add a new page for donation
