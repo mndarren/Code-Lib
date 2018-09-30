@@ -6,5 +6,5 @@ next plan: 1) send self msg
            3) news update server once a day
 """
 
-current_version = 0.0.0.2
+current_version = 0.0.0.3
 

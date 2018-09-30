@@ -1,0 +1,17 @@
+# createdby Darren Zhao Xie
+# use /bin/sh to run commands
+SHELL=/bin/sh
+
+# mail any output to darren
+MAILTO=darrenx@stearnsbank.com
+
+# time zone setting
+TZ=America/New_York
+CRON_TZ=America/New_York
+
+# on 1st day of every month sending msg to shang
+30 9    1 * *       python3 /home/dxie/code/wechat/v2/wechat_shang.py
+30 21   * * *       python3 /home/dxie/code/wechat/v2/wechat_merry.py
+30 21   * * *       python3 /home/dxie/code/wechat/v2/wechat_moon.py
+30 9    29 10 *     python3 /home/dxie/code/wechat/v2/wechat_merry_bth.py
+30 19   23 9 *      python3 /home/dxie/code/wechat/v2/wechat_moon.py
