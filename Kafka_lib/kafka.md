@@ -1,5 +1,9 @@
 # How install Kafka in CentOS
 ==========================================
+0. Prerequisites
+```
+sudo privileges, 4GB MEM, OpenJDK 8
+```
 1. Install packages: https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-centos-7
 ```
 1) create user kafka
