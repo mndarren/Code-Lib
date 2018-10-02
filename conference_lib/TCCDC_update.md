@@ -45,3 +45,4 @@
 34. Update new class schedule and new registration form (Done)
 35. Add Amazon Smile on website (Done)
 36. Add a new page for donation (Done)
+37. Add new class pictures 

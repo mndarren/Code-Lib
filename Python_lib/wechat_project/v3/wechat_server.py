@@ -26,7 +26,7 @@ bot = Bot(console_qr=2,cache_path="botoo.pkl")
 # bot.self.accept()
 
 
-def send_msgs(msgs, friends=friends):
+def send_msgs(msgs, friends=friends, *, weather_image=False):
     try:
         for friend in friends:
             # 你朋友的微信名称，不是备注，也不是微信帐号。
