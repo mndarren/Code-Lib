@@ -157,14 +157,50 @@ sudo dpkg-reconfigure tzdata
 ```
 18. How to setup OpenVPN server on Ubuntu 16.04
 ```
+# https://www.cyberciti.biz/faq/howto-setup-openvpn-server-on-ubuntu-linux-14-04-or-16-04-lts/
 # Find and note down your public IP address
 # Download openvpn-install.sh script
-wget https://git.io/vpn -O openvpn-install.sh
-sudo bash openvpn-install.sh
+    wget https://git.io/vpn -O openvpn-install.sh
+# Run openvpn-install.sh to install OpenVPN server
+    sudo bash openvpn-install.sh
+    cat /etc/rc.local
+    sudo more /etc/openvpn/server.conf
+    sudo vi /etc/openvpn/server.conf
+    sudo systemctl stop openvpn@server  # start/restart/stop
+# setup ufw firewall
+    sudo ufw allow 1194/udp
+    sudo ufw allow 22/tcp
+    sudo nano /etc/ufw/before.rules
+        # START OPENVPN RULES at the beginning
+        # NAT table rules
+        *nat
+        :POSTROUTING ACCEPT [0:0]
+        #****************************************[README]*****************************************************#
+        # Allow traffic from OpenVPN client to 139.59.1.155. Replace 139.59.1.155 with your actual IP address*#
+        #****************************************[README]*****************************************************#
+        -A POSTROUTING -s 10.8.0.0/24 -j SNAT --to-source  139.59.1.155
+        COMMIT
+        # END OPENVPN RULES 
 
-Run openvpn-install.sh to install OpenVPN server
-Connect an OpenVPN server using IOS/Android/Linux/Windows client
-Verify your connectivity
+        # add the following under the block # ok icmp code for FORWARD
+        #OpenVPN Forward by Darren
+        -A ufw-before-forward -m state --state RELATED,ESTABLISHED -j ACCEPT
+        -A ufw-before-forward -s 10.8.0.0/24 -j ACCEPT
+        -A ufw-before-forward -i tun+ -j ACCEPT
+        -A ufw-before-forward -i tap+ -j ACCEPT
+        #OpenVPN END by Darren
+    sudo nano /etc/ufw/sysctl.conf
+        # uncomment the following line
+        net/ipv4/ip_forward=1
+    sudo ufw enable # OR sudo ufw reload
+    # verify the new firewall rules
+    sudo ufw status
+    sudo iptables -t nat -L -n -v
+    sudo iptables -L FORWARD -n -v
+    sudo iptables -L ufw-before-forward -n -v
+
+# Connect an OpenVPN server using IOS/Android/Linux/Windows client
+# Verify your connectivity
 ```
 
 # Cool Commands 4 Redhat7
