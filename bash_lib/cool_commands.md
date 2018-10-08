@@ -52,13 +52,14 @@
     sudo apt-get install python-pip python-dev build-essential
     sudo pip install --upgrade pip
     sudo pip install --upgrade virtualenv
-    sudo apt install python3-pip
     ```
-8. Install python3.6
+8. Install python3.6 and wxpy (wechat)
     ```
     sudo add-apt-repository ppa:deadsnakes/ppa   # OR ppa:jonathonf/python-3.6
     sudo apt-get update
     sudo apt-get install python3.6
+    sudo apt install python3-pip
+    pip3 install -U wxpy
     ```
 9. logout `who -u`  `sudo kill "pid"`
 10. update version from 16 to 18
