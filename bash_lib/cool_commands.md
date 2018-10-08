@@ -155,6 +155,17 @@ sudo apt-get install mysql-server -y
 sudo dpkg-reconfigure tzdata
 # select Etc or 'None of the above', in the 2nd list choose UTC
 ```
+18. How to setup OpenVPN server on Ubuntu 16.04
+```
+# Find and note down your public IP address
+# Download openvpn-install.sh script
+wget https://git.io/vpn -O openvpn-install.sh
+sudo bash openvpn-install.sh
+
+Run openvpn-install.sh to install OpenVPN server
+Connect an OpenVPN server using IOS/Android/Linux/Windows client
+Verify your connectivity
+```
 
 # Cool Commands 4 Redhat7
 =====================================

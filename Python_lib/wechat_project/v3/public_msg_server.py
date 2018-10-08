@@ -38,7 +38,7 @@ def get_weather():
     tomorrow = three_days_weather[1]
     today = three_days_weather[0]
     weather = [{"Tomorrow weather": tomorrow['text'], "High": tomorrow['high'], "Low": tomorrow['low']}]
-    weather.append('test thing!')
+    # weather.append('test thing!')
     if int(today['high']) - int(tomorrow['high']) > 10 or int(today['low']) - int(tomorrow['low']) > 10:
         weather.append("Coldest Alert: Tomorrow is colder > 10 degree than today!")
     elif int(today['high']) - int(tomorrow['high']) > 5 or int(today['low']) - int(tomorrow['low']) > 5:

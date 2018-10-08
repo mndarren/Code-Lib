@@ -8,7 +8,11 @@ from wechat_client import WechatClient
 from constants import night_msg
 from public_msg_server import get_news, get_weather
 
-msgs = get_news() + get_weather() + [night_msg]
+
+weather = get_weather()
+weather[0]["weather_image"] = True
+print(weather)
+msgs = get_news() + weather + [night_msg]
 # print(msgs)
 client = WechatClient(msgs=msgs)
 client.run()

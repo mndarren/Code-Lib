@@ -26,7 +26,7 @@ bot = Bot(console_qr=2,cache_path="botoo.pkl")
 # bot.self.accept()
 
 
-def send_msgs(msgs, friends=friends, *, weather_image=False):
+def send_msgs(msgs, friends=friends):
     try:
         for friend in friends:
             # 你朋友的微信名称，不是备注，也不是微信帐号。
@@ -35,7 +35,11 @@ def send_msgs(msgs, friends=friends, *, weather_image=False):
             ran_int = random.randint(0, 5)
             time.sleep(ran_int)
             for msg in msgs:
-                my_friend.send(msg)
+                if isinstance(msg, dict) and 'Tomorrow weather' in msg:
+                    if not msg['weather_image']:
+                        my_friend.send(msg)
+                    else:
+                        my_friend.send_image('/home/dxie/code/wechat/v3/Thunderstorms.png')
                 ran_int = random.randint(0, 5)
                 time.sleep(ran_int)
         # for msg in msgs:
