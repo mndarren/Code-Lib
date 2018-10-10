@@ -47,3 +47,4 @@
 36. Add a new page for donation (Done)
 37. Add new class pictures (Done)
 38. Update modified pictures (Done)
+39. Remove the info links (Done)
