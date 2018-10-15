@@ -124,3 +124,4 @@
 8) What kinds of companies do you want to work in?
 9) Any more questions for me?
 ```
+10. IKM Java Test: https://github.com/ckyma/IKMJava7Test/tree/master/screenshots
