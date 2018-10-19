@@ -49,3 +49,5 @@
 38. Update modified pictures (Done)
 39. Remove the info links (Done)
 40. Update logo on website (Done)
+41. Try opposite color version of logo (Done)
+42. Update donation information (Done)
