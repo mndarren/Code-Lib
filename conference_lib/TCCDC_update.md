@@ -51,3 +51,5 @@
 40. Update logo on website (Done)
 41. Try opposite color version of logo (Done)
 42. Update donation information (Done)
+43. Update class schedule, registration form, phone  (Done)
+44. Update Mia website corrected content (Done)
