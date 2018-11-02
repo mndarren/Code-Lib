@@ -54,3 +54,4 @@
 43. Update class schedule, registration form, phone  (Done)
 44. Update Mia website corrected content (Done)
 45. Delete Belly Dancing (Done)
+46. Add Teacher Li introduction (Done)

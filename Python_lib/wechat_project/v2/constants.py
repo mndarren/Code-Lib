@@ -16,7 +16,7 @@ MSG_PORT = 64422        # Port to listen on (non-privileged ports are > 1023)
 MSG_BUFFER_SIZE = 1024
 
 ######################### Friends Categories #################################################
-common = ['Kellen', 'Even\'s Dad', 'Mike Xie', 'MOMO', 'Fenlan', 'Liu Doctor', 'ZhangLaoshi']
+common = ['Kellen', 'Even\'s Dad', 'Even\'s Mum', 'Mike Xie', 'MOMO', 'Fenlan', 'Liu Doctor', 'ZhangLaoshi']
 jiaozhou_friends = ['Dongyou', 'LiqiangSun', 'WeiSun']
 relatives = ['ChongXie', 'WeiXie', 'Shang', 'Merry', 'Monica', 'Haixia', 'Chunlin', 'Angang', 'Huifeng',
 			 'Huixian', 'YulingSun', 'FengWang', 'Laolao', 'Laoye', 'HangLi', 'BoLiu',
@@ -32,7 +32,8 @@ tccdc_friends = ['Che..', 'QianXu', 'JingLi', 'Taoyuan', 'JianlingYuan', 'Rosema
 classmates = jiaozhou_friends + sdcy_friends + g97
 
 phone_friends = ['Shang']
-weather_friends = ['Chen, Mo', 'Machine']
+weather_friends = ['Chen, Mo', 'Machine', 'ChengLuo']
+merry_friends = ['Merry', 'Monica']
 
 ############################ Messages #########################################################
 scsu_moon_msg = u'值此中秋佳节到来之际，祝您及全家节日快乐！身体健康！万事如意！ Happy Moon Cake Day!'
