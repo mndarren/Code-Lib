@@ -203,6 +203,12 @@ sudo dpkg-reconfigure tzdata
 # Connect an OpenVPN server using IOS/Android/Linux/Windows client
 # Verify your connectivity
 ```
+19. new command for ifconfig
+```
+ip a
+ip -stat -color -human addr
+ip -s -c -h a
+```
 
 # Cool Commands 4 Redhat7
 =====================================
