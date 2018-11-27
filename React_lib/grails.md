@@ -26,6 +26,8 @@ run-app
 # run app with Gradle (Grails built upon Spring Boot and Gradle)
 ./gradlew bootRun
 http://localhost:8080  # check it out
+# run app with env vars and environment type
+POSTGRES_PASSWORD=postgresql POSTGRES_USERNAME=postgres  grails test run-app
 ```
 4. change default port
 ```
