@@ -2,6 +2,8 @@
 ==========================================
 1. Mock env vars with mock lib
 ```
+from unittest import mock
+
 @mock.patch.dict(os.environ, {'KAFKA_SERVERS': '', 'KAFKA_DIRTY_ADDRESS_CONSOLIDATOR_TOPIC': '',
                                   'KAFKA_CLEAN_ADDRESS_CONSOLIDATOR_TOPIC': ''})
 def setUp(self):
