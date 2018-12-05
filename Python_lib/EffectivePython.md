@@ -56,4 +56,21 @@ visits = ReadVisits(path)
 percentages = normalize(visits)
 print(percentages)
 ```
-5. 
+5. *arg as arguments (2 problems)
+```
+(1) using the * operator with a generator may cause your program to run out of memory and crash.
+(2) Adding new positional parameters to functions that accept *args can introduce hard-to-find bugs.
+```
+6. Always specify optional arguments using the keyword names and never pass them as positional arguments.
+7. Use None and Docstrings to specify dynamic Default arguments
+```
+Default arguments are only evaluated once.
+```
+8. Keyword-only arguments
+```
+def safe_division_c(number, divisor, *, ignore_overflow=False, ignore_zero_division=False)
+
+# calling
+safe_division_c(1.0, 0, True, False)  # Error
+safe_division_c(1.0, 0, ignore_zero_division=True)  # OK
+```

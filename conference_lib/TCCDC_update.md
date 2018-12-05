@@ -55,3 +55,6 @@
 44. Update Mia website corrected content (Done)
 45. Delete Belly Dancing (Done)
 46. Add Teacher Li introduction (Done)
+47. Add more Videos from Li Jing (Done)
+48. Add 2 more posters (Done)
+49. Change format of Teacher Li introduction (Done)
