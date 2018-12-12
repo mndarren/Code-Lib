@@ -58,3 +58,5 @@
 47. Add more Videos from Li Jing (Done)
 48. Add 2 more posters (Done)
 49. Change format of Teacher Li introduction (Done)
+50. Updated 2019 Spring Poster (Done)
+51. Update Yuan introduction and 2019 Spring New Year Poster (Done)
