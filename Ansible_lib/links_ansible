@@ -3,3 +3,8 @@
 1. https://github.com/nickjj/ansible-security
 2. https://github.com/dev-sec/ansible-os-hardening
 3. https://github.com/ansible/ansible
+4. Testinfra for ansible playbook unit test <br/>
+ https://github.com/VeritasOS/testinfra
+5. JFrog Artifactory<br/>
+	http://repo.jfrog.org/artifactory/webapp/#/home
+6. 

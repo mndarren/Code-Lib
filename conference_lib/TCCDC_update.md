@@ -60,3 +60,5 @@
 49. Change format of Teacher Li introduction (Done)
 50. Updated 2019 Spring Poster (Done)
 51. Update Yuan introduction and 2019 Spring New Year Poster (Done)
+52. Update images on website by comparing facebook images to our website (Done)
+53. Create an archive by a google drive to back up all materials of TCCDCMN
