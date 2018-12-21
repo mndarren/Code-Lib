@@ -74,3 +74,49 @@ def safe_division_c(number, divisor, *, ignore_overflow=False, ignore_zero_divis
 safe_division_c(1.0, 0, True, False)  # Error
 safe_division_c(1.0, 0, ignore_zero_division=True)  # OK
 ```
+9. Accept function instead of class
+```
+def log_missing():
+	print('Key added')
+	return 0
+current = {'green': 12, 'blue': 3}
+increments = [
+	('red', 5),
+	('blue', 17),
+	('orange', 9)
+]
+# stateless function
+results = defaultdict(log_missing, current)
+for k, amount in increments:
+	results[k] += amount
+
+################################################
+# stateful function
+def increment_with_report(current, increment):
+	added_count = 0
+
+	def missing():
+		nonlocal added_count  # stateful closure
+		added_count += 1
+		return 0
+
+	result = defaultdict(missing, current)
+	for k, amount in increments:
+		result[k] += amount
+	return result, added_count
+#################################################
+# statefule class
+class CountMissing:
+	def __init__(self):
+		self.added = 0
+
+	def __call__(self):
+		self.added += 1
+		return 0
+
+counter = CountMissing()
+result = defaultdict(counter, current)  # relies on __call__
+for k, amount in increments:
+	result[k] += amount
+
+```
