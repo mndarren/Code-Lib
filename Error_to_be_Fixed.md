@@ -97,7 +97,8 @@ The reason is in windows:
 (1) type chrome://flags/, press Enter
 (2) Search TLS, and Disable TSL 1.3, then Relaunch
 ```
-24. failed to decode json object expecting value line 1 column 1 (char 0) flask
+24. Too many client already for Postgresql
 ```
-
+sudo sed -i 's/max_connections = 100/max_connections = 300/g' /etc/postgresql/9.4/main/postgresql.conf # Allow more than 100 connections to DB
+sudo service postgresql restart
 ```
