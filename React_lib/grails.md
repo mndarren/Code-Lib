@@ -1,5 +1,9 @@
 # Grails
 =======================================
+0. good links
+```
+http://grails.1312388.n4.nabble.com/
+```
 1. install grails
 ```
 curl -s https://get.sdkman.io | bash
