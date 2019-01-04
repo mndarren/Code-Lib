@@ -102,3 +102,4 @@ The reason is in windows:
 sudo sed -i 's/max_connections = 100/max_connections = 300/g' /etc/postgresql/9.4/main/postgresql.conf # Allow more than 100 connections to DB
 sudo service postgresql restart
 ```
+25. Postman passing in data json type should double quotes.
