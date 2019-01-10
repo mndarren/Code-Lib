@@ -103,3 +103,11 @@ sudo sed -i 's/max_connections = 100/max_connections = 300/g' /etc/postgresql/9.
 sudo service postgresql restart
 ```
 25. Postman passing in data json type should double quotes.
+26. java.io.IOException: User limit of inotify watches reached
+```
+cat /proc/sys/fs/inotify/max_user_watches
+echo 16384 | sudo tee /proc/sys/fs/inotify/max_user_watches
+# permanently change
+echo fs.inotify.max_user_watches=16384 | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
