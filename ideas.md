@@ -23,3 +23,4 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 15. Create a little file to contain all little tools (methods) which are commonly used. (doing it)
 16. Create a pointing app for Scrum team by using the current web site (pointingpoker.com)
 17. Home VPN http://os.51cto.com/art/201107/277146_all.htm
+18. “Use async IO when you can; use threading when you must.” 
