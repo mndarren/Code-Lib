@@ -62,3 +62,4 @@
 51. Update Yuan introduction and 2019 Spring New Year Poster (Done)
 52. Update images on website by comparing facebook images to our website (Done)
 53. Create an archive by a google drive to back up all materials of TCCDCMN
+54. Update schedule, registration link and instructor list (Done)
