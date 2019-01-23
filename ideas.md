@@ -24,3 +24,7 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 16. Create a pointing app for Scrum team by using the current web site (pointingpoker.com)
 17. Home VPN http://os.51cto.com/art/201107/277146_all.htm
 18. “Use async IO when you can; use threading when you must.” 
+19. 10 principles for iPhone and software design (creative, useful, beautiful, easy to use without user manual, implicit not explicit,
+    honest, long time no bad, focus on details, no waste materials, less is more)
+20. 五祖神秀: "身是菩提树，心如明镜台，时时勤拂拭，勿使惹尘埃"； 六祖慧能:"菩提本无树，明镜亦非台，原本无一物，何处惹尘埃"
+21. 民主制靠品德，君主立宪制靠忠诚，专制靠恐吓！
