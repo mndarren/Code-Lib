@@ -17,3 +17,15 @@
 7. CCAT test: https://www.jobtestprep.com/criteria-ccat-sample-test
 8. Weather api: https://developer.yahoo.com/weather/?guccounter=1
 9. Clint Birds: http://planetbuhs.net/photography/birds/birds-of-central-minnesota
+10. Workbench https://workbench.developerforce.com/
+```
+# URI
+/services/data/v44.0/jobs/ingest
+# body
+{
+  "operation" : "insert",
+  "object" : "Account",
+  "contentType" : "CSV",
+  "lineEnding" : "CRLF"
+}
+```

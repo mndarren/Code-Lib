@@ -999,3 +999,48 @@
    4) setup version control (git clone)
    5) modify code to update
 ```
+14. Bulk API 2.0 (REST-based for millions of records)
+```
+   1) Bulk API -- asynchronous request
+      SOAP and REST API -- synchronous request
+   2) Easiest way: processing records in Data Loader using CSV files (or customer app)
+   3) Create a Buld job (POST)
+      https://workbench.developerforce.com/
+      utilities -> REST explorer
+      # URI XX.0 is the version using
+      /services/data/vXX.0/jobs/ingest
+      # body
+      {
+        "operation" : "insert",
+        "object" : "Account",
+        "contentType" : "CSV",
+        "lineEnding" : "CRLF"
+      }
+      copy the job ID
+      # replace jobID to your copied job ID, using PUT
+      /services/data/vXX.0/jobs/ingest/jobID/batches
+      # Header, (keep UTF 8, ERROR)
+      Content-Type: text/csv
+      Accept: application/json
+      # body
+      "Name"
+      "Sample Bulk API Account 1"
+      "Sample Bulk API Account 2"
+      "Sample Bulk API Account 3"
+      "Sample Bulk API Account 4"
+   4) Close the Job
+      # job status from Open to UploadComplete
+      /services/data/vXX.0/jobs/ingest/jobID
+      # method PATCH
+      # Header contentType application/json
+      # body
+      {
+         "state" : "UploadComplete"
+      }
+   5) Check the Status of the job
+      SF setup -> Bulk Data Load Jobs -> Status
+      API /services/data/vXX.0/jobs/ingest/jobID (GET method)
+   6) Get the job results
+      API /services/data/vXX.0/jobs/ingest/jobID/successfulResults (GET method)
+          /services/data/vXX.0/jobs/ingest/jobID/failedResults (GET if failed)
+```
