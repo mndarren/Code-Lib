@@ -1044,3 +1044,10 @@
       API /services/data/vXX.0/jobs/ingest/jobID/successfulResults (GET method)
           /services/data/vXX.0/jobs/ingest/jobID/failedResults (GET if failed)
 ```
+15. SOAP API (only for Enterprise Edition, Performance E, Unlimited E, Developer E)
+```
+# CRM -- Customer Relationship Management (including SOAP API, Apex, and Visualforce)
+# Metadata API -- most common use is migrate changes from a sandbox to production environment.
+# Apex -- create web service, email service, validation, business process, transactional logic...
+Soap API complies with SOAP 1.1, WSDL 1.1 and WS-I Basic Profile 1.1
+```
