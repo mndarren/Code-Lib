@@ -111,3 +111,7 @@ echo 16384 | sudo tee /proc/sys/fs/inotify/max_user_watches
 echo fs.inotify.max_user_watches=16384 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
+27. snap-confine refuses to launch application or install application
+```
+sudo apt purge snapd snap-confine && sudo apt install -y snapd
+```
