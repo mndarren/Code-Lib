@@ -63,3 +63,6 @@
 52. Update images on website by comparing facebook images to our website (Done)
 53. Create an archive by a google drive to back up all materials of TCCDCMN
 54. Update schedule, registration link and instructor list (Done)
+55. Convert Logo videos to GIF (<2mb) (Done)
+56. Compress video (2019 New year show) from 80 MB to <20 MB (Done)
+57. Split the long video into small videos (Done)
