@@ -114,4 +114,6 @@ sudo sysctl -p
 27. snap-confine refuses to launch application or install application
 ```
 sudo apt purge snapd snap-confine && sudo apt install -y snapd
+# just check the home dir, someone solved issue via this
+cat /etc/apparmor.d/tunables/home.d/ubuntu
 ```
