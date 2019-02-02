@@ -26,4 +26,5 @@ Preferences -> tools -> axis2 -> /opt/axis2
 Tools -> Axis 2 artifact -> fill up WSDL, output dir, databinding method: xmlbeans, check sync style -> Generate
 # If error, copy command to run in terminal
 ./wsdl2java.sh -uri /path/to/xxx.wsdl -o /path/to/output -d xmlbeans -ns2p
+# Note: Axis 1.4 works well in Soap API
 ```

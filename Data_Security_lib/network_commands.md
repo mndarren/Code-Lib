@@ -292,3 +292,5 @@
       I Darren Get paid
    ```
 45. Find user ID that owns a daemon `cat /etc/passwd | grep mysql`
+46. List all local users: `cut -d: -f1 /etc/passwd`
+

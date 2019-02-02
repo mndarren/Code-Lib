@@ -113,7 +113,11 @@ sudo sysctl -p
 ```
 27. snap-confine refuses to launch application or install application
 ```
+# not good
 sudo apt purge snapd snap-confine && sudo apt install -y snapd
 # just check the home dir, someone solved issue via this
 cat /etc/apparmor.d/tunables/home.d/ubuntu
+# the following fixed the issue
+reboot -> Enter / Esc -> in grub -> advanced option -> choose kernel 4.15.0-43 version (44 not work) -> run command to delete 44 version:
+sudo apt-get purge linux-image-4.15.0-44-generic -f
 ```
