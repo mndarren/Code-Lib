@@ -1,5 +1,13 @@
 # Update Website From 8/13/2018
 ================================
+0. Tools for website
+```
+# for making circle shape for image, gif
+http://www.online-image-editor.com/
+# mp4 to gif
+https://ezgif.com/video-to-gif
+# 
+```
 1. Remove phone number 651-246-5735 (Done)
 2. Move Dance of Joy - IX 2018 (Done)
 3. Change instructor description (Done)<br/>
@@ -65,4 +73,9 @@
 54. Update schedule, registration link and instructor list (Done)
 55. Convert Logo videos to GIF (<2mb) (Done)
 56. Compress video (2019 New year show) from 80 MB to <20 MB (Done)
-57. Split the long video into small videos (Done)
+57. Split the long video into 10 small videos (Done)
+58. Update schedule and web content (Done)
+59. Update 2019 pictures and video on website (Done)
+60. Update pictures and videos, delete unpropriate ones (Done)
+61. TCCDC Happy New Year GIF (Done, one night)
+62. TCCDC Logo GIF in website (Done, one morning)
