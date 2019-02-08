@@ -6,7 +6,9 @@
 http://www.online-image-editor.com/
 # mp4 to gif
 https://ezgif.com/video-to-gif
-# 
+# Chinese Word
+https://www.qt86.com/182
+
 ```
 1. Remove phone number 651-246-5735 (Done)
 2. Move Dance of Joy - IX 2018 (Done)
@@ -79,3 +81,5 @@ https://ezgif.com/video-to-gif
 60. Update pictures and videos, delete unpropriate ones (Done)
 61. TCCDC Happy New Year GIF (Done, one night)
 62. TCCDC Logo GIF in website (Done, one morning)
+63. Improve TCCDC pig new year gif, put it on website (Done)
+64. Home Page button update (Done)
