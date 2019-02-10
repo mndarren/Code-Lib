@@ -1051,3 +1051,16 @@
 # Apex -- create web service, email service, validation, business process, transactional logic...
 Soap API complies with SOAP 1.1, WSDL 1.1 and WS-I Basic Profile 1.1
 ```
+16. Bulk API using steps
+```
+   1)Authenticate using OAuth. (not work if grant IP in SF)
+     Setup OAuth 2.0 (setup -> seach Apps -> click Apps on bottom left -> on Connected Apps, create new -> setup callback and full access permission)
+     Note: only accept https, not http;
+     Note2: using Customer key, Customer Secret, and callback url, we can get Authorization Code (15 minutes), then exchange an access token with SF
+   2)Create a Bulk API v2 job.
+   3)Upload all your data.
+   4)Close the job, which tells Salesforce to start processing the data.
+   5)Check the status of the job.
+   6)If the job completes with no errors, we’re done.
+   7)If the job completes but encountered errors during processing, request the complete list of failed records with one API call, determine why the records failed, and submit a new job as needed.
+```

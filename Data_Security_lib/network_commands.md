@@ -293,4 +293,15 @@
    ```
 45. Find user ID that owns a daemon `cat /etc/passwd | grep mysql`
 46. List all local users: `cut -d: -f1 /etc/passwd`
-
+47. Lost and reset your user password:
+   ```
+   1) Restart with shift holding press, or esc when restarting
+   2) recovery mode, choose root
+   3) mount -n -o remount,rw /
+      passwd <username>
+48. Reset root password (Ubuntu)
+   ```
+   sudo passwd root
+   # remove passwd and lock root
+   sudo passwd -dl root
+   ```
