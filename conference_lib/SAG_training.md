@@ -27,6 +27,9 @@
           Oracle, SQL server and DB2 are supported.
    9) MEM: at lease 1 GB available, at least 100 MB free disk in system temp before running installation.
    10) 
+
+   20) MUST: internal user must be in a group.
+             Groups must be associated with ACLs.
 ```
 1. Abbrs about webMethods Integration Platform
 ```
@@ -41,6 +44,7 @@ HIP: Hybrid Integration Platform
 DCC: Database Component Configurator
 SDC: Software Download Center
 SPM: SAG Platform Manager
+ESB: Enterprise Services Bus
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
@@ -116,9 +120,25 @@ Use DCC (Database Component Configuration)
 30. Securing the Infrastructure
 ```
 4 pillars: Authentication, Authorization, Confidentiality, Integrity
-Authentication is a prerequisite of authorization. (user IDs, client certificates, Security token: Kerberos, SAML)
-Authorization: access privileges granted to a user, program or process. (Groups, ACLs, OAuth, PortAccess Mode, IP access, .access)
-Integrity: ensuring information non-repudiation and authenticity. (digital signatures)
-Confidentiality: Server certi, message encryption, https/ftps ports
-
+    Authentication is a prerequisite of authorization. (user IDs, client certificates, Security token: Kerberos, SAML)
+    Authorization: access privileges granted to a user, program or process. (Groups, ACLs, OAuth, PortAccess Mode, IP access, .access)
+    Integrity: ensuring information non-repudiation and authenticity. (digital signatures)
+    Confidentiality: Server certi, message encryption, https/ftps ports
+Points: 
+    Users in denied group always be denied even also in allowed group;
+    Best practice: Lowest level of access;
+    .access: Restricts pub folder files to specific ACLs
+    OAuth 2.0: OpenID from Salesforce allowed to access IS port
+Ports:
+    Access Mode: Port allows a set of services to be invoked
+    IP Access: Port must be called by IP group
+Encryption: S/MINE or PGP
+Secure transport: https(SSL), ftps(SSL), sftp(SSH)
+User ID: internal user must be in a group. Name and password are case-sensitive.
+```
+31. Security: ACLs, OAuth, Port Access Mode, IP Access, .access, Certificate, HTTPS
+```
+ACLs control access to IS packages, folders, files, and services.
+ACLs identifies Allowed groups and Denied groups
+4 types: List (metadata,input, output), Read(source code & metadata), Write (modify elements), Execute(services)
 ```
