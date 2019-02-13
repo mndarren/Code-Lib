@@ -107,3 +107,7 @@ Use DCC (Database Component Configuration)
    IS instance stored under <SAG dir>\IntegrationServer\instances.
    IS config file in <SAG dir>\profiles\IS_<instance_name>\configuration\custom_wrapper.conf
 ```
+14. Quiesce mode
+```
+
+```
