@@ -111,3 +111,14 @@ Use DCC (Database Component Configuration)
 ```
 
 ```
+
+
+30. Securing the Infrastructure
+```
+4 pillars: Authentication, Authorization, Confidentiality, Integrity
+Authentication is a prerequisite of authorization. (user IDs, client certificates, Security token: Kerberos, SAML)
+Authorization: access privileges granted to a user, program or process. (Groups, ACLs, OAuth, PortAccess Mode, IP access, .access)
+Integrity: ensuring information non-repudiation and authenticity. (digital signatures)
+Confidentiality: Server certi, message encryption, https/ftps ports
+
+```
