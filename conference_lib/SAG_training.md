@@ -30,6 +30,9 @@
 
    20) MUST: internal user must be in a group.
              Groups must be associated with ACLs.
+   21) OAuth: IS 9.6+ supports OAuth 2.0, IS can be an OAuth client, an authorization server, or a resource server
+              Enable OAuth configuration feature (require a license of SAG)
+              External authorization servers must support RFC 7662, OAuth 2.0 token Introspection including Okta and Ping Identity
 ```
 1. Abbrs about webMethods Integration Platform
 ```
@@ -45,6 +48,9 @@ DCC: Database Component Configurator
 SDC: Software Download Center
 SPM: SAG Platform Manager
 ESB: Enterprise Services Bus
+OAuth: Open Standard Authorization Framework
+IETF: Internet Engineering Task Force
+OAuth 2.0: IETF standards: RFC 6749 and 6750
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
@@ -135,10 +141,24 @@ Ports:
 Encryption: S/MINE or PGP
 Secure transport: https(SSL), ftps(SSL), sftp(SSH)
 User ID: internal user must be in a group. Name and password are case-sensitive.
+How to manage users and groups?
+    IS Admin UI -> Security -> User Management -> create groups (one per line) 
+                -> create users (one per line) and assign users to groups
 ```
 31. Security: ACLs, OAuth, Port Access Mode, IP Access, .access, Certificate, HTTPS
 ```
-ACLs control access to IS packages, folders, files, and services.
-ACLs identifies Allowed groups and Denied groups
-4 types: List (metadata,input, output), Read(source code & metadata), Write (modify elements), Execute(services)
+ACLs: ACLs control access to IS packages, folders, files, and services.
+      ACLs identifies Allowed groups and Denied groups
+      4 types: List (metadata,input, output), Read(source code & metadata), Write (modify elements), Execute(services)
+      Deployer can deploy ACLs.
+How to deploy ACLs?
+    Create ACLs: IS Admin UI -> Security -> ACLs -> Add and Remove ACLs (create ACL and add members)
+    Assign ACLs to service: IS Admin UI -> Package -> Management -> Browser Folders -> adminSupport -> svcs -> customWriteToLog
+                            -> Execute ACL -> select the related ACL -> test it with the triangle button
+How to manage user in Designer?
+    Software AG Designer -> Window -> Preferences -> Integration Servers -> Edit -> modify user or others
+How to run service or test functionality?
+    Software AG Designer -> Window ->Perspective -> Open Perspective -> service Development 
+                         -> AdminSupport/svcs/customWriteToLog -> right click/run as Flow service
+OAuth: 
 ```
