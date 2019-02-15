@@ -162,3 +162,25 @@ How to run service or test functionality?
                          -> AdminSupport/svcs/customWriteToLog -> right click/run as Flow service
 OAuth: 
 ```
+32. LDAP
+
+33. UM
+```
+How to install UM?
+    1) Start -> Software AG -> Realm Server Command Prompt
+    2) run registerService.bat # SAG UM service installed
+    3) from windows service to start the service
+How to connect IS to UM?
+    1) Start -> SAG -> Enterprise Manager
+    2) Realms -> umserver -> JNDI (check url: nsp://localhost:9000)
+    3) File -> Open Profile -> find the realms.cfg
+    4) change url: open the realms.cfg file with notepad++, change localhost into sagbase -> save
+    5) restart Enterprise Manager
+```
+
+41. Trouble Shooting
+```
+empower website, logs, service usage, statistics, diagnostic port
+Diagnostic utility service (recommanded) (sagbase:9999/invoke/vm.server.admin/getDiagnosticData)
+
+```
