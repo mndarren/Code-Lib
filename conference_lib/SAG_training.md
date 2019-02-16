@@ -41,6 +41,26 @@
    22) JDK 1.8, not 1.9 version
    23) Great tool: BareTail can be used to monitor IS startup log (IS\instances\default\logs\server.log)
    24) Lab VM config: Windows server 2016, Intel Duo CPU 2.4 GHz, 16 GB memory, 100 GB disk, QEMU Standard PC (i440FX +PIIX, 1996)
+   25) 20 labs list: (1) Install integration platform
+                     (2) Configure Database via DCC
+                     (3) Software AG Update Manager (SUM)
+                     (4) Install CC using Bootstrap Installer
+                     (5) Configure Logging
+                     (6) Logging and Monitoring
+                     (7) IS Security: Users and Groups
+                     (8) IS Service Security
+                     (9) Configure LDAP
+                     (10) UM Install and Configuration
+                     (11) Performance Management
+                     (12) Using TSA to support caching and IS clustering
+                     (13) IS Diagnostic Utility
+                     (14) Resolving IS Service Issue
+                     (15) Day to day Operation
+                     (16) Installing Git and Configuring Designer
+                     (17) A Development Workflow
+                     (18) Asset Build Environment
+                     (19) webMethods Deployer
+                     (20) Multi-Instance IS
 ```
 1. Abbrs about webMethods Integration Platform
 ```
