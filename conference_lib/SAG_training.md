@@ -33,6 +33,8 @@
    21) OAuth: IS 9.6+ supports OAuth 2.0, IS can be an OAuth client, an authorization server, or a resource server
               Enable OAuth configuration feature (require a license of SAG)
               External authorization servers must support RFC 7662, OAuth 2.0 token Introspection including Okta and Ping Identity
+   22) JDK 1.8, not 1.9 version
+   23) Great tool: BareTail can be used to monitor IS startup log (IS\instances\default\logs\server.log)
 ```
 1. Abbrs about webMethods Integration Platform
 ```
@@ -51,6 +53,7 @@ ESB: Enterprise Services Bus
 OAuth: Open Standard Authorization Framework
 IETF: Internet Engineering Task Force
 OAuth 2.0: IETF standards: RFC 6749 and 6750
+JNDI: Java Namespace Directory 
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
@@ -182,5 +185,34 @@ How to connect IS to UM?
 ```
 empower website, logs, service usage, statistics, diagnostic port
 Diagnostic utility service (recommanded) (sagbase:9999/invoke/vm.server.admin/getDiagnosticData)
-
+Thread Dump: a track trace for each running thread in a java process. Can determine a port or service has become nonresponsive.
+      c:\SoftwareAG\common\bin\wrapper-3.5.32.exe -d c:\SoftwareAG\profiles\IS_<Instance name>\configuration\wrapper.conf
+      # this command can be got from Windows Services: Double click the service -> copy 'Path to executable' -> change -s to -d
+      #The dump file locates <SAG dir>\profiles\IS_default\logs\wrapper.log
+How to get in and out the Safe Mode?
+    In <SAG dir>\profiles\IS_default\configuration\custom_wrapper.conf,
+    Change line: wrapper.app.parameter.2=4 (from 4 to 5)
+    Add line after the line parameter.6: wrapper.app.parameter.7=-safeboot
+    Save the file.
+    Run the bat: <SAG dir>\profiles\IS_default\bin\startup.bat/
+    In the Safe Mode, you can find the packages cannot be activated in Packages/Management/Activate Inactive Packages
+    After done action, shutdown IS, Change back the custom_wrapper.conf file (better way is to make a copy before the 1st change)
+How to generate Thread Dump and Cancel thread from IS Admin UI?
+    Server/Statistics/Usage/System Threads, click Current #, click Generate JVM Thread Dump
+    Select the checkbox "Show threads that can be cancelled or ...", then Cancel the bad threads
+How to remove a package from startup services list?
+    Go into the package: <SAG dir>\IntegrationServer\instances\default\packages\StartupPackage\manifest.v3
+    Change <record name="startup_services" ....<record> into <null name="startup_services"/>
+    Also, this can be done in Designer: Right click package -> Properties -> Startup/Shutdown Services -> move available services to selected services
+```
+42. Email Notification
+```
+Start Email server -> Configure IS -> Configure MWS -> Create a scheduled task
+How to configure Email Notification in IS?
+    Settings/Resources/Edit Resource Settings: SMTP Server(sagbase),Internal Email(Administrator@company.com), Service Email(Customer@company.com)
+    Extended: change watt.server.email.from=Administrator@company.com
+How to configure Email Notification in MWS?
+    Applications -> Administration -> My webMethods -> E-mail Servers: SMTP hosts(sagbase), SMTP username and password(empty)
+                                                       From Email: Administrator@company.com, the same to Admin Email Address
+    
 ```
