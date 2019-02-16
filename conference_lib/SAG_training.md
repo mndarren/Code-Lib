@@ -7,7 +7,7 @@
                     Suse Linux Enterprise Server(12 SPx), Red Hat Enterprise Linux Server(7.x), 
                     Solaris(11), HP-UX(11v3), AIX(7.1&7.2), MacOS(10.13)
    3) Linux: If using Installer GUI in Linux or MacOS, must install X11 display server.
-   4) If stopping service (SAG, MWS or others) in Microsoft service, not in CC, and shutdown IS improperly.
+   4) If IS shutdown improperly.
       MUST delete 2 files (.lock and wrapper.anchor) in <SAG dir>\profiles\IS_<name>\bin before restarting the services.
       The reason is a Tanuki Java service wrapper will be left bebind, will prevent IS server restart.
    5) Linux: if non-root user installing products, always use the same user shutdown at the same dirctory;
@@ -25,8 +25,13 @@
    8) DB: at least one DB instance to run webMethods products. 
           For better performance, multiple DB instances running on multiple servers
           Oracle, SQL server and DB2 are supported.
+          In labs, create 2 DBs (WEBMDB for Archive, WEBMARCHIVE for others)
+          In real environment, recommend to create one DB/schema for each (IS, TN, MWS, BPM, Optimize, Archive) P2-56
+          DB setting can be exported to and inported from .xml file 
    9) MEM: at lease 1 GB available, at least 100 MB free disk in system temp before running installation.
-   10) 
+   10) SPM: at least one SPM is required per installation (in labs, 2 SPMs used)
+   11) Jar install: if installer.exe hang or fail, go to use jar installer because of firewall
+   12) 3 ways to start/shutdown IS: windows service, in IS admin UI, run files in bin/
 
    20) MUST: internal user must be in a group.
              Groups must be associated with ACLs.
@@ -35,6 +40,7 @@
               External authorization servers must support RFC 7662, OAuth 2.0 token Introspection including Okta and Ping Identity
    22) JDK 1.8, not 1.9 version
    23) Great tool: BareTail can be used to monitor IS startup log (IS\instances\default\logs\server.log)
+   24) Lab VM config: Windows server 2016, Intel Duo CPU 2.4 GHz, 16 GB memory, 100 GB disk, QEMU Standard PC (i440FX +PIIX, 1996)
 ```
 1. Abbrs about webMethods Integration Platform
 ```
@@ -53,7 +59,11 @@ ESB: Enterprise Services Bus
 OAuth: Open Standard Authorization Framework
 IETF: Internet Engineering Task Force
 OAuth 2.0: IETF standards: RFC 6749 and 6750
-JNDI: Java Namespace Directory 
+JNDI: Java Namespace and Directory Interface
+ABE: Asset Build Environment
+TN: Trading Network
+NHP: Network Host PC
+SUM: SAG Update Manager
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
@@ -97,8 +107,16 @@ Use DCC (Database Component Configuration)
    IS (5555 for admin, 9999 for common);
    MWS: 8585(http), 8443(https), 10998(RMI), 10999(RMI Registry), 5001(Java debug and SOAP monitor), 5002(JMX), 8009(AJP13)
    UM: 9000 (realm server interface port)
+   SPM: In lab: 9092 (http), 9093 (https); default: 8092(http), 8093(https)
+   CC: 8090 (http) 8091 (https)
 ```
 9. DB connection: DataDirect JDBC drivers
+```
+How to fix typo URL, ID or Password of DB?
+   MWS cannot start up. IS can start up, but cannot connect DB.
+   MWS to fix it by modify the file: <SAG dir>\MWS\server\default\config\mws.db.xml
+   IS to fix it by editing JDBC pools in IS admin UI.
+```
 10. Process to install products: Download Intaller -> Download and create local image -> install image.
 11. Script file: silent installation (product installation, image generation)
 12. Login (default: Administrator | manage)
@@ -115,14 +133,38 @@ Use DCC (Database Component Configuration)
    # if SPM shutdown, CC cannot manage Installations.
    UM: nserver.bat nstopserver.bat <SAG dir>\UniversalMessaging\server\umserver\bin
    IS: start.bat shutdown.bat in <SAG dir>\profiles\IS_<instance_name>\bin
+   MWS: service.bat in <SAG dir>\profiles\MWS_<instance_name>\bin, and then start service in Windows service
+        mws.bat -option [start|stop|restart]  # didn't try it.
+```
+14. IS
+```
    IS: from services, select 'After all client sessions end...' and enter a value in Max wait time.
        This'll notify connected clients.
    IS instance stored under <SAG dir>\IntegrationServer\instances.
    IS config file in <SAG dir>\profiles\IS_<instance_name>\configuration\custom_wrapper.conf
+      change server logging level to trace: wrapper.app.parameter.n=-debug
+                                            wrapper.app.parameter.n=trace
 ```
-14. Quiesce mode
+15. Quiesce mode (temporarily disable access to the IS)
 ```
-
+What happens?
+   Requests in progress are permitted to finish
+   New requests blocked;
+   Outbound connection (JDBC pools, LDAP) remain open.
+   Scheduled system tasks continue;
+   Audit logging continue
+   Enterprise Gateway(if acting as IS, not TN): disconnect all connection
+How to enter/exit Quiesce mode?
+   Use the link in IS admin UI to enter the mode (max wait time setting up).
+   the Quiesce port can be set in settings/Quiesce
+What to do in Quiesce mode?
+   Change ports: except diagnostic port and Quiesce port
+   JMS messaging: disable connection, suspend JMS triggers, endpoint
+   webMethods messaging: disable connection, suspend doc retrieval&processing from trigger
+   package diable: except WmRoot and WmPublic
+   scheduled user tasks: permit already running user scheduled tasks
+   guaranteed delivery: shutdown inbound outbound delivery
+   clustering: shutdown cache manager.
 ```
 
 
