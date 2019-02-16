@@ -201,7 +201,7 @@ Enterprise Manager:
                      Persist/NoSync -- using cluster (default)
                      Persist/Sync -- single UM node
                      Config tab/Show Advanced Config button/Advanced Connection/Event Storage/QueueDeliveryPersistencePolicy
-    Connection Factories, Topics, Queues in JNDI tab (details in lab book)
+    Connection Factories, Topics, Queues in JNDI tab (detail in lab book)
 ```
 
 30. Securing the Infrastructure
