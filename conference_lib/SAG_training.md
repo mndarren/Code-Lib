@@ -17,7 +17,7 @@
                              as part of Designer Workstation --> development license file
                              Mediator only --> Mediator license file
                              CloudStreams only --> Cloudstreams license
-                    UM can be installed without key, but 90 days trial
+                    UM can be installed without key, but 90 days trial (key file in <SAG dir>\UniversalMessaging\server\<realmName>\)
                     Terracotta license required if using BigMemory Max or Terracotta DB
    7) Linux/MacOS: # of file descriptors at least 1024 for IS
                    # of coredump, data, file, memory and threads at least 32768 for MWS
@@ -166,7 +166,43 @@ What to do in Quiesce mode?
    guaranteed delivery: shutdown inbound outbound delivery
    clustering: shutdown cache manager.
 ```
-
+16. CC
+```
+Connect installation -> View installation (products, instances, status, perform lifecycle actions, jobs)
+There's another class to introduce CC, including:
+    installation and setup
+    repositories and license management
+    managed installation setup
+    managed installation administration and configuration
+    templated-based provisioning
+    automation and scripting
+    security
+    DevOps overview
+```
+17. MWS
+```
+Configure ESB (ESB = IS + UM)
+    Verify license
+       if IS key expired, IS will enter demo mode (only run 30 minutes)
+       Settings/Licensing/Licensing Details
+    perform OS-specific tasks
+    IS, UM, TN and Monitor
+    Internal DB settings
+    Proxies and Extended Settings
+```
+18. UM
+```
+Windows Service: Should Create Windows service if on Windows since installer does not create this.
+    Start/Software AG/Realm Server Command Prompt -> run registerService.bat
+Enterprise Manager:
+    Change JNDI URL: File/Open Profile to realm.cfg -> close Enterprise Manager 
+                     -> Edit realm.cfg (localhost to sagbase) -> open Enterprise Manager to confirm
+    Queue Delivery Persistence Policy: NoPersist/NoSync (not recommanded, doc can be lost)
+                     Persist/NoSync -- using cluster (default)
+                     Persist/Sync -- single UM node
+                     Config tab/Show Advanced Config button/Advanced Connection/Event Storage/QueueDeliveryPersistencePolicy
+    Connection Factories, Topics, Queues in JNDI tab (detail in lab book)
+```
 
 30. Securing the Infrastructure
 ```
