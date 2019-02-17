@@ -84,6 +84,7 @@ ABE: Asset Build Environment
 TN: Trading Network
 NHP: Network Host PC
 SUM: SAG Update Manager
+XSLT: Extensible Stylesheet Language Transformations
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
@@ -241,9 +242,32 @@ System parameters changed in Extended
 20. Packages (logical IS container for a set of services, doc types, triggers and other related files)
 ```
 Dir: <SAG dir>\IntegrationServer\packages # Also in each instance dir
-
+Namespaces: package name not in it. pub.client:http (right) WmPublic.pub.client:http (Wrong)
+Supported Types of Services: .NET, Adapter, C, Flow (SAG), Java, Map, OData, REST Resource Descriptor(Consumer), XSLT
+Cannot Disabled: WmRoot (IS core)
+Cannot Changed can disabled: WmFlatFile, WmMonitor, WmOptimize, WmPRT
+Archived packages: replicate\outbound
+Install an Archived package: put zip file in replicate\inbound -> IS admin/Packages/Management/Install Inbound Releases
+                                            check "Archive upon installation" if want to archive it to replicate\archive
+Lock Mode: (none, system, full)
+    In lab, set system because installing local service development. full: enable user lock and show system lock.
+    In full locking mode, locking is a feature in Designer. 
+                          types: System Lock, Locked by you, Locked by Someone else, No lock.
+                          Developer must lock an asset before any change;
+                          Developer mush unlock assets before deployment.
+Delete package: Disable it first to check if any complaint about it, and then Safe Delete
+Loading package: "watt.server.package.parallel.threads" (2-10) default is 6
+```
+21. IS Management
 ```
 
+```
+22. Performance
+```
+   1) unnecessary packages should be disabled or deleted, save boot time and free memory;
+   2) Samples packages are not alive in production machine (WmTNExtDC, WmVCS)
+
+```
 30. Securing the Infrastructure
 ```
 4 pillars: Authentication, Authorization, Confidentiality, Integrity
