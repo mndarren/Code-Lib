@@ -210,7 +210,7 @@ Configure ESB (ESB = IS + UM)
     Internal DB settings
     Proxies and Extended Settings
 ```
-18. UM
+18. UM (webMethods Messaging, JMS messaging, Broker is deprecated)
 ```
 Windows Service: Should Create Windows service if on Windows since installer does not create this.
     Start/Software AG/Realm Server Command Prompt -> run registerService.bat
@@ -221,7 +221,11 @@ Enterprise Manager:
                      Persist/NoSync -- using cluster (default)
                      Persist/Sync -- single UM node
                      Config tab/Show Advanced Config button/Advanced Connection/Event Storage/QueueDeliveryPersistencePolicy
-    Connection Factories, Topics, Queues in JNDI tab (detail in lab book)
+    Connection Factories, Topics, Queues in JNDI tab (details in lab book)
+Connect IS to UM realms: IS can publish/subscribe
+                     Messaging Connection alias can be set (by developer) in the IS Document Type properties.
+                     Native msg Connection (system generated): IS_UM_CONNECTION (should confirm url) | IS_DES_CONNECTION | IS_LOCAL_CONNECTION (DES Digital Event Services)
+                     Sync IS Doc Types to Messaging Provider
 ```
 
 30. Securing the Infrastructure
