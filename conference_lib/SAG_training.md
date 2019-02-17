@@ -210,7 +210,7 @@ Configure ESB (ESB = IS + UM)
     Internal DB settings
     Proxies and Extended Settings
 ```
-18. UM (webMethods Messaging, JMS messaging, Broker is deprecated)
+18. UM (webMethods Messaging, JMS messaging, Broker is deprecated) Chapter 5 and 10
 ```
 Windows Service: Should Create Windows service if on Windows since installer does not create this.
     Start/Software AG/Realm Server Command Prompt -> run registerService.bat
@@ -224,8 +224,24 @@ Enterprise Manager:
     Connection Factories, Topics, Queues in JNDI tab (details in lab book)
 Connect IS to UM realms: IS can publish/subscribe
                      Messaging Connection alias can be set (by developer) in the IS Document Type properties.
+                       IS admin -> Settings/Messaging/JNDI Settings/Create JNDI Provider Alias (if cluster, provider URL contain comma-separated list)
+                                   Settings/Messaging/JMS Settings/Create JMS Connection Alias
                      Native msg Connection (system generated): IS_UM_CONNECTION (should confirm url) | IS_DES_CONNECTION | IS_LOCAL_CONNECTION (DES Digital Event Services)
                      Sync IS Doc Types to Messaging Provider
+```
+19. Configuration
+```
+IS & webMethods Monitor: display data of process of IS and Optimize, in package: WmMonitor 
+Allows MWS to connect TN: Administration/My webMethods/System Settings/TN Servers/Add TN Configuration (P5-44)
+JDBC Connection Pool Alias: the default Pool Alias Definitions auto-created. TN and Archive need separate alias pools(good practice).
+Web Service Alias: P5-50
+Some settings in <SAG dir>\IntegrationServer\instances\<IS instance>\config\server.cnf
+System parameters changed in Extended
+```
+20. Packages (logical IS container for a set of services, doc types, triggers and other related files)
+```
+Dir: <SAG dir>\IntegrationServer\packages # Also in each instance dir
+
 ```
 
 30. Securing the Infrastructure
