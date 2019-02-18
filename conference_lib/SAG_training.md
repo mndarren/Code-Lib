@@ -12,7 +12,7 @@
       The reason is a Tanuki Java service wrapper will be left bebind, will prevent IS server restart.
    5) Linux: if non-root user installing products, always use the same user shutdown at the same dirctory;
              if afterInstallAsRootLog.txt existing in installation dir, run ./bin/beforeInstallAsRoot script first
-   6) License Keys: IS keys: for Integration Platform --> IS production license file
+   6) License Keys: IS keys: for Integration Platform --> IS production license file (only 30 minutes run without key)
                              for Trading Networks server --> Trading Networks server license file
                              as part of Designer Workstation --> development license file
                              Mediator only --> Mediator license file
@@ -260,15 +260,23 @@ Loading package: "watt.server.package.parallel.threads" (2-10) default is 6
 ```
 21. IS Management
 ```
-
+Script <SAG dir>\IntegrationServer\instances\is_instance.bat can create/delete/update IS instance
+IS installer only install default instance. core packages defined in is_core_packages.properties
+instance.bat only get core packages for the new instance. 'is_instance update' to add additional packages. P7-10,13
+SUM only can update fixes for SAG root dir, cannot update for one instance. (make 2 root dir if need)
 ```
-22. Performance
+22. Logging and auditing
 ```
-   1) unnecessary packages should be disabled or deleted, save boot time and free memory;
-   2) Samples packages are not alive in production machine (WmTNExtDC, WmVCS)
-
+Including: IS core Audit Log and Process Audit Log
+Messaging, Server and UM Client Loggers can only log to File System;
+Process Logger should log to DB for monitoring in MWS; Most loggers log to DB.
+Async/Sync: if logger uses Asynchronous, Transient Queue is used; if Synchronous, directly to DB.
+In safe mode: Document and Process Engine loggers are not available.
+Server log: format "watt.debut.layout=" legacy(old format) new(new format)
+If Service Audit Logger set to 'perSvc', then Developer can set logging in service properties.
+MWS logging, UM logging skip here
 ```
-30. Securing the Infrastructure
+23. Securing the Infrastructure
 ```
 4 pillars: Authentication, Authorization, Confidentiality, Integrity
     Authentication is a prerequisite of authorization. (user IDs, client certificates, Security token: Kerberos, SAML)
@@ -290,7 +298,7 @@ How to manage users and groups?
     IS Admin UI -> Security -> User Management -> create groups (one per line) 
                 -> create users (one per line) and assign users to groups
 ```
-31. Security: ACLs, OAuth, Port Access Mode, IP Access, .access, Certificate, HTTPS
+24. Security: ACLs, OAuth, Port Access Mode, IP Access, .access, Certificate, HTTPS
 ```
 ACLs: ACLs control access to IS packages, folders, files, and services.
       ACLs identifies Allowed groups and Denied groups
@@ -307,7 +315,16 @@ How to run service or test functionality?
                          -> AdminSupport/svcs/customWriteToLog -> right click/run as Flow service
 OAuth: 
 ```
-32. LDAP
+25. LDAP
+```
+
+```
+23. Performance
+```
+   1) unnecessary packages should be disabled or deleted, save boot time and free memory;
+   2) Samples packages are not alive in production machine (WmTNExtDC, WmVCS)
+
+```
 
 33. UM
 ```
