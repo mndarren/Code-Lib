@@ -2,7 +2,7 @@
 ================================
 0. Notes
 ```
-   1) 32 bit environments are not supported;
+   1) 32 bit environments are not supported, so use 64-bit OS;
    2) supported OS: Windows Server 2012, 2016; 
                     Suse Linux Enterprise Server(12 SPx), Red Hat Enterprise Linux Server(7.x), 
                     Solaris(11), HP-UX(11v3), AIX(7.1&7.2), MacOS(10.13)
@@ -61,6 +61,10 @@
                      (18) Asset Build Environment
                      (19) webMethods Deployer
                      (20) Multi-Instance IS
+   26) Never allow sample or demo packages into production (e.g. PSUtilities, WmSamples, WmFlatFileSamples)
+       Disable unneeded default packages in IS: WmARTExtDC, WmAssetPublisher, WmFlatFile ... P12-13,14
+   27) MUST select "Client Prefix is Shared" if IS in a cluster or in load balancing fashion; 
+       Connection alias is used by loggers on ISs to write or read logs from UM Queue
 ```
 1. Abbrs about webMethods Integration Platform
 ```
@@ -313,20 +317,58 @@ How to manage user in Designer?
 How to run service or test functionality?
     Software AG Designer -> Window ->Perspective -> Open Perspective -> service Development 
                          -> AdminSupport/svcs/customWriteToLog -> right click/run as Flow service
-OAuth: 
+OAuth: details in lecture
 ```
 25. LDAP
 ```
+Details in lecture
+```
+23. Performance Tuning: A thankless Task
+```
+Basic ideas:
+    1) it's rarely a short-term task (establish baseline->small change->new baseline->another small change...)
+    2) it rarely shows huge return (one change may undo anohter or many, Test many times concurrently)
+    3) it's about Reducing latency (time of a procedure to complete) and Increasing throughput (# of procedures completed per time period)
+    4) there's always a tradeoff between performance and cost (investment)
+    5) it's a shared responsibility (Architecture, Hardware and OS, enhanced or damaged by devs, monitored and tuned by admins)
+    6) Pareto principle (80/20 rule) 50% savings in processes give almost 40% overall improvement.
+Hardware and OS:
+    1) Set wrapper.java.initmemory and wrapper.java.maxmemory the same value to avoid memory allocation overhead if incoming load is varying and unexpected
+       Set initmemory 1/3rd of maxmemory if load is constant. benchmarking is the only way to determine ideal settings.
+Developers:
+    1) Code for performance and maintainability from the beginning;
+    2) DROP unneeded pipeling variables
+    3) Use Java services in place of high CPU overhead flow services
+    4) Understand adapter service usage best practices, such as batch activity
+    5) Avoid deeply nested looping
+    6) Limit process logging level and service auditing levels
+    7) Work carefully with optimize locally, express pipeline, and corelation
+    8) Use service caching: Caching with Big Memory (TSA) P12-37-46
+    9) Define services as stateless - this is the default
+    10) Eliminate "dead" services and documents in packages
+Admin:
+    1) Package, port, server thread pool, logging management
+       Turn off non-essential listeners; 
+       Enable port thread pool if inbound requests are critical AND IS may be close to using the entire global thread pool;
+       Server thread pool and trigger thread pool are the most critical thread pools.
+       Only testing can determine the best size for a thread pool
+       In most cases, less logging less auditing = better performance (Disable all unneeded logging)
+       Set default log level to FATAL or ERROR (at least in PROD)
+       Set Auditing 'Guaranteed' to 'No' to keep the transient entries in RAM
+    2) Server parameter settings
+    3) IS dispatcher, UM tuning
+       UM Connection Buffer Size: default is 21 MB. message>default => error
+       Small buffer + large msg = High CPU
+       Large buffer + small msg = inefficient memory usage.
+    4) IS clustering
+    5) Large document configuration
 
-```
-23. Performance
-```
+Packages:
    1) unnecessary packages should be disabled or deleted, save boot time and free memory;
    2) Samples packages are not alive in production machine (WmTNExtDC, WmVCS)
 
 ```
-
-33. UM
+24. UM 
 ```
 How to install UM?
     1) Start -> Software AG -> Realm Server Command Prompt
@@ -339,8 +381,7 @@ How to connect IS to UM?
     4) change url: open the realms.cfg file with notepad++, change localhost into sagbase -> save
     5) restart Enterprise Manager
 ```
-
-41. Trouble Shooting
+25. Trouble Shooting
 ```
 empower website, logs, service usage, statistics, diagnostic port
 Diagnostic utility service (recommanded) (sagbase:9999/invoke/vm.server.admin/getDiagnosticData)
@@ -364,7 +405,7 @@ How to remove a package from startup services list?
     Change <record name="startup_services" ....<record> into <null name="startup_services"/>
     Also, this can be done in Designer: Right click package -> Properties -> Startup/Shutdown Services -> move available services to selected services
 ```
-42. Email Notification
+26. Email Notification
 ```
 Start Email server -> Configure IS -> Configure MWS -> Create a scheduled task
 How to configure Email Notification in IS?
