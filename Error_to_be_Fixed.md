@@ -121,3 +121,8 @@ cat /etc/apparmor.d/tunables/home.d/ubuntu
 reboot -> Enter / Esc -> in grub -> advanced option -> choose kernel 4.15.0-43 version (44 not work) -> run command to delete 44 version:
 sudo apt-get purge linux-image-4.15.0-44-generic -f
 ```
+28. UrlMappings matches Controller name in Grails app
+```
+if Controller name = 'CountriesController' (class name in controller) 
+=> controller: 'countries' (name in UrlMappings)
+```
