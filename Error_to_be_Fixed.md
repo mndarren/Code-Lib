@@ -163,3 +163,7 @@ def no_ssl_verification(session=requests.Session):
 with no_ssl_verification():
     request.post()
 ```
+30. How to fix project itself not found error -- 'ModuleNotFoundError'?
+```
+pip install -e .
+```
