@@ -2,7 +2,7 @@
 ================================
 0. Notes
 ```
-   1) 32 bit environments are not supported;
+   1) 32 bit environments are not supported, so use 64-bit OS;
    2) supported OS: Windows Server 2012, 2016; 
                     Suse Linux Enterprise Server(12 SPx), Red Hat Enterprise Linux Server(7.x), 
                     Solaris(11), HP-UX(11v3), AIX(7.1&7.2), MacOS(10.13)
@@ -12,7 +12,7 @@
       The reason is a Tanuki Java service wrapper will be left bebind, will prevent IS server restart.
    5) Linux: if non-root user installing products, always use the same user shutdown at the same dirctory;
              if afterInstallAsRootLog.txt existing in installation dir, run ./bin/beforeInstallAsRoot script first
-   6) License Keys: IS keys: for Integration Platform --> IS production license file
+   6) License Keys: IS keys: for Integration Platform --> IS production license file (only 30 minutes run without key)
                              for Trading Networks server --> Trading Networks server license file
                              as part of Designer Workstation --> development license file
                              Mediator only --> Mediator license file
@@ -61,6 +61,10 @@
                      (18) Asset Build Environment
                      (19) webMethods Deployer
                      (20) Multi-Instance IS
+   26) Never allow sample or demo packages into production (e.g. PSUtilities, WmSamples, WmFlatFileSamples)
+       Disable unneeded default packages in IS: WmARTExtDC, WmAssetPublisher, WmFlatFile ... P12-13,14
+   27) MUST select "Client Prefix is Shared" if IS in a cluster or in load balancing fashion; 
+       Connection alias is used by loggers on ISs to write or read logs from UM Queue
 ```
 1. Abbrs about webMethods Integration Platform
 ```
@@ -84,6 +88,7 @@ ABE: Asset Build Environment
 TN: Trading Network
 NHP: Network Host PC
 SUM: SAG Update Manager
+XSLT: Extensible Stylesheet Language Transformations
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
@@ -210,7 +215,7 @@ Configure ESB (ESB = IS + UM)
     Internal DB settings
     Proxies and Extended Settings
 ```
-18. UM
+18. UM (webMethods Messaging, JMS messaging, Broker is deprecated) Chapter 5 and 10
 ```
 Windows Service: Should Create Windows service if on Windows since installer does not create this.
     Start/Software AG/Realm Server Command Prompt -> run registerService.bat
@@ -221,10 +226,61 @@ Enterprise Manager:
                      Persist/NoSync -- using cluster (default)
                      Persist/Sync -- single UM node
                      Config tab/Show Advanced Config button/Advanced Connection/Event Storage/QueueDeliveryPersistencePolicy
-    Connection Factories, Topics, Queues in JNDI tab (detail in lab book)
+    Connection Factories, Topics, Queues in JNDI tab (details in lab book)
+Connect IS to UM realms: IS can publish/subscribe
+                     Messaging Connection alias can be set (by developer) in the IS Document Type properties.
+                       IS admin -> Settings/Messaging/JNDI Settings/Create JNDI Provider Alias (if cluster, provider URL contain comma-separated list)
+                                   Settings/Messaging/JMS Settings/Create JMS Connection Alias
+                     Native msg Connection (system generated): IS_UM_CONNECTION (should confirm url) | IS_DES_CONNECTION | IS_LOCAL_CONNECTION (DES Digital Event Services)
+                     Sync IS Doc Types to Messaging Provider
 ```
-
-30. Securing the Infrastructure
+19. Configuration
+```
+IS & webMethods Monitor: display data of process of IS and Optimize, in package: WmMonitor 
+Allows MWS to connect TN: Administration/My webMethods/System Settings/TN Servers/Add TN Configuration (P5-44)
+JDBC Connection Pool Alias: the default Pool Alias Definitions auto-created. TN and Archive need separate alias pools(good practice).
+Web Service Alias: P5-50
+Some settings in <SAG dir>\IntegrationServer\instances\<IS instance>\config\server.cnf
+System parameters changed in Extended
+```
+20. Packages (logical IS container for a set of services, doc types, triggers and other related files)
+```
+Dir: <SAG dir>\IntegrationServer\packages # Also in each instance dir
+Namespaces: package name not in it. pub.client:http (right) WmPublic.pub.client:http (Wrong)
+Supported Types of Services: .NET, Adapter, C, Flow (SAG), Java, Map, OData, REST Resource Descriptor(Consumer), XSLT
+Cannot Disabled: WmRoot (IS core)
+Cannot Changed can disabled: WmFlatFile, WmMonitor, WmOptimize, WmPRT
+Archived packages: replicate\outbound
+Install an Archived package: put zip file in replicate\inbound -> IS admin/Packages/Management/Install Inbound Releases
+                                            check "Archive upon installation" if want to archive it to replicate\archive
+Lock Mode: (none, system, full)
+    In lab, set system because installing local service development. full: enable user lock and show system lock.
+    In full locking mode, locking is a feature in Designer. 
+                          types: System Lock, Locked by you, Locked by Someone else, No lock.
+                          Developer must lock an asset before any change;
+                          Developer mush unlock assets before deployment.
+Delete package: Disable it first to check if any complaint about it, and then Safe Delete
+Loading package: "watt.server.package.parallel.threads" (2-10) default is 6
+```
+21. IS Management
+```
+Script <SAG dir>\IntegrationServer\instances\is_instance.bat can create/delete/update IS instance
+IS installer only install default instance. core packages defined in is_core_packages.properties
+instance.bat only get core packages for the new instance. 'is_instance update' to add additional packages. P7-10,13
+SUM only can update fixes for SAG root dir, cannot update for one instance. (make 2 root dir if need)
+```
+22. Logging and auditing
+```
+Including: IS core Audit Log and Process Audit Log
+Messaging, Server and UM Client Loggers can only log to File System;
+Process Logger should log to DB for monitoring in MWS; Most loggers log to DB.
+Async/Sync: if logger uses Asynchronous, Transient Queue is used; if Synchronous, directly to DB.
+In safe mode: Document and Process Engine loggers are not available.
+Server log: format "watt.debut.layout=" legacy(old format) new(new format)
+If Service Audit Logger set to 'perSvc', then Developer can set logging in service properties.
+MWS logging, UM logging skip here
+```
+23. Securing the Infrastructure
 ```
 4 pillars: Authentication, Authorization, Confidentiality, Integrity
     Authentication is a prerequisite of authorization. (user IDs, client certificates, Security token: Kerberos, SAML)
@@ -246,7 +302,7 @@ How to manage users and groups?
     IS Admin UI -> Security -> User Management -> create groups (one per line) 
                 -> create users (one per line) and assign users to groups
 ```
-31. Security: ACLs, OAuth, Port Access Mode, IP Access, .access, Certificate, HTTPS
+24. Security: ACLs, OAuth, Port Access Mode, IP Access, .access, Certificate, HTTPS
 ```
 ACLs: ACLs control access to IS packages, folders, files, and services.
       ACLs identifies Allowed groups and Denied groups
@@ -261,11 +317,58 @@ How to manage user in Designer?
 How to run service or test functionality?
     Software AG Designer -> Window ->Perspective -> Open Perspective -> service Development 
                          -> AdminSupport/svcs/customWriteToLog -> right click/run as Flow service
-OAuth: 
+OAuth: details in lecture
 ```
-32. LDAP
+25. LDAP
+```
+Details in lecture
+```
+23. Performance Tuning: A thankless Task
+```
+Basic ideas:
+    1) it's rarely a short-term task (establish baseline->small change->new baseline->another small change...)
+    2) it rarely shows huge return (one change may undo anohter or many, Test many times concurrently)
+    3) it's about Reducing latency (time of a procedure to complete) and Increasing throughput (# of procedures completed per time period)
+    4) there's always a tradeoff between performance and cost (investment)
+    5) it's a shared responsibility (Architecture, Hardware and OS, enhanced or damaged by devs, monitored and tuned by admins)
+    6) Pareto principle (80/20 rule) 50% savings in processes give almost 40% overall improvement.
+Hardware and OS:
+    1) Set wrapper.java.initmemory and wrapper.java.maxmemory the same value to avoid memory allocation overhead if incoming load is varying and unexpected
+       Set initmemory 1/3rd of maxmemory if load is constant. benchmarking is the only way to determine ideal settings.
+Developers:
+    1) Code for performance and maintainability from the beginning;
+    2) DROP unneeded pipeling variables
+    3) Use Java services in place of high CPU overhead flow services
+    4) Understand adapter service usage best practices, such as batch activity
+    5) Avoid deeply nested looping
+    6) Limit process logging level and service auditing levels
+    7) Work carefully with optimize locally, express pipeline, and corelation
+    8) Use service caching: Caching with Big Memory (TSA) P12-37-46
+    9) Define services as stateless - this is the default
+    10) Eliminate "dead" services and documents in packages
+Admin:
+    1) Package, port, server thread pool, logging management
+       Turn off non-essential listeners; 
+       Enable port thread pool if inbound requests are critical AND IS may be close to using the entire global thread pool;
+       Server thread pool and trigger thread pool are the most critical thread pools.
+       Only testing can determine the best size for a thread pool
+       In most cases, less logging less auditing = better performance (Disable all unneeded logging)
+       Set default log level to FATAL or ERROR (at least in PROD)
+       Set Auditing 'Guaranteed' to 'No' to keep the transient entries in RAM
+    2) Server parameter settings
+    3) IS dispatcher, UM tuning
+       UM Connection Buffer Size: default is 21 MB. message>default => error
+       Small buffer + large msg = High CPU
+       Large buffer + small msg = inefficient memory usage.
+    4) IS clustering
+    5) Large document configuration
 
-33. UM
+Packages:
+   1) unnecessary packages should be disabled or deleted, save boot time and free memory;
+   2) Samples packages are not alive in production machine (WmTNExtDC, WmVCS)
+
+```
+24. UM 
 ```
 How to install UM?
     1) Start -> Software AG -> Realm Server Command Prompt
@@ -278,8 +381,7 @@ How to connect IS to UM?
     4) change url: open the realms.cfg file with notepad++, change localhost into sagbase -> save
     5) restart Enterprise Manager
 ```
-
-41. Trouble Shooting
+25. Trouble Shooting
 ```
 empower website, logs, service usage, statistics, diagnostic port
 Diagnostic utility service (recommanded) (sagbase:9999/invoke/vm.server.admin/getDiagnosticData)
@@ -303,7 +405,7 @@ How to remove a package from startup services list?
     Change <record name="startup_services" ....<record> into <null name="startup_services"/>
     Also, this can be done in Designer: Right click package -> Properties -> Startup/Shutdown Services -> move available services to selected services
 ```
-42. Email Notification
+26. Email Notification
 ```
 Start Email server -> Configure IS -> Configure MWS -> Create a scheduled task
 How to configure Email Notification in IS?

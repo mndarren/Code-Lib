@@ -35,7 +35,7 @@ https://www.qt86.com/182
 14. Set up register page at front side
 15. Set up Login page at front side
 16. Connect front page to the Database on the back side
-17. Get more good video and update Video Gallery
+17. Get more good video and update Video Gallery (Done)
 18. Add all Posters on the Web site (Done)
 19. Update a title for each perfect photo
 20. Update title and description for each video
@@ -71,7 +71,7 @@ https://www.qt86.com/182
 50. Updated 2019 Spring Poster (Done)
 51. Update Yuan introduction and 2019 Spring New Year Poster (Done)
 52. Update images on website by comparing facebook images to our website (Done)
-53. Create an archive by a google drive to back up all materials of TCCDCMN
+53. Create an archive by a google drive to back up all materials of TCCDCMN (Done)
 54. Update schedule, registration link and instructor list (Done)
 55. Convert Logo videos to GIF (<2mb) (Done)
 56. Compress video (2019 New year show) from 80 MB to <20 MB (Done)
@@ -83,3 +83,4 @@ https://www.qt86.com/182
 62. TCCDC Logo GIF in website (Done, one morning)
 63. Improve TCCDC pig new year gif, put it on website (Done)
 64. Home Page button update (Done)
+65. Remove the Happy new year gif (Done)
