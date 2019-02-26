@@ -201,6 +201,8 @@ There's another class to introduce CC, including:
 ```
 17. MWS
 ```
+MWS: Portal server that hosts browser-based UI for monitoring, configuring and user interaction for
+     many webMethods products, including ESB, BPMS, User Tasks and Optimize
 Configure ESB (ESB = IS + UM)
     Verify license
        if IS key expired, IS will enter demo mode (only run 30 minutes)
