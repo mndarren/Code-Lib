@@ -167,3 +167,8 @@ with no_ssl_verification():
 ```
 pip install -e .
 ```
+31. Cannot find IP address for CentOS
+```
+/etc/sysconfig/network-stripts/ifcfg-something 
+make sure ONBOOT=yes
+```
