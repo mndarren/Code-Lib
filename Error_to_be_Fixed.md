@@ -121,3 +121,49 @@ cat /etc/apparmor.d/tunables/home.d/ubuntu
 reboot -> Enter / Esc -> in grub -> advanced option -> choose kernel 4.15.0-43 version (44 not work) -> run command to delete 44 version:
 sudo apt-get purge linux-image-4.15.0-44-generic -f
 ```
+28. UrlMappings matches Controller name in Grails app
+```
+if Controller name = 'CountriesController' (class name in controller) 
+=> controller: 'countries' (name in UrlMappings)
+```
+29. SSL CERTIFICATE_VERIFY_FAILED
+```
+# create request_verify.py file
+import warnings
+import contextlib
+
+import requests
+from urllib3.exceptions import InsecureRequestWarning
+
+try:
+    from functools import partialmethod
+except ImportError:
+    # Python 2 fallback: https://gist.github.com/carymrobbins/8940382
+    from functools import partial
+
+    class partialmethod(partial):
+        def __get__(self, instance, owner):
+            if instance is None:
+                return self
+
+            return partial(self.func, instance, *(self.args or ()), **(self.keywords or {}))
+
+
+@contextlib.contextmanager
+def no_ssl_verification(session=requests.Session):
+    old_request = session.request
+    session.request = partialmethod(old_request, verify=False)
+
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', InsecureRequestWarning)
+        yield
+
+    session.request = old_request
+# the following is how to use it
+with no_ssl_verification():
+    request.post()
+```
+30. How to fix project itself not found error -- 'ModuleNotFoundError'?
+```
+pip install -e .
+```
