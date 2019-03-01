@@ -1064,3 +1064,32 @@ Soap API complies with SOAP 1.1, WSDL 1.1 and WS-I Basic Profile 1.1
    6)If the job completes with no errors, we’re done.
    7)If the job completes but encountered errors during processing, request the complete list of failed records with one API call, determine why the records failed, and submit a new job as needed.
 ```
+17. Limitation of Batch (Bulk API)
+```
+1) Max 10k batches/day
+2) Max 7 days keeping for batches and jobs
+3) One Batch size: <=10MB, <=10k records, <=10M chars
+4) One field: <=32k chars
+5) One record: <=5k fields, <=400k chars
+6) Batch processing in chunks: 1 chunk =200 records for >=V21.0; 1 chunk =100 records for <=V20.0
+7) Timeout: 5 min/chunk, 10 min/batch, 10 times back queue -> mark Failed permenantly for batch
+```
+18. CSV format rule
+```
+
+1) Only comma.
+2) If a comma, a new line, or a double quote in value,must be contained within double quotes: for example, "Director of Operations, Western Region".
+3) If double quote in value, double double quotes, e.g. "This is the ""gold"" standard"
+4) A space before or after a double quote generates an error for the row. For example, John,Smith is valid; John, Smith is valid, but the second value is " Smith"; ."John", "Smith" is not valid.
+5) Empty field values are ignored when you update records. To set a field value to null, use a field value of #N/A.
+6) Fields with a double data type can include fractional values. Values can be stored in scientific notation if the number is large enough (or, for negative numbers, small enough)
+```
+19. Trigger batch lock connection
+```
+likely to cause lock contention and necessitate using serial mode:
+
+Creating new users
+Updating ownership for records with private sharing
+Updating user roles
+Updating territory hierarchies
+```
