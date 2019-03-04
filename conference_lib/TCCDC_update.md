@@ -8,7 +8,9 @@ http://www.online-image-editor.com/
 https://ezgif.com/video-to-gif
 # Chinese Word
 https://www.qt86.com/182
-
+# cut film
+https://www.jb51.net/softs/651634.html
+Tip: install this in a VM as a sandbox because sometimes it'll crash your computer.
 ```
 1. Remove phone number 651-246-5735 (Done)
 2. Move Dance of Joy - IX 2018 (Done)
