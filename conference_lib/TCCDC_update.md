@@ -89,10 +89,10 @@ Tip: install this in a VM as a sandbox because sometimes it'll crash your comput
 66. Split 2019 Chinese New Year video into each show
 ```
 KPop: https://youtu.be/uM45kdq3Chk
-Miao_Shan_Gu_Niang: https://youtu.be/_MEZXjDM8Tk
+Miao_Shan_Gu_Niang: https://youtu.be/EKE5cZrnoaM
 Nv_Ren_Hua: https://youtu.be/NY5fK73PoD4
 Shui_Ying_Man_Wu: https://youtu.be/GM47C0ApIR4
-Hua_er_Wei_Shen_Me_Zhe_Yang_Hong: https://youtu.be/Jo3yEZSjirM
+Hua_er_Wei_Shen_Me_Zhe_Yang_Hong: https://youtu.be/cnGpeIkcVbo
 Dui_Hua_Hua: https://youtu.be/MZhrBmSBJzk
 Xuan_Wu_Fei_Yang: https://youtu.be/0Ltc6J44MS0
 Ju_Bei_Peng_You: https://youtu.be/vVjIVnj1g5A
@@ -103,4 +103,5 @@ Xing_Yun_Liu_Shui: https://youtu.be/R-8ynHTJT-4
 Han_Feng_Xiu_Wu: https://youtu.be/3JR-TEwXRlY
 Tong_Nian_Xin_Yuan: https://youtu.be/j3o_YTMaiaQ
 Gong_Fei_Yan: https://youtu.be/en67y3vj5Qg
+Jia_Zai_Zhong_Guo: https://youtu.be/6A41Ljb01IA
 ```
