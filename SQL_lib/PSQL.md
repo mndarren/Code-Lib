@@ -98,3 +98,9 @@
 	```
 	CREATE DATABASE my_database_review WITH TEMPLATE my_database OWNER postgres;
 	```
+11. Check connections #
+	```
+	select usename from pg_stat_activity;
+	SELECT sum(numbackends) FROM pg_stat_database;
+	```
+
