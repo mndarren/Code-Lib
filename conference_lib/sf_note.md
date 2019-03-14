@@ -13,7 +13,7 @@
 2. Points to be taken care of
 ```
 1) Fields names of SF Objects are case sensitive, otherwise Error!
-2) the field "Followupdate__c" of Contact cannot be assigned empty string 
+2) the field "SomethingDate__c" of Contact cannot be assigned empty string 
    because it's Date type, but can be null value in json.
    "RecordType" field cannot be included in Contact object.
 3) Fields names of SF object for Bulk API are case sensitive;
