@@ -13,12 +13,14 @@
 2. Points to be taken care of
 ```
 1) Fields names of SF Objects are case sensitive, otherwise Error!
-2) the field "Followupdate__c" of Contact cannot be assigned empty string because it's Date type, but can be null value in json.
+2) the field "Followupdate__c" of Contact cannot be assigned empty string 
+   because it's Date type, but can be null value in json.
    "RecordType" field cannot be included in Contact object.
 3) Fields names of SF object for Bulk API are case sensitive;
 4) the field related SSN for SF Bulk API should be correct format, like: 123-45-6789
 5) "No content to map to Object" Error message means there's some field(s) not in SF Object.
-6) We don't need to send null fields or empty fields to SF, so just delete them from the list of SF object.
+6) We don't need to send null fields or empty fields to SF, 
+   so just delete them from the list of SF object.
 ```
 3. csv format requirement
 ```
@@ -28,8 +30,10 @@
 3) If double quote in value, double double quotes, e.g. "This is the ""gold"" standard"
 4) A space before or after a double quote generates an error for the row. For example, 
    John,Smith is valid; John, Smith is valid, but the second value is " Smith"; ."John", "Smith" is not valid.
-5) Empty field values are ignored when you update records. To set a field value to null, use a field value of #N/A.
-6) Fields with a double data type can include fractional values. Values can be stored in scientific notation 
+5) Empty field values are ignored when you update records. 
+   To set a field value to null, use a field value of #N/A.
+6) Fields with a double data type can include fractional values. 
+   Values can be stored in scientific notation 
    if the number is large enough (or, for negative numbers, small enough)
 ```
 4. batch status
