@@ -173,4 +173,4 @@ pip install -e .
 make sure ONBOOT=yes
 ```
 32. pkg-resources==0.0.0  # a bug from ubuntu, just delete it from requirements.txt
-
+33. cache does not work: because "This can save time when a function is often called with the same arguments."
