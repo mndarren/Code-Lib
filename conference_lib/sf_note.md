@@ -33,4 +33,4 @@
    if the number is large enough (or, for negative numbers, small enough)
 ```
 4. batch status
-![alt text](https://github.com/mndarren/Code-Lib/blob/master/Data_Security_lib/resource/pic/packet_layers.PNG)
+![alt text](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/batch_status.png)
