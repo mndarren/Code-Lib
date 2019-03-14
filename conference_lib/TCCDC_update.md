@@ -87,4 +87,4 @@ Tip: install this in a VM as a sandbox because sometimes it'll crash your comput
 64. Home Page button update (Done)
 65. Remove the Happy new year gif (Done)
 66. Split 2019 Chinese New Year video into each show (Done)
-67. Upload videos to YouTube()
+67. Upload videos to YouTube(Done)
