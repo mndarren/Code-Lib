@@ -172,3 +172,5 @@ pip install -e .
 /etc/sysconfig/network-stripts/ifcfg-something 
 make sure ONBOOT=yes
 ```
+32. pkg-resources==0.0.0  # a bug from ubuntu, just delete it from requirements.txt
+
