@@ -639,3 +639,12 @@
 	print "Value : %s" %  dict.get('Age')
 	print "Value : %s" %  dict.get('Education', "Never")
 	```
+46. about [:]
+	```
+	[:] means all reference change when one of them changes.
+	>>> a = list(range(10))
+	>>> b = a
+	>>> a[:] = [0, 0, 0] # changes what a and b both refer to
+	>>> b
+	[0, 0, 0]
+	```
