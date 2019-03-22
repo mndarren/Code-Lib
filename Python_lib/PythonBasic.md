@@ -648,3 +648,5 @@
 	>>> b
 	[0, 0, 0]
 	```
+47. try-except:  the use of exceptions in Python does not slow the surrounding code and calling code as it does in some compiled languages<br/>
+    (i.e. CPython already implements code for exception checking at every step, regardless of whether you actually use exceptions or not).
