@@ -650,3 +650,10 @@
 	```
 47. try-except:  the use of exceptions in Python does not slow the surrounding code and calling code as it does in some compiled languages<br/>
     (i.e. CPython already implements code for exception checking at every step, regardless of whether you actually use exceptions or not).
+48. Regex (?: ?= ?!)
+```
+?: not capture, like re.findall(r'[0-9]+(?:\.[0-9]+){3}', url_v) # find all IPs
+?= capture including the next char, like Isaac (?=Asimov) will match 'Isaac ' only if it’s followed by 'Asimov'.
+?! capture excluding the next char, like Isaac (?!Asimov) will match 'Isaac ' only if it’s not followed by 'Asimov'.
+```
+

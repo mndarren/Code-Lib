@@ -104,3 +104,4 @@ how to use it:
 Email(EmailConfig()).send(subject="ALERT: SOME NOTIFIER ALERT",
                           body=f"Exception for anything, MESSAGE: {ex}")
 ```
+
