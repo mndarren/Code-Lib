@@ -108,3 +108,10 @@ Email(EmailConfig()).send(subject="ALERT: SOME NOTIFIER ALERT",
 ```
 pip freeze | grep <package_name>
 ```
+7. Flask default host and port (funny thing)
+```
+# will get error, no default
+os.environ['APP_HOST']
+# will get default localhost and 5000
+os.environ.get('APP_HOST')
+```

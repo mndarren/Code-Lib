@@ -20,6 +20,9 @@
    Structuring -- Deposit a lot of small cash
    GLBA        -- Gramm-Leach-Bliley Act  (required written information security program)
    OCC -- Office of the Comptroller of the Currency
+   FTC -- Federal Trade Commission (Identity Theft)
+   SAE -- Suspicious Activity Elevation
+   CBR -- Credit Bureau Report
    ```
 2. Robbery (lone note robery & takeover robbery)
    ```
@@ -124,4 +127,16 @@
    Exchanging info safely
        avoid exchange info verbally (write down to pass him/her)
        let customer write down SSN, finish to return
+   ```
+8. ID Theft: what to do
+   ```
+   1) Call the companies where you know fraud occurred;
+   2) Place a fraud alert and get your credit reports;
+      • Experian.com/help
+      888-EXPERIAN (888-397-3742)
+      • TransUnion.com/credit-help
+      888-909-8872
+      • Equifax.com/personal/credit-report-services
+      1-800-685-1111
+   3) Report ID Theft to FTC (IdentityTheft.gov or 1-877-438-4338)
    ```
