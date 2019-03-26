@@ -104,4 +104,7 @@ how to use it:
 Email(EmailConfig()).send(subject="ALERT: SOME NOTIFIER ALERT",
                           body=f"Exception for anything, MESSAGE: {ex}")
 ```
-
+6. get package version command
+```
+pip freeze | grep <package_name>
+```
