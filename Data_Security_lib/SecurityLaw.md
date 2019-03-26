@@ -19,6 +19,7 @@
    AIN       -- Alien ID Number
    Structuring -- Deposit a lot of small cash
    GLBA        -- Gramm-Leach-Bliley Act  (required written information security program)
+   OCC -- Office of the Comptroller of the Currency
    ```
 2. Robbery (lone note robery & takeover robbery)
    ```
