@@ -88,7 +88,7 @@
    FTPS        989/990   TCP      --encrypted
    SSH/SCP     22        TCP      --encrypted
    Telnet      23        TCP
-   SMTP        25        TCP      --used for sending email
+   SMTP        25/587    TCP      --used for sending email
    SMTPS       465       TCP      --encrypted
    POP3        110       TCP      --used for receiving email
    POP3S       995       TCP      --encrypted
