@@ -76,46 +76,53 @@
        (4) Additional security steps are taken when computer are unattended
    Impact if happens:
        (1) Legal penalty you and your institute
-       (2) Financial loss
+       (2) Financial loss, job lose, customer loss.
        (3) Take away customer sense of security
        (4) Institute experience negative publicity
-       (5) Lose job
+       (5) Lose job for them who should prevent ID theft.
    ```
 6. Attack 3 themes & how to use
    ```
    Blatant Behaviors
        (1) Dumpster diving
        (2) Shoulder surfing
-       (3) Theft
-       (4) Vendor Access
+       (3) Theft: any paper/disk/tapes/CDs with customer's info
+       (4) Vendor Access: Computer tech support, janitors, vending machine stock people, others
        (5) Desk/Countertop skimming (lock screen before leaving)
    Trust Trampling
-       i) Social Networking
-          (1) policy (institute resources, internet access)
+       i) Social Networking (facebook, twitter, etc)
+          (1) follow policies about institute resources, internet access!
           (2) username & password (unique, not use in financial)
           (3) to access profile as "private" & enable all secure option
           (4) only access people that you know
-          (5) never share personal data (SSN, account #, passwords, BOD, high school name, city of birth, etc)
-          (6) messages (distributing malware/virus)
-       ii) Social Engineering (charm, intimidation, playing on your desire to help sb.)
-           (1) player: forgetful customer, government official, senior manager
+          (5) never share personal data (SSN, account #, passwords, BOD, high school name, pet name, city of birth, etc)
+          (6) messages (distributing malware/virus), be careful about it!
+       ii) Social Engineering (charm, intimidation(scare), playing on your desire to help sb.)
+           (1) player: forgetful customer (calling in and forgetting ID), 
+                       government official (posting as law-enforcement agent or a regulator), 
+                       senior manager (pretending senior employee or executive)
+           (2) response: Develop a security program (follow security policies, procedures or programs)
+                         Appoint an information security officer (report suspicines to the officer)
+                         Take quick action (report it quickly)
    High-Tech Hijinks
-       i) spying
-          (1) keylogging with virus
-          (2) baiting (left DVD/CD, USB flash drive)
-       ii) pretending
-          (1) pharming (fake version website)
+       i) spying (record keystrokes or copy files)
+          (1) keylogging with virus for username and password
+          (2) baiting (left DVD/CD, USB flash drive containing malicious code in open area)
+       ii) pretending (pose as someone legitimate)
+          (1) pharming (fake financial website)
           (2) phishing (Email to link to bad website)
-          (3) smishing (text to verify info, fake bank)
-          (4) vishing (voiceover, internet protocol)
+          (3) smishing (text message to verify info, as fake bank)
+          (4) vishing (voiceover (VoIP), internet protocol)
    How to use
        i) True name Fraud (create a new account)
-       ii) Account Takeover Fraud (intercept credit card)
+       ii) Account Takeover Fraud (gain admittance to an existing account, using stolen devices intercept credit card)
        iii) Unauthorized Transaction (change address)
-       iv) Warning Sign: addr change, credit line increase request, 
-           card replacement followed by addr change, dorment/inactive accounts
+       iv) Warning Sign: addr change (Street Address to P.O. Box, unless to APO (Army Post Office) or FPO (Fleet Post Office)),
+               credit line increase request following Card Reissue (NRI, Non-Receipt as Issued fraud), 
+               credit/debit card replacement followed by addr change, 
+               Activity on dorment/inactive accounts
    ```
-7. SECURE method
+7. SECURE method (6 searate, but equally important elements)
    ```
    Storing/Filing Doc (secure location, careful paper, not leave visible with other customer, secure info before leaving)
    Eliminating files/paperworks (shredding/locked receptacles)
@@ -124,12 +131,18 @@
    Requiring Proper Identification (6 primary forms)
        physical description, photograph, signature, recognized as an official ID, 
        info difficult to duplicate, info verifiable and renewable
+       # additional forms: Local and national credit cards, 
+                           a local financial institution's check cashing card,
+                           A state and /or local government ID
    Exchanging info safely
-       avoid exchange info verbally (write down to pass him/her)
-       let customer write down SSN, finish to return
+       avoid exchange info verbally (write down to pass him/her),
+       via email with PII should be protected,
+       let customer write down SSN, finish to return it back customer
    ```
 8. ID Theft: what to do
    ```
+   0) What is ID theft: a crime of deception involving the unauthorized use of 
+                        another individual's confidential identifying information.
    1) Call the companies where you know fraud occurred;
    2) Place a fraud alert and get your credit reports;
       • Experian.com/help
@@ -140,3 +153,34 @@
       1-800-685-1111
    3) Report ID Theft to FTC (IdentityTheft.gov or 1-877-438-4338)
    ```
+9. Risks
+   ```
+   Who: responsible for protect customers' information: all employees
+   What steps: 1) all documents properly destroyed or stored;
+               2) Customer conversation private or written;
+               3) minimized computer screen with customers' info
+               4) additional security steps when computers unattended
+   How: Equip yourself with an understanding of how thieves attempt to obtain info:
+               "dumpster diving", 'shoulder surfing', 'phishing'
+   ```
+10. Anyone can be an identity thief!
+11. what info ID theft likes
+   ```
+   # PII
+   ID # (SSN, Driver's License #, Alien ID #, Passport #),
+   Legal names, 
+   Street Addresses,
+   Date of Birth
+   # Security Info
+   PIN
+   Username/password
+   Account #
+   Backup security info (mother's maiden name, town you born, first pet's name, etc)
+   ```
+12. Follow-up Procedures
+   ```
+   take time and effort to verify all personal and financial reference
+   executing a credit check
+   'thank you' letter
+   ```
+13. 
