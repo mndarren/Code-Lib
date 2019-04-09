@@ -43,3 +43,5 @@
 ```
 8. How to install SSIS in Ubuntu: https://social.technet.microsoft.com/wiki/contents/articles/52294.sql-server-and-ssis-installation-on-ubuntu.aspx
 9. How to install openssl < 1.10: https://askubuntu.com/questions/1000629/how-to-install-openssl-1-0-2-with-default-openssl-1-1-1-on-ubuntu-16-04
+10. Windows 10 VM template: https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
+
