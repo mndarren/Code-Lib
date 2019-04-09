@@ -4,7 +4,7 @@
    ```
    BAI -- Bank Administration Institute
    OFAC -- Office of Foreign Assets Control (2 lists: SDNs & Blocked Persons List)
-   BSA  -- Bank Secrecy Act
+   BSA  -- Bank Secrecy Act 1970, Money Laundering Control Act 1986
    CIP  -- Customer Identification Program
    SDNs -- Specially Designated Nationals
    AML  -- Anti-Money Laundering
@@ -23,6 +23,8 @@
    FTC -- Federal Trade Commission (Identity Theft)
    SAE -- Suspicious Activity Elevation
    CBR -- Credit Bureau Report
+   DDPP&C -- Due Diligence policies, procedures and controls
+   PEP -- Politically Exposed Person
    ```
 2. Robbery (lone note robery & takeover robbery)
    ```
@@ -183,4 +185,95 @@
    executing a credit check
    'thank you' letter
    ```
-13. 
+13. USA Patriot Act: "Uniting and Stengthening America by Providing Appropriate Tools Required to Intercept and obstruct Terrorism" Act
+   ```
+   OFAC compliance plan/program for each Financial institution.
+   Best defense for preventing money launderting is to perform a thorough assessment of current and potential customers.
+   CIP should be risk-based. additional ID verification measures for high risk accounts.
+   # 10 titles
+   ```
+14. Title III: International Money Laundering Abatement and Anti-Terrorist Financing Act of 2001
+   ```
+   Foreign shell bank: a bank that does not maintain a physical presence in any country.
+   Money laundering: process of concealing the source of funds gained through illegal activities 
+                     by attempting to "wash" the money through legitimate financial channels.
+   Correspondent account: an account established to receive deposits from foreign financial institution, 
+                                                    make payments on its behalf,
+                                                    Handle other financial transactions "related to such institution"
+   Private banking account: maintain a minimum aggregate deposit of funds or other assets of not less than $1 million
+                            be established on behalf of one or more individuals who have a direct or beneficial ownership interest in the account
+                            Be assigned to or managed by, in whole or part, an officer, employee, or agent acting as a liaison between the bank and the owner of the account.
+   BSA, the Currency and Foreign Transaction Reporting Act, purpose is to detect and prevent transactions
+        that hide or disguise funds that are obtained through illegal activities.
+   Foreign bank: foreign bank and doing business in US
+   Foreign financial institution: including foreign bank and any other person organized under foreign law (other than a branch or agency in the US)
+   Special Measures: a new status added to BSA. to require Domestic financial institution, if any concerns:
+                     A jurisdiction outside of the US,
+                     one or more financial institution operating outside of US,
+                     one or more classes of transactions, within or involving a jurisdiction outside of US,
+                     one or more types of accounts.
+   Primary money laundering concern: Consult with the Secretary of State and the Attorney General, consider other relevant info
+   5 types of Special Measures: 1) Recordkeeping and reporting Identity and addresses of participants in a transaction,
+                                                               Legal capacity in which participants are acting,
+                                                               Identity of beneficial owners of funds,
+                                                               Description of the transaction.
+                                2) beneficial ownership: any account opened or maintained in US by a foreign person or any representative of a foreign person
+                                                         any account involving a foreign jurisdiction
+                                                         any account of a financial institution operating outside US
+                                3) payable-through accounts: identifying each customer of account holder
+                                                             obtaining info about each customer and represnetative
+                                4) correspondent accounts
+                                5) prohibitions on opening or maintaining accounts
+   ```
+15. Due Diligence: used to describe the policies and procedures for assessing the potential money-laundering risk of correspondent and private banking accounts
+   ```
+   # including institutions
+   other entites, federally insured banks, US agencies and branches of foreign banks, 
+   registered broker-dealers, mutual funds, operators of credit card system, and foreign branches of US banks
+   # assessing risk for Private banking accounts and correspondent banking accounts
+   use high-risk products or services   vs.  use common products and services
+   Live or do business in a high-risk jurisdiction   vs. Live in the same area as the bank
+   Seek confidentiality   vs. Place less emphasis on confidentiality
+   # Minimum elements of CIP (opening account, maintaining account, List-checking procedure)
+   Legal Name, Date of birth, residential or business street address, taxpayer ID # (SSN, TIN, ITIN or EIN), Passport #
+   Keep all info at least 5 years after account closed
+   # senior foreign political figures
+   Determine the source of funds deposited to the account
+   Determine the purpose or expected use of the account
+   Check references
+   Review any sources available that contain info regarding the client
+   # once senior procedure cannot complete
+   instructions: should open the account? should suspend the activity? should close the account? should report SAR?
+   ```
+16. 9 OFAC authority federal statues (5 measures imposed domestic financial institution)
+   ```
+   Trading with the enemy Act (TWEA)
+   International Emergency Economic Powers Act (IEEPA)
+   Iraqi Sanctions Act (ISA)
+   united nations Participation Act (UNPA)
+   International Security and Development Cooperation Act (ISDCA)
+   The Cuban Democracy Act (CDA)
+   The Cuban Liberty and Democratic Solidarity (LIBERTAD) Act
+   The Antiterrorism and Effective Death Penalty Act
+   The Foreign Narcotics Kingpin Designation Act
+   ```
+17. SDNs: Block or freeze a transaction that is in process; Reject the transaction altogether and refuse the business
+   ```
+   After Blocked: Report the blocked transactions to OFAC with 10 days;
+                  Maintain blocked accounts;
+   Rejected: follow rejection criteria.
+   ```
+18. Communicate OFAC Info: 
+   ```
+   # should follow OFAC
+   Designate a compliance officer, Establish a monitoring process (SDN list), 
+   Communication (Distribute OFAC Info, Establish a formal OFAC training program)
+   # not comply with OFAC
+   civil penalty: $250,000 or twice the amount of each underlying transaction to $1,075,000 per violation.
+   ```
+19. Sharing Activities
+   ```
+   120 hour rule (no extensions for legal holidays, weekends)
+   314(a) Requests - sharing with Federal Law Enforcement Agencies (maintain preceding 12 months, engaged in transaction 6 months)
+   314(b) Requests - voluntary information sharing amoung financial instituions (only institutions that file "Notice of Intent to Share"; re-filed annually)
+   ```
