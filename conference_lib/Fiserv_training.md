@@ -95,4 +95,19 @@ Group 5:
     1) Global var in IS settings (localhost:5555)
     2) operation code, package -> getOperationCode from ESF
     3) Acct_v8, userEvent, EFXAPi, 2 types of error status
+    4) CoA Training/Trainin Artifacts/wsdl/providers
+    5) How to create a package: create package -> PRMCoreDemo_v1_connector -> create folder (same name)
+                                -> create another folder (WSD) -> create web service descripter (consumer, getHandshake_core)
+                                MAP (Extract EFXApi document)
+                                MAP (MAP FiHeader)
+                                MAP (MAP FiRequest)
+                                LOOP endpoint
+                                    LOOP endpoint properties
+                                        Branch on key (Label: ServiceName) ServiceName and Version should be same to ESF Studio
+                                In mapping detail: pattern: should be one format that provider accept.
+                                                   Date Time: current datatime
+                                                   UUID
+                                                   pipeline in  | Service in      |  service out    |  pipeline out
+                                                                  SystemName_ESF  | SystemName_Prv
+
 ```
