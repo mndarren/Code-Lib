@@ -13,6 +13,9 @@ UDDI registry service -- a web service managing info about service provider, ser
 WSD -- Web Service Descriptor
 WSC -- Web Service Connector (a flow service with an input and output signature
        that corresponds to the input and output messages of the web service operation.)
+MTOM-- Message Transmission Optimization Mechanism (reason: Text Encoding using base 64 format which inflates 30% in msg)
+       Binary Encoding: 3 options can be chosen (TCP/Pipe/MSMQ). Need to test them on your environment and take a decision.
+       MTOM is related to Bandwidth, while Streaming is related to Buffering.
 ```
 2. Premier Services (BIAN)
 ```
@@ -128,3 +131,4 @@ Group 5:
                  IS creates a WSC and a response service (v9.0 and later) for each operation 
                  -> IS executes the WSC, which call a operation of a WS
 ```
+10. 
