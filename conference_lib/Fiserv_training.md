@@ -131,4 +131,20 @@ Group 5:
                  IS creates a WSC and a response service (v9.0 and later) for each operation 
                  -> IS executes the WSC, which call a operation of a WS
 ```
-10. 
+10. Debug
+```
+    Use SOAP UI to test created services, including provider WSD and customer WSD.
+    Before running test suites:
+        1) check service in ESF studio -> setup -> organization (OrgId)
+        2) set pipeline header = true in Designer
+        3) Auth to be set to 'Basic' in Designer permission
+        4) ExecuteACL: Application. Can be found in IS UI 5555 -> Security -> ACL
+        5) set pipeline debug = Save in Designer
+        6) others in SOAP UI: venderIdent: ESF, TrnId: UUID (123456789), channelName: NOW, SystemName: InquirySystem
+    Debug:
+        1) set pipeline debug: Restore (Override);
+        2) check log tab in ESF Studio
+        3) check vars from Designer, and record implementation service name
+        4) can setup breakpoint in Designer
+```
+11. 
