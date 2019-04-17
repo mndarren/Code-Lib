@@ -1,6 +1,6 @@
 # Fiserv Training
 ================================
-1. Abbr
+1. Abbr and Concepts
 ```
 ESF -- Enterprise Services Framework
 EFX -- Enterprise Financial Exchange msg framework
@@ -8,6 +8,11 @@ BIAN -- Banking Industry Architecture Network
 CoA -- Communicator Advantage
 SOA -- Service Oriented Architecture
 SAG -- Software AG (150 banks, 70 countries)
+UDDI-- Universal Description Discovery and Integration
+UDDI registry service -- a web service managing info about service provider, service implementation and service metadata.
+WSD -- Web Service Descriptor
+WSC -- Web Service Connector (a flow service with an input and output signature
+       that corresponds to the input and output messages of the web service operation.)
 ```
 2. Premier Services (BIAN)
 ```
@@ -110,4 +115,16 @@ Group 5:
                                                    pipeline in  | Service in      |  service out    |  pipeline out
                                                                   SystemName_ESF  | SystemName_Prv
 
+```
+9. Difference between provider WSD (Web Service Descriptor) and customer WSD
+```
+    Provider WSD is created from one or more IS services or from a single WSDL document, 
+                 and is designed to allow the IS services to be invoked as web services over a network. 
+                 2 types: a service first provider web service descriptor, 
+                          a WSDL first provider web service descriptor.
+                 How to create a service first provider WSD? Page 21 in SAG developer guide
+    Customer WSD defines an external web service, which contains all the data from WSDL doc that defines the web service, 
+                 as well as data needed for certain IS run-time properties.
+                 IS creates a WSC and a response service (v9.0 and later) for each operation 
+                 -> IS executes the WSC, which call a operation of a WS
 ```
