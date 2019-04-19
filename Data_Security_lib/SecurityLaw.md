@@ -12,8 +12,8 @@
    314(a)    -- Share info with law enforcement agencies
    314(b)    -- Share info with other financial institutes
    CDD       -- Customer Due Diligence (Correspondent Account & Private Banking Account)
-   SAR       -- Suspicious Activity Report
-   CTR       -- Currency Transaction Report ($3000, $10000)
+   SAR       -- Suspicious Activity Report (also Morgage lender and originator) (30 or 60 days)
+   CTR       -- Currency Transaction Report ($3000, Cash deposit $10000) 
    CREF      -- Commercial Real Estate Fraud
    FinCEN    -- Financial Crimes Enforcement Network
    AIN       -- Alien ID Number
@@ -25,6 +25,12 @@
    CBR -- Credit Bureau Report
    DDPP&C -- Due Diligence policies, procedures and controls
    PEP -- Politically Exposed Person
+   TBML-- Trade-base money laundering (drug profit)
+   Human smugging: involves individuals voluntarily paying others to help them sneak across the border.
+   Human trafficking: involves kidnapping or coercion. ADVISORY HUMAN TRAFFICKING
+   DBA name - Doing Business as name
+   EIN -- Employer Identification Number
+   TIN -- Taxpayer Identification Number
    ```
 2. Robbery (lone note robery & takeover robbery)
    ```
@@ -277,3 +283,79 @@
    314(a) Requests - sharing with Federal Law Enforcement Agencies (maintain preceding 12 months, engaged in transaction 6 months)
    314(b) Requests - voluntary information sharing amoung financial instituions (only institutions that file "Notice of Intent to Share"; re-filed annually)
    ```
+20. Morgage loan fraud: 4 types
+```
+Occupancy Fraud (family member occupy), 
+Income fraud (overstate income), 
+Appraisal fraud (overstate or understate home value)
+Employment fraud (employment status, length, etc)
+Liability fraud (hide other loans)
+Debt Elimination schemes (illegal doc invalidation)
+Foreclosure Rescue Scams
+Identity Theft
+Home Equity Conversion Morgage (Targeting seniors)
+```
+21. SAR
+```
+# including 5 parts
+Subject Information
+suspicious Activity Information
+Financial Institution Where Activity Occurred
+Filing Institution Contact Information
+Narrative
+# attachment
+one supporting document allowed
+CSV file
+< 1 MB
+# Record keeping
+5 years
+# confidentiality
+Cannot disclose the existence of a SAR to anyone mentioned in the SAR
+# others
+$56000, not fifty six thousands
+MM/DD/YYYY format
+# should SAR
+$5000 and suspect
+$ 25000
+$5000 and potencial ML or violations of BSA
+instances of inside abuse
+```
+22. CIP
+```
+# individuals
+Legal Name
+Doing Business as (DBA) name if applicable
+Date of birth
+Street Address (physical address or FPO or APO)
+ID # (US person - SSN, non-US person - AIN or ITIN)
+other info
+# Organization
+first 3 same to individual
+ID # (EIN or TIN)
+Controlling Individuals
+other information
+```
+23. CDD
+```
+1 controller and 0 or 4 ownership
+Wire transfer $3000 or more needs:
+  Name and address of the originator
+  amount of payment order
+  Date of payment order
+  any payment instructions
+  Identity of the beneficiary's institution
+  As many of the items: order name, address, account number 
+```
+24. CTR
+```
+$10,000 of cash in a business day
+# 4 parts
+Records info on the person involved in the transactions
+Document the amount and type of transactions
+records info of financial institutions
+Records info of the institution that is filing the CTR
+# trigger
+when 3000-$10000 in cash involved in a negotiable instrument purchase, records info and retain the log
+# exception
+one person cash-in and cash-out are not combined, neither exceeding $10000
+```
