@@ -6,6 +6,7 @@
    OFAC -- Office of Foreign Assets Control (2 lists: SDNs & Blocked Persons List)
    BSA  -- Bank Secrecy Act 1970, Money Laundering Control Act 1986
    CIP  -- Customer Identification Program
+   KYC  -- Know Your Customers
    SDNs -- Specially Designated Nationals
    AML  -- Anti-Money Laundering
    Title III -- International Moeny Laundering & Anti-Terrorist Financing Act (2001)
@@ -230,6 +231,8 @@
                                                              obtaining info about each customer and represnetative
                                 4) correspondent accounts
                                 5) prohibitions on opening or maintaining accounts
+   The legislative intent underlying the special measures is to permit federal law enforcement to prioritize 
+      the attention of financial institutions toward money laundering on an "as needed" basis.
    ```
 15. Due Diligence: used to describe the policies and procedures for assessing the potential money-laundering risk of correspondent and private banking accounts
    ```
@@ -243,7 +246,7 @@
    # Minimum elements of CIP (opening account, maintaining account, List-checking procedure)
    Legal Name, Date of birth, residential or business street address, taxpayer ID # (SSN, TIN, ITIN or EIN), Passport #
    Keep all info at least 5 years after account closed
-   # senior foreign political figures
+   # senior foreign political figures (PEP)
    Determine the source of funds deposited to the account
    Determine the purpose or expected use of the account
    Check references
@@ -273,9 +276,11 @@
    ```
    # should follow OFAC
    Designate a compliance officer, Establish a monitoring process (SDN list), 
-   Communication (Distribute OFAC Info, Establish a formal OFAC training program)
+   Communication (Distribute OFAC Info, Establish a formal OFAC training program), develop an internal process (for 10 days report)
    # not comply with OFAC
    civil penalty: $250,000 or twice the amount of each underlying transaction to $1,075,000 per violation.
+   # purpose of OFAC
+   Administers federal statutes that impose economic sanctions against countries, organizations, and individuals hostile to the US.
    ```
 19. Sharing Activities
    ```
@@ -358,4 +363,9 @@ Records info of the institution that is filing the CTR
 when 3000-$10000 in cash involved in a negotiable instrument purchase, records info and retain the log
 # exception
 one person cash-in and cash-out are not combined, neither exceeding $10000
+```
+25. Truth
+```
+one common mandate of OFAC laws is all financial institutions must have SDNs.
+The special measures statute does not clearly define what Congress meant by the phrase "primary money laundering concern".
 ```
