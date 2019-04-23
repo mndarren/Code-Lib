@@ -147,4 +147,25 @@ Group 5:
         3) check vars from Designer, and record implementation service name
         4) can setup breakpoint in Designer
 ```
-11. 
+11. More Debug & Deployment
+```
+    Added transformer mapping for previous debug.
+    # code for random UUID
+    Random trnId: ${*java.util.UUID.randomUUID()}
+    Create Service/Package -> Unit Test using SOUP UI -> Debug -> Deployment
+    # Deployment
+    1) localhost:5555 -> Deployer
+    2) ESF Studio -> maintenance -> Export Data: (can be service, routing rule, onboarding)
+       -> service -> version (8.0) -> Generate Migration Script -> Save (specify the script file name)
+       # can import data using the Migration Script file
+    3) ESF Studio -> symmetric OnBoarding (No-Yes-Yes, No means not same configuration)
+                  -> Add Org (download template - excel org ids)
+                  -> Customize OnBoarding (manage config)
+                  -> Add service provider (just add org) -> populate 
+                  # Apply to Routing point Yes, manage routing endpoint - Yes
+                  - org endpoint update URL
+                  - add org user (no use here, used to validate user)
+                  - manage Xref rule -> check/add -> save (download template)
+                  - add Xref Rule values (service / provider) -> submit (download script)
+
+```
