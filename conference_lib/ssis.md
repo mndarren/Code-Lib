@@ -106,3 +106,104 @@ SSIS is cheaper than most other ETL tools.
 	modify the Lookup Transformation task from OLE DB connection manager to Cache connection manager
 	# the result will run faster
 ```
+11. Sequence containers anf For loop
+```
+	# if some tasks don't depend on each other, they can be moved to a sequence container
+	For loop container is a for loop scope in any language code, in which there'll be a script task
+```
+12. ForEACH loop: R: find files and copy files to another place
+```
+	Execute SQL task(delete rows from the table which contains file pathnames);
+	File System Task(Empty folder)
+	Foreach Loop Container, 
+		link the previous two task to this, 
+		create a var contain FileName,
+		Collection: Foreach file enumerator, folder specified and all files, Traverse subfolders
+		Variable mappings: FileName index 0
+		add execute SQL task(Add file names to SQL table) in container: 
+			connection, SQL statement(INSERT INTO tblFile(FileName) VALUES(?)), 
+			Parameter mapping: FileName, input nvarchar, 0
+		add File system task(copy TXT files):
+			destination folder choosing,
+			Error: FileName is empty => solved by assigning var FileName to 'test'
+		Edit the pipe between the previous task: only TXT: Constaint/Expression
+			choose Expression for easier: UPPER(RIGHT(@[User::FileName], 4)) == ".TXT"
+		add varialbe: FileCount
+		add Expression Task (Increment file): @[User::FileCount] = @[User::FileCount] + 1
+	Data Flow task:
+		Source from SQL Server table
+		Row Count task
+	add variable: RowCount
+	add script task:
+		int FileCount = Convert.ToInt32(Dts.Variables["FileCount"].Value);
+		int RowCount = Convert.ToInt32(Dts.Variables["RowCount"].Value);
+
+		MessageBox.Show("File Count " + FileCount + "Row Count " + RowCount);
+```
+13. ADO Enumerators: R: find the largest Proteges Mentor
+```
+	Create a variable: Mentors
+	Execute SQL Task (load mentors to a var): Result Set(Full set): Result Name = 0
+	new vars: FirstName, LastName, Proteges, HighestNumber, HighestName
+	add Foreach loop container: Foreach ADO Enumerator, var=Mentors, Mapping
+		add script task:Check highest number(config read vars) update highest vars
+		add another script task to report the highest number and name
+	# Foreach Item Enumerator less useful
+	# Loop SQL schemas
+	Foreach loop container(loop over tables): Foreach ADO.NET Schema Rowset Enumberator
+		New connection: provider = .Net Providers\SqlClient Data Provider\SQL Native Client
+		ServerName, database name
+		Schema = Tables
+		Var mappings: TableName to index 2
+		add script task(write out table name)
+			string tName = Convert.ToString(Dts.Variables["TableName"].Value);
+			System.IO.StreamWriter sw = new System.IO.StreamWriter("c:\\ajb files\\tables.txt", true);
+			sw.WriterLine(tName);
+			sw.Close();
+	# NodeList Enumerators -- Reading XML files
+	Foreach loop container (loop over nodes)
+		Foreach NodeList Enumerator, DocumentSourceType=FileConnection, source to the xml file
+		OuterXpathString=/urlset/url/loc, var mapping: new var 'NodeName' index to 0
+		add script task(write out text file)
+```
+14. Script in SSIS
+```
+	# 2 types: script task and script component
+	new script task: change Main to MakeChoice for EntryPoint
+		DialogResult answer = MessageBox.Show("Choose Excel?", "Choice", 
+												MessageBoxButtons.YesNo,
+												MessageBoxIcon.Question,
+												MessageBoxDefaultButton.Button2);
+		switch (answer){
+			case DialogResult.Yes: 
+				Dts.TaskResult = (int)ScriptResults.Success;
+				break;
+			case DialogResult.No: 
+				Dts.TaskResult = (int)ScriptResults.Failure;
+				break;
+		}
+	add 2 sequence containers: one for excel file, the other for SQL
+	add another script task:
+		// empty var collection
+		Variables Wolvariables = null;
+		// access 2 var readonly
+		Dts.VariableDispenser.LockForRead("User::NumberMentors");
+		Dts.VariableDispenser.LockForRead("User::NumberFinalists");
+		// access var read-write
+		Dts.VariableDispenser.LockForWrite("User::NumberTotal");
+		//put vars in var collection
+		Dts.VariableDispenser.GetVariables(ref WolVariables);
+
+		int NumberMentors = Convert.ToInt32(WolVariables["NumberMentors"].Value);
+		int NumberFinalists = Convert.ToInt32(WolVariables["NumberFinalists"].Value);
+		WolVariables["NumberTotal"].Value = NumberMentors + NumberFinalists
+
+		WolVariables.Unlock();
+	How to link them?
+		right click the pipe for failure side to choose Failure
+		right click the pipe to edit to Constraint and True
+```
+15. Script Component
+```
+
+```
