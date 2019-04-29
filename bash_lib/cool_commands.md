@@ -216,6 +216,7 @@ sudo apt update
 sudo apt install ruby-full
 ruby --version
 vagrant plugin install vagrant-disksize
+vagrant plugin install vagrant-reload
 # install vagrant and virtualbox
 sudo apt install virtualbox
 sudo apt install vagrant  # not work since version 2.0.2 conflict with fog-core lib 1.43.0
