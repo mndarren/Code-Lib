@@ -229,6 +229,11 @@ cd ~/my-first-vagrant-project
 vagrant init ubuntu/trusty64
 # put your specific Vagrantfile in this dir
 vagrant up
+# Error to be fixed for disksize
+inside VM control panel -> computer management -> expand disk
+C:\Users\vagrant\AppData\Local\Temp\chocolatey\visualstudio2019community\16.0.2.0 # retry this to install VS
+vagrant provision  # to re-install SSMS
+inside VS, install extension SQL server Integration Services Projects
 ```
 # Cool Commands 4 Redhat7
 =====================================
