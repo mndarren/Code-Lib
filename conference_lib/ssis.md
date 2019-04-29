@@ -203,7 +203,94 @@ SSIS is cheaper than most other ETL tools.
 		right click the pipe for failure side to choose Failure
 		right click the pipe to edit to Constraint and True
 ```
-15. Script Component
+15. Script Component, R: validate the data
 ```
+	create 2 required tables (prerequisite)
+	# Note: type can be varchar(MAX) in SQL Server
+	add SQL task(delete old data): 
+		TRUNCATE TABLE tblGoodContestant
+		TRUNCATE TABLE tblBadContestant
+	add Data Flow task (import dodgy data)
+		new connection in package level, not project level
+			flat file connection, column names in the first data row (check or not)
+			columns: row delimiter, column delimiter
+			Advanced: rename the column name and type
+		add Source task(connect the new connection)
+		add Script Component task (validate data)
+			Import Columns: usage type can be ReadOnly/ReadWrite
+			Inputs and Outputs: output column name and type
+			Edit script: PreExecute(), PostExecute(), 
+				Input0_ProcessInputRow(Input0Buffer Row){
+					if (Row.ContextantName_IsNull || Row.Position_IsNull ||
+						Row.SeriesNumber_IsNull || Row.MentorName_IsNull){
+							Row.Problem = "At least one column is not filled in";
+							Row.IsGood = False;
+							return;
+						}
+					// if all are not Null, try to convert number to integer
+					uint s = 0;
+					uint p = 0;
+					try{
+						s = Convert.ToUInt32(Row.SeriesNumber);
+					} catch {
+						s = 0;
+					}
+					try {
+						p = Convert.ToUInt32(Row.Position);
+					} catch {
+						p = 0;
+					}
+					// if either still 0, we couldn't convert
+					if (s == 0 || p == 0){
+						Row.Problem = "The series and position numbers aren't both integers"
+						Row.IfGood = false;
+						return;
+					}
 
+					// after the 2 filters
+					Row.intSeries = s;
+					Row.intPosition = p;
+
+					Row.MentorName = Row.MentorName.Trim();
+					Row.ContestantName = Row.ContestantName.Trim();
+
+					Row.Problem = "";
+					Row.IfGood = true;
+				}
+			add Conditional split task: 
+				Output Name = Good data, Condition = [IfGood]==True,
+				default name = Bad data
+			add destination task to load data to the 2 new tables
+```
+16. Expression and other constraints
+```
+	# we can create template version (the pipe/link can be Success/Failure/Completior)
+	Completior will always run whether success or failure.
+	# setup 3 expresions when union 3 pipe, we can change it from AND to OR (Edit pipe)
+```
+17. Event-handling and logging
+```
+	# we can put report task to Event Handlers, this will be the same result to putting it in control flow.
+	# review Package explorer
+	OnPostExecution, OnVariableValueChanged
+	Varibles -> Grid Options -> check "Raise event when variable value changes"
+	         -> move varialbe into the task level -> remove any ReadVar in script task
+	SSIS -> logging -> text loc -> config 
+	# Audit transform, similar with pipe Viewer
+	add Audit transform replacing a pipe with viewer
+```
+18. Error handling
+```
+	# in Data Conversion task configuration
+	Configure Error Output: Fail component to Redirect row
+```
+19. Parameters and deployment
+```
+	Right click project in Solution Explorer -> Convert to Package Deployment Model
+	In SQL execution task: Expresion Builder "SELECT FinalistName FROM tblFinalist WHERE FinishingPosition<=" +
+											  (DT_WSTR_2)@[User::MaxPosition] + "and FinalistName like '%" + @[User::NameContains] +"%'"
+	Create Catalog -> Enable automatic execution of IS stored procedure at SQL Server startup
+	Right click project -> deploy -> execute package multiple ways (SQL script, directly run)
+	# Parameters means external variables for project
+	Environments (similar to Catalog in SQL Server)
 ```

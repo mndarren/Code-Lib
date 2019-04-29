@@ -209,7 +209,26 @@ ip a
 ip -stat -color -human addr
 ip -s -c -h a
 ```
-
+20. Install vagrant to ubuntu
+```
+# dependencies, ruby and vagrant-disksize plugin
+sudo apt update
+sudo apt install ruby-full
+ruby --version
+vagrant plugin install vagrant-disksize
+# install vagrant and virtualbox
+sudo apt install virtualbox
+sudo apt install vagrant  # not work since version 2.0.2 conflict with fog-core lib 1.43.0
+wget -c https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb
+sudo dpkg -i vagrant_2.0.3_x86_64.deb  # version 2.0.3, this version works, latest version 2.2.4
+vagrant --version
+# make a dir for vagrant file
+mkdir ~/my-first-vagrant-project
+cd ~/my-first-vagrant-project
+vagrant init ubuntu/trusty64
+# put your specific Vagrantfile in this dir
+vagrant up
+```
 # Cool Commands 4 Redhat7
 =====================================
 1. How to change IP addr
