@@ -21,7 +21,7 @@ GO
 --Function to remove all Pipe in a table
 DROP PROCEDURE IF EXISTS dbo.removePipeFromTable;
 GO
-CREATE PROCEDURE dbo.removePipeFromTable (@tbl_name VARCHAR) AS
+CREATE PROCEDURE dbo.removePipeFromTable (@tbl_name VARCHAR(50)) AS
 BEGIN
 DECLARE @col_name varchar(50)
 DECLARE @Q varchar(255)
