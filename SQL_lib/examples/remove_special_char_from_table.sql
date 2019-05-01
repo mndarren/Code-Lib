@@ -14,11 +14,11 @@ WHERE t.name = @tbl_name
 OPEN Loan_Col_Cursor
 FETCH NEXT FROM Loan_Col_Cursor INTO @col_name
 WHILE @@FETCH_STATUS = 0
-	BEGIN
-		SET @Q = 'UPDATE '+@tbl_name+' SET '+@col_name+' = REPLACE('+@col_name+', ''|'', '''')'
-		EXEC (@Q)
-		FETCH NEXT FROM Loan_Col_Cursor INTO @col_name
-	END
+    BEGIN
+        SET @Q = 'UPDATE '+@tbl_name+' SET '+@col_name+' = REPLACE('+@col_name+', ''|'', '''')'
+        EXEC (@Q)
+        FETCH NEXT FROM Loan_Col_Cursor INTO @col_name
+    END
 CLOSE Loan_Col_Cursor
 DEALLOCATE Loan_Col_Cursor
 END
@@ -45,22 +45,20 @@ FETCH NEXT FROM Table_Col_Cursor INTO @col_name
 --build update query string, execute once when length of string gets 1000 characters
 WHILE @@FETCH_STATUS = 0
 BEGIN
-	SET @temp_q = @col_name+' = REPLACE('+@col_name+', ''|'', ''''),'
-	IF LEN(@Q + @temp_q) >= 1000
-		BEGIN
-			SET @Q = LEFT(@Q, LEN(@Q)-1)
-			EXEC (@Q)
-			SET @Q = 'UPDATE '+@tbl_name+' SET '
-		END
-	SET @Q = @Q + @temp_q
-	FETCH NEXT FROM Table_Col_Cursor INTO @col_name
+    SET @temp_q = @col_name+' = REPLACE('+@col_name+', ''|'', ''''),'
+    IF LEN(@Q + @temp_q) >= 1000
+        BEGIN
+            EXEC (LEFT(@Q, LEN(@Q)-1))
+            SET @Q = 'UPDATE '+@tbl_name+' SET '
+        END
+    SET @Q = @Q + @temp_q
+    FETCH NEXT FROM Table_Col_Cursor INTO @col_name
 END
 --last execute the update query string
 IF LEN(@Q) > 0
-	BEGIN
-		SET @Q = LEFT(@Q, LEN(@Q)-1)
-		EXEC (@Q)
-	END
+    BEGIN
+        EXEC (LEFT(@Q, LEN(@Q)-1))
+    END
 
 CLOSE Table_Col_Cursor
 DEALLOCATE Table_Col_Cursor
