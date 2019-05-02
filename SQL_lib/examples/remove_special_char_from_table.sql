@@ -88,3 +88,20 @@ GO
 --execute procedure
 EXEC dbo.dedupRecords @tbl_name='any_tbl', @order_column='KeyCol'
 GO
+
+--Procedure to create a view by adding a new column
+DROP PROCEDURE IF EXISTS dbo.createViewByAddNewColumn
+GO
+CREATE PROCEDURE dbo.createViewByAddNewColumn (@tbl_name VARCHAR(50), @base_col VARCHAR(50), @prepend VARCHAR(20)) AS
+DECLARE @Q VARCHAR(512)
+DECLARE @view_name VARCHAR(60) = @tbl_name+'_v'
+DECLARE @new_col_name VARCHAR(60) = @base_col+'_custom'
+BEGIN
+   SET @Q = 'CREATE OR ALTER VIEW '+@view_name+' AS
+             SELECT '''+@prepend+'''+'+@base_col+' AS '+@new_col_name+', * FROM '+@tbl_name
+   EXEC (@Q)
+END
+GO
+
+--execute create view procedure
+exec dbo.createViewByAddNewColumn @tbl_name='loan_tbl', @base_col='NoteNb', @prepend='LN'
