@@ -45,7 +45,7 @@ FETCH NEXT FROM Table_Col_Cursor INTO @col_name
 --build update query string, execute once when length of string gets 1000 characters
 WHILE @@FETCH_STATUS = 0
 BEGIN
-	SET @temp_q = @col_name+' = REPLACE('+@col_name+', ''|'', ''''),'
+	SET  @temp_q = '['+@col_name+'] = REPLACE(['+@col_name+'], ''|'', ''''),'
 	IF LEN(@Q + @temp_q) >= 1000
 		BEGIN
 			SET @Q = LEFT(@Q, LEN(@Q)-1)
@@ -69,4 +69,22 @@ GO
 
 --execute procedure
 EXEC dbo.removePipeFromTable loan_tbl;
+GO
+
+--Procedure to dedup records by key column, keeping the 1st record of duplicates
+DROP PROCEDURE IF EXISTS dbo.dedupRecords
+GO
+CREATE PROCEDURE dbo.dedupRecords (@tbl_name VARCHAR(50), @order_column VARCHAR(50)) AS
+DECLARE @Q VARCHAR(512)
+BEGIN
+    SET @Q = 'WITH CTE AS(
+       SELECT *, RN = ROW_NUMBER()OVER(PARTITION BY '+@order_column+' ORDER BY '+@order_column+')
+       FROM '+@tbl_name+')
+       DELETE FROM CTE WHERE RN > 1'
+    EXEC (@Q)
+END
+GO
+
+--execute procedure
+EXEC dbo.dedupRecords @tbl_name='any_tbl', @order_column='KeyCol'
 GO
