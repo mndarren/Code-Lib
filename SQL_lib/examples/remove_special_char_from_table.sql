@@ -105,3 +105,17 @@ GO
 
 --execute create view procedure
 exec dbo.createViewByAddNewColumn @tbl_name='loan_tbl', @base_col='NoteNb', @prepend='LN'
+
+--Data format change pieces
+--datetime
+CASE LEN(SomeDate) WHEN 0 THEN '' ELSE CAST(FORMAT(CAST(SomeDate AS datetime), 'M/d/yyyy H:mm') AS VARCHAR) END AS SomeDate
+--Delete leading zeros
+CASE WHEN LEN(SomeCode) = 0 THEN CAST('' AS Varchar(20)) ELSE CAST(CAST(SomeCode AS INTEGER) AS VARCHAR(50)) END AS SomeCode
+--Add double quote at the 2 ends if " or , in the value, double double quotes, empty -> 40 spaces
+CASE LEN(SomeTitle) WHEN 0 THEN '                                        ' ELSE 
+     CASE WHEN CHARINDEX('"', SomeTitle) > 0 OR CHARINDEX(',', SomeTitle) > 0 THEN '"' + REPLACE(SomeTitle, '"', '""') + '"' ELSE SomeTitle END 
+     END AS SomeTitle
+--Float to Varchar type
+CASE LEN(SomeValue) WHEN 0 THEN '' ELSE CAST(CAST(SomeValue AS FLOAT) AS VARCHAR) END AS SomeValue
+--add 2 new line feed
+CASE LEN([SomeThing]) WHEN 0 THEN '' ELSE [SomeThing]+CHAR(10)+CHAR(10) END
