@@ -1,4 +1,4 @@
-# Link SF to SAG
+# Link SF to SAG by CloudStreams Adapter
 ==================================================
 1. SF APIs updates quarterly or half yearly
 ```
