@@ -22,5 +22,7 @@
 3. Create Web Service consumer (Consume a WSDL)
 ```
    using WSD tool
-   test it in Designer, to run Flow Service.
+   test it in Designer, to run Flow Service from connectors.
+   in jdbc window tree tab, add connector and link input (City to inCity)
 ```
+4. 
