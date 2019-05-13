@@ -29,4 +29,11 @@ M-Files:  intelligent information management software helps you easily store, or
    test it in Designer, to run Flow Service from connectors.
    in jdbc window tree tab, add connector and link input (City to inCity)
 ```
-4. 
+4. API Gateway
+```
+   API Governance: API and API related assets creation and lifecycle governance.
+   API Portal: Solution for API providers to maintain relationship with API developers and users
+   API Gateway: API request mediation, protection and access control
+   # 4 modules
+   APIs, Policies, Applications, APIPackages
+```
