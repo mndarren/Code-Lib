@@ -10,6 +10,10 @@
      |-webServices (folder)
          |-providers (folder)
          |-consumers (folder)
+LaserPro: a document-assembly system used by loan officer for generating loan documentation.
+LexisNexis: a provider providing sensitive personal information to certain customers who have completed a rigorous account activation process.
+M-Files:  intelligent information management software helps you easily store, organize and access all kinds of documents and information.
+          based on what it is instead of where it's been stored.
 ```
 2. Create Web Service provider (Provide a WSDL)
 ```
