@@ -37,3 +37,9 @@ M-Files:  intelligent information management software helps you easily store, or
    # 4 modules
    APIs, Policies, Applications, APIPackages
 ```
+5. How to create, protect and publish an API with webMethods.io API
+```
+   Start -> Define customer journeys -> Identify resources -> Design APIs
+         -> Prototype and Mock APIs -> Publish APIs -> Develop APIs
+         -> Automated CI/CD -> Apply policies and deploy -> Measure and analyze APIs -> End
+```
