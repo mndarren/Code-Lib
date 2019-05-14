@@ -41,5 +41,5 @@ M-Files:  intelligent information management software helps you easily store, or
 ```
    Start -> Define customer journeys -> Identify resources -> Design APIs
          -> Prototype and Mock APIs -> Publish APIs -> Develop APIs
-         -> Automated CI/CD -> Apply policies and deploy -> Measure and analyze APIs -> End
+         -> Automated CI/CD -> Apply policies and deploy -> Measure and analyse APIs -> End
 ```
