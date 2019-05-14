@@ -42,4 +42,15 @@ M-Files:  intelligent information management software helps you easily store, or
    Start -> Define customer journeys -> Identify resources -> Design APIs
          -> Prototype and Mock APIs -> Publish APIs -> Develop APIs
          -> Automated CI/CD -> Apply policies and deploy -> Measure and analyse APIs -> End
+   # About API Perspective
+   - We live in a heavily API Connected World.
+   - APIs are valuable business assets.
+     * Leverage your unique data & services
+	 * Create new products & services
+	 * Become easier to do business with
+	 * Support digital transformation initiatives
+   # API management platform (3 parts)
+     * API Portal: Engage & Support developers
+	 * API Gateway: Protect access & Monetize usage
+	 * Microgateway: Manage Microservices architecture
 ```

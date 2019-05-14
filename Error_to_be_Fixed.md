@@ -180,3 +180,9 @@ make sure ONBOOT=yes
    $env:home = "c:\users\dxie"
    Done!
 ```
+35. Who login my computer in windows
+```
+   # in command line
+   query user
+   # right click task bar -> task manager -> More Detail (users)
+```
