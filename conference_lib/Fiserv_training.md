@@ -11,7 +11,7 @@ SAG -- Software AG (150 banks, 70 countries)
 UDDI-- Universal Description Discovery and Integration
 UDDI registry service -- a web service managing info about service provider, service implementation and service metadata.
 WSD -- Web Service Descriptor
-WDM -- Wavelength Division Multiplexing (modulating numerous data streams to laser light onto a single optical fiber
+WDM -- Wavelength Division Multiplexing (modulating numerous data streams to laser light onto a single optical fiber)
 WSC -- Web Service Connector (a flow service with an input and output signature
        that corresponds to the input and output messages of the web service operation.)
 MTOM-- Message Transmission Optimization Mechanism (reason: Text Encoding using base 64 format which inflates 30% in msg)
