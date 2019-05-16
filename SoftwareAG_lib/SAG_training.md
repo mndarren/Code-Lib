@@ -89,6 +89,7 @@ TN: Trading Network
 NHP: Network Host PC
 SUM: SAG Update Manager
 XSLT: Extensible Stylesheet Language Transformations
+ICC: International Chamber of Commerce
 DBP: Digital Business Platform
      Analytics & Decisions (streaming analytics & AI, In-Memory Data) by Terracotta & Apama
      Process & Applications (Dynamic process automation, Low-code application) by webMethods
