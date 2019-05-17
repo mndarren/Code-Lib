@@ -57,24 +57,24 @@ M-Files:  intelligent information management software helps you easily store, or
 6. How to create XML Schema?
 ```
    Tool: Altova XML Spy Enterprise version 2011 Rel 2 sp1
-   Mapping: HostSystemSel/SystemName - Allowed value: TellerSystem, EFTSystem,HSPSystem,CheckingSystem,
+   Mapping: xxxSystemSel/SystemName - Allowed value: TellerSystem, EFTSystem,HSPSystem,CheckingSystem,
             SavingSystem,LoanSystem,MortgageSystem,ConusmerSystem,InquirySystem,MaintenanceSystem,
 			SpecificationSystem,MemoPostSystem
-   # Schema Example HostSystemSvc_v9_0.xsd
-   IFX_Type: HostSystemInqRq - HostSystemSel: ChannelName, 
+   # Schema Example xxxSystemSvc_v9_0.xsd
+   IFX_Type: xxxSystemInqRq - xxxSystemSel: ChannelName, 
                                               SystemName (value: InquirySystem,MaintenanceSystem,MemoPostSystem)
-             HostSystemInqRs - Status (StatusCode, StatusDesc, Severity, SvcProviderName, ServerStatusCode, ..)
-			                   HostSystemRec: HostSystemInfo - HostSystemData: SystemName, SystemStatus
-							                  HostSystemStatus: HostSystemStatusCode, EffDt
+             xxxSystemInqRs - Status (StatusCode, StatusDesc, Severity, SvcProviderName, ServerStatusCode, ..)
+			                   xxxSystemRec: xxxSystemInfo - xxxSystemData: SystemName, SystemStatus
+							                  xxxSystemStatus: xxxSystemStatusCode, EffDt
    # WSDL Example xxx.wsdl
-   PortTypes: HostSystemServicePortType - PingOper, HostSystemInqOper
-   Bindings: HostSystemService_SoapHTTPBinding - transport to the same Operations
-   Services: HostSystemService: HostSystemServicePort
+   PortTypes: xxxSystemServicePortType - PingOper, xxxSystemInqOper
+   Bindings: xxxSystemService_SoapHTTPBinding - transport to the same Operations
+   Services: xxxSystemService: xxxSystemServicePort
    # From WSDL file WSDL tab to Text tab
    Define operations
-   EFXHeader
+   ZZZHeader
    # Example for xxxHdr1_2.xsd
-   EFXHdr - version,
+   ZZZHdr - version,
             service: SvcName, Version
 			client: Organization - OrgId, CharterId, Environment,  
 			        VendorIdent, ClientAppIdent, Version, Channel, ClientDt
@@ -83,7 +83,7 @@ M-Files:  intelligent information management software helps you easily store, or
 			Delivery
 			Context
 ```
-7. How to use Designer to develop Web ?
+7. How to use Designer to develop Web Services?
 ```
    - Window -> Perspective -> Open Perspective -> Service Development
    - Add and Modify IS button -> Add IS server -> verify the server
