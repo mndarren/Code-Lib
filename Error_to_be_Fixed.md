@@ -186,3 +186,14 @@ make sure ONBOOT=yes
    query user
    # right click task bar -> task manager -> More Detail (users)
 ```
+36. How to remove software completely from windows
+```
+   1. uninstall SW
+   2. delete leftovers from (%programfiles%, %programfiles(x86)%, %appdata%)
+   3. remove SW keys from Registry (Run regedit)
+      HKEY_CURRENT_USER\Software
+      HKEY_LOCAL_MACHINE\SOFTWARE
+      HKEY_USERS\.DEFAULT\Software
+      HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node
+   4. Empty Temp Folder (%temp%)
+```
