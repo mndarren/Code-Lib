@@ -54,7 +54,7 @@ M-Files:  intelligent information management software helps you easily store, or
 	 * API Gateway: Protect access & Monetize usage
 	 * Microgateway: Manage Microservices architecture
 ```
-6. How to create XML Schema?
+6. How to create XML Schema, WSDL, and Header?
 ```
    Tool: Altova XML Spy Enterprise version 2011 Rel 2 sp1
    Mapping: xxxSystemSel/SystemName - Allowed value: TellerSystem, EFTSystem,HSPSystem,CheckingSystem,
@@ -88,4 +88,64 @@ M-Files:  intelligent information management software helps you easily store, or
    - Window -> Perspective -> Open Perspective -> Service Development
    - Add and Modify IS button -> Add IS server -> verify the server
    Then we can create package
+   Create a WS by import a WSDL file, then docTypes and services will be generated automatically
+```
+8. XXXSystemInquiry User Guide
+```
+   Message Header
+   Message Status
+   XXXSystemInq Mapping Specification: object (XXXSystem), Service (XXXSystemService), operation(XXXSystemInqOper)
+   # XXXSystemService operation | Message                        | YYY Object
+   XXXSystemInqOper             | XXXSystemInqRq/XXXSystemInqRs  | XXXSystem
+   # Instructions
+   Required: Name of YYY object (i.e. Party, Acct, PartyAcctRel)
+   Required: Operation (i.e. Add, Mod, Del, Inq, Rev, Can)
+   Optional: Channel (i.e. NOW, BusinessOnline)
+   Required: Object Version (i.e. 1.0, 1.1, 2.0)
+   Optional: Extended Object (i.e. PersonParty, OrgParty, LoanAcct, DepAcct)
+   Optional: Special Operation (enter 'List' if this is a "List Inq" operation)
+   # YYYHdr Schema
+   # XPATH                      | Usage     | DataType  | Allowed Values   | YYY Allowed Values
+    Version                       Optional    NC-T2                          1.2
+	Service!SvcName               Required    C-32        XXXSystemSvc
+	Service!Version               Optional    NC-T2
+	Client!Organization!OrgId     Required    C-32
+	Credentials!SessKey           Required    C-64
+	Tracking!TrnId                Required    UUID
+   # Status Schema (Required)
+   Status/StatusCode, Status/StatusDesc, Status/Severity
+   Status/SvcProviderName, Status/AdditionalStatus/StatusCode (same to previous)
+   # XXXSystemInq Schema (Required)
+   Status (Aggregate type)
+   XXXSystemSel (Aggregate)
+   XXXSystemSel/SystemName (value: InquirySystem,MaintenanceSystem,MemoPostSystem)
+   XXXSystemRec
+   XXXSystemRec/XXXSystemInfo
+   XXXSystemRec/XXXSystemInfo/XXXSystemData
+   XXXSystemRec/XXXSystemInfo/XXXSystemData/SystemName
+   XXXSystemRec/XXXSystemInfo/XXXSystemData/SystemStatus (List table: SystemStatus)
+   XXXSystemRec/XXXSystemStatus (Rule: None)
+   XXXSystemRec/XXXSystemStatus/XXXSystemStatus/XXXSystemStatusCode (Set to 'valid')
+   XXXSystemRec/XXXSystemStatus/EffDt (Set to serverDate (yyyy-mm-ddThh:mm:ss:micro))
+   # How to SET XXXSystemStatus
+   Both Server Response and Host Response are OK => Active
+   Otherwise any is Failure => Inactive
+```
+9. Design service by Designer
+```
+   Copy and paste service from WS folder to Provider folder
+   Insert/Invoke -> choose service and then see the mapping tree
+   Enable the service by ESF framework feature (login feature, transaction) call framework services
+   # in AthenaClient package, Service template can be found in ExecutionControl/Pub/V1_0/operationFacadeTemplate
+   use to template to figure out how to write services
+   Copy all to the service that you are working on -> Version conflict
+```
+10. How Designer template to decode in ESF Studio (link them together)
+```
+   # Everything go thru the template.
+   Each Service in Designer template -- related Service in ESF studio
+   Each service has its own operation in ESF studio 
+   Once defining each service, ESF Studio generates operation Code. (plug in, plug out)
+   # In ESF Studio
+   Create Service in Setup/Service (Type: Atomic)
 ```
