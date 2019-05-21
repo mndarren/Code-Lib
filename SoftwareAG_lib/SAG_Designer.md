@@ -201,6 +201,7 @@ M-Files:  intelligent information management software helps you easily store, or
    - Status Code (can be used in operation) can link operation for specific status code (conflict for now)
    - Routing Rules, create new rule (used to link service, operation, organization, implementation service, provider)
      ID, Organization, Service (not work for now)
+	 Add Endpoint: once choose a provider, we have to choose which endpoint to go to since each provider can have multiple endpoints.
 ```
 14. ESF Onboarding
 ```
