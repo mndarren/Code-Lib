@@ -143,11 +143,12 @@ M-Files:  intelligent information management software helps you easily store, or
 9. How to Design service by Designer
 ```
    Copy and paste service from WS folder to Provider folder
-   Insert/Invoke -> choose service and then see the mapping tree
+   ***WS service Insert/Invoke service in provider folder -> choose service and then see the mapping tree
    Enable the service by ESF framework feature (login feature, transaction) call framework services
-   # in AthenaClient package, Service template can be found in ExecutionControl/Pub/V1_0/operationFacadeTemplate
+   # in AthenaClient/ExecutionControl/Pub/V1_0/operationFacadeTemplate
    use to template to figure out how to write services
-   Copy all to the service that you are working on -> Version conflict (at that time)
+   Copy template content to service in provider folder (after solved conflict)
+   Copy all to the service that you are working on -> (Version conflict at that time)
 ```
 10. How Designer template to decode in ESF Studio (link them together) Setup/Service
 ```
@@ -231,4 +232,26 @@ M-Files:  intelligent information management software helps you easily store, or
    Migration: import data / export data
    we have to define all configuration for a service, after that. we can move it from one environment to another.
    Maybe use "Export data" feature to do the above
+```
+18. Designer Business logic by Facade Template
+```
+   # WS service revoke Provider service; copy Facade service from Acct package to Provider service
+   # global variables come from IS settings/Global Variables
+   Update operationCD in preProcessor step
+   Change pipeline input mapping and pipeline output mapping
+   MAP (Build EFXApi Doc for implementation service) just for implementation service input fields
+```
+19. Designer implementation service
+```
+   - Copy EFXApi from Provider service to Provider Implementation service input Doc
+     (RoutingInfo, CPStack, Header, Request)
+   - Copy Response Doc from Provider service output to provider implementation service output Doc
+     in Response sub-level
+   - 
+```
+20. Designer to design Handshake package (Consumer visitor)
+```
+   # YYYCoreDemo_v1_connector
+   Import WSDL to create a WS Consumer visitor.
+   
 ```
