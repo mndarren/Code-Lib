@@ -202,6 +202,7 @@ M-Files:  intelligent information management software helps you easily store, or
    - Routing Rules, create new rule (used to link service, operation, organization, implementation service, provider)
      ID, Organization, Service (not work for now)
 	 Add Endpoint: once choose a provider, we have to choose which endpoint to go to since each provider can have multiple endpoints.
+	 The Routing Rule ID can be used to do debugging with logs
 ```
 14. ESF Onboarding
 ```
@@ -210,4 +211,24 @@ M-Files:  intelligent information management software helps you easily store, or
    Open configuration: we can enable "Validate Request" and enable "Validate Response"
          Log configuration: can apply to all operations
 		 Data Masking: 
+```
+15. ESF Logs
+```
+   Transaction from to date time
+   Advanced Search: Transaction Id, Organization, Service, Operation, Routing Rule ID, Status
+```
+16. ESF Administration
+```
+   - User management: SuperAdmin (create user, System user/Active Directory )
+       Usually give SuperAdmin/ServiceAdmin to developers since creating/modifying configuration items
+   - Group Management: no use
+   - Role Management: create roles
+   - Session Management: no use
+   - Settings: used to when connecting to 80
+```
+17. ESF Maintenance
+```
+   Migration: import data / export data
+   we have to define all configuration for a service, after that. we can move it from one environment to another.
+   Maybe use "Export data" feature to do the above
 ```
