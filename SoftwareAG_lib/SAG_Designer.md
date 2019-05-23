@@ -270,6 +270,18 @@ M-Files:  intelligent information management software helps you easily store, or
 	   SOAPPEP/url - _url (since we use SOAP type in ESF provider endpoint config)
 	   # If username and password config in ESF, we should map them as well
 	   Mapping Response
+	     Branch on Response/StatusCode
+		    Sequence (Map Success) (drop some variables in invoke connector step) (Label: 0)
+			Mapping (2 options: mapping pipeline in to pipeline out, 
+			           and using Framework service AthenaClient/ErrorHanding/Pub/lookupStatusCDDetails)
+				*** Status code explanation
+				If success, mapping (fi:Request/GroupName - ns1:HostsystemInqRs/HostSystemRec/HostsystemInfo/HostsystemData/SystemName,
+				                     fi:Response/systemStatus - .../SystemStatus)
+									 Invoke AthenaClient/ErrorHanding/Pub/lookupStatusCDDetails
+			                         Mapping left side (PrvdrNm and version in RoutingInfo)
+									 Mapping right side (don't need to map these 2 fields
+			Sequence (Map Failure) (Label: $default)
+			Mapping (similar to previous)
 ```
 20. Designer to design Handshake package (Consumer visitor)
 ```
