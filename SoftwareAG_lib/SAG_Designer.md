@@ -233,7 +233,7 @@ M-Files:  intelligent information management software helps you easily store, or
    we have to define all configuration for a service, after that. we can move it from one environment to another.
    Maybe use "Export data" feature to do the above
 ```
-18. Designer Business logic by Facade Template
+18. Designer to design Business logic by Facade Template
 ```
    # WS service revoke Provider service; copy Facade service from Acct package to Provider service
    # global variables come from IS settings/Global Variables
@@ -241,13 +241,35 @@ M-Files:  intelligent information management software helps you easily store, or
    Change pipeline input mapping and pipeline output mapping
    MAP (Build EFXApi Doc for implementation service) just for implementation service input fields
 ```
-19. Designer implementation service
+19. Designer implementation service Biz logic
 ```
    - Copy EFXApi from Provider service to Provider Implementation service input Doc
      (RoutingInfo, CPStack, Header, Request)
    - Copy Response Doc from Provider service output to provider implementation service output Doc
      in Response sub-level
-   - 
+   - Build Biz logic
+     . Map (Extract EFXApi documents) copy input fields to pipeline output
+	 . in ESF Studio/Setup/Provider/Endpoint/Key.Value {ServiceName: GetHandshake, Version: 1.0) check it
+	   The Endpoints can be multiple (different URL, ServiceName and version values should be different
+	 . Loop RoutingInfo/Endpoints
+	      Loop Endpoints/properties
+		     Branch property/key == "ServiceName"
+			    Map property/value to fi:fiHeader/fi:Service/@Name (copy fi:fiAPI from connector to pipeline output first)
+     . Map Header other fields
+	   Version (hard code 1.0)
+	   fi:Service/fi:DateTime = GetCurrentDateString (pattern = yyyy-MM-dd'T'HH.mm.ssZ
+	   fi:UUID maps to efxhdr:TrnId (firstly fixed Provider Service biz logic mapping EFXHearder, then copy the EFXHeader to Implementation Service first MAP)
+	   # fi:Client/@Version can also to create K/V in ESF studio/Provider/Endpoints/k.v
+	   Hard code for now (@Version=1.0, fi:VendorID=ESF, fi:AppID=ESF, fi:OrgID=DemoOrg)
+     . Mapping fi:Request (map GroupName, and hard code others for now)
+	   Copy XXXSystemInqRq from Provider package WS pineline in to this Map pipeline in/request
+	   # direction: 0-Left2Right, 1-Right2Left
+	   Invoke XRef from AthenaClient package (ruleCD = XRef Rule ID from ESF, direction=0)
+	      *** ns1:SystemName - Keys/SystemName_ESF, Values/SystemName_Pro - fi:GroupName
+	 . Mapping connector (Copy connector to the biz logic)
+	   SOAPPEP/url - _url (since we use SOAP type in ESF provider endpoint config)
+	   # If username and password config in ESF, we should map them as well
+	   Mapping Response
 ```
 20. Designer to design Handshake package (Consumer visitor)
 ```
