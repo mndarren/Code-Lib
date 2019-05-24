@@ -287,5 +287,18 @@ M-Files:  intelligent information management software helps you easily store, or
 ```
    # YYYCoreDemo_v1_connector
    Import WSDL to create a WS Consumer visitor.
-   
+```
+21. Debug and Test
+```
+   *** Change "Pipeline header" to True for XXXSystem_v1_Demo_ws before testing
+   1)Import the WS into SOAP UI
+   2) Generate TestSuite based on the WS
+   3) Specify the Test Steps (values)
+   4) For Auth, we create Basic (input username, password in the SAG platform)
+      In WS of Designer, Permissions needs to be changed to "Application ACL".
+   5) change Provider Service to Debug mode in Designer "Pipeline debug" = Save
+   6) Run WS from SOAP UI
+   7) Figure out the Error message: ESF Studio Logs
+   8) Debug Flow Service: Change "Pipeline debug" = Restore (Override)
+      Debug Flow Service in Designer
 ```
