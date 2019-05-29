@@ -27,7 +27,7 @@
 ```
 4. Connectivity SAG to SF
 ```
-   # APIs
+   # APIs (quarterly update)
    Partner SOAP API, Bulk REST API, Streaming API
    Wave API, Chatter API, Lighting Connect
    # Connectivity

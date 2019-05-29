@@ -1,5 +1,5 @@
-# SF Notes
-=========<br>
+# SF Notes (key: CRM)
+=======================<br>
 1. Limitation of Batch (Bulk API)
 ```
 1) Max 10k batches/day
@@ -38,3 +38,7 @@
 ```
 4. batch status
 ![alt text](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/batch_status.png)
+5. SF has multiple applications
+```
+   Sales, Service, Marketing, Community, Analytics, Platform
+```
