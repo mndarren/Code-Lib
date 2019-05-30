@@ -42,3 +42,12 @@
 ```
    Sales, Service, Marketing, Community, Analytics, Platform
 ```
+6. SOAP UI endpoint explanation
+```
+   # https://test.salesforce.com/services/Soap/c/45.0/0DF190000000CEd
+   login.salesforce.com/test.salesforce.com - Top level domain for login request;
+   /service/Soap - Specify SOAP API request
+   /c - Enterprise WSDL (/u : partner WSDL)
+   /45.0 - API version
+   /0DF190000000CEd - Package version
+```
