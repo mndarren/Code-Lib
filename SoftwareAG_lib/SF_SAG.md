@@ -15,10 +15,10 @@
    - Integrate using Chatter API
    - Polling SF
    # Push from SF
-   - send updates using Outbound messagign
+   - send updates using Outbound messaging
    - send events using Streaming API
 ```
-3. SAG for SF
+3. What SAG for SF
 ```
   - SaaS Connectors and Cloud Connector Framework
   - Easy Meta-data Driven Configuration
@@ -27,7 +27,7 @@
 ```
 4. Connectivity SAG to SF
 ```
-   # APIs
+   # APIs (quarterly update)
    Partner SOAP API, Bulk REST API, Streaming API
    Wave API, Chatter API, Lighting Connect
    # Connectivity
@@ -41,4 +41,8 @@
    - SF integration incolves integration with multiple Apps and APIs
    - Proven integration platform like webMethods reduces overall risks and integration costs (API changs cost)
    - Governance and Security cannot be an afterthought
+   # comparison
+   . developer need complete understanding of SF APIs :|: Quick wizard-based integration reduces time to market
+   . Time consuming to build "ilities" of service     :|: "ilities" are built into the connector framework
+   . Increases cost of maintenance                    :\: Easy to upgrade from one version of API to another
 ```
