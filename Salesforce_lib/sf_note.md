@@ -1,5 +1,5 @@
-# SF Notes
-=========<br>
+# SF Notes (key: CRM)
+=======================<br>
 1. Limitation of Batch (Bulk API)
 ```
 1) Max 10k batches/day
@@ -38,3 +38,16 @@
 ```
 4. batch status
 ![alt text](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/batch_status.png)
+5. SF has multiple applications
+```
+   Sales, Service, Marketing, Community, Analytics, Platform
+```
+6. SOAP UI endpoint explanation
+```
+   # https://test.salesforce.com/services/Soap/c/45.0/0DF190000000CEd
+   login.salesforce.com/test.salesforce.com - Top level domain for login request;
+   /service/Soap - Specify SOAP API request
+   /c - Enterprise WSDL (/u : partner WSDL)
+   /45.0 - API version
+   /0DF190000000CEd - Package version
+```

@@ -62,8 +62,8 @@
    Why?
        (1) Shoulder Surfing
        (2) Dumpster Diving (paper shredder)
-       (3) Email fraud
-       (4) Physhing
+       (3) Email fraud: lots of emails for selling sth
+       (4) Physhing: email to trick you to share your PII
        (5) Pretext
    Best way: educate customer how to protect their personal info
    Private Notice: Give it to new customer & annual privacy notice
