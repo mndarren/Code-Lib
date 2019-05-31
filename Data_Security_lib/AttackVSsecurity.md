@@ -23,3 +23,11 @@
    2) Attack: From company office
       Defense: Monitor the whole company
    ```
+3. Avoid attacks
+```
+   Brute force attack -- setup password guess limit (e.g. Account lockout threshold = 3 invalid logon attempts
+                                                   Account lockout duration 5 minutes
+                                                   Reset account lockout counter after 5 minutes)
+   RDP attack -- Disable RDP if not used; VPN; 2FA (factors Authentication); Patch early, patch often;
+                 After an attack, check to see what changed (secutiry settings, added applications, new user accounts)
+```
