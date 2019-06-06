@@ -72,3 +72,120 @@
    . Tooling API: to integrate SF Metadata with other systems. 
                   manage and deploy working copies of Apex classes & triggers and VF pages and components.
 ```
+8. REST API
+```
+   # link to query SOQL
+   /services/data/v45.0/query/?q=SELECT+Name+From+Account+WHERE+ShippingCity='San+Francisco'
+   # post an account creation
+   /services/data/v45.0/sobjects/account
+   # Node.js using Nforce
+var nforce = require('nforce');
+// create the connection with the Salesforce connected app
+var org = nforce.createConnection({
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  redirectUri: process.env.CALLBACK_URL,
+  mode: 'single'
+});
+// authenticate and return OAuth token
+org.authenticate({
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD+process.env.SECURITY_TOKEN
+}, function(err, resp){
+  if (!err) {
+    console.log('Successfully logged in! Cached Token: ' + org.oauth.access_token);
+    // execute the query
+    org.query({ query: 'select id, name from account limit 5' }, function(err, resp){
+      if(!err && resp.records) {
+        // output the account names
+        for (i=0; i<resp.records.length;i++) {
+          console.log(resp.records[i].get('name'));
+        }
+      }
+    });
+  }
+  if (err) console.log(err);
+});
+```
+9. SOAP API
+```
+   # 2 typws of WSDL: Enterprise (1 org) and partner (* org)
+   # How to find security token
+   <your name > My Settings > Personal  >  Reset My Security Token
+   # Login request
+   get username from Users list in SF
+   get token from previous step, password + token as passwork in SOAP UI
+   # copy the instance name (the part before .salesforce.com)
+   # copy the session ID
+   # Create sObject
+   URL: change instance name and remove the version ID (the last part)
+   Header: remove all others but session ID, paste the session ID
+   Body: replace <urn:sObjects> with <urn:sObjects xsi:type="urn1:Account" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         <Name>Bluebeards Grog House</Name>
+         <Description>It is better than Blackbeards.</Description>
+   # copy the result with ID
+```
+10. Streaming API
+```
+   # keep your external source in sync with your SF data with PushTopic events and Change Data Capture events
+   # PushTopic
+     a sObject containing the criteria of events you want to listen to. 
+	 Criteria is the SOQL query
+	 Supported objects: Account, Contact, Opportunity.
+	 # code
+	 PushTopic pushTopic = new PushTopic();
+     pushTopic.Name = 'AccountUpdates';
+     pushTopic.Query = 'SELECT Id, Name, Phone FROM Account WHERE BillingCity=\'San Francisco\'';
+     pushTopic.ApiVersion = 37.0;
+     insert pushTopic;
+	 # change which fields trigger notifications
+	 pushTopic.NotifyForFields = [All, Referenced (default), Select, Where)
+	 # Notification
+	 pushTopic.NotifyForOperationCreate = true;
+     pushTopic.NotifyForOperationUpdate = true;
+     pushTopic.NotifyForOperationUndelete = true;
+     pushTopic.NotifyForOperationDelete = true;
+	 # Channel: /topic/PushTopicName
+	 # query
+	   The SELECT statement’s field list must include Id.
+       Only one object per query is allowed.
+       The object must be valid for the specified API version.
+	   aggregate queries and semi-joins not supported
+   # Custom Notifications with Platform Events
+     # Define platform event (Need: Create platform event and adding fields)
+	 API name suffix with __e, like Order_Event__e
+	 A channel name is provided automatically, like /event/Order_Event__e
+	 # Publishing Platform Events
+	   Process Builder using the Create a Record action
+       Flow using a Create Records element
+       Apex EventBus.publish() method
+       REST API sobjects resource
+       SOAP API create() call
+	 # Subscribing the Platform Events
+	 # How? Setup -> search "Platform Events"
+   # Custom Notification with Generic Streaming
+     StreamingChannel: sObject, can be created by Apex, REST or SOAP.
+	 channel name: /u/ChannelName
+	 # Apex Code
+	 StreamingChannel ch = new StreamingChannel();
+     ch.Name = '/u/Broadcast';
+     insert ch;
+	 # How? Setup -> search "User Interface" -> Enable Dynamic Streaming Channel Creation
+   # Generate events by REST
+     . get channel ID: SOQL(SELECT Id, Name FROM StreamingChannel)
+	 . /services/data/vXX.0/sobjects/StreamingChannel/Streaming Channel ID/push
+	 . Body: # userIds: specify a list of subscribed users
+	   { 
+         "pushEvents": [
+              { 
+                 "payload": "Broadcast message to all subscribers", 
+                 "userIds": [] 
+               } 
+            ] 
+        }
+   # Retrieve Past Notification
+     before version 37.0, only keep message for 24 hours
+	 From version 37.0, set up a ReplayId, any time replay it.
+	 "-1": all new events after subscription
+	 "-2": All events
+```
