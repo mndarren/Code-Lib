@@ -189,3 +189,36 @@ org.authenticate({
 	 "-1": all new events after subscription
 	 "-2": All events
 ```
+11. UI API: Lightning
+```
+   # Records and Layouts
+   /ui-api/record-ui/{recordIds}
+   /ui-api/layout/{objectApiName}
+/ui-api/object-info/{objectApiName}
+/ui-api/records/{recordId}
+   /ui-api/record-defaults/create/{objectApiName}
+/ui-api/record-defaults/clone/{recordId}
+   /ui-api/object-info/{objectApiName}/picklist-values/{recordTypeId}
+   # List Views
+   /ui-api/list-ui/${listViewId}
+/ui-api/list-ui/${objectApiName}/${listViewApiName}
+   /ui-api/list-info/${listViewId}
+/ui-api/list-info/${objectApiName}/${listViewApiName}
+/ui-api/list-records/${listViewId}
+/ui-api/list-records/${objectApiName}/${listViewApiName}
+   # Actions
+   /ui-api/actions/global
+/ui-api/actions/record/${recordIds}
+/ui-api/actions/record/${recordId}/record-edit
+/ui-api/actions/record/${recordId}/related-list/${relatedListIds}
+// There are more actions resources! Check the User Interface API Developer Guide!
+   # Favorites
+   /ui-api/favorites
+/ui-api/favorites/${favoriteId}
+/ui-api/favorites/batch
+/ui-api/favorites/${favoriteId}/usage
+   # Lookups
+   /ui-api/lookups/{objectApiName}/{fieldApiName}
+/ui-api/lookups/{objectApiName}/{fieldApiName}/{targetApiName}
+
+```
