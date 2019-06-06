@@ -51,3 +51,24 @@
    /45.0 - API version
    /0DF190000000CEd - Package version
 ```
+7. What to know about APIs 
+```
+   # API first in SF, UI will be built on APIs
+   REST: support XML & JSON; can call all SF functionalities (CRUD), Sync, for Mobile&Web App
+   SOAP: only XML supported; using WSDL, so it's great for server to server integration, Sync
+   BULK: 1.0 and 2.0 versions. 2.0 easy to use. Since internally using IP authentication, cannot use OAuth approach. Async
+   Streaming: pub/sub model, reducing # of rolling. usually used to do notification event. Async
+   # API limits (2 types)
+   . Concurrent Limits cap: Trailhead Playground 5 long running calls/once; Sandbox org 25/once
+   . Total Limits cap(24 hrs): Enterprise Edition (1000 with SF license, 200 with SF Light App license, +4000 with unlimited Apps pack)
+   . How to check limits: setup -> system overview / API usage notification
+   # other API
+   . UI API used to CRUD records, list views, actions, dependent picklists
+   . Chatter API for building UI for Chatter, communities or recommendations. (in Mobile App)
+   . Metadata API to migrate Changes from a sandbox to production environment (tools: Force.com IDE/ANT Migration)
+   . Analytics API for datasets, lenses, dashboards
+   . Apex REST API: expose Apex classes and methods. (support OAuth and Session ID)
+   . Apex SOAP API: expose Apex methods as SOAP WS
+   . Tooling API: to integrate SF Metadata with other systems. 
+                  manage and deploy working copies of Apex classes & triggers and VF pages and components.
+```
