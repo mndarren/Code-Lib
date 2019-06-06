@@ -1093,3 +1093,44 @@ Updating ownership for records with private sharing
 Updating user roles
 Updating territory hierarchies
 ```
+20. SF Command Line
+```
+   # link to install
+   https://sfdc.co/sfdx_cli_win64 
+   https://sfdc.co/sfdx_cli_linux 
+   https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components/set-up-salesforce-dx?trail_id=force_com_dev_intermediate
+   sfdx force # tools for the salesforce developer
+   sfdx plugins # manage plugins
+   sfdx update # update sfdx-cli
+   sfdx help TOPIC # help detail
+   # create SF DX project (sfdx-project.json, README.md, .forceignore, config/project-scratch-def.json)
+   sfdx force:project:create -n [Project Name]
+   # convert format from MDAPI to SFDX
+   sfdx force:mdapi:convert -r mdapipackage/
+   # Create Scratch orgs
+   sfdx force:org:create -f config/project-scratch-def.json -a [Alias Name]
+   # generate passwords
+   sfdx force:user:password:generate -u [Alias Name]
+   # display the details of Scratch org
+   sfdx force:org:display -u [Alias Name]
+   # create SFDX project
+   sfdx force:project:create -n [Project Name]
+   # Login the Scratch Org
+   sfdx force:auth:web:login -r [Instance URL] -a [Alias Name] [-f]
+   # Push cloned data to scratch org
+   sfdx force:source:push -u [Alias Name]
+   # Pull / Retrieve source
+   sfdx force:source:pull -u [Alias Name]
+   # Commit and push to Source Control Repo
+   # Convert back to MDAPI format
+   sfdx force:source:convert -d mdapioutput/
+   # deploy to sandbox
+   sfdx force:mdapi:deploy -d mdapioutput/ -u [DEV sandbox Alias]-w 100
+```
+21. Difference between 2 formats (MDAPI and SFDX)
+```
+   - Metadata API format — A format with huge amount of unorganized data 
+                           and well understood by IDEs, workbench, ANT tool.
+   - Salesforce DX format — A format with neatly organiezed data split into 
+                            lot of files and only understood by Scratch orgs.
+```
