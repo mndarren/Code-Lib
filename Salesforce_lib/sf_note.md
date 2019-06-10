@@ -1,5 +1,13 @@
 # SF Notes (key: CRM)
 =======================<br>
+0. HTTP methods
+```
+   GET    - Select
+   POST   - Create
+   PATCH  - Update
+   PUT    - Upsert
+   DELETE - Delete
+```
 1. Limitation of Batch (Bulk API)
 ```
 1) Max 10k batches/day
@@ -507,7 +515,7 @@ public class ParkLocatorTest {
     }
 }
 ```
-14. Export REST or SOAP Service from Apex
+14. Export REST or SOAP Service from Apex (Workbench & cURL)
 ```
    # How to do the REST? class as global, methods as global static, annotations
    # Code example
@@ -585,5 +593,149 @@ global with sharing class MySOAPWebService {
         // Add your code
     }
 }
-
+   # App Manager: set up Authorization https://developer.salesforce.com/docs/atlas.en-us.218.0.chatterapi.meta/chatterapi/CR_quickstart_oauth.htm
+   App Manager -> new connected app -> Enable OAuth Settings -> name, email, callback url, Access and manage your data(api) -> save
+   # How to use curl to connect SF
+   setup App permission(previous step) -> get Client ID, customer secret, userId and password+token (reset password), sandbox ID (xxxx.my.)
+   -> command: curl -v https://login.salesforce.com/services/oauth2/token -d "grant_type=password" -d "client_id=<your_consumer_key>" -d "client_secret=<your_consumer_secret>" -d "username=<your_username>" -d "password=<your_password_and_security_token>" -H 'X-PrettyPrint:1'
+   curl https://yourInstance.salesforce.com/services/apexrest/Cases/<Record_ID> -H 'Authorization: Bearer <your_session_id>' -H 'X-PrettyPrint:1'
+   # the session_id is the previous step token id.
+   # Note: Using double quote for Authorization: Bearer part because of ! => \! Single Quote not work!
+   # Test Code
+@IsTest
+private class CaseManagerTest {
+    @isTest static void testGetCaseById() {
+        Id recordId = createTestRecord();
+        // Set up a test request
+        RestRequest request = new RestRequest();
+        request.requestUri =
+            'https://yourInstance.salesforce.com/services/apexrest/Cases/'
+            + recordId;
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+        // Call the method to test
+        Case thisCase = CaseManager.getCaseById();
+        // Verify results
+        System.assert(thisCase != null);
+        System.assertEquals('Test record', thisCase.Subject);
+    }
+    @isTest static void testCreateCase() {
+        // Call the method to test
+        ID thisCaseId = CaseManager.createCase(
+            'Ferocious chipmunk', 'New', 'Phone', 'Low');
+        // Verify results
+        System.assert(thisCaseId != null);
+        Case thisCase = [SELECT Id,Subject FROM Case WHERE Id=:thisCaseId];
+        System.assert(thisCase != null);
+        System.assertEquals(thisCase.Subject, 'Ferocious chipmunk');
+    }
+    @isTest static void testDeleteCase() {
+        Id recordId = createTestRecord();
+        // Set up a test request
+        RestRequest request = new RestRequest();
+        request.requestUri =
+            'https://yourInstance.salesforce.com/services/apexrest/Cases/'
+            + recordId;
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+        // Call the method to test
+        CaseManager.deleteCase();
+        // Verify record is deleted
+        List<Case> cases = [SELECT Id FROM Case WHERE Id=:recordId];
+        System.assert(cases.size() == 0);
+    }
+    @isTest static void testUpsertCase() {
+        // 1. Insert new record
+        ID case1Id = CaseManager.upsertCase(
+                'Ferocious chipmunk', 'New', 'Phone', 'Low', null);
+        // Verify new record was created
+        System.assert(Case1Id != null);
+        Case case1 = [SELECT Id,Subject FROM Case WHERE Id=:case1Id];
+        System.assert(case1 != null);
+        System.assertEquals(case1.Subject, 'Ferocious chipmunk');
+        // 2. Update status of existing record to Working
+        ID case2Id = CaseManager.upsertCase(
+                'Ferocious chipmunk', 'Working', 'Phone', 'Low', case1Id);
+        // Verify record was updated
+        System.assertEquals(case1Id, case2Id);
+        Case case2 = [SELECT Id,Status FROM Case WHERE Id=:case2Id];
+        System.assert(case2 != null);
+        System.assertEquals(case2.Status, 'Working');
+    }    
+    @isTest static void testUpdateCaseFields() {
+        Id recordId = createTestRecord();
+        RestRequest request = new RestRequest();
+        request.requestUri =
+            'https://yourInstance.salesforce.com/services/apexrest/Cases/'
+            + recordId;
+        request.httpMethod = 'PATCH';
+        request.addHeader('Content-Type', 'application/json');
+        request.requestBody = Blob.valueOf('{"status": "Working"}');
+        RestContext.request = request;
+        // Update status of existing record to Working
+        ID thisCaseId = CaseManager.updateCaseFields();
+        // Verify record was updated
+        System.assert(thisCaseId != null);
+        Case thisCase = [SELECT Id,Status FROM Case WHERE Id=:thisCaseId];
+        System.assert(thisCase != null);
+        System.assertEquals(thisCase.Status, 'Working');
+    }  
+    // Helper method
+    static Id createTestRecord() {
+        // Create test record
+        Case caseTest = new Case(
+            Subject='Test record',
+            Status='New',
+            Origin='Phone',
+            Priority='Medium');
+        insert caseTest;
+        return caseTest.Id;
+    }          
+}
+   # Supported Data Type for Apex REST
+   . Blob not supported
+   . Only maps with String keys are supported
+   . other Apex primitives
+   # Namespace in Apex REST Endpoints
+   https://instance.salesforce.com/services/apexrest/packageNamespace/MyMethod/
+   # Exercise Code
+@restresource(urlMapping='/Accounts/*')
+global with sharing class AccountManager {
+	@HttpGet
+    global static Account getAccount() {
+        RestRequest request = RestContext.request;
+        // grab the acctId from the end of the URL
+        String acctId = request.requestURI.substringBetween('Accounts/','/contacts');
+        Account result =  [SELECT Id, Name, (SELECT Id, Name FROM Contacts)
+                        FROM Account
+                        WHERE Id = :acctId];
+        return result;
+    }
+}
+@isTest
+public class AccountManagerTest {
+	 @isTest static void testGetAccount() {
+        Account Acc=new Account();
+         acc.Name='Darren';
+         insert acc;
+         Contact con=new Contact();
+         con.LastName='Xie';
+         con.FirstName='Zhao';
+         con.AccountId=acc.Id;
+         insert con;
+        // Set up a test request
+        RestRequest request = new RestRequest();
+        request.requestUri =
+            'https://curious-bear-9nzbf3-dev-ed.my.salesforce.com/services/apexrest/Accounts/'
+            + acc.Id + '/contacts';
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+        // Call the method to test
+        Account thisCase = AccountManager.getAccount();
+        // Verify results
+        System.assert(thisCase != null);
+         System.debug('Account = ' + thisCase);
+        //System.assertEquals('Test record', thisCase.Subject);
+    }
+}
 ```

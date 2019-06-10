@@ -22,6 +22,7 @@
 	   API -- SOAP, REST, Metadata, Tooling, Marketing Cloud, Bulk, Streaming, Chatter REST, Mobile SDK.
 	7) UI desktop 2 tools: Lightning Experience, 
 	                       Salesforce Classic
+	8) SFA - Sales Force Automation
 ```
 1. Obj
 ```
