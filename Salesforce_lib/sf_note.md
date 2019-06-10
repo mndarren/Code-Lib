@@ -194,31 +194,267 @@ org.authenticate({
    # Records and Layouts
    /ui-api/record-ui/{recordIds}
    /ui-api/layout/{objectApiName}
-/ui-api/object-info/{objectApiName}
-/ui-api/records/{recordId}
+   /ui-api/object-info/{objectApiName}
+   /ui-api/records/{recordId}
    /ui-api/record-defaults/create/{objectApiName}
-/ui-api/record-defaults/clone/{recordId}
+   /ui-api/record-defaults/clone/{recordId}
    /ui-api/object-info/{objectApiName}/picklist-values/{recordTypeId}
    # List Views
    /ui-api/list-ui/${listViewId}
-/ui-api/list-ui/${objectApiName}/${listViewApiName}
+   /ui-api/list-ui/${objectApiName}/${listViewApiName}
    /ui-api/list-info/${listViewId}
-/ui-api/list-info/${objectApiName}/${listViewApiName}
-/ui-api/list-records/${listViewId}
-/ui-api/list-records/${objectApiName}/${listViewApiName}
+   /ui-api/list-info/${objectApiName}/${listViewApiName}
+   /ui-api/list-records/${listViewId}
+   /ui-api/list-records/${objectApiName}/${listViewApiName}
    # Actions
    /ui-api/actions/global
-/ui-api/actions/record/${recordIds}
-/ui-api/actions/record/${recordId}/record-edit
-/ui-api/actions/record/${recordId}/related-list/${relatedListIds}
-// There are more actions resources! Check the User Interface API Developer Guide!
+   /ui-api/actions/record/${recordIds}
+   /ui-api/actions/record/${recordId}/record-edit
+   /ui-api/actions/record/${recordId}/related-list/${relatedListIds}
+   // There are more actions resources! Check the User Interface API Developer Guide!
    # Favorites
    /ui-api/favorites
-/ui-api/favorites/${favoriteId}
-/ui-api/favorites/batch
-/ui-api/favorites/${favoriteId}/usage
+   /ui-api/favorites/${favoriteId}
+   /ui-api/favorites/batch
+   /ui-api/favorites/${favoriteId}/usage
    # Lookups
    /ui-api/lookups/{objectApiName}/{fieldApiName}
-/ui-api/lookups/{objectApiName}/{fieldApiName}/{targetApiName}
+   /ui-api/lookups/{objectApiName}/{fieldApiName}/{targetApiName}
 
+```
+12. Apex Integration
+```
+   # Rule: every Callout from SF should be approved first.
+   # How
+   Setup -> Remote Site Setting -> New Remote Site -> name, url, desc -> save
+   # How to test code
+   Developer Console -> Debug -> Open Execute Anonymous Window -> copy/paste code -> Open log -> execute -> Debug only
+   # Example code
+Http http = new Http();
+HttpRequest request = new HttpRequest();
+request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+request.setMethod('GET');
+HttpResponse response = http.send(request);
+// If the request is successful, parse the JSON response.
+if (response.getStatusCode() == 200) {
+    // Deserialize the JSON string into collections of primitive data types.
+    Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+    // Cast the values in the 'animals' key as a list
+    List<Object> animals = (List<Object>) results.get('animals');
+    System.debug('Received the following animals:');
+    for (Object animal: animals) {
+        System.debug(animal);
+    }
+}
+   # JSON2Apex Tool: https://json2apex.herokuapp.com/
+   # example code for Post
+Http http = new Http();
+HttpRequest request = new HttpRequest();
+request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+request.setMethod('POST');
+request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+// Set the body as a JSON object
+request.setBody('{"name":"mighty moose"}');
+HttpResponse response = http.send(request);
+// Parse the JSON response
+if (response.getStatusCode() != 201) {
+    System.debug('The status code returned was not expected: ' +
+        response.getStatusCode() + ' ' + response.getStatus());
+} else {
+    System.debug(response.getBody());
+}
+   # Test Callouts (Apex not supported, but can make Mock
+   # create Apex class first
+public class AnimalsCallouts {
+    public static HttpResponse makeGetCallout() {
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+        request.setMethod('GET');
+        HttpResponse response = http.send(request);
+        // If the request is successful, parse the JSON response.
+        if (response.getStatusCode() == 200) {
+            // Deserializes the JSON string into collections of primitive data types.
+            Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+            // Cast the values in the 'animals' key as a list
+            List<Object> animals = (List<Object>) results.get('animals');
+            System.debug('Received the following animals:');
+            for (Object animal: animals) {
+                System.debug(animal);
+            }
+        }
+        return response;
+    }
+    public static HttpResponse makePostCallout() {
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setBody('{"name":"mighty moose"}');
+        HttpResponse response = http.send(request);
+        // Parse the JSON response
+        if (response.getStatusCode() != 201) {
+            System.debug('The status code returned was not expected: ' +
+                response.getStatusCode() + ' ' + response.getStatus());
+        } else {
+            System.debug(response.getBody());
+        }
+        return response;
+    }        
+}
+   # Create Mock Test 
+   Developer Console -> File/New/Static Resource -> MIME type (text/plain, if using JSON)
+   # example Mock test return: {"animals": ["pesky porcupine", "hungry hippo", "squeaky squirrel"]}
+   # create Apex Test class
+   File/New/Apex Class
+   # Example code for GET
+@isTest
+private class AnimalsCalloutsTest {
+    @isTest static  void testGetCallout() {
+        // Create the mock response based on a static resource
+        StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+        mock.setStaticResource('GetAnimalResource');
+        mock.setStatusCode(200);
+        mock.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        // Associate the callout with a mock response
+        Test.setMock(HttpCalloutMock.class, mock);
+        // Call method to test
+        HttpResponse result = AnimalsCallouts.makeGetCallout();
+        // Verify mock response is not null
+        System.assertNotEquals(null,result,
+            'The callout returned a null response.');
+        // Verify status code
+        System.assertEquals(200,result.getStatusCode(),
+          'The status code is not 200.');
+        // Verify content type   
+        System.assertEquals('application/json;charset=UTF-8',
+          result.getHeader('Content-Type'),
+          'The content type value is not expected.');  
+        // Verify the array contains 3 items     
+        Map<String, Object> results = (Map<String, Object>) 
+            JSON.deserializeUntyped(result.getBody());
+        List<Object> animals = (List<Object>) results.get('animals');
+        System.assertEquals(3, animals.size(),
+          'The array should only contain 3 items.');          
+    }   
+}
+   # Note: Test/Always Run Asynchronously -> Test/New Run
+   # Test POST with HttpCalloutMock: Test.setMock(HttpCalloutMock.class, new AnimalsHttpCalloutMock());
+   # create AnimalsHttpCalloutMock class first
+@isTest
+global class AnimalsHttpCalloutMock implements HttpCalloutMock {
+    // Implement this interface method
+    global HTTPResponse respond(HTTPRequest request) {
+        // Create a fake response
+        HttpResponse response = new HttpResponse();
+        response.setHeader('Content-Type', 'application/json');
+        response.setBody('{"animals": ["majestic badger", "fluffy bunny", "scary bear", "chicken", "mighty moose"]}');
+        response.setStatusCode(200);
+        return response; 
+    }
+}
+   # Add method into the previous AnimalsCalloutsTest class
+@isTest static void testPostCallout() {
+    // Set mock callout class 
+    Test.setMock(HttpCalloutMock.class, new AnimalsHttpCalloutMock()); 
+    // This causes a fake response to be sent
+    // from the class that implements HttpCalloutMock. 
+    HttpResponse response = AnimalsCallouts.makePostCallout();
+    // Verify that the response received contains fake values
+    String contentType = response.getHeader('Content-Type');
+    System.assert(contentType == 'application/json');
+    String actualValue = response.getBody();
+    System.debug(response.getBody());
+    String expectedValue = '{"animals": ["majestic badger", "fluffy bunny", "scary bear", "chicken", "mighty moose"]}';
+    System.assertEquals(actualValue, expectedValue);
+    System.assertEquals(200, response.getStatusCode());
+}
+   # Note: callouts can be in triggers and in asynchronous Apex (2 ways to do async run callout)
+   @future(callout=true) OR Queueable Apex  # callout running in separate thread
+   Trigger's callout should use "@future(callout=true)"
+   ## Exercise work
+public class AnimalLocator { 
+    public class Animal {
+		public Integer id;
+		public String name;
+		public String eats;
+		public String says;
+	}
+    public Animal animal;
+    
+    public static string getAnimalNameById(integer id){
+        string str;
+        string URL='https://th-apex-http-callout.herokuapp.com/animals/'+id;
+        
+        http http=new http();
+        httprequest Req=new httprequest();
+        req.setEndpoint(URL);
+        req.setMethod('GET');
+        httpResponse Response=http.send(req);
+        
+        system.debug('Response Code: '+response.getStatusCode());
+        system.debug('Response Body: '+response.getBody());
+        //type ResultType= type.forName('Animals');
+        //system.debug('Type: '+ ResultType);
+        AnimalLocator obj= new AnimalLocator();
+        obj=(AnimalLocator) System.JSON.deserialize(response.getBody(), AnimalLocator.class);
+        System.debug('Obj: '+obj.animal.name );
+        str=obj.animal.name;
+        System.debug('Name: '+str );
+        return str;
+    }
+}
+
+@istest
+public class AnimalLocatorTest {
+   testmethod static void  Restcallout(){
+        Test.setMock(HttpCalloutMock.class, new AnimalLocatorMock());
+        string s=AnimalLocator.getAnimalNameById(1);
+    }
+}}
+
+@istest
+public class AnimalLocatorMock implements HttpCalloutMock {
+    public httpresponse respond(httprequest req){
+                
+        httpresponse Response=new httpresponse();
+        response.setStatusCode(200);
+        response.setBody('{"animal":{"id":1,"name":"chicken","eats":"chicken food","says":"cluck cluck"}}');
+         
+        return response;
+    }
+}}
+   Note: https://opfocus.com/json-deserialization-techniques-in-salesforce/
+   ***We should use the JSON.deserialize, not JSON.deserializeUntyped()
+      2 ways work: 
+	  Type resultType = Type.forName('CustomersResponse');
+      CustomersResponse deserializeResults = (CustomersResponse)JSON.deserialize(response, resultType);
+	  # OR put the Apex classes as internal class
+public with sharing class CustomersResponse {
+    public List<Customer> Customers;
+    public Integer Count;
+    public CustomersResponse() {
+}
+public with sharing class Customer {
+    public String Status;
+    public String Message;
+    public String FirstName;
+    public String LastName;
+    public String Email;
+    public String Phone;
+    public Customer() {
+    }
+}
+   # Rules for this point about JSON
+   1. Data member names must exactly match (case-insensitive) the name of the attribute 
+      or element in the JSON object.
+   2. All data members that are being mapped must have public access.
+   3. All data members must be typed correctly to match the element type in the JSON object, 
+      otherwise a TypeException is thrown. So in our example, if Count is defined to be a String, 
+	  an Exception is  thrown as it should be defined as an Integer.
+   4. NOTE: Interestingly enough, you do not have to define a default no-arg constructor. 
+      In fact, if you define a private no-arg Constructor , it still parses your object successfully.
+   5. If you do not define a data member for one of the JSON object properties, 
+      then it will not be mapped. It will be silently ignored.
 ```
