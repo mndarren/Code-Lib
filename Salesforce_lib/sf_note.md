@@ -222,7 +222,7 @@ org.authenticate({
    /ui-api/lookups/{objectApiName}/{fieldApiName}/{targetApiName}
 
 ```
-12. Apex Integration
+12. Apex Integration (REST)
 ```
    # Rule: every Callout from SF should be approved first.
    # How
@@ -457,4 +457,133 @@ public with sharing class Customer {
       In fact, if you define a private no-arg Constructor , it still parses your object successfully.
    5. If you do not define a data member for one of the JSON object properties, 
       then it will not be mapped. It will be silently ignored.
+```
+13. Apex Integration (SOAP)
+```
+   # WSDL2Apex
+   Setup -> Apex Classes search -> Generate from WSDL -> Choose file -> Parse WSDL -> Generate Apex code
+   Only manually code the Apex classes with calling WS or HTTP
+   # Not work for testing WS Callouts, using Mock to solve it (WebServiceMock, Test.setMock)
+   # Process for SOAP WS
+   Generate Apex from WSDL -> Remote Site Settings (add link) -> Create Apex class, test class, mock class
+   # Code example
+public class ParkLocator {
+    public static String[] country(String c) {
+        ParkService.ParksImplPort park = 
+            new ParkService.ParksImplPort ();
+        return park.byCountry(c);
+    }
+}
+@isTest
+global class ParkServiceMock implements WebServiceMock {
+	global void doInvoke(
+           Object stub,
+           Object request,
+           Map<String, Object> response,
+           String endpoint,
+           String soapAction,
+           String requestName,
+           String responseNS,
+           String responseName,
+           String responseType) {
+        // start - specify the response you want to send
+        ParkService.byCountryResponse response_x = 
+            new ParkService.byCountryResponse ();
+               response_x.return_x = new String[]{'Germany', 'India', 'Japan', 'United States'};
+        // end
+        response.put('response_x', response_x); 
+   }
+}
+@isTest
+public class ParkLocatorTest {
+	@isTest static void testParkLocator() {              
+        // This causes a fake response to be generated
+        Test.setMock(WebServiceMock.class, new ParkServiceMock());
+        // Call the method that invokes a callout
+        String x = 'India';
+        String[] result = ParkLocator.country(x);
+        // Verify that a fake result is returned
+        System.assertEquals(new String[]{'Germany', 'India', 'Japan', 'United States'}, result); 
+    }
+}
+```
+14. Export REST or SOAP Service from Apex
+```
+   # How to do the REST? class as global, methods as global static, annotations
+   # Code example
+@RestResource(urlMapping='/Cases/*')
+global with sharing class CaseManager {
+    @HttpGet
+    global static Case getCaseById() {
+        RestRequest request = RestContext.request;
+        // grab the caseId from the end of the URL
+        String caseId = request.requestURI.substring(
+          request.requestURI.lastIndexOf('/')+1);
+        Case result =  [SELECT CaseNumber,Subject,Status,Origin,Priority
+                        FROM Case
+                        WHERE Id = :caseId];
+        return result;
+    }
+    @HttpPost
+    global static ID createCase(String subject, String status,
+        String origin, String priority) {
+        Case thisCase = new Case(
+            Subject=subject,
+            Status=status,
+            Origin=origin,
+            Priority=priority);
+        insert thisCase;
+        return thisCase.Id;
+    }   
+    @HttpDelete
+    global static void deleteCase() {
+        RestRequest request = RestContext.request;
+        String caseId = request.requestURI.substring(
+            request.requestURI.lastIndexOf('/')+1);
+        Case thisCase = [SELECT Id FROM Case WHERE Id = :caseId];
+        delete thisCase;
+    }     
+    @HttpPut
+    global static ID upsertCase(String subject, String status,
+        String origin, String priority, String id) {
+        Case thisCase = new Case(
+                Id=id,
+                Subject=subject,
+                Status=status,
+                Origin=origin,
+                Priority=priority);
+        // Match case by Id, if present.
+        // Otherwise, create new case.
+        upsert thisCase;
+        // Return the case ID.
+        return thisCase.Id;
+    }
+    @HttpPatch
+    global static ID updateCaseFields() {
+        RestRequest request = RestContext.request;
+        String caseId = request.requestURI.substring(
+            request.requestURI.lastIndexOf('/')+1);
+        Case thisCase = [SELECT Id FROM Case WHERE Id = :caseId];
+        // Deserialize the JSON string into name-value pairs
+        Map<String, Object> params = (Map<String, Object>)JSON.deserializeUntyped(request.requestbody.tostring());
+        // Iterate through each parameter field and value
+        for(String fieldName : params.keySet()) {
+            // Set the field and value on the Case sObject
+            thisCase.put(fieldName, params.get(fieldName));
+        }
+        update thisCase;
+        return thisCase.Id;
+    }    
+}
+   # URL: https://yourInstance.salesforce.com/services/apexrest/Account/*
+   # @HttpGet, @HttpPost, @HttpDelete, @HttpPut, @HttpPatch
+   # Recommendation: versioning your API endpoints, like /Cases/v1/*  /Cases/v2/*
+   # How to do the SOAP? Class as global, method as webservice static
+   # Example
+global with sharing class MySOAPWebService {
+    webservice static Account getRecord(String id) {
+        // Add your code
+    }
+}
+
 ```

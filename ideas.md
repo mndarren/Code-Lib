@@ -28,3 +28,18 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
     honest, long time no bad, focus on details, no waste materials, less is more)
 20. 五祖神秀: "身是菩提树，心如明镜台，时时勤拂拭，勿使惹尘埃"； 六祖慧能:"菩提本无树，明镜亦非台，原本无一物，何处惹尘埃"
 21. 民主制靠品德，君主立宪制靠忠诚，专制靠恐吓！
+22. Good points
+```
+   1) Think big & act small
+   2) Work collaboratively
+   3) Fail fast & learn rapidly
+   4) Just-in-Time decisions
+   5) Not up-front design
+```
+23. Time wasting List
+```
+   1) Multitasking
+   2) Poorly run meeting
+   3) Work assigned reactively
+   4) Unfinished work
+```
