@@ -1245,3 +1245,79 @@ global class DoAwesomeStuff implements Schedulable {
 CronTrigger job = [SELECT Id, CronJobDetail.Id, CronJobDetail.Name, CronJobDetail.JobType FROM CronTrigger ORDER BY CreatedDate DESC LIMIT 1];
 CronJobDetail ctd = [SELECT Id, Name, JobType FROM CronJobDetail WHERE Id = :job.CronJobDetail.Id];
 SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.JobType = '7’
+```
+20. Event-driven
+```
+   Platform event record: a sObject, not viewable, cannot be edited, but not deleted
+   # 3 types: 
+   . Platform Event: like generic event, but can send record data
+   . PushTopic event (client receiving msg for record change), 
+   . generic event: arbitrary message, not have to tie to record
+   # Platform event usage
+   . send & receive custom event data (Define event schema as typed fields)
+   . pub/sub in Apex
+   . about SF platform
+   . Publish declaratively using Process Builder and Flow Builder
+   # How to set up a platform event?
+   1) Define&publish event: Setup -> Platform events -> New Platform Event ->save->Custom Fields&Relationships New;
+   2) Sf Platform events stored for 24 hours. Retrieve Stored events in API CometD, not in Apex; API name __e
+   3) Publish event by Apex/Process Builder/Flow Builder if using it internal; external usage by SF APIs published
+      Using SF API: /services/data/v40.0/sobjects/Cloud_News__e/
+	     body: {
+                  "Location__c" : "Mountain City",
+                  "Urgent__c" : true,
+                  "News_Content__c" : "Lake Road is closed due to mudslides."
+               }
+   
+// Create an instance of the event and store it in the newsEvent variable
+Cloud_News__e newsEvent = new Cloud_News__e(
+           Location__c='Mountain City', 
+           Urgent__c=true, 
+           News_Content__c='Lake Road is closed due to mudslides.');
+// Call method to publish events
+Database.SaveResult sr = EventBus.publish(newsEvent);
+// Inspect publishing result 
+if (sr.isSuccess()) {
+    System.debug('Successfully published event.');
+} else {
+    for(Database.Error err : sr.getErrors()) {
+        System.debug('Error returned: ' +
+                     err.getStatusCode() +
+                     ' - ' +
+                     err.getMessage());
+    }
+}
+   # multiple events published
+// List to hold event objects to be published.
+List<Cloud_News__e> newsEventList = new List<Cloud_News__e>();
+// Create event objects.
+Cloud_News__e newsEvent1 = new Cloud_News__e(
+           Location__c='Mountain City', 
+           Urgent__c=true, 
+           News_Content__c='Lake Road is closed due to mudslides.');
+Cloud_News__e newsEvent2 = new Cloud_News__e(
+           Location__c='Mountain City', 
+           Urgent__c=false, 
+           News_Content__c='Small incident on Goat Lane causing traffic.');
+// Add event objects to the list.
+newsEventList.add(newsEvent1);
+newsEventList.add(newsEvent2);
+// Call method to publish events.
+List<Database.SaveResult> results = EventBus.publish(newsEventList);
+// Inspect publishing result for each event
+for (Database.SaveResult sr : results) {
+    if (sr.isSuccess()) {
+        System.debug('Successfully published event.');
+    } else {
+        for(Database.Error err : sr.getErrors()) {
+            System.debug('Error returned: ' +
+                        err.getStatusCode() +
+                        ' - ' +
+                        err.getMessage());
+        }
+    }       
+}
+   # limits
+   . The allOrNoneHeader API header is ignored when you publish platform events through the API
+   . The Apex setSavepoint() and rollback() Database methods aren’t supported with platform events.
+```
