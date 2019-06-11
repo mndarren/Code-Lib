@@ -739,3 +739,509 @@ public class AccountManagerTest {
     }
 }
 ```
+15. Asynchronous processing
+```
+   # benefits
+   User efficiency | Scalability | Higher Limits | Higher Governor (100 queries to 200 queries for SOQL)
+   Future Methods, Batch Apex, Queueable Apex, Scheduled Apex
+   # Future Methods
+   @future | Must static void | only primitive data type as paramters.
+   when to use? 
+   . Callouts to external WS in a trigger
+   . Operations you want to run in their own thread.
+   . sometimes synchronous sometimes asynchronous
+   # Code example
+public class SMSUtils {
+    // Call async from triggers, etc, where callouts are not permitted.
+    @future(callout=true)
+    public static void sendSMSAsync(String fromNbr, String toNbr, String m) {
+        String results = sendSMS(fromNbr, toNbr, m);
+        System.debug(results);
+    }
+    // Call from controllers, etc, for immediate processing
+    public static String sendSMS(String fromNbr, String toNbr, String m) {
+        // Calling 'send' will result in a callout
+        String results = SmsMessage.send(fromNbr, toNbr, m);
+        insert new SMS_Log__c(to__c=toNbr, from__c=fromNbr, msg__c=results);
+        return results;
+    }
+}
+@isTest
+global class SMSCalloutMock implements HttpCalloutMock {
+    global HttpResponse respond(HttpRequest req) {
+        // Create a fake response
+        HttpResponse res = new HttpResponse();
+        res.setHeader('Content-Type', 'application/json');
+        res.setBody('{"status":"success"}');
+        res.setStatusCode(200);
+        return res; 
+    }
+}
+@IsTest
+private class Test_SMSUtils {
+  @IsTest
+  private static void testSendSms() {
+    Test.setMock(HttpCalloutMock.class, new SMSCalloutMock());
+    Test.startTest();
+      SMSUtils.sendSMSAsync('111', '222', 'Greetings!');
+    Test.stopTest();
+    // runs callout and check results
+    List<SMS_Log__c> logs = [select msg__c from SMS_Log__c];
+    System.assertEquals(1, logs.size());
+    System.assertEquals('success', logs[0].msg__c);
+  }
+}
+   # Test future method and remember
+   . startTest and stopTest to run asynchronous processes.
+   . Cannot be used in Visualforce controllers in getMethodName(), seMethodName()
+   . Cannot call future method from another future method
+   . Cannot put getContent() and getContentAsPDF() in future method
+   . 50 futuren calls per Apex invocation.
+   # Best practices
+   . Ensuer that future methods execute as fast as possible.
+   . For WS callouts, try to bundle all callouts together
+   . < 200 records
+   . Consider using Batch Apex to process large # of records.
+   # Exercise Code
+public class AccountProcessor {
+	 @future
+    public static void countContacts(Set<id> ids) {
+        List<Account> accounts_l = [select Id, Number_of_Contacts__c, (select Id from contacts) from account where Id in :ids];
+        for (Account acc : accounts_l){
+            List<Contact> contacts_l = acc.contacts;
+            acc.Number_of_Contacts__c = contacts_l.size();
+        }
+        Database.update(accounts_l);
+    }
+}
+@isTest
+public class AccountProcessorTest {
+	@IsTest
+  private static void testAccountProcessor() {
+      Account acc = new Account();
+      acc.Name = 'Darren1';
+      Database.insert(acc);
+      Account acc1 = new Account();
+      acc1.Name = 'Darren2';
+      Database.insert(acc1);
+      
+      Contact con = new Contact();
+      con.LastName = 'Xie';
+      con.AccountId = acc.Id;
+      Database.insert(con);
+      Contact con1 = new Contact();
+      con1.LastName = 'Xie';
+      con1.AccountId = acc1.Id;
+      Database.insert(con1);
+      Contact con2 = new Contact();
+      con2.LastName = 'Xie';
+      con2.AccountId = acc1.Id;
+      Database.insert(con2);
+    Test.startTest();
+      AccountProcessor.countContacts(new Set<id>{acc.Id, acc1.Id});
+    Test.stopTest();
+    
+    System.assertEquals(1, acc.Number_of_Contacts__c);
+      System.assertEquals(2, acc1.Number_of_Contacts__c);
+  }
+}
+```
+16. Batch Apex
+```
+   # Usage: data cleaning or archiving
+   # benefits
+   . each transaction starts with a new set of governor limits
+   . one batch failing not affect other batches
+   # Syntax: start() execute(), finish() | Database.Stateful to maintain state across all transactions
+global class MyBatchClass implements Database.Batchable<sObject> {
+    global (Database.QueryLocator | Iterable<sObject>) start(Database.BatchableContext bc) {
+        // collect the batches of records or objects to be passed to execute
+    }
+    global void execute(Database.BatchableContext bc, List<P> records){
+        // process each batch of records
+    }    
+    global void finish(Database.BatchableContext bc){
+        // execute any post-processing operations
+    }    
+}
+MyBatchClass myBatchObject = new MyBatchClass(); 
+Id batchId = Database.executeBatch(myBatchObject);
+Id batchId = Database.executeBatch(myBatchObject, 100);
+AsyncApexJob job = [SELECT Id, Status, JobItemsProcessed, TotalJobItems, NumberOfErrors FROM AsyncApexJob WHERE ID = :batchId ];
+   # Example Code
+global class UpdateContactAddresses implements 
+    Database.Batchable<sObject>, Database.Stateful {
+    
+    // instance member to retain state across transactions
+    global Integer recordsProcessed = 0;
+    global Database.QueryLocator start(Database.BatchableContext bc) {
+        return Database.getQueryLocator(
+            'SELECT ID, BillingStreet, BillingCity, BillingState, ' +
+            'BillingPostalCode, (SELECT ID, MailingStreet, MailingCity, ' +
+            'MailingState, MailingPostalCode FROM Contacts) FROM Account ' + 
+            'Where BillingCountry = \'USA\''
+        );
+    }
+    global void execute(Database.BatchableContext bc, List<Account> scope){
+        // process each batch of records
+        List<Contact> contacts = new List<Contact>();
+        for (Account account : scope) {
+            for (Contact contact : account.contacts) {
+                contact.MailingStreet = account.BillingStreet;
+                contact.MailingCity = account.BillingCity;
+                contact.MailingState = account.BillingState;
+                contact.MailingPostalCode = account.BillingPostalCode;
+                // add contact to list to be updated
+                contacts.add(contact);
+                // increment the instance member counter
+                recordsProcessed = recordsProcessed + 1;
+            }
+        }
+        update contacts;
+    }    
+    global void finish(Database.BatchableContext bc){
+        System.debug(recordsProcessed + ' records processed. Shazam!');
+        AsyncApexJob job = [SELECT Id, Status, NumberOfErrors, 
+            JobItemsProcessed,
+            TotalJobItems, CreatedBy.Email
+            FROM AsyncApexJob
+            WHERE Id = :bc.getJobId()];
+        // call some utility to send email
+        EmailUtils.sendMessage(job, recordsProcessed);
+    }    
+}
+@isTest
+private class UpdateContactAddressesTest {
+    @testSetup 
+    static void setup() {
+        List<Account> accounts = new List<Account>();
+        List<Contact> contacts = new List<Contact>();
+        // insert 10 accounts
+        for (Integer i=0;i<10;i++) {
+            accounts.add(new Account(name='Account '+i, 
+                billingcity='New York', billingcountry='USA'));
+        }
+        insert accounts;
+        // find the account just inserted. add contact for each
+        for (Account account : [select id from account]) {
+            contacts.add(new Contact(firstname='first', 
+                lastname='last', accountId=account.id));
+        }
+        insert contacts;
+    }
+    static testmethod void test() {        
+        Test.startTest();
+        UpdateContactAddresses uca = new UpdateContactAddresses();
+        Id batchId = Database.executeBatch(uca);
+        Test.stopTest();
+        // after the testing stops, assert records were updated properly
+        System.assertEquals(10, [select count() from contact where MailingCity = 'New York']);
+    }
+    
+}
+   # Note: Test Batch Apex only test one batch, so should < 200 records in the test method
+   . if < 200 records to run, use Queueable Apex.
+   . Tune any SOQL query to gather the records to execute as quickly as possible
+   . Minimize the number of asynchronous requests created to minimize the chance of delays
+   . Use extreme care if you are planning to invoke a batch job from a trigger.
+   # Exercise Code
+global class LeadProcessor implements 
+    Database.Batchable<sObject>, Database.Stateful{
+	// instance member to retain state across transactions
+    global Integer recordsProcessed = 0;
+    global Database.QueryLocator start(Database.BatchableContext bc) {
+        return Database.getQueryLocator(
+            'SELECT ID, LeadSource FROM Lead'
+        );
+    }
+    global void execute(Database.BatchableContext bc, List<Lead> scope){
+        // process each batch of records
+        for (Lead lead : scope) {
+            lead.LeadSource = 'Dreamforce';
+        }
+        Database.update(scope);
+    }    
+    global void finish(Database.BatchableContext bc){
+        System.debug(recordsProcessed + ' records processed. Shazam!');
+        AsyncApexJob job = [SELECT Id, Status, NumberOfErrors, 
+            JobItemsProcessed,
+            TotalJobItems, CreatedBy.Email
+            FROM AsyncApexJob
+            WHERE Id = :bc.getJobId()];
+        // call some utility to send email
+        //EmailUtils.sendMessage(job, recordsProcessed);
+    }   
+}
+@isTest
+public class LeadProcessorTest {
+	@testSetup 
+    static void setup() {
+        List<Lead> leads = new List<Lead>();
+        // insert 10 accounts
+        for (Integer i=0;i<200;i++) {
+            leads.add(new Lead(LastName='Lead '+i, 
+                Company='Company'+i, Status='Status'+i));
+        }
+        insert leads;
+    }
+    static testmethod void test() {        
+        Test.startTest();
+        LeadProcessor lp = new LeadProcessor();
+        Id batchId = Database.executeBatch(lp);
+        Test.stopTest();
+        // after the testing stops, assert records were updated properly
+        System.assertEquals(200, [select count() from lead]);
+        System.assertEquals('Dreamforce', [select LeadSource from lead][0].LeadSource);
+    }
+}
+```
+17. Queueable Apex: Superset of future method (50 jobs limit)
+```
+   # benifits
+   . Non-primitive types
+   . Monitoring: invoking the System.enqueuJob to return Id of AsyncApexJob record.
+   . Chaining jobs
+   # syntax
+public class SomeClass implements Queueable { 
+    public void execute(QueueableContext context) {
+        // awesome code here
+    }
+}
+   # Example code
+public class SomeClass implements Queueable { 
+    public void execute(QueueableContext context) {
+        // awesome code here
+    }
+}
+
+// find all accounts in ‘NY’
+List<Account> accounts = [select id from account where billingstate = ‘NY’];
+// find a specific parent account for all records
+Id parentId = [select id from account where name = 'ACME Corp'][0].Id;
+// instantiate a new instance of the Queueable class
+UpdateParentAccount updateJob = new UpdateParentAccount(accounts, parentId);
+// enqueue the job for processing
+ID jobID = System.enqueueJob(updateJob);
+SELECT Id, Status, NumberOfErrors FROM AsyncApexJob WHERE Id = :jobID
+
+@isTest
+public class UpdateParentAccountTest {
+    @testSetup 
+    static void setup() {
+        List<Account> accounts = new List<Account>();
+        // add a parent account
+        accounts.add(new Account(name='Parent'));
+        // add 100 child accounts
+        for (Integer i = 0; i < 100; i++) {
+            accounts.add(new Account(
+                name='Test Account'+i
+            ));
+        }
+        insert accounts;
+    }
+    
+    static testmethod void testQueueable() {
+        // query for test data to pass to queueable class
+        Id parentId = [select id from account where name = 'Parent'][0].Id;
+        List<Account> accounts = [select id, name from account where name like 'Test Account%'];
+        // Create our Queueable instance
+        UpdateParentAccount updater = new UpdateParentAccount(accounts, parentId);
+        // startTest/stopTest block to force async processes to run
+        Test.startTest();        
+        System.enqueueJob(updater);
+        Test.stopTest();        
+        // Validate the job ran. Check if record have correct parentId now
+        System.assertEquals(100, [select count() from account where parentId = :parentId]);
+    }
+    
+}
+   # Chaining Jobs (no jobs limitation, but 5 jobs limit for Developer Edition)
+public class FirstJob implements Queueable { 
+    public void execute(QueueableContext context) { 
+        // Awesome processing logic here    
+        // Chain this job to next job by submitting the next job
+        System.enqueueJob(new SecondJob());
+    }
+}
+   # Exercise Code
+public class AddPrimaryContact implements Queueable{
+	private Contact cont;
+    private String stat;
+    
+    public AddPrimaryContact(Contact cont, String stat) {
+        this.cont = cont;
+        this.stat = stat;
+    }
+    public void execute(QueueableContext context) {
+        List<Account> acct_l = [select Id, BillingState from Account where BillingState = :stat];
+        List<Contact> cont_l = new List<Contact>();
+            for(Account acc : acct_l){
+                Contact temp_cont = cont.clone(false, false, false, false);
+                temp_cont.AccountId = acc.Id;
+                cont_l.add(temp_cont);
+            }
+        update cont_l;
+    }
+}
+@isTest
+public class AddPrimaryContactTest {
+	@testSetup 
+    static void setup() {
+        List<Account> accounts = new List<Account>();
+        // add 100 child accounts
+        for (Integer i = 0; i < 100; i++) {
+            if (i<50){
+                accounts.add(new Account(
+                name='Name'+i, BillingState = 'NY'
+            ));
+            }else{
+                accounts.add(new Account(
+                name='Name'+i, BillingState = 'CA'
+            ));
+            }
+        }
+        insert accounts;
+    }
+    
+    static testmethod void testQueueable() {
+        // query for test data to pass to queueable class
+        Contact cont = new Contact();
+        List<Account> accounts = [select id, name from account where name like 'Test Account%'];
+        // Create our Queueable instance
+        AddPrimaryContact updater = new AddPrimaryContact(cont, 'CA');
+        // startTest/stopTest block to force async processes to run
+        Test.startTest();        
+        System.enqueueJob(updater);
+        Test.stopTest();        
+        // Validate the job ran. Check if record have correct parentId now
+        System.assertEquals(50, [select count() from account where BillingState = :'CA']);
+    }
+}
+```
+18. Apex Scheduler
+```
+   # Example Code
+global class RemindOpptyOwners implements Schedulable {
+    global void execute(SchedulableContext ctx) {
+        List<Opportunity> opptys = [SELECT Id, Name, OwnerId, CloseDate 
+            FROM Opportunity 
+            WHERE IsClosed = False AND 
+            CloseDate < TODAY];
+        // Create a task for each opportunity in the list
+        TaskUtils.remindOwners(opptys);
+    }
+    
+}
+@isTest
+private class RemindOppyOwnersTest {
+    // Dummy CRON expression: midnight on March 15.
+    // Because this is a test, job executes
+    // immediately after Test.stopTest().
+    public static String CRON_EXP = '0 0 0 15 3 ? 2022';
+    static testmethod void testScheduledJob() {
+        // Create some out of date Opportunity records
+        List<Opportunity> opptys = new List<Opportunity>();
+        Date closeDate = Date.today().addDays(-7);
+        for (Integer i=0; i<10; i++) {
+            Opportunity o = new Opportunity(
+                Name = 'Opportunity ' + i,
+                CloseDate = closeDate,
+                StageName = 'Prospecting'
+            );
+            opptys.add(o);
+        }
+        insert opptys;
+        
+        // Get the IDs of the opportunities we just inserted
+        Map<Id, Opportunity> opptyMap = new Map<Id, Opportunity>(opptys);
+        List<Id> opptyIds = new List<Id>(opptyMap.keySet());
+        Test.startTest();
+        // Schedule the test job
+        String jobId = System.schedule('ScheduledApexTest',
+            CRON_EXP, 
+            new RemindOpptyOwners());         
+        // Verify the scheduled job has not run yet.
+        List<Task> lt = [SELECT Id 
+            FROM Task 
+            WHERE WhatId IN :opptyIds];
+        System.assertEquals(0, lt.size(), 'Tasks exist before job has run');
+        // Stopping the test will run the job synchronously
+        Test.stopTest();
+        
+        // Now that the scheduled job has executed,
+        // check that our tasks were created
+        lt = [SELECT Id 
+            FROM Task 
+            WHERE WhatId IN :opptyIds];
+        System.assertEquals(opptyIds.size(), 
+            lt.size(), 
+            'Tasks were not created');
+    }
+}
+RemindOpptyOwners reminder = new RemindOpptyOwners();
+// Seconds Minutes Hours Day_of_month Month Day_of_week optional_year
+String sch = '20 30 8 10 2 ?';
+String jobID = System.schedule('Remind Opp Owners', sch, reminder);
+   # OR another way: Setup -> Apex Classes -> Schedule Apex -> name, *, weekly, dates,-> Save
+   # remember
+   . 100 scheduled Apex jobs/time
+   . Extreme care for adding scheduler in a trigger (limit)
+   . sync WS callouts not supported from scheduled Apex
+   # Exercise Code
+global class DailyLeadProcessor implements Schedulable {
+	global void execute(SchedulableContext ctx) {
+        List<Lead> leads_l = [SELECT Id, LeadSource FROM Lead WHERE LeadSource = :'' Limit 200];
+        for (Lead l : leads_l){
+            l.LeadSource = 'Dreamforce';
+        }
+        update leads_l;
+    }
+}
+@isTest
+public class DailyLeadProcessorTest {
+	@testSetup 
+    static void setup() {
+        List<Lead> leads = new List<Lead>();
+        for (Integer i = 0; i < 200; i++) {
+            
+                leads.add(new Lead(
+                LastName='Lead '+i, 
+                Company='Company'+i, Status='Status'+i
+            ));
+            
+        }
+        insert leads;
+    }
+    static testmethod void testScheduledJob() {
+         String CRON_EXP = '0 0 0 15 3 ? 2022';
+        Test.startTest();
+        // Schedule the test job
+        String jobId = System.schedule('ScheduledApexTest',
+            CRON_EXP, 
+            new DailyLeadProcessor());         
+        // Verify the scheduled job has not run yet.
+        
+        Test.stopTest();
+        System.assertEquals(200, 
+            [select Id, LeadSource from Lead where LeadSource = :'Dreamforce'].size());
+    }
+}
+```
+19. Monitoring Apex jobs
+```
+   Setup -> Apex jobs/Apex Flex Queue
+   # SOQL to monitor queued jobs
+   AsyncApexJob jobInfo = [SELECT Status, NumberOfErrors
+    FROM AsyncApexJob WHERE Id = :jobID]; //jobID from System.enqueueJob
+   # Flex Queue -> Batch Job Queue -> running 5 jobs at the same time when enough resource
+   # Monitoring Scheduled jobs
+   CronTrigger ct = [SELECT TimesTriggered, NextFireTime FROM CronTrigger WHERE Id = :jobID]; //jobID from System.schedule
+global class DoAwesomeStuff implements Schedulable {
+    global void execute(SchedulableContext sc) {
+        // some awesome code
+        CronTrigger ct = [SELECT TimesTriggered, NextFireTime FROM CronTrigger WHERE Id = :sc.getTriggerId()];
+    }
+}
+CronTrigger job = [SELECT Id, CronJobDetail.Id, CronJobDetail.Name, CronJobDetail.JobType FROM CronTrigger ORDER BY CreatedDate DESC LIMIT 1];
+CronJobDetail ctd = [SELECT Id, Name, JobType FROM CronJobDetail WHERE Id = :job.CronJobDetail.Id];
+SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.JobType = '7’
