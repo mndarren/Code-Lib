@@ -1463,5 +1463,43 @@ trigger OrderEventTrigger on Order_Event__e (after insert) {
    , Lookup: child object(standard/custom/external), parent obj(standard/custom), ext data contain SF ID (Yes)
    , External lookup: child obj(standard/custom/external), parent obj(external), No
    , Indirect lookup: child obj(external), parent obj(standard/custom), No
-   
+   # configure Indirect lookup relationship (External Order to Account)
+   # Enable Chatter for External Data
+   Setup/Feed Tracking/Feed Tracking/Orders/Enable Feed Tracking/Save (The Follow button for Chatter feed)
+```
+22. SF Development 
+```
+   # 3 types SF development
+   . Change set development
+   . Org development
+   . Package development
+   # ALM process (ALM: Application Lifecycle Management)
+   1) Plan Release
+   2) Develop
+   3) Test
+   4) Build release
+   5) Test Release
+   6) Release
+   # Release Management process (Patch, Minor, Major)
+   # Limitation for Change sets: only cannot delete fields, but adding fields
+   # Package development: can include many project in one container
+   # Prepare Release Environment: Develop and test steps -> Build release -> Test release -> Release
+   *** have to manually migrate a change if the changed component not supported in Metadata API yet.
+   # Authorize a Deployment Connection
+   Setup -> Deployment Settings -> Edit -> Allow Inbound Changes -> Save
+   # How to modify contents of uploaded change set?
+   Clone the change set -> Modify the clone -> upload modified clone
+   # Test integration Environment and deploy changes
+   Clone a change set, validate a change set, Deploy a change set
+   # Whole process current
+   Dev sandbox -> Dev Pro sandbox -> Full sandbox -> production
+   # Org development: pain point - error since difference between different environments
+   Tools: Change list, 
+   Deployment run list (non deployed metadata, like profile and permission set assignments),
+   Project management tools: Agile accelerator, Jira
+   # SFDX command to retrieve the new custom object and custom field
+   sfdx force:source:retrieve --metadata CustomObject:Language_Course_Instructor__c,CustomField:Language_Course__c.Course_Instructor__c
+   # Deploy change to Sandbox
+   sfdx force:source:deploy --metadata CustomObject:Language_Course_Instructor__c, \
+      CustomField:Language_Course__c.Course_Instructor__c
 ```
