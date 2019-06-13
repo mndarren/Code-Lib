@@ -1,12 +1,15 @@
 # SF Notes (key: CRM)
 =======================<br>
-0. HTTP methods
+0. HTTP methods and suffix
 ```
    GET    - Select
    POST   - Create
    PATCH  - Update
    PUT    - Upsert
    DELETE - Delete
+   __c - Customer Object
+   __e - Platform Event object
+   __x - External Object
 ```
 1. Limitation of Batch (Bulk API)
 ```
@@ -1258,7 +1261,7 @@ SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.JobType = '7’
    . pub/sub in Apex
    . about SF platform
    . Publish declaratively using Process Builder and Flow Builder
-   # How to set up a platform event?
+   # How to set up/publish a platform event?
    1) Define&publish event: Setup -> Platform events -> New Platform Event ->save->Custom Fields&Relationships New;
    2) Sf Platform events stored for 24 hours. Retrieve Stored events in API CometD, not in Apex; API name __e
    3) Publish event by Apex/Process Builder/Flow Builder if using it internal; external usage by SF APIs published
@@ -1320,4 +1323,145 @@ for (Database.SaveResult sr : results) {
    # limits
    . The allOrNoneHeader API header is ignored when you publish platform events through the API
    . The Apex setSavepoint() and rollback() Database methods aren’t supported with platform events.
+   
+   # Subscribe Events (Triggers, processes, flows)
+   # Subscribe Events with Trigger
+   . not need listen to the channel
+   . only support after insert Trigger
+   . not like on other objects, trigger on event only execute once for the same transaction
+   . Automated Process entity as a user, Developer Console can not see unless adding a trace flag entry
+   # How to add a flag entry for Automated Process entity
+   Setup -> Debug Logs -> New -> Automated Process type, choose dates, * search level -> save
+   # Notes about platform event trigger
+   . a trigger can receive a batch of events at once, order in the batch
+   . Asynchronous trigger execution. might delay
+   . Automated Process System user, not a common user
+   . Apex Governor limits & Apex Trigger Limitations
+   # Test Event Trigger Example code
+// Trigger for listening to Cloud_News events.
+trigger CloudNewsTrigger on Cloud_News__e (after insert) {    
+    // List to hold all cases to be created.
+    List<Case> cases = new List<Case>();
+    
+    // Get queue Id for case owner
+    Group queue = [SELECT Id FROM Group WHERE Name='Regional Dispatch' AND Type='Queue'];
+       
+    // Iterate through each notification.
+    for (Cloud_News__e event : Trigger.New) {
+        if (event.Urgent__c == true) {
+            // Create Case to dispatch new team.
+            Case cs = new Case();
+            cs.Priority = 'High';
+            cs.Subject = 'News team dispatch to ' + 
+                event.Location__c;
+            cs.OwnerId = queue.Id;
+            cases.add(cs);
+        }
+   }
+    
+    // Insert all cases corresponding to events received.
+    insert cases;
+}
+@isTest
+public class PlatformEventTest {
+    @isTest static void test1() {
+        // Create test event instance
+        Cloud_News__e newsEvent = new Cloud_News__e(
+            Location__c='Mountain City', 
+            Urgent__c=true, 
+            News_Content__c='Test message.');
+        
+        Test.startTest();
+        // Call method to publish events
+        Database.SaveResult sr = EventBus.publish(newsEvent);
+        
+        Test.stopTest();
+        
+        // Perform validation here
+        // Verify that the publish was successful
+        System.assertEquals(true, sr.isSuccess());
+        // Check that the case that the trigger created is present.
+        List<Case> cases = [SELECT Id FROM Case];
+        // Validate that this case was found.
+        // There is only one test case in test context.
+        System.assertEquals(1, cases.size());
+    }
+}
+   # Also, like publishing Event, we can use Process and Flow to subscribe Event
+   # subscribe platform event with CometD (scalable HTTP-based event routing bus)
+   # EMP connector to access CometD (AJAX push pattern with protocol Comet)
+// Connect to the CometD endpoint
+    cometd.configure({
+               url: 'https://<Salesforce_URL>/cometd/45.0/',
+               requestHeaders: { Authorization: 'OAuth <Session_ID>'}
+    });
+{
+  "data": {
+    "schema": "_2DBiqh-utQNAjUH78FdbQ", 
+    "payload": {
+      "CreatedDate": "2017-04-27T16:50:40Z", 
+      "CreatedById": "005D0000001cSZs", 
+      "Location__c": "San Francisco", 
+      "Urgent__c": true, 
+      "News_Content__c": "Large highway is closed due to asteroid collision."
+    }, 
+    "event": {
+      "replayId": 2
+    }
+  }, 
+  "channel": "/event/Cloud_News__e"
+}
+   # GET request: /vXX.X/event/eventSchema/Schema_ID
+   # Retrieve the event schema: /vXX.X/sobjects/Platform_Event_Name__e/eventSchema
+   # Exercise Code
+trigger OrderEventTrigger on Order_Event__e (after insert) {
+	// List to hold all cases to be created.
+    List<Task> cases = new List<Task>();
+       
+    // Iterate through each notification.
+    for (Order_Event__e event : Trigger.New) {
+        if (event.Has_Shipped__c == true) {
+            Task cs = new Task();
+            cs.Priority = 'Medium';
+            cs.Subject = 'Follow up on shipped order ' + event.Order_Number__c;
+            cs.OwnerId = event.CreatedById;
+            cases.add(cs);
+        }
+   }
+    
+    // Insert all cases corresponding to events received.
+    insert cases;
+}
+```
+21. SF connect
+```
+   # when to use SF connect
+   . a large amount of data don't want to be copied into SF
+   . small data at any one time
+   . need real-time access to the latest data
+   . store data in cloud ro back-office system, but want display or access data
+   # 3 types
+   OData 2.0 adapter / OData 4.0 adapter
+   Cross-org adapter: use the standard Lightning Platform REST API.
+   Custom adapter created via Apex Connector Framework
+   # How to set up Ext Integration with SF Connect
+   1) Create the external data source
+   2) Create the external objects and fields
+   3) Define relationships for the external objects
+   4) Enable user access to external objects and fields
+   5) Set up user authentication (Named Principal, Per User)
+   # install Test Package (Admins only) -> Set Customer IDs
+   https://login.salesforce.com/packaging/installPackage.apexp?p0=04tE00000001aqG
+   # Create external data source
+   Setup -> External Data Source -> New -> name, OData 2.0, URL -> save
+   # Create external object
+   Setup -> External Data Source -> Validate and Sync -> choose fields -> Sync
+   __x External Object suffix
+   # Create custom tab to access external object
+   Setup -> Tabs -> New -> change * and save
+   # 3 types of External Objects relationships
+   , Lookup: child object(standard/custom/external), parent obj(standard/custom), ext data contain SF ID (Yes)
+   , External lookup: child obj(standard/custom/external), parent obj(external), No
+   , Indirect lookup: child obj(external), parent obj(standard/custom), No
+   
 ```
