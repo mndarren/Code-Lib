@@ -1,12 +1,17 @@
 # SF Notes (key: CRM)
 =======================<br>
-0. HTTP methods
+0. HTTP methods and suffix
 ```
    GET    - Select
    POST   - Create
    PATCH  - Update
    PUT    - Upsert
    DELETE - Delete
+   __c - Customer Object
+   __e - Platform Event object
+   __x - External Object
+   __r - Relationship
+   ISV - Independent Software Vendor
 ```
 1. Limitation of Batch (Bulk API)
 ```
@@ -1245,3 +1250,423 @@ global class DoAwesomeStuff implements Schedulable {
 CronTrigger job = [SELECT Id, CronJobDetail.Id, CronJobDetail.Name, CronJobDetail.JobType FROM CronTrigger ORDER BY CreatedDate DESC LIMIT 1];
 CronJobDetail ctd = [SELECT Id, Name, JobType FROM CronJobDetail WHERE Id = :job.CronJobDetail.Id];
 SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.JobType = '7’
+```
+20. Event-driven
+```
+   Platform event record: a sObject, not viewable, cannot be edited, but not deleted
+   # 3 types: 
+   . Platform Event: like generic event, but can send record data
+   . PushTopic event (client receiving msg for record change), 
+   . generic event: arbitrary message, not have to tie to record
+   # Platform event usage
+   . send & receive custom event data (Define event schema as typed fields)
+   . pub/sub in Apex
+   . about SF platform
+   . Publish declaratively using Process Builder and Flow Builder
+   # How to set up/publish a platform event?
+   1) Define&publish event: Setup -> Platform events -> New Platform Event ->save->Custom Fields&Relationships New;
+   2) Sf Platform events stored for 24 hours. Retrieve Stored events in API CometD, not in Apex; API name __e
+   3) Publish event by Apex/Process Builder/Flow Builder if using it internal; external usage by SF APIs published
+      Using SF API: /services/data/v40.0/sobjects/Cloud_News__e/
+	     body: {
+                  "Location__c" : "Mountain City",
+                  "Urgent__c" : true,
+                  "News_Content__c" : "Lake Road is closed due to mudslides."
+               }
+   
+// Create an instance of the event and store it in the newsEvent variable
+Cloud_News__e newsEvent = new Cloud_News__e(
+           Location__c='Mountain City', 
+           Urgent__c=true, 
+           News_Content__c='Lake Road is closed due to mudslides.');
+// Call method to publish events
+Database.SaveResult sr = EventBus.publish(newsEvent);
+// Inspect publishing result 
+if (sr.isSuccess()) {
+    System.debug('Successfully published event.');
+} else {
+    for(Database.Error err : sr.getErrors()) {
+        System.debug('Error returned: ' +
+                     err.getStatusCode() +
+                     ' - ' +
+                     err.getMessage());
+    }
+}
+   # multiple events published
+// List to hold event objects to be published.
+List<Cloud_News__e> newsEventList = new List<Cloud_News__e>();
+// Create event objects.
+Cloud_News__e newsEvent1 = new Cloud_News__e(
+           Location__c='Mountain City', 
+           Urgent__c=true, 
+           News_Content__c='Lake Road is closed due to mudslides.');
+Cloud_News__e newsEvent2 = new Cloud_News__e(
+           Location__c='Mountain City', 
+           Urgent__c=false, 
+           News_Content__c='Small incident on Goat Lane causing traffic.');
+// Add event objects to the list.
+newsEventList.add(newsEvent1);
+newsEventList.add(newsEvent2);
+// Call method to publish events.
+List<Database.SaveResult> results = EventBus.publish(newsEventList);
+// Inspect publishing result for each event
+for (Database.SaveResult sr : results) {
+    if (sr.isSuccess()) {
+        System.debug('Successfully published event.');
+    } else {
+        for(Database.Error err : sr.getErrors()) {
+            System.debug('Error returned: ' +
+                        err.getStatusCode() +
+                        ' - ' +
+                        err.getMessage());
+        }
+    }       
+}
+   # limits
+   . The allOrNoneHeader API header is ignored when you publish platform events through the API
+   . The Apex setSavepoint() and rollback() Database methods aren’t supported with platform events.
+   
+   # Subscribe Events (Triggers, processes, flows)
+   # Subscribe Events with Trigger
+   . not need listen to the channel
+   . only support after insert Trigger
+   . not like on other objects, trigger on event only execute once for the same transaction
+   . Automated Process entity as a user, Developer Console can not see unless adding a trace flag entry
+   # How to add a flag entry for Automated Process entity
+   Setup -> Debug Logs -> New -> Automated Process type, choose dates, * search level -> save
+   # Notes about platform event trigger
+   . a trigger can receive a batch of events at once, order in the batch
+   . Asynchronous trigger execution. might delay
+   . Automated Process System user, not a common user
+   . Apex Governor limits & Apex Trigger Limitations
+   # Test Event Trigger Example code
+// Trigger for listening to Cloud_News events.
+trigger CloudNewsTrigger on Cloud_News__e (after insert) {    
+    // List to hold all cases to be created.
+    List<Case> cases = new List<Case>();
+    
+    // Get queue Id for case owner
+    Group queue = [SELECT Id FROM Group WHERE Name='Regional Dispatch' AND Type='Queue'];
+       
+    // Iterate through each notification.
+    for (Cloud_News__e event : Trigger.New) {
+        if (event.Urgent__c == true) {
+            // Create Case to dispatch new team.
+            Case cs = new Case();
+            cs.Priority = 'High';
+            cs.Subject = 'News team dispatch to ' + 
+                event.Location__c;
+            cs.OwnerId = queue.Id;
+            cases.add(cs);
+        }
+   }
+    
+    // Insert all cases corresponding to events received.
+    insert cases;
+}
+@isTest
+public class PlatformEventTest {
+    @isTest static void test1() {
+        // Create test event instance
+        Cloud_News__e newsEvent = new Cloud_News__e(
+            Location__c='Mountain City', 
+            Urgent__c=true, 
+            News_Content__c='Test message.');
+        
+        Test.startTest();
+        // Call method to publish events
+        Database.SaveResult sr = EventBus.publish(newsEvent);
+        
+        Test.stopTest();
+        
+        // Perform validation here
+        // Verify that the publish was successful
+        System.assertEquals(true, sr.isSuccess());
+        // Check that the case that the trigger created is present.
+        List<Case> cases = [SELECT Id FROM Case];
+        // Validate that this case was found.
+        // There is only one test case in test context.
+        System.assertEquals(1, cases.size());
+    }
+}
+   # Also, like publishing Event, we can use Process and Flow to subscribe Event
+   # subscribe platform event with CometD (scalable HTTP-based event routing bus)
+   # EMP connector to access CometD (AJAX push pattern with protocol Comet)
+// Connect to the CometD endpoint
+    cometd.configure({
+               url: 'https://<Salesforce_URL>/cometd/45.0/',
+               requestHeaders: { Authorization: 'OAuth <Session_ID>'}
+    });
+{
+  "data": {
+    "schema": "_2DBiqh-utQNAjUH78FdbQ", 
+    "payload": {
+      "CreatedDate": "2017-04-27T16:50:40Z", 
+      "CreatedById": "005D0000001cSZs", 
+      "Location__c": "San Francisco", 
+      "Urgent__c": true, 
+      "News_Content__c": "Large highway is closed due to asteroid collision."
+    }, 
+    "event": {
+      "replayId": 2
+    }
+  }, 
+  "channel": "/event/Cloud_News__e"
+}
+   # GET request: /vXX.X/event/eventSchema/Schema_ID
+   # Retrieve the event schema: /vXX.X/sobjects/Platform_Event_Name__e/eventSchema
+   # Exercise Code
+trigger OrderEventTrigger on Order_Event__e (after insert) {
+	// List to hold all cases to be created.
+    List<Task> cases = new List<Task>();
+       
+    // Iterate through each notification.
+    for (Order_Event__e event : Trigger.New) {
+        if (event.Has_Shipped__c == true) {
+            Task cs = new Task();
+            cs.Priority = 'Medium';
+            cs.Subject = 'Follow up on shipped order ' + event.Order_Number__c;
+            cs.OwnerId = event.CreatedById;
+            cases.add(cs);
+        }
+   }
+    
+    // Insert all cases corresponding to events received.
+    insert cases;
+}
+```
+21. SF connect
+```
+   # when to use SF connect
+   . a large amount of data don't want to be copied into SF
+   . small data at any one time
+   . need real-time access to the latest data
+   . store data in cloud ro back-office system, but want display or access data
+   # 3 types
+   OData 2.0 adapter / OData 4.0 adapter
+   Cross-org adapter: use the standard Lightning Platform REST API.
+   Custom adapter created via Apex Connector Framework
+   # How to set up Ext Integration with SF Connect
+   1) Create the external data source
+   2) Create the external objects and fields
+   3) Define relationships for the external objects
+   4) Enable user access to external objects and fields
+   5) Set up user authentication (Named Principal, Per User)
+   # install Test Package (Admins only) -> Set Customer IDs
+   https://login.salesforce.com/packaging/installPackage.apexp?p0=04tE00000001aqG
+   # Create external data source
+   Setup -> External Data Source -> New -> name, OData 2.0, URL -> save
+   # Create external object
+   Setup -> External Data Source -> Validate and Sync -> choose fields -> Sync
+   __x External Object suffix
+   # Create custom tab to access external object
+   Setup -> Tabs -> New -> change * and save
+   # 3 types of External Objects relationships
+   , Lookup: child object(standard/custom/external), parent obj(standard/custom), ext data contain SF ID (Yes)
+   , External lookup: child obj(standard/custom/external), parent obj(external), No
+   , Indirect lookup: child obj(external), parent obj(standard/custom), No
+   # configure Indirect lookup relationship (External Order to Account)
+   # Enable Chatter for External Data
+   Setup/Feed Tracking/Feed Tracking/Orders/Enable Feed Tracking/Save (The Follow button for Chatter feed)
+```
+22. SF Development 
+```
+   # 3 types SF development
+   . Change set development
+   . Org development
+   . Package development
+   # ALM process (ALM: Application Lifecycle Management)
+   1) Plan Release
+   2) Develop
+   3) Test
+   4) Build release
+   5) Test Release
+   6) Release
+   # Release Management process (Patch, Minor, Major)
+   # Limitation for Change sets: only cannot delete fields, but adding fields
+   # Package development: can include many project in one container
+   # Prepare Release Environment: Develop and test steps -> Build release -> Test release -> Release
+   *** have to manually migrate a change if the changed component not supported in Metadata API yet.
+   # Authorize a Deployment Connection
+   Setup -> Deployment Settings -> Edit -> Allow Inbound Changes -> Save
+   # How to modify contents of uploaded change set?
+   Clone the change set -> Modify the clone -> upload modified clone
+   # Test integration Environment and deploy changes
+   Clone a change set, validate a change set, Deploy a change set
+   # Whole process current
+   Dev sandbox -> Dev Pro sandbox -> Full sandbox -> production
+   # Org development: pain point - error since difference between different environments
+   Tools: Change list, 
+   Deployment run list (non deployed metadata, like profile and permission set assignments),
+   Project management tools: Agile accelerator, Jira
+   # SFDX command to retrieve the new custom object and custom field
+   sfdx force:source:retrieve --metadata CustomObject:Language_Course_Instructor__c,CustomField:Language_Course__c.Course_Instructor__c
+   # Deploy change to Sandbox
+   sfdx force:source:deploy --metadata CustomObject:Language_Course_Instructor__c, \
+      CustomField:Language_Course__c.Course_Instructor__c
+   # Build release artifact
+   sfdx force:source:convert --help  # in SF DX project directory
+   sfdx force:source:convert --rootdir force-app --outputdir tmp_convert
+   jar -cfM winter19.zip tmp_convert  # windows
+   zip -r winter19.zip tmp_convert  # Linux
+   zip -r -X winter19.zip tmp_convert  # Mac
+   rmdir /s tmp_convert  # Windows
+   rm -r tmp_convert  # Mac/Linux
+   # force:source:deploy is for Development SBX
+   # force:mdapi:deploy is for Full SBX
+   sfdx force:mdapi:deploy --zipfile winter19.zip --targetusername partial-sandbox \
+              --testlevel RunSpecifiedTests --runtests TestLanguageCourseTrigger
+   sfdx force:org:open --targetusername partial-sandbox  # then Perform user-acceptance tests
+   # Test in Full SBX. Authorize to Full SBX first
+   sfdx force:mdapi:deploy --checkonly --zipfile winter19.zip --targetusername full-sandbox \
+--testlevel RunLocalTests
+   sfdx force:mdapi:deploy --checkonly --zipfile winter19.zip --targetusername full-sandbox \
+--testlevel RunSpecifiedTests --runtests TestLanguageCourseTrigger
+   sfdx force:mdapi:deploy --targetusername full-sandbox --validateddeployrequestid jobID  # get jobID from the previous step
+```
+23. Platform Cache (Org Cache & Session cache)
+```
+   # thoughts: Reused throught=out a session, Static, Expensive to compute, SOQL queries, API calls
+   # List of Static things
+   . public transit schedule
+   . company shuttle bus schedule
+   . tab headers that all users see
+   . a static navigation bar that appears on every page of your app
+   . a user's shopping cart that you want to persist during a session
+   . Daily snapshots of exchange rates
+   # cannot be in cache: data being accessed by asynchronous Apex (10 MB for Enterprise Edition, 30MB for unlimited and Performance)
+   . Org cache: org-wide data, session/requests/org users can use it
+   . Session cache: individual user, with user session. Max life of a session is 8 hours
+   # Cache Partition: each partition includes org cache and session cache. Minimum partition size = 5MB
+   Cache.Org.put('key', 0);
+   Cache.Org.put('namespace.partition.key', 0);
+   Namespace.Partition.Key (org name/local for Namespace), like local.CurrencyCache.DollarToEuroRate
+   Cache.Org.put('local.CurrencyCache.DollarToEuroRate', '0.91');
+   # get Cache value
+// Get partition
+Cache.OrgPartition orgPart = Cache.Org.getPartition('local.CurrencyCache');
+// Add cache value to the partition. Usually, the value is obtained from a 
+// callout, but hardcoding it in this example for simplicity.
+orgPart.put('DollarToEuroRate', '0.91');
+// Retrieve cache value from the partition
+String cachedRate = (String)orgPart.get('DollarToEuroRate');
+   # Algorithm: LRU (least recently used)
+   # How to control cache missing
+Cache.OrgPartition orgPart = Cache.Org.getPartition('local.CurrencyCache');
+String cachedRate = (String)orgPart.get('DollarToEuroRate');
+// Check the cache value that the get() call returned.
+if (cachedRate != null) {
+    // Display this exchange rate   
+} else {
+    // We have a cache miss, so fetch the value from the source.
+    // Call an API to get the exchange rate.
+}
+   # Session Cache usage
+// Get partition
+Cache.SessionPartition sessionPart = Cache.Session.getPartition('local.CurrencyCache');
+// Add cache value to the partition
+sessionPart.put('FavoriteCurrency', 'JPY');
+// Retrieve cache value from the partition
+String cachedRate = (String)sessionPart.get('FavoriteCurrency');
+   # Access Platform Cache with VF Global variables
+   <apex:outputText value="{!$Cache.Session.local.MyPartition.Key}"/>
+   <apex:outputText value="{!$Cache.Session.local.MyPartition.numbersList.size}"/>
+   <apex:outputText value="{!$Cache.Session.local.MyPartition.myData.value}"/>
+   # Protected Cache allocation for ISV Apps
+   Add cache partition to your package as components
+   # about packaged partition
+   . must be nondefault partition
+   . installing your app with packaged cache will install related cache partition
+   . Subscribers must have Enterprise / Unlimited Edition / purchased platform cache
+   # Exercise Code
+public class BusScheduleCache {
+	private Cache.OrgPartition part;
+    
+    public BusScheduleCache(){
+        Cache.OrgPartition part1 = Cache.Org.getPartition('local.BusSchedule');
+        this.part = part1;
+    }
+    public void putSchedule(String busLine, Time[] schedule){
+        part.put(busLine, schedule);
+    }
+    public Time[] getSchedule(String busLine){
+        Time[] scheduleTime = (Time[])part.get(busLine);
+        if (scheduleTime == null){
+            return new Time[]{Time.newInstance(8,0,0,0), Time.newInstance(17, 0, 0, 0)};
+        }
+        return scheduleTime;
+    }
+}
+   # Example Code
+public class ExchangeRates {
+    private String currencies = 'EUR,GBP,CAD,PLN,INR,AUD,SGD,CHF,MYR,JPY,CNY';
+    public String getCurrencies() { return currencies;}
+    public Exchange_Rate__c[] rates {get; set;}
+    //                                                                          
+    // Checks if the data is old and gets new data from an external web service 
+    // through a callout. Calls getCachedRates() to manage the cache.           
+    // 
+    public void init() {
+        // Let's query the latest data from Salesforce
+        Exchange_Rate__c[] latestRecords = ([SELECT CreatedDate FROM Exchange_Rate__c 
+                        WHERE Base_Currency__c =:RateLib.baseCurrencies 
+                              AND forList__c = true 
+                        ORDER BY CreatedDate DESC
+                        LIMIT 1]);
+        
+        // If what we have in Salesforce is old, get fresh data from the API
+        if ( latestRecords == null  
+            || latestRecords.size() == 0 
+            || latestRecords[0].CreatedDate.date() < Datetime.now().date()) {
+            // Do API request and parse value out
+            String tempString = RateLib.getLoadRate(currencies);
+            Map<String, String> apiStrings = RateLib.getParseValues(
+                tempString, currencies);
+            
+            // Let's store the data in Salesforce
+            RateLib.saveRates(apiStrings);
+            // Remove the cache key so it gets refreshed in getCachedRates()
+            Cache.Org.remove('Rates');
+        }
+        // Call method to manage the cache
+        rates = getCachedRates();
+    }
+    //                                                                          
+    // Main method for managing the org cache.                                  
+    // - Returns exchange rates (Rates key) from the org cache.                 
+    // - Checks for a cache miss.                                               
+    // - If there is a cache miss, returns exchange rates from Salesforce       
+    //    through a SOQL query, and updates the cached value.                   
+    //
+    public Exchange_Rate__c[] getCachedRates() {
+        // Get the cached value for key named Rates
+        Exchange_Rate__c[] rates = (Exchange_Rate__c[])Cache.Org.get(
+            RateLib.cacheName+'Rates');
+        
+        // Is it a cache miss? 
+        if(rates == null) {
+            // There was a cache miss so get the data via SOQL
+            rates = [SELECT Id, Base_Currency__c, To_Currency__c, Rate__c 
+                        FROM Exchange_Rate__c 
+                        WHERE Base_Currency__c =:RateLib.baseCurrencies 
+                              AND forList__c = true
+                              AND CreatedDate = TODAY];
+            // Reload the cache
+            Cache.Org.put(RateLib.cacheName+'Rates', rates);
+        }
+        return rates;
+    }
+}
+<apex:page controller="ExchangeRates" action="{!init}">
+    
+   <apex:pageBlock title="Rates">
+      <apex:pageBlockTable value="{!Rates}" var="rate">
+         <apex:column value="{!rate.Base_Currency__c}"/>
+         <apex:column value="{!rate.To_Currency__c}"/>
+         <apex:column value="{!rate.Rate__c }"/>
+      </apex:pageBlockTable>
+   </apex:pageBlock>
+   
+</apex:page>
+
+```
