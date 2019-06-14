@@ -10,6 +10,8 @@
    __c - Customer Object
    __e - Platform Event object
    __x - External Object
+   __r - Relationship
+   ISV - Independent Software Vendor
 ```
 1. Limitation of Batch (Bulk API)
 ```
@@ -1502,4 +1504,169 @@ trigger OrderEventTrigger on Order_Event__e (after insert) {
    # Deploy change to Sandbox
    sfdx force:source:deploy --metadata CustomObject:Language_Course_Instructor__c, \
       CustomField:Language_Course__c.Course_Instructor__c
+   # Build release artifact
+   sfdx force:source:convert --help  # in SF DX project directory
+   sfdx force:source:convert --rootdir force-app --outputdir tmp_convert
+   jar -cfM winter19.zip tmp_convert  # windows
+   zip -r winter19.zip tmp_convert  # Linux
+   zip -r -X winter19.zip tmp_convert  # Mac
+   rmdir /s tmp_convert  # Windows
+   rm -r tmp_convert  # Mac/Linux
+   # force:source:deploy is for Development SBX
+   # force:mdapi:deploy is for Full SBX
+   sfdx force:mdapi:deploy --zipfile winter19.zip --targetusername partial-sandbox \
+              --testlevel RunSpecifiedTests --runtests TestLanguageCourseTrigger
+   sfdx force:org:open --targetusername partial-sandbox  # then Perform user-acceptance tests
+   # Test in Full SBX. Authorize to Full SBX first
+   sfdx force:mdapi:deploy --checkonly --zipfile winter19.zip --targetusername full-sandbox \
+--testlevel RunLocalTests
+   sfdx force:mdapi:deploy --checkonly --zipfile winter19.zip --targetusername full-sandbox \
+--testlevel RunSpecifiedTests --runtests TestLanguageCourseTrigger
+   sfdx force:mdapi:deploy --targetusername full-sandbox --validateddeployrequestid jobID  # get jobID from the previous step
+```
+23. Platform Cache (Org Cache & Session cache)
+```
+   # thoughts: Reused throught=out a session, Static, Expensive to compute, SOQL queries, API calls
+   # List of Static things
+   . public transit schedule
+   . company shuttle bus schedule
+   . tab headers that all users see
+   . a static navigation bar that appears on every page of your app
+   . a user's shopping cart that you want to persist during a session
+   . Daily snapshots of exchange rates
+   # cannot be in cache: data being accessed by asynchronous Apex (10 MB for Enterprise Edition, 30MB for unlimited and Performance)
+   . Org cache: org-wide data, session/requests/org users can use it
+   . Session cache: individual user, with user session. Max life of a session is 8 hours
+   # Cache Partition: each partition includes org cache and session cache. Minimum partition size = 5MB
+   Cache.Org.put('key', 0);
+   Cache.Org.put('namespace.partition.key', 0);
+   Namespace.Partition.Key (org name/local for Namespace), like local.CurrencyCache.DollarToEuroRate
+   Cache.Org.put('local.CurrencyCache.DollarToEuroRate', '0.91');
+   # get Cache value
+// Get partition
+Cache.OrgPartition orgPart = Cache.Org.getPartition('local.CurrencyCache');
+// Add cache value to the partition. Usually, the value is obtained from a 
+// callout, but hardcoding it in this example for simplicity.
+orgPart.put('DollarToEuroRate', '0.91');
+// Retrieve cache value from the partition
+String cachedRate = (String)orgPart.get('DollarToEuroRate');
+   # Algorithm: LRU (least recently used)
+   # How to control cache missing
+Cache.OrgPartition orgPart = Cache.Org.getPartition('local.CurrencyCache');
+String cachedRate = (String)orgPart.get('DollarToEuroRate');
+// Check the cache value that the get() call returned.
+if (cachedRate != null) {
+    // Display this exchange rate   
+} else {
+    // We have a cache miss, so fetch the value from the source.
+    // Call an API to get the exchange rate.
+}
+   # Session Cache usage
+// Get partition
+Cache.SessionPartition sessionPart = Cache.Session.getPartition('local.CurrencyCache');
+// Add cache value to the partition
+sessionPart.put('FavoriteCurrency', 'JPY');
+// Retrieve cache value from the partition
+String cachedRate = (String)sessionPart.get('FavoriteCurrency');
+   # Access Platform Cache with VF Global variables
+   <apex:outputText value="{!$Cache.Session.local.MyPartition.Key}"/>
+   <apex:outputText value="{!$Cache.Session.local.MyPartition.numbersList.size}"/>
+   <apex:outputText value="{!$Cache.Session.local.MyPartition.myData.value}"/>
+   # Protected Cache allocation for ISV Apps
+   Add cache partition to your package as components
+   # about packaged partition
+   . must be nondefault partition
+   . installing your app with packaged cache will install related cache partition
+   . Subscribers must have Enterprise / Unlimited Edition / purchased platform cache
+   # Exercise Code
+public class BusScheduleCache {
+	private Cache.OrgPartition part;
+    
+    public BusScheduleCache(){
+        Cache.OrgPartition part1 = Cache.Org.getPartition('local.BusSchedule');
+        this.part = part1;
+    }
+    public void putSchedule(String busLine, Time[] schedule){
+        part.put(busLine, schedule);
+    }
+    public Time[] getSchedule(String busLine){
+        Time[] scheduleTime = (Time[])part.get(busLine);
+        if (scheduleTime == null){
+            return new Time[]{Time.newInstance(8,0,0,0), Time.newInstance(17, 0, 0, 0)};
+        }
+        return scheduleTime;
+    }
+}
+   # Example Code
+public class ExchangeRates {
+    private String currencies = 'EUR,GBP,CAD,PLN,INR,AUD,SGD,CHF,MYR,JPY,CNY';
+    public String getCurrencies() { return currencies;}
+    public Exchange_Rate__c[] rates {get; set;}
+    //                                                                          
+    // Checks if the data is old and gets new data from an external web service 
+    // through a callout. Calls getCachedRates() to manage the cache.           
+    // 
+    public void init() {
+        // Let's query the latest data from Salesforce
+        Exchange_Rate__c[] latestRecords = ([SELECT CreatedDate FROM Exchange_Rate__c 
+                        WHERE Base_Currency__c =:RateLib.baseCurrencies 
+                              AND forList__c = true 
+                        ORDER BY CreatedDate DESC
+                        LIMIT 1]);
+        
+        // If what we have in Salesforce is old, get fresh data from the API
+        if ( latestRecords == null  
+            || latestRecords.size() == 0 
+            || latestRecords[0].CreatedDate.date() < Datetime.now().date()) {
+            // Do API request and parse value out
+            String tempString = RateLib.getLoadRate(currencies);
+            Map<String, String> apiStrings = RateLib.getParseValues(
+                tempString, currencies);
+            
+            // Let's store the data in Salesforce
+            RateLib.saveRates(apiStrings);
+            // Remove the cache key so it gets refreshed in getCachedRates()
+            Cache.Org.remove('Rates');
+        }
+        // Call method to manage the cache
+        rates = getCachedRates();
+    }
+    //                                                                          
+    // Main method for managing the org cache.                                  
+    // - Returns exchange rates (Rates key) from the org cache.                 
+    // - Checks for a cache miss.                                               
+    // - If there is a cache miss, returns exchange rates from Salesforce       
+    //    through a SOQL query, and updates the cached value.                   
+    //
+    public Exchange_Rate__c[] getCachedRates() {
+        // Get the cached value for key named Rates
+        Exchange_Rate__c[] rates = (Exchange_Rate__c[])Cache.Org.get(
+            RateLib.cacheName+'Rates');
+        
+        // Is it a cache miss? 
+        if(rates == null) {
+            // There was a cache miss so get the data via SOQL
+            rates = [SELECT Id, Base_Currency__c, To_Currency__c, Rate__c 
+                        FROM Exchange_Rate__c 
+                        WHERE Base_Currency__c =:RateLib.baseCurrencies 
+                              AND forList__c = true
+                              AND CreatedDate = TODAY];
+            // Reload the cache
+            Cache.Org.put(RateLib.cacheName+'Rates', rates);
+        }
+        return rates;
+    }
+}
+<apex:page controller="ExchangeRates" action="{!init}">
+    
+   <apex:pageBlock title="Rates">
+      <apex:pageBlockTable value="{!Rates}" var="rate">
+         <apex:column value="{!rate.Base_Currency__c}"/>
+         <apex:column value="{!rate.To_Currency__c}"/>
+         <apex:column value="{!rate.Rate__c }"/>
+      </apex:pageBlockTable>
+   </apex:pageBlock>
+   
+</apex:page>
+
 ```
