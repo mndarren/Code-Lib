@@ -11,6 +11,11 @@ https://www.qt86.com/182
 # cut film
 https://www.jb51.net/softs/651634.html
 Tip: install this in a VM as a sandbox because sometimes it'll crash your computer.
+# Spring 2019 Recital Pictures link
+https://drive.google.com/drive/folders/1jWlTbiYg2lj4KNIA_LrTNUefOz_LZeP8?usp=sharing
+https://drive.google.com/open?id=1Czi8Fj44iEVrNRIjgMrVWUTD-FglgfjR
+https://drive.google.com/drive/folders/1_UvtXmgo2bm8OJ1e4KNERLAoFsmbMN-a?usp=sharing
+https://www.youtube.com/playlist?list=PL2NNTiyRG-4WjhmwfBrAy5sKHHZqtWTAd
 ```
 1. Remove phone number 651-246-5735 (Done)
 2. Move Dance of Joy - IX 2018 (Done)
@@ -93,3 +98,4 @@ Tip: install this in a VM as a sandbox because sometimes it'll crash your comput
 70. Update website summer session schedule/registration 2019 (Done)
 71. update all Videos cover pictures on YouTube (Done)
 72. Jianglan Li Visa extention
+73. Update images for Spring 2019 Recital (Done)
