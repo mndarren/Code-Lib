@@ -88,3 +88,8 @@ Tip: install this in a VM as a sandbox because sometimes it'll crash your comput
 65. Remove the Happy new year gif (Done)
 66. Split 2019 Chinese New Year video into each show (Done)
 67. Upload videos to YouTube(Done)
+68. 6/2/2019 Spring Recital performance Music Control (Done)
+69. All videos Editing and uploading YouTube (Done)
+70. Update website summer session schedule/registration 2019 (Done)
+71. update all Videos cover pictures on YouTube (Done)
+72. Jianglan Li Visa extention
