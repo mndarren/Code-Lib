@@ -11,6 +11,13 @@ https://www.qt86.com/182
 # cut film
 https://www.jb51.net/softs/651634.html
 Tip: install this in a VM as a sandbox because sometimes it'll crash your computer.
+# New Year 2019
+https://drive.google.com/open?id=1eeIVe3ZzLyClBQ7X0xz8ITBAuhMhJE8u
+https://drive.google.com/open?id=10UCFojL8X6V6vLuIslDTwnUKVjTbhcSm
+https://drive.google.com/drive/folders/1IN5rKTocignx5uIgZ8Q7_JTgoY0LN2ud
+https://drive.google.com/drive/folders/1CsyReerCg_nOB4bZsGfn5AgxjYrAd2fT
+https://photos.google.com/share/AF1QipMS-lG-FFF27dpaGbFyWO_6J_ACwSuX6e4pruva_pey5vd1pTPHUZ8G-q5kUulGHg?key=ZXZPTmF4ZkdKbjhXMDJaNklPTVVIV1A3WksyWmZB
+https://onedrive.live.com/?authkey=%21AMlWpxSRoJbTKoY&v=photos&id=6570FCB3704DDAAD%214025&cid=6570FCB3704DDAAD
 # Spring 2019 Recital Pictures link
 https://drive.google.com/drive/folders/1jWlTbiYg2lj4KNIA_LrTNUefOz_LZeP8?usp=sharing
 https://drive.google.com/open?id=1Czi8Fj44iEVrNRIjgMrVWUTD-FglgfjR
