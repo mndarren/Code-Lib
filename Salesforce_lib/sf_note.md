@@ -11,6 +11,7 @@
    __e - Platform Event object
    __x - External Object
    __r - Relationship
+   __b - Big Object
    ISV - Independent Software Vendor
    SLDS - Salesforce Lightning Design System
 ```
@@ -2029,5 +2030,68 @@ public class ExchangeRates {
 ```
 25. Big Objects
 ```
+   # Objects: standard, custom, external objects
+   # Big Objects: Standard Big object(e.g. FieldHistoryArchive ), Custom Bit Objects
+   # Usage for Big Custom Object
+   . 360 View of Customer
+   . Auditing and Tracking
+   . Historical Archive
+   # Querying Big Objects (SOQL, Async SOQL)
+   # The Catch
+   . only support object and field permissions
+   . 100 big objects per org
+   . Cannot edit or delete the index once deployed a big object
+   . support SF Lightning and VF, but not standard UI elements
+   . not support transactions
+   . cannot use triggers, flows, processes and SF app
+   # how to define Custom Big Objects
+   setup -> Big Object -> New -> fields -> index -> save -> deploy
+   # Deleted big objects are stored for 15 days
+   # Populating Big Objects (Data Loader to csv file OR Apex)
+   # Example Code
+// Define the record
+Customer_Interaction__b bo = new Customer_Interaction__b();
+bo.Account__c = '001R000000302D3';
+bo.Game_Platform__c = 'PC';
+bo.Play_Date__c = DateTime.newInstance(2018, 2, 5);
+bo.In_Game_Purchase__c = 'A12569';
+bo.Level_Achieved__c = '45';
+bo.Lives_This_Game__c = '3';
+bo.Score_This_Game__c = '5500';
+bo.Play_Duration__c = 25;
+ 
+// Modify a field not included in the index
+bo.Level_Achieved__c = '1';
+ 
+// Insert the record, which updates the second record because the index is the same 
+database.insertImmediate(bo);
+   # Async SOQL is implemented via the Chatter REST API
+   # Use Async SOQL unless to use SOQL when small data query and immediately result need
+   # Example Query SOQL for big object
+SELECT Account__c, Game_Platform__c, Play_Date__c
+FROM Customer_Interaction__b
+WHERE Account__c='001R000000302D3' AND Game_Platform__c='PC' AND Play_Date__c=2017-09-06T00:00:00Z
+   # Async SOQL
+   . supported functions: AVG(field), COUNT(field), COUNT_DISTINCT(field), SUM(field), MIN(field), MAX(field).
+   . URI: https://yourInstance.salesforce.com/services/data/v41.0/async-queries/
+   . POST Body:
+{ 
+   "query": "SELECT Account__c, In_Game_Purchase__c FROM Customer_Interaction__b WHERE Play_Date__c=2017-09-06T00:00:00Z",
    
+   "operation": "insert",
+   
+   "targetObject": "Customer_Interaction_Analysis__c", 
+        
+   "targetFieldMap": {"Account__c":"Account__c",
+                      "In_Game_Purchase__c":"Purchase__c"
+                      },
+   "targetValueMap": {"$JOB_ID":"BackgroundOperationLookup__c",
+                      "Copy fields from source to target":"BackgroundOperationDescription__c"
+                     }
+}
+   # Tracking the Status of Your Query (GET)
+   . URI: https://yourInstance.salesforce.com/services/data/v41.0/async-queries/08PD000000003kiT
+   # Handling Errors
+   . 2 types error: in query execution | Writing the results into the target big object
+   . Errors stored in BackgroundOperationResult object and retained for 7 days. Query this object by jobId
 ```
