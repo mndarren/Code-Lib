@@ -12,6 +12,7 @@
    __x - External Object
    __r - Relationship
    ISV - Independent Software Vendor
+   SLDS - Salesforce Lightning Design System
 ```
 1. Limitation of Batch (Bulk API)
 ```
@@ -1668,5 +1669,365 @@ public class ExchangeRates {
    </apex:pageBlock>
    
 </apex:page>
-
+```
+23. Event Monitoring (API-only feature)
+```
+   # Event types: Logins, Logouts, URI, Lightning, VF page loads, API calls, Apex executions, Report exports
+   DE can access all log types with one-day retention; 
+   Enterprise, Unlimited, and Performance Edition can access + insecure external assets, login and logout files 1-day retention
+   # Usages
+   . Logins monitoring
+   . Monitor data loss (Ex: some left employee shared data to a competitor.)
+   . Increase adoption (which part of your company needs redevelopment)
+   . Optimize performance 
+   # Event monitoring needs 2 permissions: "API Enabled" and "View Event Log File"
+   # Workbench examples
+   REST: /services/data/v45.0/query?q=SELECT+Id+,+EventType+,+LogDate+,+LogFileLength+,+LogFile+FROM+EventLogFile++WHERE+EventType+=+'ReportExport'
+   # Download log file (event log file browser / cURL script / Python script)
+   . browser directly download: https://salesforce-elf.herokuapp.com/ -> production
+   . cURL: https://${instance}.salesforce.com/services/data/v34.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day}
+   . Python script: http://www.salesforcehacker.com/2015/03/elfpy-tasty-little-script-for.html
+   # Event Monitoring anlytics App
+   Splunk App for Salesforce / FairWarning / CloudLock and CloudLock Viewer /New Rlic Insights
+```
+24. Visualforce
+```
+   # when to use declarative tools (clicks)
+   . faster and cheaper to build
+   . require less maintenance
+   . receive automatic upgrades
+   . aren't subject to governor limits
+   # common tools
+   . quick actions
+   . page layout customization
+   . formula fields and roll-up summary fields
+   . validation rules
+   . workflows and approval processes
+   . custom fields and objects
+   # programmatic tools (code)
+   . support specialized or complex business processes
+   . provide highly customized UI
+   . Connect to or integrate with 3rd systems
+   # how to add a VF page to navigator (Visualforce pages, Tabs, Mobile App)
+   Enable the page for mobile -> create a tab for the page -> add the tab to SF menu
+   # SLDS
+   <apex:slds />
+   <div class="slds-scope">...</div>
+   # Example Code
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+      <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>SLDS LatestAccounts Visualforce Page in Salesforce Mobile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!-- Import the Design System style sheet -->
+      <apex:slds />
+    </head>   
+      <apex:remoteObjects >
+  		<apex:remoteObjectModel name="Account" fields="Id,Name,LastModifiedDate"/>
+	</apex:remoteObjects>
+    <body>
+      <!-- REQUIRED SLDS WRAPPER -->
+      <div class="slds-scope">
+         <!-- PRIMARY CONTENT WRAPPER -->
+         <div class="myapp">
+             <!-- ACCOUNT LIST TABLE -->
+  				<div id="account-list" class="slds-p-vertical--medium"></div>
+			<!-- / ACCOUNT LIST TABLE -->
+         </div>
+         <!-- / PRIMARY CONTENT WRAPPER -->
+      </div>
+      <!-- / REQUIRED SLDS WRAPPER -->
+      <!-- JAVASCRIPT -->
+      <!-- / JAVASCRIPT -->
+        <script>
+(function() {
+  var outputDiv = document.getElementById('account-list');
+  var account = new SObjectModel.Account();
+  var updateOutputDiv = function() {
+    account.retrieve(
+      { orderby: [{ LastModifiedDate: 'DESC' }], limit: 10 },
+      function(error, records) {
+        if (error) {
+          alert(error.message);
+        } else {
+          // create data table
+          var dataTable = document.createElement('table');
+           dataTable.className = 'slds-table slds-table--bordered slds-text-heading_small';
+          // add header row
+          var tableHeader = dataTable.createTHead();
+          var tableHeaderRow = tableHeader.insertRow();
+          var tableHeaderRowCell1 = tableHeaderRow.insertCell(0);
+          tableHeaderRowCell1.appendChild(document.createTextNode('Latest Accounts'));
+          tableHeaderRowCell1.setAttribute('scope', 'col');
+          tableHeaderRowCell1.setAttribute('class', 'slds-text-heading_medium');
+          // build table body
+          var tableBody = dataTable.appendChild(document.createElement('tbody'))
+          var dataRow, dataRowCell1, recordName, data_id;
+          records.forEach(function(record) {
+            dataRow = tableBody.insertRow();
+            dataRowCell1 = dataRow.insertCell(0);
+            recordName = document.createTextNode(record.get('Name'));
+            dataRowCell1.appendChild(recordName);
+          });
+          if (outputDiv.firstChild) {
+            // replace table if it already exists
+            // see later in tutorial
+            outputDiv.replaceChild(dataTable, outputDiv.firstChild);
+          } else {
+            outputDiv.appendChild(dataTable);
+          }
+        }
+      }
+    );
+  }
+  updateOutputDiv();
+})();
+</script>
+    </body>
+  </html>
+</apex:page>
+   # Exercise Code
+<apex:page standardController="Contact" recordSetVar="contacts" >
+    <html>
+        <apex:slds />
+        <head>
+        </head>       
+        <body>           
+            <dl class="slds-list_horizontal slds-wrap">
+                <apex:repeat value="{!contacts}" var="c">
+                     <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Name"> {!c.Name}   </dt>
+                     <dd class="slds-item_detail slds-truncate" title="Phone"> {!c.Phone} </dd>
+                </apex:repeat>
+            </dl>      
+        </body>
+    </html>  
+</apex:page>
+   # Global action vs object-specific actions
+   Global actions for implementing micro-tasks
+   # Create Global Action
+   Create a VF page -> enable Mobile for the VF page -> create Actions -> Add global action to publisher layout
+<apex:page docType="html-5.0" title="Create Account">
+    
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="Account" fields="Id,Name"/>
+    </apex:remoteObjects>
+    
+    <div class="mypage">
+        Account Name:
+        <input type="text" id="accountName"/>
+        <button onclick="createAccount()">Create Account</button>
+    </div>
+    
+    <script>
+        function createAccount() {
+            var accountName = document.getElementById("accountName").value;
+            var account = new SObjectModel.Account();
+            account.create({Name: accountName}, function(error, records) {
+                if (error) {
+                    alert(error.message);
+                } else {
+                   sforce.one.navigateToSObject(records[0]);
+                }
+            });
+        }
+    </script>
+    
+</apex:page>
+   # Create Global Action
+   Setup -> Global Action -> new -> Custom VF, label Quick Action
+   # add global action to publisher layout
+   Setup -> publisher layout -> Edit Global Layout -> drag Quick Account action to SF Mobile&Lightning Actions Section -> save
+<script>function createAccount() {
+  var accountName = document.getElementById("accountName").value;
+  var account = new SObjectModel.Account();
+  account.create({Name: accountName}, function(error, records) {
+    if (error) {
+      alert(error.message);
+    } else {
+      sforce.one.navigateToSObject(records[0]);
+    }
+  });
+}</script>
+   # Exercise Code
+<apex:page>
+    <apex:pageBlock >
+        <div>
+            <H2>Quick Share</H2>
+            <li>{!$User.FirstName} </li>
+            <li>{!$User.LastName} </li>
+            <li>{!$User.Email} </li>
+            <li>{!$User.Phone} </li>
+            <li>{!$User.Title} </li>
+            <input type="text" name="mail" value=" "/>
+            <input type="Button" value="Send"/>
+        </div>
+        
+    </apex:pageBlock>
+</apex:page>
+   # Tips for SF: VF tools (Remote Objects or JavaScript Remoting) better to connect JS based SF app, like sforce.one and Publisher SDK.
+   # object specific action
+<apex:page docType="html-5.0" standardController="Opportunity" title="Close Opportunity">
+    <script src='/canvas/sdk/js/publisher.js'></script>
+    <apex:remoteObjects>
+        <apex:remoteObjectModel name="Opportunity" fields="Id,Name"/>
+    </apex:remoteObjects>
+    
+    <div class="mypage">
+        <button onclick="closeOpportunity('Closed Won')">Won</button>
+        <button onclick="closeOpportunity('Closed Lost')">Lost</button>
+    </div>
+    
+    <script>
+        var opportunityId = "{!Opportunity.Id}";
+        function closeOpportunity(stageName) {
+            var opportunity = new SObjectModel.Opportunity();
+            opportunity.update([opportunityId], {StageName: stageName}, function(error, records) {
+                if (error) {
+                    alert(error.message);
+                } else {
+                    Sfdc.canvas.publisher.publish({ name: "publisher.close", payload: {refresh:"true"}});
+                }
+            });
+    }
+    </script>
+    
+</apex:page>
+<apex:page standardController="Opportunity" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>SLDS CloseOpportunity Page in Salesforce Mobile</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!-- Import the Design System style sheet -->
+      <apex:slds />
+    </head>
+    <apex:remoteObjects >
+      <apex:remoteObjectModel name="Opportunity" fields="Id,Name"/>
+    </apex:remoteObjects>
+    <body>
+      <!-- REQUIRED SLDS WRAPPER -->
+      <div class="slds-scope">
+        <!-- PRIMARY CONTENT WRAPPER -->
+        <div class="myapp">
+          <!-- CREATE BUTTONS -->
+            <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size--1-of-1">
+                <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small slds-theme_default" 
+                            onclick="closeOpportunity('Closed Won')">Won</div> 
+              </div>
+              <div class="slds-col slds-size--1-of-1">
+                <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small slds-theme_default" 
+                            onclick="closeOpportunity('Closed Lost')">Lost</div>
+              </div>
+            </div>
+          <!-- / CREATE BUTTONS  -->
+        </div>
+        <!-- / PRIMARY CONTENT WRAPPER -->
+      </div>
+      <!-- / REQUIRED SLDS WRAPPER -->
+      <!-- IMPORT PUBLISHER SDK -->
+      <script src='/canvas/sdk/js/publisher.js'></script>  
+      <!-- / IMPORT PUBLISHER SDK -->
+      <!-- JAVASCRIPT -->
+      <!-- / JAVASCRIPT -->
+    </body>
+  </html>
+</apex:page>
+   # Exercise Code
+<apex:page docType="html-5.0" standardController="Contact" title="Assistant Information">
+    <apex:variable var="AssistantName" value="{!Contact.AssistantName}" />
+    <apex:variable var="AssistantPhone" value="{!Contact.AssistantPhone}" />
+    <p>Assistant : {!AssistantName}</p>
+    <p>Phone : <a href="tel:{!AssistantPhone}">{!AssistantPhone}</a></p>
+</apex:page>
+   # VF page to use on Page Layouts
+   # Exercise Code
+<apex:page standardController="Opportunity">
+    <apex:outputText rendered="{!Opportunity.StageName=='Prospecting'}">Tips for prospecting</apex:outputText>
+    <apex:outputText rendered="{!Opportunity.StageName=='Needs Analysis'}">Tips for Needs Analysis</apex:outputText>
+    <apex:outputText rendered="{!Opportunity.StageName=='Proposal/Price Quote'}">Proposal/Price Quote</apex:outputText>
+    <apex:outputText rendered="{!Opportunity.StageName=='Negotiation/Review'}">Tips for Negotiation/Review</apex:outputText>
+</apex:page>
+   # UI guidelines
+   . Design for small screens.
+   . use responsive design to automatically adapt the page layout to different screen sizes
+   . Design for touch interactions.
+   . Limit keyboard input
+   . use available device sensors
+   . Avoid VF components that mimic SF site. Prefer HTML components
+   . use SF Lightning Design System to match the look and feel of Lightning Experience
+   . Prefer JS single-page application pattern over multi-page processes
+   . Use a JS framework.
+   # Responsive design: a web-design method aimed at creating web user interfaces that provide 
+     an optimal viewing experience, including easy reading and navigation, on various screen sizes.
+   # Use CSS and JS Mobile Frameworks (SLDS: SF Lightning Design System)
+   # Example Code with Angular JS
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false"
+      applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="MobileFrameworksApp">
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>SLDS Visualforce Page in Salesforce Mobile</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+      <!-- Import the Design System style sheet -->
+        <apex:slds />
+    </head>
+    <body>
+    <!-- REQUIRED SLDS WRAPPER -->
+      <div class="slds-scope">
+                            
+      <!-- PRIMARY CONTENT WRAPPER -->
+	    <div class="myapp">
+<!-- HEADING -->
+  <div class="slds-text-heading_small slds-p-top_medium slds-p-bottom_medium">Virtual Business Card Template</div>
+<!-- / HEADING -->
+<!-- INPUT FIELDS -->
+  <div class="slds-col slds-size--1-of-2 slds-small-size--1-of-6 slds-medium-size--1-of-6" >
+    <input type="text" ng-model="yourName" placeholder="Name:" class="slds-input"/>
+    <input type="text" ng-model="yourCompany" placeholder="Company Name:" class="slds-input"/>
+    <input type="tel" ng-model="yourNumber" placeholder="Phone Number:" class="slds-input"/>
+    <input type="email" ng-model="yourEmail" placeholder="Email:" class="slds-input"/>
+  </div>
+<!-- / INPUT FIELDS -->
+<!-- BUSINESS CARD -->
+  <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-3" >
+    <div class="slds-box slds-m-top_x-large">
+      <div class="slds-text-heading_large slds-text-align_center">{{ yourName }}</div>
+      <div class="slds-text-heading--medium slds-text-align_center">{{ yourCompany }}</div>
+      <!-- ICON -->
+        <div class="slds-align_absolute-center">
+          <span class="slds-icon_container slds-icon-standard-avatar
+                       slds-icon-align_center slds-m-bottom_small slds-m-top_small">
+            <svg aria-hidden="true" class="slds-icon">
+              <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#avatar')}"></use>
+            </svg>
+          </span>
+        </div>                    
+      <!-- / ICON -->
+      <div class="slds-text-body_regular slds-text-align_center">{{ yourNumber }}</div>
+      <div class="slds-text-body_regular slds-text-align_center">{{ yourEmail }}</div>
+    </div>
+  </div>
+<!-- / BUSINESS CARD -->
+</div>    
+      <!-- / PRIMARY CONTENT WRAPPER -->
+    </div>
+    <!-- / REQUIRED SLDS WRAPPER -->
+    <!-- JAVASCRIPT -->
+	<script>
+  angular.module('MobileFrameworksApp', []);
+</script>
+          <!-- / JAVASCRIPT -->
+    </body>
+  </html>
+</apex:page>
+```
+25. Big Objects
+```
+   
 ```
