@@ -241,5 +241,183 @@ https://c.na3.visual.force.com/apex/open_redirect_basics_demo?onSave=https://www
    # Exercise Code
    Change Apex retURL to returl
 https://amazing-appy-355953-dev-ed.lightning.force.com/lightning/n/Standard_Redirect_Protections_Challenge?returl=https%3A%2F%2Fwww.google.com
+   # Strategies for Mitigating Open Redirect
+   . Hardcode Redirects
+   . Force only local redirects
+   . Whitelist redirects
+   # Hardcode Redirects Example
+savePage = new PageReference(‘/home/home.jsp’);
+savePage.setRedirect(true);
+return savePage;
+   # Force local redirects only Example
+   public PageReference save(){
+    PageReference savePage;
+    if (Schema.SObjectType.Personnel__c.isUpdateable()){
+    try{
+        update unassigned;
+        String completion = ApexPages.currentPage().getParameters().get('onSave');
+        if(completion.startsWith('/')){
+            completion=completion.replaceFirst('/','');
+        }
+        savePage = new PageReference('/'+completion);
+        savePage.setRedirect(true);
+        return savePage;
+        return savePage;
 
+            }catch (exception e){
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'Unable to update requisitions.  Exception: ' + e.getMessage()));
+                return null;
+            } 
+        }else{
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'You do not have permission to update requisitions'));
+            return null;
+        }
+    }
+	# https://c.[yourinstance].visual.force.com/www.google.com does not exist
+	# Whitelist Redirects (for not local domains) Example
+	public PageReference save(){
+    PageReference savePage;
+    if (Schema.SObjectType.Requisition__c.isUpdateable()){
+    try{
+        update requisitions;
+        String onsave = ApexPages.currentPage().getParameters().get('onSave');
+                        
+        URL currentURL = New URL('https://' + ApexPages.currentPage().getUrl());
+        Set<String> whiteListedDomains = new Set<String>();
+        whiteListedDomains.add(currentURL.getHost());
+        whiteListedDomains.add('www.salesforce.com');
+        whiteLIstedDomains.add('www.google.com');
+        if( onsave == NULL || !whiteListedDomains.contains(New URL(onsave).getHost())){
+            onsave = '/home/home.jsp';
+        }
+        savePage = new PageReference(onsave);
+        savePage.setRedirect(true);
+        return savePage;
+            }catch (exception e){
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'Unable to update requisitions.  Exception: ' + e.getMessage()));
+                return null;
+            } 
+        }else{
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'You do not have permission to update requisitions'));
+            return null;
+        }
+    }
+	
+```
+5. CSRF (Cross-Site Request Forgery
+```
+   # Open one website to attack another
+   # prevent it using a unique random token (per request per user)
+   # SF enabled CSRF protection by default
+   # SF CSRF Example code
+ 
+<apex:page controller="CSRF_Demo" sidebar="false" action="{!performInitAction}" tabStyle="CSRF_Demo__tab"> 
+ 
+public void performInitAction() {
+    try {
+        String id = ApexPages.currentPage().getParameters().get('UserId');
+        [...]
+        Personnel__c obj = [select id, Name FROM Personnel__c WHERE id = :id];
+        Resource_Type__c rt= [select id from Resource_Type__c where Name='Knight'][0];
+        if(Personnel__c.sObjectType.getDescribe().isUpdateable()) {
+            obj.Type__c=rt.id; update obj;
+        }
+    
+    [...]
+    } 
+   # Reason: This action executes before the rest of the page loads, it bypasses the default CSRF protections
+   # solution: remove any state-changing operations from apex:page action handlers
+<apex:page controller="CSRF_Mitigation_Demo"sidebar="false" tabStyle="CSRF_Mitigation_Demo__tab">
+# replace
+<apex:outputLink value="/apex/CSRF_Demo?UserID={!person.Id}"> Knight This Squire </apex:outputLink>
+# with
+<apex:commandLink value=”Knight This Squire” action=”{!knightSquire}”>
+    <apex:param name="accId" value="{!person.id}" assignTo="{!currPerId}"/>
+</apex:commandLink>
+   # Exercise Code
+<apex:commandLink value="Approve Request" action="{!approveReqNOCSRF}">
+    <apex:param name="accId" value=" {!req.id}" assignTo="{!approve}"/>
+</apex:commandLink>
+```
+6. Clickjacking (Cursorjacking)
+```
+   # click to one object, but to another
+   . Trick user enabling webcam and microphone through Flash
+   . Trick user public profile
+   . Download and run malware to control computer
+   . Make user to follow someone on Twitter/Facebook/play YouTube video/Sharing and liking links on Facebook
+   . Click Google AdSense ads to generate pay-per-click revenue
+   # Clickjacking prevention
+   . Use Frame-Busting Script (including script on every site page)
+if (top != self) top.location = self.location;
+if (top.location != location) top.location = self.location;
+if (top.location != location) top.location.href = document.location.href;
+   . Use X-Frame Options (using HTTP header included in IE8)
+     DENY: Preventing page from loading in a frame completely
+	 SAMEORIGIN: Allow framing only if the origin is the same as the content
+	 ALLOW-FROM: only from a specific URL
+   . SF clickjacking protection (frame-busting scripts and X-frame Options header as standard in SF)
+```
+7. Insecure Remote Resource Interaction
+```
+   # Break trust
+   . Including remote resources
+     * mixed content vulnerabilities (both HTTP (insecure) and HTTPS)
+	 * include external resources safely (SF "static resource": archives(.zip and .jar), images, style sheets, javascript)
+   . Sending data to remote resources
+   # How to use Static Resources
+   # Issue for including remote resources
+<apex:image value="http://www.castles.org/images/sd2_small.jpg"/>
+   # solution reference the file locally
+<apex:image url=”{!$Resource.castle}”/>
+   # leaks: Web server and proxy logs, Browser, URL referrer headers, Printed PDF
+   . Tip: use POST always, not GET, and put all sensitive info in body of request
+   # Exercise Code - replace all URL in code
+<apex:image url="{!URLFOR($Resource.Challenge_Resources, 'Challenge_Resources/Castle.png')}" />                                                                                                                                    
+```
+8. Shield Platform Encryption (Dev Edition has it, but other Editions should buy)
+```
+   Field-level security to decide who can access which data at what time
+   Tool Security Health Check and Event Monitoring can monitor the activities.
+   # Tenant Secrets and Master Secrets are the keys for keys
+   # Mater Secret will be generated 3 times / year. SF security officer access the HSM to generate new Master secret per SF release.
+   # HSM - Hardware Security Module
+   # Tenant secret can be created as often as you want. Both are for encode and decode your data.
+   # Diff between Classic encryption and Shield Platform Encryption
+   . Classic encryption: included in SF license; 128-bit AES key, 
+   . Shield Platform Encryption: 256 AES key, additional fee.
+   # How to enable it
+   View Setup and Configuration for the first Admin
+   second Admin: not for these 2, but others permissions
+   # How to assign permission and generate Tenant Key
+   Setup -> Permission Sets -> new, Label (Key Manager) -> Save -> system Permissions -> 
+            Edit(enable Customize Application and Manage Encryption Keys) -> save ->
+			Setup -> users -> choose user -> Permission Set Assignments -> Edit Assignments -> Key manager -> save
+   Setup -> Platform Encryption -> Key Management -> Data in SF and Generate Tenant Secret
+   Setup -> Platform Encryption -> Encryption Policy
+   # Encrypt Only where Necessary
+   . Define a threat model for the org
+   . Not all data is sensitive
+   . Create a data classification scheme early
+   *** Create a strategy early for backing up and archiving keys and data
+   *** Grant "Manage Encryption Keys" permission to authorized users only.
+   **  Understand that encryption applies to all users, regardless of permissions
+   # Other security features
+   . Assign non-encryption related permissions to control who sees what info
+   . Use roles and profiles to control access to sensitive data
+   . Use field-level security settings, page layout settings and validation rules to control who see which data
+```
+9. Transaction Security
+```
+   # Using Transaction Security requires purchasing a SF shield or SF shield Event Monitoring add-on subscription.
+   *** Allow user to have multiple login sessions can be a security risk
+   Available - any policy you create
+   Enabled - Admin turned on
+   Triggered - a policy that's been activated.
+   # Transaction Security consists of events, notifications, and actions.
+   . Lock out specific geographical areas
+   . Securely access confidential data
+   # Enable it
+   Setup -> Transaction Security Policies -> enable
+   
 ```
