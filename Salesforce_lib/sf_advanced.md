@@ -419,5 +419,218 @@ if (top.location != location) top.location.href = document.location.href;
    . Securely access confidential data
    # Enable it
    Setup -> Transaction Security Policies -> enable
-   
+   # interface for Transaction Security =  PolicyCondition
+   # Example Code
+global class MyLeadExportCondition implements TxnSecurity.PolicyCondition {
+  public boolean evaluate(TxnSecurity.Event e) {
+    // The event data is a Map<String, String>.
+    // We need to call the valueOf() method on appropriate data types to use them in our logic.
+    Integer numberOfRecords = Integer.valueOf(e.data.get('NumberOfRecords'));
+    Long executionTimeMillis = Long.valueOf(e.data.get('ExecutionTime'));
+    String entityName = e.data.get('EntityName');
+
+    // Trigger the policy only for an export on leads, where we are downloading
+    // more than 2000 records or it took more than 1 second (1000ms).
+    if('Lead'.equals(entityName)){
+      if(numberOfRecords > 2000 || executionTimeMillis > 1000){
+        return true;
+      }
+    }
+
+    // For everything else don't trigger the policy.
+    return false;
+  }
+}
+   # Test Policy Code
+/**
+ * Test for default MyDataLoaderLeadExportCondition provided by Salesforce
+ * 
+*/
+@isTest
+public class MyDataLoaderLeadExportConditionTest {
+    /*
+     * Test to check if policy gets triggered when user exports 750 Leads
+    */
+  public static testMethod void testLeadExportTriggered() {
+    Map<String, String> eventMap = getEventMap(String.valueOf(750));
+    Organization org = getOrganization();
+    User user = createUser();
+      
+    TxnSecurity.Event e = createTransactionSecurityEvent(org, user, eventMap) ;
+    /* We are unit testing a PolicyCondition that triggers
+       when an event is generated due to high NumberOfRecords */
+    MyDataLoaderLeadExportCondition dataLoaderLeadExportCondition = new MyDataLoaderLeadExportCondition();
+    /* Assert that the condition is triggered */
+    System.assertEquals(true, dataLoaderLeadExportCondition.evaluate(e));
+   }
+    /*
+     * Test to check if policy doesn't get triggered when user exports 200 Leads
+    */
+  public static testMethod void testLeadExportNotTriggered() {
+    Map<String, String> eventMap = getEventMap(String.valueOf(200));
+    Organization org = getOrganization();
+    User user = createUser();
+       
+    TxnSecurity.Event e = createTransactionSecurityEvent(org, user, eventMap) ;
+    /* We are unit testing a PolicyCondition that does not trigger
+       an event due to low NumberOfRecords  */
+    MyDataLoaderLeadExportCondition dataLoaderLeadExportCondition = new MyDataLoaderLeadExportCondition();
+      
+    /* Assert that the condition is NOT triggered */
+    System.assertEquals(false, dataLoaderLeadExportCondition.evaluate(e));
+  }
+    /*
+     * Create an example user
+     */
+    private static User createUser(){
+        Profile p = [select id from profile where name='System Administrator'];
+        String ourSysAdminString = p.Id; 
+        
+        User u = new User(alias = 'test', email='user@salesforce.com',
+            emailencodingkey='UTF-8', lastname='TestLastname', languagelocalekey='en_US',
+            localesidkey='en_US', profileid = p.Id, country='United States',
+            timezonesidkey='America/Los_Angeles', username=generateRandomUsername(7));
+        insert u;
+        return u;
+    }
+    /**
+     * Generates a random username of the form “[random]@[random].com”, where the 
+     * length of the random string is the given Integer argument. For example, with 
+     * an argument of 3, the following random username may be produced: 
+     * “ajZ@ajZ.com”.
+     */ 
+    private static String generateRandomUsername(Integer len) {
+        final String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        String randStr = '';
+        while (randStr.length() < len) {
+           Integer idx = Math.mod(Math.abs(Crypto.getRandomInteger()), chars.length());
+           randStr += chars.substring(idx, idx+1);
+        }
+        return randStr + '@' + randStr + '.com'; 
+    }
+
+    /*
+     * Returns current organization
+     */
+    private static Organization getOrganization(){
+        return [SELECT id, Name FROM Organization];
+    }
+      
+    /*
+     * Adds NumberOfRecords and example ExecutionTime
+     */ 
+    private static Map<String, String> getEventMap(String numberOfRecords){
+        Map<String, String> eventMap = new Map<String, String>();
+        eventMap.put('NumberOfRecords', numberOfRecords);
+        eventMap.put('ExecutionTime', '30');
+        eventMap.put('EntityName', 'Lead');
+        return eventMap;
+    }
+    
+    /*
+     * Create a TxnSecurity.Event instance
+     */ 
+    private static TxnSecurity.Event createTransactionSecurityEvent(Organization org, User user, Map<String, String> eventMap){
+        TxnSecurity.Event e = new TxnSecurity.Event(
+             org.Id /* organizationId */,
+             user.Id /* userId */,
+             'Lead' /* entityName */ ,
+             'DataExport' /* action */,
+             'Lead' /* resourceType */,
+             '000000000000000' /* entityId */,
+              Datetime.newInstance(2016, 9, 22) /* timeStamp */,
+              eventMap /* data - Map containing information about the event */ );
+        return e;
+    }
+}
+```
+10. Large Data Volume (LDV) PERFORMANCE
+```
+   # why? LDV => sluggish performance, slower queries, slower search, slower sandbox refreshing.
+   # solution: accommodating LDV up front, designing your data model to build scalability in from the get-go
+   # Data Skew: carefully architecting record ownership to avoid data skew
+     . 3 types: account data skew, ownership skew, lookup skew
+   # Account Data Skew (Example: lots of unassigned Contacts parked under one Account named "Unassigned"
+     . Reasons: Record locking (update Contacts related one Account), Sharing Issues (Change owner of Account will check all Contacts) 
+   # Ownership Skew (one user has lots of same type objects)
+     . Reason: change ownership of object must remove sharing from all old owners and parents and shared users
+	 . solution: if cannot avoid ownership skew -> take user and related records away from the role hierarchy and sharing rules
+   # Lookup Skew (lots of records associated with a single record in the lookup object)
+   *** Strategy 1: design a data model for your org (<10000 children/parent)
+   *** Strategy 2: Using external objects (avoid both storing large data in your org and performance issue)
+                   SF Connect for external data source; File Connect for third-party content systems
+   # External Object lookup (standard lookup relationship for external object with recordID; 2 special types of lookup relationships)
+     . 2 special lookup: external lookups & indirect lookups
+	 . external parent => External Lookup, internal parent => Lookup (external obj with record ID) OR Indirect Look
+   # Data Search
+     . indexed most test fields. For data to be searched, it must first be indexed.
+	 . the searched result set used to query the related records
+   # Queries solution: query building. to Design selective list views, reports, and SOQL queries, and to understand query optimization
+     . SOQL is for query; SOSL is for search.
+	 . SOSL limit is 2,000; SOQL is 50,000
+	 . Use SOSL when a specific distinct term that you know exists within a field
+	 . Query Optimizer is diff from DB system optimizer. 
+	 . Query Optimizer maintains a table of statistics about distribution of data in each index.
+   # Batch Apex: the best way to query a large data sets (50 M records asynchronously) not work for synchronous
+   # Bulk Query: can retrieve up to 15 GB of data (divided into fifiteen 1 GB files
+     . Bulk API support query and queryAll operations. queryAll includes deleted records, archived Task and Event records
+	 . 3 types for Content-Type in the header: text/csv, application/xml, application/json.
+	 . 2 minutes timeout limit to job fails with QUERY_TIMEOUT error
+	 . 15 attempts to retrieve the result data (if exceeding 1 GB file limit or >10 minutes) to fail with Retrieve > 15 times Error
+	   solution: PK Chunking header
+	 . 7 days stored the successful bulk query result
+   # Skinny Tables (Example: Account Standard fields Table + Account Custom Fields Table ~= Account skinny Table)
+     . why faster? date 01/01/2018-12/31/2018 -> year=2018, exclude soft-deleted records
+	 . SF platform synchronizes base objects and skinny table
+	 . SF platform determine if using skinny table
+	 . Most useful for millions of records.
+	 . Can be created on custom objects, Account, Contact, Opportunity, Lead, and Case objects.
+	 . side effects: might restrict or burden your business processes
+	 . recreate skinny tables when adding one field to query, or alter field type.
+	 . don't get copied to Sandbox from Production
+	 . enable it - contact SF Customer Support
+   # Loading Lean: only the data and configuration you need to meet your business-critical operations
+     . Organization-wide sharing defaults: load data with Public Read/Write sharing model
+	   if with a Private sharing model, system calculates sharing as records being added
+	 . Complex object relationships. The more lookups the more check. so Load data then establish those relationships
+	 . Sharing rules. ownership-based sharing and criteria-based sharing: the more the more sharing calculation
+	   so load data and then set up sharing rules
+	 . Workflow rules, validation rules and triggers. similar to the previous 2 items
+   # NOT too Lean
+     . Parent records with master-detail children (won't load children without parent)
+	 . Record owners (owners should exist before load data
+	 . Role hierarchy (with it, faster when loading portal accounts)
+   # Bulk API vs. SOAP API
+     . SOAP is for real-time client applications with not large data, bite-size chunks
+	 . Bulk is for large data operation
+   # Increase Speed by Suspending Events (Disable validation rules, Workflow rules, triggers)
+     . Analyzing and preparing Data (clean data with rules before data loading, adding lookup relationships post-loading)
+	 . Disable Events for loading (Edit status to inactive for Validation, Lead and Case assignment rules, Territory assignment rules
+	 . To disable trigger, create a Custom Setting & a checkbox field and the related code
+trigger setDefaultValues on Account (before insert, before update){
+   Load_Settings__c s = Load_Settings__c.getInstance(UserInfo.GetUserID());
+   if (s.Load_Lean__c) return; // skip trigger
+   for (Account oAccount : trigger.new){
+      oAccount.Status = 'Stage 1';
+   }
+}
+     . Post-Processing
+	   * Add lookup relationships between objects, roll-up summary fields to parent records, others
+	   * Enhance records with foreign keys or other data to integration
+	   * Enable triggers
+	   * Turn validation, workflow and assignment rules back on
+   # Data Delete and Extract
+     . soft delete will stay in Recycle bin for 15 days
+	 . hard delete can be enabled by SF admin
+   # Chunking data: 100,000 record chunks by default, Max 250,000 (careful for Bulk API batch size)
+   # using PK Chunking to handle extra-large data set extracts
+     . Enable PK chunking when querying > 10 M records. it's a feature of Bulk API
+	 . Sforce-Enable-PKChunking: chunkSize=50000 # in header
+   # Truncation: a fast way to permanently remove all the records form a custom object
+     . Truncation will permanently delete records, not move to Recycle Bin
+	 . Cannot truncate standard objects and custom objects with lookup relationship
+```
+11. Apex Metadata API
+```
+
 ```

@@ -53,6 +53,11 @@
 ```
 4. batch status
 ![alt text](https://github.com/mndarren/Code-Lib/blob/master/conference_lib/references/batch_status.png)
+```
+   # about PK Chunking
+   NOT_PROCESSED - when a query is successfully chunked;
+   FAILED - when the chunking fails
+```
 5. SF has multiple applications
 ```
    Sales, Service, Marketing, Community, Analytics, Platform
@@ -2031,7 +2036,7 @@ public class ExchangeRates {
 25. Big Objects
 ```
    # Objects: standard, custom, external objects
-   # Big Objects: Standard Big object(e.g. FieldHistoryArchive ), Custom Bit Objects
+   # Big Objects: Standard Big object(e.g. FieldHistoryArchive ), Custom Big Objects
    # Usage for Big Custom Object
    . 360 View of Customer
    . Auditing and Tracking
