@@ -632,5 +632,279 @@ trigger setDefaultValues on Account (before insert, before update){
 ```
 11. Apex Metadata API
 ```
-
+   # Apex Metadata API -> Custom Setup UI (also can be used to create a Setup Wizard to guild to change Setup UI)
+   # 2 top-level metaday types: page layouts and records of custom metadata types
+   # Example code
+Metadata.CustomMetadata customMetadata =  new Metadata.CustomMetadata();
+customMetadata.fullName = 'MyNamespace__MetadataTypeName.MetadataRecordName';
+Metadata.CustomMetadataValue customField = new Metadata.CustomMetadataValue();
+customField.field = 'customField__c';
+customField.value = 'New value';
+customMetadata.values.add(customField);
+   # limitations
+   . only 2 metadata types
+   . deleting metadata not supported
+   . no API to track the status of deployment. can set up a callback to get status
+   # Automated Metadata Updates for Multi-Org Deployment (Apex post install script)
+   # Retrieve metadata synchronously, but deploy metadata asynchronously
+   # Example code to update metadata
+public class UpdatePageLayout {
+    // Add custom field to page layout
+    
+    public Metadata.Layout buildLayout() {
+        
+        // Retrieve Account layout and section 
+        List<Metadata.Metadata> layouts = 
+            Metadata.Operations.retrieve(Metadata.MetadataType.Layout, 
+            new List<String> {'Account-Account Layout'});
+        Metadata.Layout layoutMd = (Metadata.Layout) layouts.get(0);
+        Metadata.LayoutSection layoutSectionToEdit = null;
+        List<Metadata.LayoutSection> layoutSections = layoutMd.layoutSections;
+        for (Metadata.LayoutSection section : layoutSections) {
+            
+            if (section.label == 'Account Information') {
+                layoutSectionToEdit = section;
+                break;
+            }
+        }
+        
+        // Add the field under Account info section in the left column
+        List<Metadata.LayoutColumn> layoutColumns = layoutSectionToEdit.layoutColumns;     
+        List<Metadata.LayoutItem> layoutItems = layoutColumns.get(0).layoutItems;
+        
+        // Create a new layout item for the custom field
+        Metadata.LayoutItem item = new Metadata.LayoutItem();
+        item.behavior = Metadata.UiBehavior.Edit;
+        item.field = 'AMAPI__Apex_MD_API_sample_field__c';  // with you namespace and field name
+        layoutItems.add(item);
+        
+        return layoutMd;
+    }
+}
+   # Callback example
+public class PostInstallCallback implements Metadata.DeployCallback {
+  
+    public void handleResult(Metadata.DeployResult result,
+        Metadata.DeployCallbackContext context) {
+        
+        if (result.status == Metadata.DeployStatus.Succeeded) {
+            // Deployment was successful, take appropriate action.
+            System.debug('Deployment Succeeded!');
+        } else {
+            // Deployment wasn’t successful, take appropriate action.
+	    System.debug('Deployment Failed!');
+        }
+    }
+}
+   # Deployment Example code
+public class DeployMetadata {
+ 
+    // Create metadata container 
+    public Metadata.DeployContainer constructDeploymentRequest() {
+        
+        Metadata.DeployContainer container = new Metadata.DeployContainer();
+        
+        // Add components to container         
+        Metadata.Layout layoutMetadata = new UpdatePageLayout().buildLayout();
+        container.addMetadata(layoutMetadata);
+        return container;
+    }
+    
+    // Deploy metadata
+    public void deploy(Metadata.DeployContainer container) {
+        // Create callback. 
+        PostInstallCallback callback = new PostInstallCallback();
+        
+        // Deploy the container with the new components. 
+        Id asyncResultId = Metadata.Operations.enqueueDeployment(container, callback);
+    }
+}
+   # Deploy metadata script async
+     *** the script is run automatically after the package is installed or updated.
+   # Example code
+public class PostInstallScript implements InstallHandler {
+    
+    // Deploy post-install metadata  
+    public void onInstall(InstallContext context) {
+        DeployMetadata deployUtil = new DeployMetadata();
+        Metadata.DeployContainer container = deployUtil.constructDeploymentRequest();
+        deployUtil.deploy(container);
+    }
+}
+   # Exercise code
+public class UpdateContactPageLayout {
+	// Add custom field to page layout
+    
+    public Metadata.Layout addLayoutItem () {
+        
+        // Retrieve Account layout and section 
+        List<Metadata.Metadata> layoutsList = 
+            Metadata.Operations.retrieve(Metadata.MetadataType.Layout, 
+            new List<String> {'Contact-Contact Layout'});
+        Metadata.Layout layoutMetadata = (Metadata.Layout) layoutsList.get(0);
+        Metadata.LayoutSection contactLayoutSection = null;
+        List<Metadata.LayoutSection> layoutSections = layoutMetadata.layoutSections;
+        for (Metadata.LayoutSection section : layoutSections) {
+            
+            if (section.label == 'Additional Information') {
+                contactLayoutSection = section;
+                break;
+            }
+        }
+        
+        // Add the field under Account info section in the left column
+        List<Metadata.LayoutColumn> contactColumns = contactLayoutSection.layoutColumns;     
+        List<Metadata.LayoutItem> contactLayoutItems = contactColumns.get(0).layoutItems;
+        
+        // Create a new layout item for the custom field
+        Metadata.LayoutItem newField = new Metadata.LayoutItem();
+        newField.behavior = Metadata.UiBehavior.Edit;
+        newField.field = 'AMAPI__Apex_MD_API_Twitter_name__c';
+        contactLayoutItems.add(newField);
+        
+        return layoutMetadata;
+    }
+}
+   # layers: LayoutList -> SectionList -> Columns -> Fields
+   # Automate Configuration Change (Great Thing)
+   # Create a Custom Metadata Type by Setup (also we can do it by the previous way)
+   Setup -> Custom Metadata Types -> new ...(VAT Rates) -> save
+   Manage VAT Rates -> new -> Create VAT Rate Records
+   # Create Controller and VF page
+public class VATController {
+    
+    public final List<VAT_Rate__mdt> VATs {get;set;}
+    final Map<String, VAT_Rate__mdt> VATsByApiName {get; set;}
+    
+    public VATController() { 
+        VATs = new List<VAT_Rate__mdt>();
+        VATsByApiName = new Map<String, Vat_Rate__mdt>();
+        for (VAT_Rate__mdt v : [SELECT QualifiedApiName, MasterLabel, Default__c, Rate__c
+                                FROM VAT_Rate__mdt]) { 
+                                    VATs.add(v);
+                                    VATsByApiName.put(v.QualifiedApiName, v);
+                                }
+    }
+    
+    public PageReference save() {        
+        
+        // Create a metadata container.
+        Metadata.DeployContainer container = new Metadata.DeployContainer();
+        List<String> vatFullNames = new List<String>();
+        for (String recordName : VATsByApiName.keySet()) {
+            vatFullNames.add('VAT_Rate.' + recordName);
+        }
+        
+        List<Metadata.Metadata> records = 
+            Metadata.Operations.retrieve(Metadata.MetadataType.CustomMetadata, 
+                                         vatFullNames);
+        
+        for (Metadata.Metadata record : records) {
+            Metadata.CustomMetadata vatRecord = (Metadata.CustomMetadata) record;
+            String vatRecordName = vatRecord.fullName.substringAfter('.');
+            VAT_Rate__mdt vatToCopy = VATsByApiName.get(vatRecordName);
+            
+            for (Metadata.CustomMetadataValue vatRecValue : vatRecord.values) {
+                vatRecValue.value = vatToCopy.get(vatRecValue.field);
+            }
+            
+            // Add record to the container.
+            container.addMetadata(vatRecord);
+        }   
+        
+        // Deploy the container with the new components. 
+        Id asyncResultId = Metadata.Operations.enqueueDeployment(container, null);
+        
+        return null;
+    }
+}
+<apex:page controller="VATController">
+    <apex:form >
+        <apex:pageBlock title="VAT Rates" mode="edit">
+            <apex:pageMessages />
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockTable value="{!VATs}" var="v">
+                <apex:column value="{!v.MasterLabel}"/>
+                <apex:column headerValue="Rate">
+                    <apex:inputText value="{!v.Rate__c}"/>
+                </apex:column>
+                <apex:column headerValue="Default">
+                    <apex:inputCheckbox value="{!v.Default__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+   # Exercise Code
+public class MetadataExample {
+    public void updateMetadata(){
+        Metadata.CustomMetadata customMetadata = new Metadata.CustomMetadata();
+        customMetadata.fullName = 'MyNamespace__MyMetadataTypeName.MyMetadataRecordName';
+        
+        Metadata.CustomMetadataValue customField = new Metadata.CustomMetadataValue();
+        customField.field = 'customField__c';
+        customField.value = 'New value';
+        
+        //add custom field to metadata
+        customMetadata.values.add(customField);
+        
+        Metadata.DeployContainer deployContainer = new Metadata.DeployContainer();
+        deployContainer.addMetadata(customMetadata);
+        Id asyncResultId  = Metadata.Operations.enqueueDeployment(deployContainer, null);
+    }
+}
+   # Test Container and Callback
+   # Example code
+@IsTest
+public class DeploymentTest {
+    @IsTest
+    static void testDeployment() {
+        DeployMetadata deployMd = new DeployMetadata();
+        
+        Metadata.DeployContainer container = deployMd.constructDeploymentRequest();
+        List<Metadata.Metadata> contents = container.getMetadata();
+        System.assertEquals(1, contents.size());
+        Metadata.Layout md = (Metadata.Layout) contents.get(0);
+       
+        // Perform various assertions the layout metadata.
+        System.assertEquals('Account-Account Layout', md.fullName);
+    }
+}
+@IsTest
+public class MyDeploymentCallbackTest {
+    @IsTest
+    static void testMyCallback() {
+        
+        // Instantiate the callback.
+        Metadata.DeployCallback callback = new PostInstallCallback();
+       
+        // Create test result and context objects.
+        Metadata.DeployResult result = new Metadata.DeployResult();
+        result.numberComponentErrors = 1;
+        Metadata.DeployCallbackContext context = new Metadata.DeployCallbackContext();
+        
+        // Invoke the callback's handleResult method.
+        callback.handleResult(result, context);
+    }
+}
+// DeployCallbackContext subclass for testing that returns myJobId.
+public class TestingDeployCallbackContext extends Metadata.DeployCallbackContext {
+    private Id myJobId = null; // Set to a fixed ID you can use for testing.
+    public override Id getCallbackJobId() {
+        return myJobId;
+    }
+}
+   # security
+     . only 2 types
+	 . only 3 scenarios
+   # Setup | Apex Settings can allows uncertified managed packages to execute metadata deployments.
+   # Setup audit trail log in Setup | View Setup Audit Trail
+   # Keep points in mind: A managed package Apex can
+     . Update any publish subscripber-controlled metadata in same/different managed package, or subscriber org
+	 . Update protected subscriber-controlled metadata in its own namespace.
+	 . Update developer-controlled metadata only if it’s in the namespace of the subscriber org
 ```

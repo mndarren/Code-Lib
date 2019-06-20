@@ -27,7 +27,7 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
 19. 10 principles for iPhone and software design (creative, useful, beautiful, easy to use without user manual, implicit not explicit,
     honest, long time no bad, focus on details, no waste materials, less is more)
 20. 五祖神秀: "身是菩提树，心如明镜台，时时勤拂拭，勿使惹尘埃"； 六祖慧能:"菩提本无树，明镜亦非台，原本无一物，何处惹尘埃"
-21. 民主制靠品德，君主立宪制靠忠诚，专制靠恐吓！
+21. 民主制靠品德，君主立宪制靠忠诚，专制靠恐吓！(Wen Zhao)
 22. Good points
 ```
    1) Think big & act small
@@ -43,3 +43,4 @@ Some ideas poped up occasionally. In order not to losing them, record good ones 
    3) Work assigned reactively
    4) Unfinished work
 ```
+24. Things with Code: Security, Performance, Algorithm

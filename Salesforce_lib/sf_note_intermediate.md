@@ -12,6 +12,7 @@
    __x - External Object
    __r - Relationship
    __b - Big Object
+   __mdt - Custom Metadata object
    ISV - Independent Software Vendor
    SLDS - Salesforce Lightning Design System
 ```
