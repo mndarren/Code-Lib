@@ -18,3 +18,12 @@ git remote set-url origin ssh://git@10.7.40.79:7999/slp/indicia_consolidator_pod
 git push -u origin --all
 git push origin --tags
 ```
+3. Remove untracked files from the working directory
+```
+   git clean -f
+   git reset --hard
+```
+4. Undoes a committed snapshot
+```
+   git revert
+```
