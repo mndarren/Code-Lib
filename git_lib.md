@@ -27,3 +27,8 @@ git push origin --tags
 ```
    git revert
 ```
+5. Error: cannot lock ref 'refs/remotes/origin...' -> clean up local repo
+```
+  git gc --prune=now
+  git remote prune origin
+```
