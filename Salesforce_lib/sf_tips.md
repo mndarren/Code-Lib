@@ -126,3 +126,36 @@ public class Sample
     }
 }
 ```
+7. With sharing, without sharing, inherited sharing
+```
+   # Apex without a sharing declaration is insecure by default.
+   # with/without sharing turn on/off sharing rules enforcement
+   with sharing - enforce rules on the current user
+   # reason: Apex code running in system context (in which code can access 
+     all objects and fields— object permissions, field-level security, sharing rules)
+	 but not applied for the current user
+   # key points
+     . "without sharing" class calls "with sharing" class method => enforce sharing rules in the method
+	 . "with sharing" class calls "without sharing" class => enforce rules to the "without sharing" class
+	 . inner class not inherit the sharing rules from container class
+	 . child class inherit sharing rules from parent class
+   # inherited sharing keyword
+   inherited sharing class runs as with sharing with:
+    . An Aura component controller
+	. A Visualforce controller
+	. An Apex REST service
+	. Any other entry point to an Apex transaction
+   # inherited sharing kind of always good
+   
+```
+8. Change set transferring
+```
+   Setup -> Deployment Settings -> choose Sandbox -> allow inbound changes
+   # in Dev box choose UAT allowed
+   # in UAT box choose Dev allowed
+```
+9. Formula field
+```
+   . user cannot change formula field values
+   . lots of functions can be used in formula field
+```
