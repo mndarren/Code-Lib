@@ -26,3 +26,145 @@
    SELECT Id FROM ApexLog
    Then delete rows to clear log buffer
 ```
+4. about validation rule in configuration
+```
+   there is a hidden 'gotcha' about test classes.
+   They only "must" be run when deploying Apex into the org.
+   They are not required to run when a configuration change is made. 
+   This gotcha causes lots of common problems.
+```
+5. Trigger test example
+```
+static testMethod void Trigger_LockinCheckAcctForStartUpPricingInsert3()
+    {   
+//
+//Insert a Test Account with a Boolean field for validation parameters   
+//
+    test.startTest();
+        try{
+       
+        Account a = new Account();
+       
+        a.Name = 'Test Lockin Account3';
+        a.Start_Up_Pricing_Consumed__c = true;
+       
+    insert a;
+       
+//Insert child custom object with Status != Active or Approved
+//but Parent Account pricing already consumed 
+//     
+    LockIns__c l = new LockIns__c();
+       
+        l.Account_for_lock_in__c = a.Id;
+        l.Status__c = 'New';
+        l.Start_Date__c = System.today();
+            
+    insert l;   
+
+//Update the custom object record's "Status" to "Active" which will provide Validation Error
+//because the Parent Account is already set to TRUE.
+//       
+        l.Status__c = 'Active';
+       
+    update l;
+        }
+        catch(Exception e){
+            System.Assert(e.getMessage().contains('Validation Rule exception message goes here'));
+        }
+        test.stopTest();
+    }
+```
+6. write a validation rule using apex and triggers
+```
+trigger validphonemust on Account(before insert)
+{
+  for(Account a : trigger.new)
+   {
+    if(a.phone=='' || a.phone==null﻿)
+    {
+      a.addError('Phone number must');
+    }
+   }
+}
+//VF
+<apex:page controller="Sample" sidebar="false" >
+<apex:pagemessages />
+<apex:form >
+    <apex:pageblock >    
+        <apex:pageBlocksection >
+            <apex:pageblockSectionItem >Name:</apex:pageblockSectionItem>
+            <apex:pageblockSectionItem ><apex:inputtext value="{!nam}" /></apex:pageblockSectionItem>        
+            <apex:pageblockSectionItem >Age:</apex:pageblockSectionItem>        
+            <apex:pageblockSectionItem ><apex:inputtext value="{!age}" /></apex:pageblockSectionItem>        
+        </apex:pageBlocksection>      
+        <apex:pageblockButtons >
+            <apex:commandButton value="Submit" action="{!submit}" reRender=""/>
+        </apex:pageblockButtons>
+    </apex:pageblock>
+</apex:form>
+</apex:page>
+// Controller
+public class Sample
+{
+    public String nam {get;set;}
+    public Decimal age {get;set;}
+ 
+    public void submit()
+    {
+        try
+        {
+            Member__c m = new Member__c();
+            m.Name = nam;
+            m.Age__c = age;
+            insert m;
+        }
+        catch(Exception e)
+        {
+            String error = e.getMessage();
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,error));
+        }
+    }
+}
+```
+7. With sharing, without sharing, inherited sharing
+```
+   # Apex without a sharing declaration is insecure by default.
+   # with/without sharing turn on/off sharing rules enforcement
+   with sharing - enforce rules on the current user
+   # reason: Apex code running in system context (in which code can access 
+     all objects and fields— object permissions, field-level security, sharing rules)
+	 but not applied for the current user
+   # key points
+     . "without sharing" class calls "with sharing" class method => enforce sharing rules in the method
+	 . "with sharing" class calls "without sharing" class => enforce rules to the "without sharing" class
+	 . inner class not inherit the sharing rules from container class
+	 . child class inherit sharing rules from parent class
+   # inherited sharing keyword
+   inherited sharing class runs as with sharing with:
+    . An Aura component controller
+	. A Visualforce controller
+	. An Apex REST service
+	. Any other entry point to an Apex transaction
+   # inherited sharing kind of always good
+   
+```
+8. Change set transferring
+```
+   Setup -> Deployment Settings -> choose Sandbox -> allow inbound changes
+   # in Dev box choose UAT allowed
+   # in UAT box choose Dev allowed
+```
+9. Formula field
+```
+   . user cannot change formula field values
+   . lots of functions can be used in formula field
+```
+10. Speed up to sync code
+```
+Sometimes, pulling the entire project (Apex, Visualforce, Objects, Workflows, etc.) from the sandbox to IntelliJ can take a long time. Here is an alternative strategy which can speed up this process:
+1.	If your sandbox was refreshed, in Source Control, verify your sandbox branch is at the same commit as the sandbox from which your sandbox was refreshed.
+2.	In IntelliJ, instead of pulling down everything from the server, pull down only Apex Classes. This will be much faster than retrieving everything.
+3.	In Source Control, you will see many deletions/removed files, since you didn't pull down anything but Apex Classes.
+4.	In Source Control, reset your branch to the latest commit. This will add/recover the files you didn't pull down to IntelliJ.
+5.	If you need to pull down individual files from the server, do so.
+```
