@@ -159,3 +159,12 @@ public class Sample
    . user cannot change formula field values
    . lots of functions can be used in formula field
 ```
+10. Speed up to sync code
+```
+Sometimes, pulling the entire project (Apex, Visualforce, Objects, Workflows, etc.) from the sandbox to IntelliJ can take a long time. Here is an alternative strategy which can speed up this process:
+1.	If your sandbox was refreshed, in Source Control, verify your sandbox branch is at the same commit as the sandbox from which your sandbox was refreshed.
+2.	In IntelliJ, instead of pulling down everything from the server, pull down only Apex Classes. This will be much faster than retrieving everything.
+3.	In Source Control, you will see many deletions/removed files, since you didn't pull down anything but Apex Classes.
+4.	In Source Control, reset your branch to the latest commit. This will add/recover the files you didn't pull down to IntelliJ.
+5.	If you need to pull down individual files from the server, do so.
+```

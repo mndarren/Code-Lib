@@ -633,7 +633,7 @@ trigger setDefaultValues on Account (before insert, before update){
 11. Apex Metadata API
 ```
    # Apex Metadata API -> Custom Setup UI (also can be used to create a Setup Wizard to guild to change Setup UI)
-   # 2 top-level metaday types: page layouts and records of custom metadata types
+   # 2 top-level metadata types: page layouts and records of custom metadata types
    # Example code
 Metadata.CustomMetadata customMetadata =  new Metadata.CustomMetadata();
 customMetadata.fullName = 'MyNamespace__MetadataTypeName.MetadataRecordName';
