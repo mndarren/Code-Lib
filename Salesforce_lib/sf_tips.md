@@ -168,3 +168,33 @@ Sometimes, pulling the entire project (Apex, Visualforce, Objects, Workflows, et
 4.	In Source Control, reset your branch to the latest commit. This will add/recover the files you didn't pull down to IntelliJ.
 5.	If you need to pull down individual files from the server, do so.
 ```
+11. Custom Metadata Type usage
+```
+   . Mappings—Create associations between different objects, such as a custom metadata type that assigns cities, states, or provinces to particular regions in a country.
+   . Business rules—Combine configuration records with custom functionality. Use custom metadata types along with some Apex code to route payments to the correct endpoint.
+   . Master data—Let’s say that your org uses a standard accounting app. Create a custom metadata type that defines custom charges, like duties and VAT rates. If you include this type as part of an extension package, subscriber orgs can reference the master data.
+   . Whitelists—Manage lists, such as approved donors and pre-approved vendors.
+   . Secrets—Store information, like API keys, in your protected custom metadata types within a package.
+```
+12. Install Chrome extension for salesforce
+```
+https://chrome.google.com/webstore/detail/salesforce-change-set-hel/gdjfanbphogooppaefebaaoohdcigpoi?hl=en-US 
+```
+13. Jetforcer back from v2.0 to v1.4
+```
+JetForcer 1.4.x (Download link at right): https://plugins.jetbrains.com/plugin/9238-jetforcer--the-smartest-force-com-ide/versions 
+
+No need to uninstall 2.x. 
+Go to Settings > Plugins in IDEA. Click the gear icon and select 'Install Plugin from Disk'. Navigate to the Zip file.
+Restart IDEA. 
+```
+14. Oddity to fixed
+```
+   # what is it?
+   Running the above code in IntelliJ returns null, and yet running the same code 
+   in the Developer Console successfully returns the Custom Setting values. Am I missing something?
+   # solution
+   1.Running the same code in the Salesforce Developer Console,
+   2.Running the same code in an Apex test method/class, and
+   3.Manually reviewing the values in the list in the Setup method
+```
