@@ -198,3 +198,24 @@ Restart IDEA.
    2.Running the same code in an Apex test method/class, and
    3.Manually reviewing the values in the list in the Setup method
 ```
+15. Relationship object call
+```
+   1) Parent calling Children by SOQL: "From Children__r"
+   2) Children calling Parent by SOQL: "SELECT Children__r.fieldName"
+```
+16. IntelliJ wiredo
+```
+   Always run unit test by right click on the file name, otherwise probably part unit test run.
+```
+17. How to avoid getting SOQL Limits
+```
+   1) Don’t do Queries in Loops;
+   2) use Describes instead of SOQL if we can;
+      System.assert(s.getsObjectType() == Account.sObjectType);
+	  Schema.DescribeSObjectResult dsr = Account.sObjectType.getDescribe();
+	  Schema.DescribeFieldResult dfr = Schema.sObjectType.Account.fields.Name;
+      System.assert(dfr.getSObjectField() == Account.Name);
+   3) using static variables or custom settings when you know the data is unlikely to change much if/ever (Caching)
+   4) Using Salesforce APIs instead of doing it within Salesforce if your processing will be very time consuming.
+   5) Avoid using Process Builder on the Account, Opportunity, lead or contact since it doesn’t scale very well because its not bulkified.
+```
