@@ -218,4 +218,9 @@ Restart IDEA.
    3) using static variables or custom settings when you know the data is unlikely to change much if/ever (Caching)
    4) Using Salesforce APIs instead of doing it within Salesforce if your processing will be very time consuming.
    5) Avoid using Process Builder on the Account, Opportunity, lead or contact since it doesn’t scale very well because its not bulkified.
+   6) Use Test.startTest() and Test.stopTest() to get a fresh set of governor limits
+   7) Avoid using Seealldata=true if possible. 
+   8) Combine your SOQL queries
+   9) Combine your DML statements by using update on a list instead of individual records.
+   10)Separate your test class into multiple test classes.
 ```
