@@ -224,3 +224,27 @@ Restart IDEA.
    9) Combine your DML statements by using update on a list instead of individual records.
    10)Separate your test class into multiple test classes.
 ```
+18. Before update/delete in Trigger
+```
+   Once update/delete failed, SF will rollback all changes. No worries about that.
+```
+19. How to use switch
+```
+public enum Season {WINTER, SPRING, SUMMER, FALL}
+
+switch on season {
+   when WINTER {
+       System.debug('boots');
+   }
+   when SPRING, SUMMER {
+       System.debug('sandals');
+   }
+   when else {
+       System.debug('none of the above');
+```
+20. When inserting a list of sObjects
+```
+   Note: if we insert new objects together, we should use __r and the correct order,
+		 OR we can use __c if insert them 1 by 1.
+		 if you know the object already exists in the SF you can use __c as well.
+```
