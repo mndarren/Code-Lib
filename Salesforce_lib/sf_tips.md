@@ -248,3 +248,16 @@ switch on season {
 		 OR we can use __c if insert them 1 by 1.
 		 if you know the object already exists in the SF you can use __c as well.
 ```
+21. Types thinking
+```
+   component and page are similar with html/js;
+   object, layout, report, profile and metadata are similar with xml/config.
+```
+22. Difference between Administration task and Development task
+```
+   # Admin task
+    . Developing email templates
+	. Creating or editing users
+	. Creating or editing permission sets and profiles
+   # Development task: any change to a field, an object, a tab...
+```
