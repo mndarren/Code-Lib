@@ -261,3 +261,26 @@ switch on season {
 	. Creating or editing permission sets and profiles
    # Development task: any change to a field, an object, a tab...
 ```
+23. Test a Validation Rule
+```
+    @IsTest
+    static void testPurchase_Price_Rule(){
+        
+        CustomObject__c col = new CustomObject__c();
+        col.RecordTypeId = CustomObjectClass.EQUIPMENT_ID;
+        col.New_Purchase_Price__c = 6.6;
+        
+        try {
+            Database.insert(new List<sObject>{col});
+        } catch (System.DmlException e) {
+            System.assert(e.getMessage().contains('New Purchase Price is not applicable for any CustomObject'));
+        }
+    }
+```
+24. Object Type change will change both Object_Type__c and Object RecordType
+```
+   # Notes:
+     1. Double check the related Record Type. Sometimes when you changed the order of picklist, 
+	    the Record Type will not be updated as expected.
+     2. When creating "outbound change set", we don't have to take case of both since they are the same.
+```
