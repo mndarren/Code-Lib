@@ -198,7 +198,7 @@ Restart IDEA.
    2.Running the same code in an Apex test method/class, and
    3.Manually reviewing the values in the list in the Setup method
 ```
-15. Relationship object call
+15. Relationship object call/query
 ```
    1) Parent calling Children by SOQL: "From Children__r"
    2) Children calling Parent by SOQL: "SELECT Children__r.fieldName"
@@ -272,6 +272,7 @@ switch on season {
         
         try {
             Database.insert(new List<sObject>{col});
+			System.assert(false);
         } catch (System.DmlException e) {
             System.assert(e.getMessage().contains('New Purchase Price is not applicable for any CustomObject'));
         }
@@ -282,5 +283,15 @@ switch on season {
    # Notes:
      1. Double check the related Record Type. Sometimes when you changed the order of picklist, 
 	    the Record Type will not be updated as expected.
-     2. When creating "outbound change set", we don't have to take case of both since they are the same.
+     2. When creating "outbound change set", we have to take case of both since they are the same.
+```
+25. FieldPath over Label in VF
+```
+   In VF page, we should use FieldPath to check the field, not Label because Label can be changed by user,
+   while the FieldPath is fixed.
+```
+26. Difference between Master-Detail and Lookup relationships
+```
+   Master-Detail: Max 2 on one object; parent field is required; Delete parent -> auto delete children;
+   Lookup: Max 25 on one object; parent field is not required; Delete parent will not auto delete children.
 ```
