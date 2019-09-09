@@ -272,7 +272,7 @@ switch on season {
         
         try {
             Database.insert(new List<sObject>{col});
-			System.assert(false);
+			System.assert(false, 'expected update failure');
         } catch (System.DmlException e) {
             System.assert(e.getMessage().contains('New Purchase Price is not applicable for any CustomObject'));
         }
