@@ -8,13 +8,13 @@ cd existing-project
 git init
 git add --all
 git commit -m "Initial Commit"
-git remote add origin ssh://git@10.7.40.79:7999/slp/indicia_consolidator_pod.git
+git remote add origin ssh://git@10.10.10.10/one_directory/one_repo.git
 git push -u origin master
 ```
 2. My code is already tracked by Git
 ```
 cd existing-project
-git remote set-url origin ssh://git@10.7.40.79:7999/slp/indicia_consolidator_pod.git
+git remote set-url origin ssh://git@10.10.10.10/one_directory/one_repo.git
 git push -u origin --all
 git push origin --tags
 ```
