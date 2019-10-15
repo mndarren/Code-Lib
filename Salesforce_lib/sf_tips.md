@@ -295,3 +295,13 @@ switch on season {
    Master-Detail: Max 2 on one object; parent field is required; Delete parent -> auto delete children;
    Lookup: Max 25 on one object; parent field is not required; Delete parent will not auto delete children.
 ```
+27. Debug Tip: Once creating a new field, we should change the VF page as well for the query field to compare values.
+28. SOQL code conflicts with Trigger. If so, bypass() the Trigger
+29. About Unit Test
+```
+   1. System.debug(); // will not show up always. When debug msg too much
+      Try to use System.assertNotEqual() or System.assertEqual();
+   2. Id of sObjects will be generated after insertion action.
+   3. insert sObject one by one will not create relationships between them.
+      Try to use helper class to do that.
+```
