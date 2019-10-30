@@ -304,4 +304,19 @@ switch on season {
    2. Id of sObjects will be generated after insertion action.
    3. insert sObject one by one will not create relationships between them.
       Try to use helper class to do that.
+   4. System.assertEquals('test', ApexPages.getMessages().get(0).getSummary()); // to see the Error msg
+```
+30. immediate=true for VF page
+```
+   1. immediate=true will bypass all validation in VF page, including passing values back to the Controller;
+   2. immediate=true can be used in <apex:commandButton> tag and <apex:actionFunction> tag; used in both -> really bypass all required check.
+      If only used in <apex:commandButton>, not in <apex:actionFunction>, it still run the checks.
+   3. mock-up the required tags using HTML and then rely only on Apex-side validation (Save button without required check, Save&Continue button with required check)
+```
+31. How to create a SObject with its Tab hidden
+```
+   1. Find the Key Prefix code by:
+	  i. creating a specific object record, the 1st 3 characters of object ID is the code
+	  ii. or System.debug(SObjectType.<SObject>.getKeyPrefix());
+   2. The link will be sandbox_url/<key_prefix>/o, which will guide you to the create object page: 
 ```
