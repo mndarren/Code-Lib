@@ -78,4 +78,6 @@
    3)NIST
      http://csrc.nist.gov/publications/PubsSPs.html#800-124
      https://www.nist.gov/blogs/taking-measure/easy-ways-build-better-p5w0rd
+   4)National Cybersecurity Awareness Month 2019
+     https://niccs.us-cert.gov/national-cybersecurity-awareness-month-2019
 ```
