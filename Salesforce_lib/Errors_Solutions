@@ -1,0 +1,18 @@
+# Errors Fixed Solution 4 SF
+===========================================
+1. Error: Apex CPU Time limit exceeded
+```
+   # Reason
+     . 10 seconds for sync limit, 60 for Async limit;
+	 . Counts: Yes - Apex code, Lib function, Workflow
+	           No  - SOQL, SML, HTTP callouts
+   # Solutions
+   1) Using map based on query
+      Map<Id, Account> aMap = new Map<Id, Account>([SELECT Id, Name FROM Account LIMIT 50000]);
+	  Don't get query result and then use a loop to get the Id set or other list.
+   2) Operation Async: @future
+   3) Aggregate SOQL usage: SUM,AVG... Don't use a loop to do sum.
+   4) On VF page, if too much data on the page to update, then
+      Add rendered="{!classInstance.collateral.size <= maxCollateralViewSize}" on the pageBlockSection
+```
+2. 
