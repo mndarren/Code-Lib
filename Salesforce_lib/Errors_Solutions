@@ -15,4 +15,14 @@
    4) On VF page, if too much data on the page to update, then
       Add rendered="{!classInstance.collateral.size <= maxCollateralViewSize}" on the pageBlockSection
 ```
-2. 
+2. Error: Aggregate query has too many rows for direct assignment, use FOR loop
+```
+   # Reason
+     When accessing a large set of child records (200 or more) of a retrieved sObject inside the loop, or when getting the size of such a record set.
+   # Solution
+	 . Using Parent/Children Pattern to solve it(Put all queries in Children or Parent Class).
+   # Note:
+     . Always use SOQL For Loop (not Standard SOQL Queries) to process query results, to avoid the limit on heap size
+	   e.g. for(varible/varible_list : [soql_query]) {}
+	   But a run-time exception occurs if you use a query containing an aggregate function that returns >2000 rows.
+``` 
