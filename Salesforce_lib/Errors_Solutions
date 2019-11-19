@@ -26,3 +26,7 @@
 	   e.g. for(varible/varible_list : [soql_query]) {}
 	   But a run-time exception occurs if you use a query containing an aggregate function that returns >2000 rows.
 ``` 
+3. Error: Required field is missing: label
+```
+   If you deplying Page the page shouldbe extension with ( .page) and realted meta data file should be with extension (.page-meta.xml).
+```
