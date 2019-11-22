@@ -325,3 +325,9 @@ switch on season {
    If the new Record Type is related a field with picklist type and with specific default value,
    include that field in your outbound change set. OR restricted error sometimes.
 ```
+33. How to Setup a Button to Dynamically Check Required Fields in VF Page
+```
+<!-- click Save Button -> change isSaveOnly to true -> refresh page -> run logic now-->
+<apex:commandButton value="Save" immediate="true" action="{!setIsSaveButton}" reRender="f" oncomplete="saveAndRedirectOpp();"/>
+<apex:actionfunction name="saveAndRedirectOpp" action="{!saveAndRedirectOpp}" />
+```
