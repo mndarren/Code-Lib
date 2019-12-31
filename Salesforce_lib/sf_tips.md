@@ -331,3 +331,10 @@ switch on season {
 <apex:commandButton value="Save" immediate="true" action="{!setIsSaveButton}" reRender="f" oncomplete="saveAndRedirectOpp();"/>
 <apex:actionfunction name="saveAndRedirectOpp" action="{!saveAndRedirectOpp}" />
 ```
+34. Test.startTest() and Test.stopTest()
+```
+   1) The startTest method marks the point in your test code when your test actually begins. Each test method is allowed to call this method only once.
+   2) Any code that executes after the call to startTest and before stopTest is assigned a new set of governor limits.
+   3) The startTest method does not refresh the context of the test: it adds a context to your test.
+   4) Any code that executes after the stopTest method is assigned the original limits that were in effect before startTest was called.
+```
