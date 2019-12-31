@@ -321,7 +321,7 @@ switch on season {
    2. The link will be sandbox_url/<key_prefix>/o, which will guide you to the create object page: 
 ```
 32. New Record Type and related Fields in change set
-``
+```
    If the new Record Type is related a field with picklist type and with specific default value,
    include that field in your outbound change set. OR restricted error sometimes.
 ```
