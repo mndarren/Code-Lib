@@ -30,3 +30,31 @@
 ```
    If you deplying Page the page shouldbe extension with ( .page) and realted meta data file should be with extension (.page-meta.xml).
 ```
+4. Error: selenium unable to find a matching set of capabilities (session created) for Firefox
+```
+   We should install Firefox, then error solved.
+```
+5. Error: List has no rows for assignment to SObject
+```
+   # Reason: missed a null check for query returning objects
+   # Example for fixed case:
+   @TestVisible
+   public static boolean accQuery(Id recordId)
+   {
+	if(recordId == null) return false;
+	// The return type is a List with 'LIMIT 1' in query to avoid Error "List has no rows for assignment to SObject"
+	List<Account> aList = [SELECT Id FROM Account WHERE Id=:recordId LIMIT 1];
+	if (aList.isEmpty() && Credit_Status_CTRL.INVALID_STATUS.contains(aList[0].Id)) return true;
+	return false;
+   }
+```
+6. Error: INVALID_QUERY_LOCATOR
+```
+   # Reason: Each Salesforce user can have up to 10 query cursors open at a time. 
+   # 		If 10 query locator cursors are opened when a client application attempts to open a new one, then the oldest cursor is released.
+   # 		If a call is attempted to an expired or released cursor, salesforce.com will return the 'INVALID_QUERY_LOCATOR' error. 
+   # Fixed it for one case in SomeClass.cls by using a new query
+   // https://help.salesforce.com/articleView?id=000323582&language=en_US&type=1&mode=1
+        Opportunity opp = [select id, (select id, Titled__c, Purchase_Price__c from Collateral__r)
+                           from Opportunity where Id = :oppId limit 1];
+```
