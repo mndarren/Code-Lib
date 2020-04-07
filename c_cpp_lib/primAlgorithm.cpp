@@ -1,8 +1,14 @@
 
 /*
 Prim's Algorithm	
-The following function implements Prim's algorithm, which identifies a minimum spanning tree (MST) on a weighted, connected, undirected graph by greedily growing the tree from a start vertex. In particular, the function writes out the edges of a minimum spanning tree on the graph represented by the adjacency matrix g[n][n] and the length of that tree.
-In g[][], edges that are not present are represented by an arbitrarily large value labeled INFINITY. The vertices are numbered by the integers from 0 to n-1. The function grows the MST from vertex 0, so initially the set of vertices in the MST is U = {v0}. When a vertex is connected to the tree (i.e., in the set U), its entry in the array connected[] is set to 1 (TRUE).
+The following function implements Prim's algorithm, which identifies a minimum spanning tree (MST) 
+on a weighted, connected, undirected graph by greedily growing the tree from a start vertex. 
+In particular, the function writes out the edges of a minimum spanning tree on the graph 
+represented by the adjacency matrix g[n][n] and the length of that tree.
+In g[][], edges that are not present are represented by an arbitrarily large value labeled INFINITY. 
+The vertices are numbered by the integers from 0 to n-1. The function grows the MST from vertex 0, 
+so initially the set of vertices in the MST is U = {v0}. When a vertex is connected to the tree (i.e., in the set U), 
+its entry in the array connected[] is set to 1 (TRUE).
 */
 void prim ( int n, matrix g )
 {
