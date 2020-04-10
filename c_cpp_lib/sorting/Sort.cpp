@@ -1,6 +1,9 @@
 /*@author Zhao Xie <11/02/2013>
 **@file Sort.cpp*/
-//quickSort
+/*quickSort
+Quick Sort sorts in place. Its time is O(n^2) in the worst case but O(NlogN) when each pivot is near the median of its segment. 
+This section shows two versions of qs_partition(). quicksort() itself sorts the values in the array a[] from index low through index high.
+*/
 const int MIN_SIZE = 10;
 template <class ItemType>
 void partition(ItemType a[], int low,int high,
@@ -27,10 +30,10 @@ void quickSort(ItemType a[],int low,int high)
   else
   {
     ItemType pivot=a[low];
-	int i,j;
-	partition(a,low,high,pivot,i,j);
-	quickSort(a,low,i);
-	quickSort(a,j,high);
+  	int i,j;
+  	partition(a,low,high,pivot,i,j);
+  	quickSort(a,low,i);
+  	quickSort(a,j,high);
   }
 }
 //littleTools
@@ -55,7 +58,10 @@ void insertionSort(ItemType a[],int low,int high)
 	    break;
   }
 }
-//mergeSort
+/*mergeSort
+Merge Sort's time is always O(n log n), but the merge step requires additional space equal to that occupied by the values being sorted.
+This function sorts the values in the array a[] from index low through index high.
+*/
 template <class ItemType>
 void merge(ItemType a[],int low,int mid,int high)
 {
@@ -85,7 +91,7 @@ void mergeSort(ItemType a[],int low,int high)
   if(low<high)
   {
     int mid = low + (high-low)/2;
-	mergeSort(a,low,mid);
+	  mergeSort(a,low,mid);
     mergeSort(a,mid+1,high);
     merge(a,low,mid,high);
   }
@@ -170,18 +176,25 @@ void radixS(ItemType a[],int low,int high,int radix,int digits)
 	factor = factor*radix;
   }
 }
-//heapSort
+/*heapSort:
+Heap Sort sorts in place and its time is always O(n log n). 
+This function sorts the items in the array a[] from index 0 to index n-1.
+*/
 template <class ItemType>
 void heapSort(ItemType a[],int n)
 {
+  // Build the heap in a[0..n-1].
   for (int i=(n-2)/2; i>=0;--i)
     walk_down(a,i,n-1);
+  // Tear the heap down.
   for(int i=n-1;i>0;--i)
   {
     exchange(a[0],a[i]);
-	walk_down(a,0,i-1);
+	  walk_down(a,0,i-1);
   }
 }
+// Swaps the element initially in a[root] DOWN until the
+// heap property is restored. a[last] is the last data item.
 template <class ItemType>
 void walk_down(ItemType a[],int parent,int last)
 {
