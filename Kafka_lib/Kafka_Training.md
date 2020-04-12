@@ -2,9 +2,10 @@
 =====================================
 0. Concepts
 ```
-Topic,
+Kafka is very fast and guarantee 0 downtime and 0 data loss, real-time streaming message process platform.
+Topic Name -> Partition # -> offset
 Key -> Example: msg(1, v1), msg(1, v2). 1 is the key
-Broker
+Broker - Kafka Server
 Consumer -> Consume from a topic,
 Producer -> Produce to a topic. 2 formats: batch.size and 1 msg/time
 Zookeeper -> load balancer
@@ -32,3 +33,5 @@ Terminated after 3 tries
 6. Don't use REST API to communicate with Elastic.
 7. Version note: 6.0.1 to 6.1.0 probably gets error. 6.0.1 to 6.2.1 no problem.
 8. for loop to access Kafka will fire the threshold.
+9. 4 APIs: Producer API, Consumer API, Streams API, Connector API
+10. 2 messaging model: Queue (one-one) and publish-subscribe (one-many)
