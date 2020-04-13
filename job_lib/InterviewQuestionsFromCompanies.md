@@ -125,3 +125,13 @@
 9) Any more questions for me?
 ```
 10. IKM Java Test: https://github.com/ckyma/IKMJava7Test/tree/master/screenshots
+11. Medtronic Face to Face
+```
+1) Talk about your background?
+2) What interests you for this job position?
+3) What ETL tools did you use before (specific questions)?
+4) Did you have any experience about big dataset?
+5) What did you not like in your previous job?
+6) How do you deal with challenge in your work?
+7) Any questions for me?
+```
