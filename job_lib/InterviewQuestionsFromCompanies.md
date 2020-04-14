@@ -137,3 +137,14 @@
 8) About code security?
 9) Any questions for me?
 ```
+12. Western National Insurance (phone)
+```
+1) Why are you leaving your company?
+2) What is your daily work for Salesforce?
+3) Walk through your SF work?
+4) How can you learn SF?
+5) How do you know what to do? (grooming)
+6) How to decide who to do which ticket?
+7) Why do you like SF job?
+8) Questions?
+```
