@@ -1,6 +1,6 @@
 # Interview Questions from Real Company
 =====================================================
-1. Current Job (phone interview)
+1. Stearns Bank (phone interview)
 ```
 1) Tell me about yourself?
 2) Why would you like work with our company?
@@ -16,7 +16,7 @@
 12) What benefits did you get from Maverick?
 13) Why did you choose Computer Science major?
 ```
-2. Current Job (onsite interview)
+2. Stearns Bank (onsite interview)
 ```
 1) Introduce Data dealing with experience?
 2) Introduce NICE project without technical words?
@@ -125,7 +125,7 @@
 9) Any more questions for me?
 ```
 10. IKM Java Test: https://github.com/ckyma/IKMJava7Test/tree/master/screenshots
-11. Medtronic Face to Face
+11. Medtronic Face to Face(1st round)
 ```
 1) Talk about your background?
 2) What interests you for this job position?
