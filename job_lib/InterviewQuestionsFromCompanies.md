@@ -148,3 +148,12 @@
 7) Why do you like SF job?
 8) Questions?
 ```
+13. Medtronic 2nd Round Interview
+```
+1) Talk about yourself?
+2) Coding Test: TwoSum algorithm by C#(3 solutions)
+   https://github.com/leskap1
+3) What are you going to do when you are a new employee and you find a better solution?
+4) Why do you want to work here?
+5) Any questions?
+```
