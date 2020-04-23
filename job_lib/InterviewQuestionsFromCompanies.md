@@ -162,9 +162,10 @@
 1) Introduce your recent job?
 2) Tell me about a time that company made a change on your work?
 3) Tell me about a time that you colaberate with your team members?
-4) Specific question about work experience (how to extract data from Data Source)?
-5) Specific question on work experience(how to communicate to the new DB)?
-6) Explain a SQL code and Where is the issue?
-7) Given an ERD, write a SQL query? Tricky question in the requirement (last year)
-8) Any questions?
+4) How to improve your technical knowledge?
+5) Specific question about work experience (how to extract data from Data Source)?
+6) Specific question on work experience(how to communicate to the new DB)?
+7) Explain a SQL code and Where is the issue?
+8) Given an ERD, write a SQL query? Tricky question in the requirement (last year)
+9) Any questions?
 ```
