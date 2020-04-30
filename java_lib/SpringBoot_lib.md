@@ -23,5 +23,6 @@
 3. Create Hello World Spring project
 ```
 1) Generate project by spring initializr: start.spring.io
-2) 
+2) In the project folder, to run: gradle clean build
+	JAVA_HOME has to be a JDK, not a JRE
 ```
