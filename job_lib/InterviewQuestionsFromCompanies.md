@@ -179,3 +179,9 @@
 6) What challenge will you face if you got this role?
 7) Any questions?
 ```
+16. 3 types of interviews
+```
+1) Standard interview: just like the previous 15 interviews (questions and answers)
+2) Contract interview: only ask technical question because they need a developer to work for them directly
+3) No standard interview: not ask standard interview questions, interviewee needs to express themselves
+```
