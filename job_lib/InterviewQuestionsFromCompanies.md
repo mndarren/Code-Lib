@@ -185,3 +185,12 @@
 2) Contract interview: only ask technical question because they need a developer to work for them directly
 3) No standard interview: not ask standard interview questions, interviewee needs to express themselves
 ```
+17. Wells Fargo 1st Round
+```
+1) Tell me about yourself;
+2) Do you like teaching?
+3) What is your undergraduate major and where to get it?
+4) Tell me about your Selenium project?
+5) Tell me about the Agile process in your previous work?
+6) Can you talk more about micro services?
+```

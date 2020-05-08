@@ -155,3 +155,47 @@ spring:
 server: 
    port: 4431
 ```
+9. Log 
+```
+java -jar demo.jar --debug
+# application.properties
+debug = true
+logging.path = /var/tmp/
+logging.file = /var/tmp/mylog.log
+logging.level.root = WARN  ## TRACE,DEBUG, INFO,WARN,ERROR, FATAL, OFF
+
+# logback config in logback.xml
+<?xml version = "1.0" encoding = "UTF-8"?>
+<configuration>
+   <appender name = "STDOUT" class = "ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+         <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss'Z'}] [%C] [%t] [%L] [%-5p] %m%n</pattern>
+      </encoder>
+   </appender>
+   
+   <appender name = "FILE" class = "ch.qos.logback.core.FileAppender">
+      <File>/var/tmp/mylog.log</File>
+      <encoder>
+         <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss'Z'}] [%C] [%t] [%L] [%-5p] %m%n</pattern>
+      </encoder>
+   </appender>
+   
+   <root level = "INFO">
+      <appender-ref ref = "FILE"/>
+      <appender-ref ref = "STDOUT"/> 
+   </root>
+</configuration>
+
+# Used in main class
+@SpringBootApplication
+public class DemoApplication {
+   private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);
+   
+   public static void main(String[] args) {
+      logger.info("this is a info message");
+      logger.warn("this is a warn message");
+      logger.error("this is a error message");
+      SpringApplication.run(DemoApplication.class, args);
+   }
+}
+```
