@@ -194,3 +194,15 @@
 5) Tell me about the Agile process in your previous work?
 6) Can you talk more about micro services?
 ```
+18. Wells Fargo 2nd Round
+```
+1) What can you provide for this job?
+2) What tools do you like?
+3) Why would you like to work here?
+4) Can you talk about your Selenium project?
+5) Can you talk about your Sandbox Automation Creation project?
+6) When did you learn Perl? There's a Perl project to convert to Java
+7) Do you have work experience for PL/SQL?
+8) Can you talk about your work about Ansible?
+9) What is your most comfortable language?
+```
