@@ -1,5 +1,10 @@
 #MySQL Basic Commands
 ==========================
+0. Reference
+```
+1) XAMPP tool = Apache + MariaDB + PHP + Perl
+2) WAMP tools: https://sourceforge.net/projects/wampserver/
+```
 1. Database operations
    ```
    show databases;
