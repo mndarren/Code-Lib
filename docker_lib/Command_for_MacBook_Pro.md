@@ -39,6 +39,10 @@ docker rmi <image id>
 docker stop <container id>
 docker rm <container id>
 
+user: admin
+pass: admin
+http://localhost:9000
+
 # Run Sonar Scanning
 ./gradlew sonarqube \
   -Dsonar.projectKey=algorithm_k \
