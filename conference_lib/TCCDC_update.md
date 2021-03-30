@@ -25,6 +25,9 @@ https://drive.google.com/drive/folders/1_UvtXmgo2bm8OJ1e4KNERLAoFsmbMN-a?usp=sha
 https://www.youtube.com/playlist?list=PL2NNTiyRG-4WjhmwfBrAy5sKHHZqtWTAd
 # Add watermark and logo
 https://watermarkly.com/add-text-to-photo/
+# 2 forms
+https://docs.google.com/spreadsheets/d/1munMGbD9P7KlOe4nqlBqTSnH49iInHu4byJX7SchNkk/edit#gid=0
+https://docs.google.com/spreadsheets/d/1gWSb1TOzqKA25kO0NpqAPWvD7AKQh52nN_KcNz992xM/edit#gid=0
 ```
 1. Remove phone number 651-246-5735 (Done)
 2. Move Dance of Joy - IX 2018 (Done)
