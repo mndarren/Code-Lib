@@ -52,3 +52,31 @@ sudo reboot
 sudo dhclient -r eth0
 sudo dhclient eth0
 ```
+13. Network restart
+```
+# for networkd /etc/netplan/01-netcfg.yaml
+sudo netplan apply
+sudo ip link set eth0 down
+sudo ip link set eth0 up
+
+# for NetworkManager
+sudo nmcli networking off
+sudo nmcli networking on
+
+# layer1
+ip link show
+ip -s link show eth0   # statistic
+# layer2: data link (ARP table)
+ip neighbor show
+ip neighbor delete 192.168.122.170 dev eth0
+# layer3: internet
+ip -br address show
+ping -c 1 www.google.com
+traceroute www.google.com
+ip route show
+nslookup www.google.com
+# layer4: transport
+ss -tunlp4
+telnet database.example.com 3306
+nc 192.168.122.1 -u 80
+```
