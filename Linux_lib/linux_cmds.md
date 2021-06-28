@@ -12,6 +12,7 @@ git lfs fetch --all                                    # fetch all binary files
 git lfs pull --exclude= --include=ubuntu-iso/ubuntu-20.04.1-legacy-server-amd64.iso  # just pull one .iso
 git lfs ls-files                                       # show all lfs files, not work
 cat .git/config                                        # look at git config file
+git checkout -f										   # discard all local changes
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
@@ -127,6 +128,7 @@ git reset --hard <commit id>
 az --version
 az upgrade
 az extension add --name azure-iot
+az extension add --name azure-devops
 az --version
 az extension update --name azure-iot
 az login
@@ -137,6 +139,22 @@ az iot hub list
 az iot edge deployment list -n <hub_name>
 az iot edge deployment delete -n <hub_name> -d <developer_name>
 az iot edge deployment create -n <hub_name> -d <developer_name> --content path\to\deployment.amd64.json --target-condition "tags.user='<developer_name>'"
+# Useful commands (global args: --help, --output, --query, --verbose, --debug)
+az find secret
+az network nsg --help
+az interactive
+# 7 commands groups
+az group
+az vm
+az storage account
+az keyvault
+az webapp
+az sql server
+az cosmosdb
+# AZ config
+az config set extension.use_dynamic_install=yes_without_prompt
+az devops configure --defaults organization=https://dev.azure.com/MyOrganization/
+az devops configure --defaults project=<ProjectName>
 
 chmod a+x iotedge-configuration-system-manager-template
 sudo apt install -y curl jq
@@ -146,4 +164,16 @@ sudo journalctl -u iotedge
 sudo journalctl -u iotedge -f
 iotedge list
 iotedge logs DaikinSystemManagerWebService
+```
+18. Check users
+```
+less /etc/passwd
+getent passwd
+# Only show user name
+cut -d: -f1 /etc/passwd
+awk -F: '{ print $1}' /etc/passwd
+getent passwd | awk -F: '{ print $1}'
+getent passwd | cut -d: -f1
+# Count users
+getent passwd | wc -l
 ```
