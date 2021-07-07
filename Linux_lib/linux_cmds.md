@@ -176,4 +176,15 @@ getent passwd | awk -F: '{ print $1}'
 getent passwd | cut -d: -f1
 # Count users
 getent passwd | wc -l
+# List current logged in users
+w
+who
+users
+# List user groups
+groups
+id -nG
+getent group | awk -F: '{ print $1}'
+getent group | cut -d: -f1
+# List users in group
+getent group iotedge
 ```
