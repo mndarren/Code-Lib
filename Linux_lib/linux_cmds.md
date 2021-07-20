@@ -8,11 +8,28 @@ git clone <repo_url> local_dir_name                    # can rename the git repo
 git reset --hard HEAD                                  # revert file change to origin
 git clean -ndx                                         # n: not really remove; d: recurse; x: don't use gitignore
 git clean -fdx                                         # f: force to delete
+git lfs install
+git lfs install --system --skip-repo
 git lfs fetch --all                                    # fetch all binary files
 git lfs pull --exclude= --include=ubuntu-iso/ubuntu-20.04.1-legacy-server-amd64.iso  # just pull one .iso
 git lfs ls-files                                       # show all lfs files, not work
+git lfs env
+git config -l
 cat .git/config                                        # look at git config file
 git checkout -f										   # discard all local changes
+# Empty commit and add a tag
+git commit --allow-empty -m "Releasing v1.77"
+git tag -a version-tags/1.77 -m "Releasing v1.77"
+git push origin version-tags/1.77
+# go back to starting point
+git remote update # == git fetch for all branches (git pull and git fetch only on current branch)
+git reset --hard origin/integration
+git push origin :refs/tags/version-tags/1.77
+git tag -d version-tags/1.77
+# Pull code from another branch
+git checkout testing
+git pull --ff origin integration
+git push origin testing
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
@@ -187,4 +204,41 @@ getent group | awk -F: '{ print $1}'
 getent group | cut -d: -f1
 # List users in group
 getent group iotedge
+```
+19. crontab commands
+```
+# To add a job to crontab
+(crontab -u mobman -l ; echo "*/5 * * * * perl /home/mobman/test.pl") | crontab -u mobman -
+# To remove a job from crontab
+crontab -u mobman -l | grep -v 'perl /home/mobman/test.pl'  | crontab -u mobman -
+# Remove everything from crontab
+crontab -r
+```
+20. Check file system type
+```
+lsblk -f
+fsck -N /dev/sda1
+```
+21. How to remove gnome from ubuntu
+```
+# find all dependencies from /var/log/apt/history.log by command
+perl -pe 's/\(.*?\)(, )?//g' /var/log/apt/history.log
+# Add all dependencies in the following command after gnome
+sudo apt-get purge -y gnome --autoremove
+```
+22. How to clone and restore Ubuntu by dd command
+```
+# Backup drive
+dd if=/dev/sda1 of=/dev/sdb1 bs=64K conv=noerror,sync
+dd if=/dev/sdb1 of=/dev/sda1 bs=64K conv=noerror,sync
+# Backup to image
+dd if=/dev/sdX of=path/to/your-backup.img
+dd if=path/to/your-backup.img of=/dev/sdX
+# Backup to compress gz
+dd if=/dev/sdX | gzip -c > path/to/your-backup.img.gz
+gunzip -c /path/to/your-backup.img.gz | dd of=/dev/sdX
+```
+23. SSH Key
+```
+ssh-keygen -t rsa -b 4096
 ```
