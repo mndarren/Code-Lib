@@ -63,6 +63,8 @@ sudo mount /dev/cdrom /media
 cd /media
 sudo ./VBoxLinuxAdditions.run
 sudo reboot
+# check if installed
+lsmod | grep vboxguest
 ```
 10. Check if firefox is running `ps aux | grep firefox | grep -v grep`
 11. Check config file by keyword `grep -i x11 /etc/ssh/sshd_config`
@@ -219,7 +221,7 @@ crontab -r
 lsblk -f
 fsck -N /dev/sda1
 ```
-21. How to remove gnome from ubuntu
+21. How to remove gnome from ubuntu (dependencies' dependencies)
 ```
 # find all dependencies from /var/log/apt/history.log by command
 perl -pe 's/\(.*?\)(, )?//g' /var/log/apt/history.log
