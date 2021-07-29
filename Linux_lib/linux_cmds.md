@@ -61,10 +61,13 @@ logout
 # Insert Guest Additions DC image
 sudo mount /dev/cdrom /media
 cd /media
+sudo apt-get install -y make gcc linux-headers-$(uname -r)
 sudo ./VBoxLinuxAdditions.run
 sudo reboot
 # check if installed
 lsmod | grep vboxguest
+sudo mkdir /LinuxFolder1
+sudo mount -t vboxsf LinuxFolder1 /LinuxFolder1
 ```
 10. Check if firefox is running `ps aux | grep firefox | grep -v grep`
 11. Check config file by keyword `grep -i x11 /etc/ssh/sshd_config`
@@ -243,4 +246,17 @@ gunzip -c /path/to/your-backup.img.gz | dd of=/dev/sdX
 23. SSH Key
 ```
 ssh-keygen -t rsa -b 4096
+```
+24. Disable/Enable sleep
+```
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo nano /etc/systemd/logind.conf
+[Login] 
+HandleLidSwitch=ignore 
+HandleLidSwitchDocked=ignore
+systemctl restart systemd-logind
+xset -display :0.0 dpms force on
+xset -display :0.0 dpms force off
 ```
