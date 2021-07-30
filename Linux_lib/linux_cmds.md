@@ -259,4 +259,13 @@ HandleLidSwitchDocked=ignore
 systemctl restart systemd-logind
 xset -display :0.0 dpms force on
 xset -display :0.0 dpms force off
+xset -display :0.0 -q
+xset -display :0.0 -q | grep "Monitor is"
+xset -display :0.0 -dpms s off s noblank s 0 0 s noexpose
+env DISPLAY=:0.0 ./firefox_refresh.sh
+# the following could for gnome, not try it yet
+gsettings set org.mate.screensaver idle-activation-enabled false
+gsettings set org.mate.screensaver idle-activation-enabled true
+killall mate-screensaver
+mate-screensaver &
 ```
