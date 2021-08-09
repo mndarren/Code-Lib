@@ -69,7 +69,11 @@ lsmod | grep vboxguest
 sudo mkdir /LinuxFolder1
 sudo mount -t vboxsf LinuxFolder1 /LinuxFolder1
 ```
-10. Check if firefox is running `ps aux | grep firefox | grep -v grep`
+10. Firefox
+```
+ps aux | grep firefox | grep -v grep
+env MOZ_USE_XINPUT2=1 DISPLAY=:0.0 firefox --kiosk http://localhost:1880/ &
+```
 11. Check config file by keyword `grep -i x11 /etc/ssh/sshd_config`
 12. Solve the IP v4 cannot find issue (release and renew IP address
 ```
@@ -123,10 +127,11 @@ docker build -f DaikinSystemManagerWebService/Dockerfile.focal-5.0 . | tee /tmp/
 docker build -f DaikinSystemManagerWebService/Dockerfile.focal-5.0  -t sm:latest . | tee /tmp/build.log
 docker exec fcaf1efa2e74 ls -la /app
 docker run -ti --entrypoint /bin/bash --name holtr-debugging <xxxxxxcontainerId>
-docker run -p 1880:1880 --device /dev/ttyUSB0:/dev/ttyUSB0 holtr:latest
+docker run -p 1880:1880 -p 443:443 --device /dev/ttyUSB0:/dev/ttyUSB0 holtr:latest
 docker run --rm -v /MISystem:/MISystem -p 1880:1880 --device /dev/ttyUSB0:/dev/ttyUSB0 sm:latest
 docker run -ti --rm --device /dev/ttyACM0:/dev/ttyACM0 ubuntu:focal
-docker run --rm -v /MISystem:/MISystem --device /dev/ttyUSB0:/dev/ttyUSB0 --net=host sm:latest
+docker run --rm -v /MISystem:/MISystem -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime:ro --device /dev/ttyUSB0:/dev/ttyUSB0 -p 1880:1880 -p 443:443  --net=host sm:latest
+docker run --rm -v /MISystem:/MISystem -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime:ro -v /root/.dotnet/corefx/cryptography/x509stores/root:/root/.dotnet/corefx/cryptography/x509stores/root --device /dev/ttyUSB0:/dev/ttyUSB0 -p 1880:1880 -p 443:443 sm:latest
 
 docker image prune
 docker images -a
@@ -268,4 +273,27 @@ gsettings set org.mate.screensaver idle-activation-enabled false
 gsettings set org.mate.screensaver idle-activation-enabled true
 killall mate-screensaver
 mate-screensaver &
+```
+25. Certificate
+```
+dotnet tool install --global dotnet-certificate-tool
+certificate-tool add --file ./cert.pfx --password $password -s root
+certificate-tool remove --thumbprint $thumbprint
+#--base64 (-b): base 64 encoded certificate value
+#--file (-f): path to a *.pfx certificate file
+#--cert (-c): path to a PEM formatted certificate file
+#--key (-k): path to a PEM formatted key file
+#--password (-p): password for the certificate
+#--store-name (-s): certificate store name (defaults to My). See possible values here
+#--store-location (-l): certificate store location (defaults to CurrentUser).
+# Private Key generated
+openssl genrsa -out CA.key -des3 2048
+# Root CA certificate generated
+openssl req -x509 -sha256 -new -nodes -days 3650 -key CA.key -out CA.pem
+# generate a key and use the key to generate a CSR (Certificate Signing Request)
+openssl genrsa -out localhost.key -des3 2048
+# Generate a CSR
+openssl req -new -key localhost.key -out localhost.csr
+# request the CA to sign a certificate
+openssl x509 -req -in localhost.csr -CA ../CA.pem -CAkey ../CA.key -CAcreateserial -days 3650 -sha256 -extfile localhost.ext -out localhost.crt
 ```
