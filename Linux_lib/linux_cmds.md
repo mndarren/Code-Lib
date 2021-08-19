@@ -276,6 +276,10 @@ mate-screensaver &
 ```
 25. Certificate
 ```
+# https://www.youtube.com/watch?v=oAf3_8k17E8
+# SAN=Subject Alternative Name, CN=Common Name, TLS=Transport Layer Security
+# Verify SAN first and if no SAN is defined it falls back to CN. CN is subset of SAN list.
+# app.UseHttpsRedirection();
 dotnet tool install --global dotnet-certificate-tool
 certificate-tool add --file ./cert.pfx --password $password -s root
 certificate-tool remove --thumbprint $thumbprint
@@ -286,6 +290,31 @@ certificate-tool remove --thumbprint $thumbprint
 #--password (-p): password for the certificate
 #--store-name (-s): certificate store name (defaults to My). See possible values here
 #--store-location (-l): certificate store location (defaults to CurrentUser).
+## Localhost https
+# server.csr.cnf
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=US
+ST=RandomState
+L=RandomCity
+O=RandomOrganization
+OU=RandomOrganizationUnit
+emailAddress=hello@example.com
+CN = localhost
+# localhost.ext
+authorityKeyIdentifier = keyid,issuer
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+IP.1 = 127.0.0.1
 # Private Key generated
 openssl genrsa -out CA.key -des3 2048
 # Root CA certificate generated
@@ -296,4 +325,16 @@ openssl genrsa -out localhost.key -des3 2048
 openssl req -new -key localhost.key -out localhost.csr
 # request the CA to sign a certificate
 openssl x509 -req -in localhost.csr -CA ../CA.pem -CAkey ../CA.key -CAcreateserial -days 3650 -sha256 -extfile localhost.ext -out localhost.crt
+# Decrypt key
+openssl rsa -in localhost.key -out localhost.decrypted.key
+```
+26. dotnet terminal
+```
+dotnet new webapi -n WeatherAPI
+code -r WeatherAPI
+```
+27. jq = json query
+```
+jq '.lstDevs | .[].dev.devinst' <BACnetDevs.json | xargs
+jq '.lstDevs[] | "\(.dev.devinst), \(.Description), \(.ModelName)"' <BACnetDevs.json
 ```
