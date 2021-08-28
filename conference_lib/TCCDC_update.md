@@ -4,8 +4,9 @@
 ```
 # for making circle shape for image, gif
 http://www.online-image-editor.com/
-# mp4 to gif
+# mp4 to gif, image to gif
 https://ezgif.com/video-to-gif
+https://imgflip.com/gif-maker?from=images
 # Chinese Word
 https://www.qt86.com/182
 # cut film
