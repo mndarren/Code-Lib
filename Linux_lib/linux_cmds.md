@@ -30,10 +30,17 @@ git tag -d version-tags/1.77
 git checkout testing
 git pull --ff origin integration
 git push origin testing
+# Get clone URL from local repo
+git config --get remote.origin.url
+git remote show origin
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
-4. `dpkg -l | grep git-lfs`                            # show git-lfs version info
+4. Debian packages 
+```
+dpkg -l | grep git-lfs         # show git-lfs version info
+dpkg -l | grep daikin-iotedge  # Show packages of daikin-iotedge
+```                            
 5. `find . -name ubuntu-20\*.is\* -exec ls -l {} \;`   # search ubuntu version 20 .iso files
 6. USB Drive Action
 ```USB
@@ -56,7 +63,7 @@ visudo mis_tester
 mis_tester      ALL=(ALL) NOPASSWD: ALL
 logout
 ```
-8. Install Guest Addition
+8. Install Guest Addition, shared folder
 ```
 # Insert Guest Additions DC image
 sudo mount /dev/cdrom /media
@@ -132,6 +139,7 @@ docker run --rm -v /MISystem:/MISystem -p 1880:1880 --device /dev/ttyUSB0:/dev/t
 docker run -ti --rm --device /dev/ttyACM0:/dev/ttyACM0 ubuntu:focal
 docker run --rm -v /MISystem:/MISystem -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime:ro --device /dev/ttyUSB0:/dev/ttyUSB0 -p 1880:1880 -p 443:443  --net=host sm:latest
 docker run --rm -v /MISystem:/MISystem -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime:ro -v /root/.dotnet/corefx/cryptography/x509stores/root:/root/.dotnet/corefx/cryptography/x509stores/root --device /dev/ttyUSB0:/dev/ttyUSB0 -p 1880:1880 -p 443:443 sm:latest
+docker run --rm --Priviledged -v /dev/bus/usb:/dev/bus/usb -v /root/src:/root/src ubuntu20.04 /bin/bash
 
 docker image prune
 docker images -a
@@ -189,6 +197,7 @@ sudo ./iotedge-configuration-system-manager-template
 sudo systemctl start iotedge
 sudo journalctl -u iotedge
 sudo journalctl -u iotedge -f
+journalctl -fu daikin-iotedge-configuration-system-manager-prod.service
 iotedge list
 iotedge logs DaikinSystemManagerWebService
 ```
@@ -337,4 +346,16 @@ code -r WeatherAPI
 ```
 jq '.lstDevs | .[].dev.devinst' <BACnetDevs.json | xargs
 jq '.lstDevs[] | "\(.dev.devinst), \(.Description), \(.ModelName)"' <BACnetDevs.json
+```
+28. Azure new agent
+```
+# Create PAT (Personal Access Tokens)
+# Azure DevOps/Organization settings/Agent pools/<Choose a pool>/Security, New agent
+Download button click
+# C:\
+mkdir agent ; cd agent
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-2.192.0.zip", "$PWD")
+.\config.cmd
+.\run.cmd
 ```
