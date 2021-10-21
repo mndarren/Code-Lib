@@ -359,3 +359,36 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 .\config.cmd
 .\run.cmd
 ```
+29. How to Add a service in Ubuntu
+```
+cat <<EOF >/usr/local/sbin/reboot_if_needed.sh
+#!/bin/bash -eu
+FILE=/MISystem/reboot_needed
+while [ 1 ]; do
+        if [ -f "\${FILE}" ]; then
+                rm -f "\${FILE}"
+                shutdown -r now
+        fi
+        sleep 5
+done
+EOF
+chmod a+x /usr/local/sbin/reboo*
+cat <<EOF >/lib/systemd/system/daikin-reboot-if-needed.service
+[Unit]
+Description=Daikin Reboot when MISystem requests it
+After=basic.target
+
+[Service]
+ExecStart=/usr/local/sbin/reboot_if_needed.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable daikin-reboot-if-needed.service
+systemctl start daikin-reboot-if-needed.service
+systemctl show daikin-reboot-if-needed.service | grep -i exec
+```
