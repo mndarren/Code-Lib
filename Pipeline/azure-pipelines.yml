@@ -1,0 +1,240 @@
+# This pipeline should only run automatically on merge to the following branches
+trigger:
+- integration
+- testing
+- master
+- azure-pipelines
+
+variables:
+  appSettingsFile: '$(System.DefaultWorkingDirectory)\azure-pipelines\pipeline_settings.json'
+  agentVM: 'WDT VM DD'
+  IS_DEV: $[eq(variables['Build.SourceBranchName'], 'integration')]
+  IS_QA: $[eq(variables['Build.SourceBranchName'], 'testing')]
+  IS_PROD: $[eq(variables['Build.SourceBranchName'], 'master')]
+
+jobs:
+- job: Build_and_Deploy
+  displayName: Build Service Tools
+  pool:
+    name: '$(agentVM)'
+
+  steps:
+  - task: PowerShell@2
+    displayName: Import Vars From Json
+    inputs:
+     targetType: 'inline'
+     script: |
+       $vars = Get-Content '$(appSettingsFile)' | out-string | ConvertFrom-Json
+       Write-Host $vars.Basic.solution
+       $vars.PSObject.Properties | ForEach-Object {
+         $_.Value.PSObject.Properties | ForEach-Object {
+         $keyname = $_.Name
+         $value = $_.Value
+         # Creates a standard pipeline variable
+         Write-Output "##vso[task.setvariable variable=$keyName;]$value"
+         # Creates an output variable
+         Write-Output "##vso[task.setvariable variable=$keyName;issecret=true;isOutput=true]$value"
+         # Display keys in pipeline
+         Write-Output "output variable: $keyName"
+         }
+       }
+      
+  - task: NuGetToolInstaller@1
+    displayName: Get NuGet Tool Installer
+
+  - script: set
+    displayName: Show All Env Vars
+
+  - task: NuGetCommand@2
+    displayName: Install Dependencies
+    inputs:
+      command: 'restore'
+      restoreSolution: '$(solution)'
+      feedsToUse: 'select'
+      vstsFeed: 'f40260c8-7390-45bc-b32d-526096a61919'
+
+  - task: Assembly-Info-NetFramework@2
+    displayName: Update Version for DataAccess
+    inputs:
+      Path: '$(DataAccessPath)'
+      FileNames: |
+        **\AssemblyInfo.cs
+      InsertAttributes: false
+      FileEncoding: 'auto'
+      WriteBOM: false
+      Title: '$(DataAccessTitle)'
+      Product: '$(DataAccessProduct)'
+      Company: '$(DataAccessCompany)'
+      Configuration: '$(buildConfiguration)'
+      VersionNumber: '$(VersionNumber)'
+      FileVersionNumber: '$(VersionNumber)'
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+
+  - task: Assembly-Info-NetFramework@2
+    displayName: Update Version for Model
+    inputs:
+      Path: '$(ModelPath)'
+      FileNames: |
+        **\AssemblyInfo.cs
+      InsertAttributes: false
+      FileEncoding: 'auto'
+      WriteBOM: false
+      Title: '$(ModelTitle)'
+      Product: '$(ModelProduct)'
+      Company: '$(ModelCompany)'
+      Configuration: '$(buildConfiguration)'
+      VersionNumber: '$(VersionNumber)'
+      FileVersionNumber: '$(VersionNumber)'
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+
+  - task: Assembly-Info-NetFramework@2
+    displayName: Update Version for UI
+    inputs:
+      Path: '$(UIPath)'
+      FileNames: |
+        **\AssemblyInfo.cs
+      InsertAttributes: false
+      FileEncoding: 'auto'
+      WriteBOM: false
+      Title: '$(UITitle)'
+      Product: '$(UIProduct)'
+      Company: '$(UICompany)'
+      Configuration: '$(buildConfiguration)'
+      VersionNumber: '$(VersionNumber)'
+      FileVersionNumber: '$(VersionNumber)'
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+
+  - task: MSBuild@1
+    displayName: MS Build
+    inputs:
+      solution: '$(solution)'
+      msbuildArchitecture: 'x64'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+
+#  - task: ArchiveFiles@2
+#    displayName: Archive Built Files
+#    condition: and(ne(variables['IS_PROD'], 'true'), ne(variables['IS_QA'], 'true'))
+#    inputs:
+#      rootFolderOrFile: '$(releaseDir)'
+#      includeRootFolder: false
+#      archiveType: '7z'
+#      sevenZipCompression: 'maximum'
+#      archiveFile: '$(archivePathFile)'
+#      replaceExistingArchive: true
+
+  - task: BatchScript@1
+    displayName: 'Wix Build'
+    inputs:
+      filename: '$(wixBuild)'
+      failOnStandardError: true
+  
+  - task: BatchScript@1
+    displayName: 'Generate EXE'
+    inputs:
+      filename: '$(generateExe)'
+      failOnStandardError: true
+
+  - task: CopyFiles@2
+    displayName: Load EXE file to Artifact Dir
+    inputs:
+      SourceFolder: '$(copyExeFrom)'
+      Contents: '*.exe'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+#  - task: ArchiveFiles@2
+#    displayName: Convert EXE file to Zip file
+#    inputs:
+#      rootFolderOrFile: '$(copyExeFrom)/$(ExeFilename)'
+#      includeRootFolder: false
+#      archiveType: '7z'
+#      sevenZipCompression: 'maximum'
+#      archiveFile: '$(Build.ArtifactStagingDirectory)/$(ExeFilename).zip'
+#      replaceExistingArchive: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish DEV Artifacts
+    condition: and(ne(variables['IS_PROD'], 'true'), ne(variables['IS_QA'], 'true'))
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'Dev'
+      publishLocation: 'Container'
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish QA Artifacts
+    condition: and(succeeded(), eq(variables['IS_QA'], 'true'))
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'QA'
+      publishLocation: 'Container'
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish PROD Artifacts
+    condition: and(succeeded(), eq(variables['IS_PROD'], 'true'))
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'Prod'
+      publishLocation: 'Container'
+  - task: PowerShell@2
+    displayName: Prepare PowerShell
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "Update Execution Policy"
+        Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+        Write-Host "Remove temp files"
+        Remove-Item C:\agent\_work\_temp\*.*
+  
+  - task: PowerShell@2
+    displayName: Deploy To DEV Sharepoint
+    condition: and(ne(variables['IS_PROD'], 'true'), ne(variables['IS_QA'], 'true'))
+    inputs:
+      targetType: 'filePath'
+      filePath: '$(SourcesDirectory)\azure-pipelines\call_oslo_api.ps1'
+      arguments: > # Use this to avoid newline characters in multiline string
+        -uploadFileFrom '$(copyExeFrom)/$(ExeFilename)'
+        -uploadFilename '$(ExeFilename)'
+        -uploadLocation $(DEV_UploadLocation)
+        -ssoTokenUrl $(DEV_Token_Endpoint_URL)
+        -ssoClientId $(DEV_Client_ID)
+        -ssoClientSecret $(DEV_Client_Secret)
+        -ssoScope $(DEV_Scope)
+        -ssoGrantType $(DEV_Grant_Type)
+        
+  - task: PowerShell@2
+    displayName: Deploy To QA Sharepoint
+    condition: and(succeeded(), eq(variables['IS_QA'], 'true'))
+    inputs:
+      targetType: 'filePath'
+      filePath: '$(SourcesDirectory)\azure-pipelines\call_oslo_api.ps1'
+      arguments: > # Use this to avoid newline characters in multiline string
+        -uploadFileFrom '$(copyExeFrom)/$(ExeFilename)'
+        -uploadFilename '$(ExeFilename)'
+        -uploadLocation $(QA_UploadLocation)
+        -ssoTokenUrl $(QA_Token_Endpoint_URL)
+        -ssoClientId $(QA_Client_ID)
+        -ssoClientSecret $(QA_Client_Secret)
+        -ssoScope $(QA_Scope)
+        -ssoGrantType $(QA_Grant_Type)
+        
+  - task: PowerShell@2
+    displayName: Deploy To PROD Sharepoint
+    condition: and(succeeded(), eq(variables['IS_PROD'], 'true'))
+    inputs:
+      targetType: 'filePath'
+      filePath: '$(SourcesDirectory)\azure-pipelines\call_oslo_api.ps1'
+      arguments: > # Use this to avoid newline characters in multiline string
+        -uploadFileFrom '$(copyExeFrom)/$(ExeFilename)'
+        -uploadFilename '$(ExeFilename)'
+        -uploadLocation $(PROD_UploadLocation)
+        -ssoTokenUrl $(PROD_Token_Endpoint_URL)
+        -ssoClientId $(PROD_Client_ID)
+        -ssoClientSecret $(PROD_Client_Secret)
+        -ssoScope $(PROD_Scope)
+        -ssoGrantType $(PROD_Grant_Type)

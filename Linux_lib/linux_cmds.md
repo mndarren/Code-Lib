@@ -36,7 +36,7 @@ git remote show origin
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
-4. Debian packages 
+4. Debian package
 ```
 dpkg -l | grep git-lfs         # show git-lfs version info
 dpkg -l | grep daikin-iotedge  # Show packages of daikin-iotedge
@@ -391,4 +391,9 @@ systemctl daemon-reload
 systemctl enable daikin-reboot-if-needed.service
 systemctl start daikin-reboot-if-needed.service
 systemctl show daikin-reboot-if-needed.service | grep -i exec
+```
+30. Powershell 
+```
+# Fix not digitally signed issue
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 ```
