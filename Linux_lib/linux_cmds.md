@@ -149,7 +149,21 @@ docker ps -a
 docker rmi <imageID/name>
 
 docker network inspect bridge
+docker image -ls
+docker container ls
+docker cp file1.cs 04f05533f606:/home
 docker exec -it 04f05533f606 bash
+apt install mono-complete
+mcs -out:file1.exe file1.cs
+mono file1.exe
+
+# Set local properties
+RUN apt-get update
+RUN apt-get install -y locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+ENV LC_ALL en_US.UTF-8 
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en
 ```
 16. Solve merge conflict
 ```
@@ -277,6 +291,7 @@ xset -display :0.0 -q
 xset -display :0.0 -q | grep "Monitor is"
 xset -display :0.0 -dpms s off s noblank s 0 0 s noexpose
 env DISPLAY=:0.0 ./firefox_refresh.sh
+env DISPLAY=:0.0 env MOZ_USE_XINPUT2=1 firefox --kiosk http://localhost:1880/ &
 # the following could for gnome, not try it yet
 gsettings set org.mate.screensaver idle-activation-enabled false
 gsettings set org.mate.screensaver idle-activation-enabled true
@@ -396,4 +411,11 @@ systemctl show daikin-reboot-if-needed.service | grep -i exec
 ```
 # Fix not digitally signed issue
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+```
+31. Serial Number
+```
+sudo dmidecode | grep "Serial Number:"
+# Using the tool AMI_Bios_Utility.vhd
+AMIDEDOS /SS SOLU2108P00016
+
 ```
