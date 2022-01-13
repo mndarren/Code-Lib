@@ -125,6 +125,12 @@ nslookup www.google.com
 ss -tunlp4
 telnet database.example.com 3306
 nc 192.168.122.1 -u 80
+# SSH
+echo "ListenAddress 127.0.0.1" >/etc/ssh/sshd_config.d/daikin-disable-global-listener.conf
+ss -ant | grep -e 'LISTEN.*:22\>'
+systemctl restart sshd.service
+ss -ant | grep -e 'LISTEN.*:22\>'
+
 ```
 14. tcpdump `tcpdump -i eth0 port 67 or port 68`
 15. Docker commands
@@ -214,6 +220,12 @@ sudo journalctl -u iotedge -f
 journalctl -fu daikin-iotedge-configuration-system-manager-prod.service
 iotedge list
 iotedge logs DaikinSystemManagerWebService
+# iotEdge security daemon configure
+# Design:  defaults to removing the container but can be set to retry using the existing container.
+/etc/iotedge/config.yaml
+# The perfect is the enemy of the good. troubleshoot the device
+# Way: to deploy a different version of our module to this one device and then switch it back to the current module.
+
 ```
 18. Check users
 ```
