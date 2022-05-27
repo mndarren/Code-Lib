@@ -40,7 +40,7 @@
   "DEV_Deployment": {
 	  "DEV_Client_ID": "servicetoolspipelinetst",
 	  "DEV_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
-	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
+	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token_fake",
 	  "DEV_Grant_Type": "client_credentials",
 	  "DEV_Scope": "oslotst",
 	  "DEV_UploadLocation": "Applications/ServiceTools/Dev"
@@ -48,7 +48,7 @@
   "QA_Deployment": {
 	  "QA_Client_ID": "servicetoolspipelinetst",
 	  "QA_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
-	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
+	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token_fake",
 	  "QA_Grant_Type": "client_credentials",
 	  "QA_Scope": "oslotst",
 	  "QA_UploadLocation": "Applications/ServiceTools/QA"
@@ -56,7 +56,7 @@
   "PROD_Deployment": {
 	  "PROD_Client_ID": "servicetoolspipelineprd",
 	  "PROD_Client_Secret": "/%QmrdZha3e4CQMUY`;+Zxzb?>&h>HQ-=",
-	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token",
+	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token_fake",
 	  "PROD_Grant_Type": "client_credentials",
 	  "PROD_Scope": "osloprd",
 	  "PROD_UploadLocation": "Applications/ServiceTools/Prod"
