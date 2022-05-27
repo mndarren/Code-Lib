@@ -1,0 +1,64 @@
+{
+  "Basic": {
+    "_comment": "Make sure to keep this json file in 2 Key/Value levels",
+    "solution": "**/*.sln",
+    "buildPlatform": "Any CPU",
+    "buildConfiguration": "Release",
+    "SourcesDirectory": "C:\\agent\\_work\\1\\s",
+    "BuildNumber": "$(Build.BuildNumber)",
+    "VersionNumber": "2.2.0",
+	"ExeFilename": "DaikinAppliedServiceTools_$(VersionNumber)_$(BuildNumber).exe"
+  },
+  "VersionUpdate": {
+	  "DataAccessPath": "$(SourcesDirectory)\\ATS Service Tool 2.Comms",
+	  "DataAccessTitle": "ATS Service Tool.DataAccess",
+	  "DataAccessProduct": "ATS Service Tool.DataAccess",
+	  "DataAccessCompany": "Daikin Applied Americas",
+	  "ModelPath": "$(SourcesDirectory)\\ATS Service Tool 2.Model",
+	  "ModelTitle": "ATS Service Tool.Model",
+	  "ModelProduct": "ATS Service Tool.Model",
+	  "ModelCompany": "Daikin Applied Americas",
+	  "UIPath": "$(SourcesDirectory)\\ATS Service Tool 2.UI",
+	  "UITitle": "ATS ServiceTools",
+	  "UIProduct": "Service Tool",
+	  "UICompany": "Daikin Applied"
+  },
+  "Archive": {
+    "releaseDir": "$(Build.SourcesDirectory)\\ATS Service Tool 2.UI\\bin\\Release",
+    "archivePathFile": "$(Build.ArtifactStagingDirectory)/ST_$(Build.BuildNumber).zip"
+  },
+  "Wix": {
+    "src": "$(Build.SourcesDirectory)",
+    "WIX": "C:\\Program Files (x86)\\WiX Toolset v3.11",
+    "SIGNTOOL": "C:\\Program Files (x86)\\Microsoft SDKs\\ClickOnce\\SignTool\\signtool.exe",
+    "wixBuild": "$(Build.SourcesDirectory)\\azure-pipelines\\wix_build.bat",
+    "generateExe": "$(Build.SourcesDirectory)\\azure-pipelines\\generate_exe.bat"
+  },
+  "Publish": {
+    "copyExeFrom": "$(Build.SourcesDirectory)\\SetupDAAServiceTools\\bin\\Release"
+  },
+  "DEV_Deployment": {
+	  "DEV_Client_ID": "servicetoolspipelinetst",
+	  "DEV_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
+	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token_fake",
+	  "DEV_Grant_Type": "client_credentials",
+	  "DEV_Scope": "oslotst",
+	  "DEV_UploadLocation": "Applications/ServiceTools/Dev"
+  },
+  "QA_Deployment": {
+	  "QA_Client_ID": "servicetoolspipelinetst",
+	  "QA_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
+	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token_fake",
+	  "QA_Grant_Type": "client_credentials",
+	  "QA_Scope": "oslotst",
+	  "QA_UploadLocation": "Applications/ServiceTools/QA"
+  },
+  "PROD_Deployment": {
+	  "PROD_Client_ID": "servicetoolspipelineprd",
+	  "PROD_Client_Secret": "/%QmrdZha3e4CQMUY`;+Zxzb?>&h>HQ-=",
+	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token_fake",
+	  "PROD_Grant_Type": "client_credentials",
+	  "PROD_Scope": "osloprd",
+	  "PROD_UploadLocation": "Applications/ServiceTools/Prod"
+  }
+}

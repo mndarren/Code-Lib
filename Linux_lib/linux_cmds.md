@@ -80,6 +80,8 @@ sudo mount -t vboxsf LinuxFolder1 /LinuxFolder1
 ```
 ps aux | grep firefox | grep -v grep
 env MOZ_USE_XINPUT2=1 DISPLAY=:0.0 firefox --kiosk http://localhost:1880/ &
+env MOZ_USE_XINPUT2=1 DISPLAY=:0.0 firefox -profilemanager &
+apt-get install firefox=96.0+build2-0ubuntu0.20.04.1
 ```
 11. Check config file by keyword `grep -i x11 /etc/ssh/sshd_config`
 12. Solve the IP v4 cannot find issue (release and renew IP address
