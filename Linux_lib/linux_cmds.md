@@ -433,3 +433,8 @@ sudo dmidecode | grep "Serial Number:"
 AMIDEDOS /SS SOLU2108P00016
 
 ```
+32. Monitoring Log
+```
+reset; journalctl -u daikin-modem-manager-got-v1 --since "8 days ago"| cat
+journalctl -u ModemManager -u NetworkManager -u daikin-modem-manager-got-v1 --since "8 days ago"
+```
