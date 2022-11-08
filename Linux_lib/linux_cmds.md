@@ -438,3 +438,15 @@ AMIDEDOS /SS SOLU2108P00016
 reset; journalctl -u daikin-modem-manager-got-v1 --since "8 days ago"| cat
 journalctl -u ModemManager -u NetworkManager -u daikin-modem-manager-got-v1 --since "8 days ago"
 ```
+33. Gateway
+```
+nmcli d wifi
+nmcli connection
+nmcli connection show Webbing
+mmcli -L
+mmcli -m 0
+nmcli d
+systemctl list-units --all | grep rever
+journalctl -fu daikin-reverse-ssh-service-swgw.servic
+ip addr
+```
