@@ -452,3 +452,13 @@ systemctl list-units --all | grep rever
 journalctl -fu daikin-reverse-ssh-service-swgw.servic
 ip addr
 ```
+34. vim command
+```
+# Select all ESC first (gg-go beginning, V-visual mode, G-choose to the end)
+ggVG
+ggy$
+# Select and copy everything
+gg99999yy
+# Select and copy current line
+$yy
+```
