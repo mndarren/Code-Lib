@@ -33,6 +33,8 @@ git push origin testing
 # Get clone URL from local repo
 git config --get remote.origin.url
 git remote show origin
+# SSL certificate problem: unable to get local issuer certificate
+git config --global http.sslVerify false
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
@@ -443,10 +445,20 @@ journalctl -u ModemManager -u NetworkManager -u daikin-modem-manager-got-v1 --si
 nmcli d wifi
 nmcli connection
 nmcli connection show Webbing
-mmcli -L
-mmcli -m 0
+nmcli -L
+nmcli -m 0
 nmcli d
 systemctl list-units --all | grep rever
 journalctl -fu daikin-reverse-ssh-service-swgw.servic
 ip addr
+```
+34. vim command
+```
+# Select all ESC first (gg-go beginning, V-visual mode, G-choose to the end)
+ggVG
+ggy$
+# Select and copy everything
+gg99999yy
+# Select and copy current line
+$yy
 ```
