@@ -1,0 +1,81 @@
+{
+  "Basic": {
+    "_comment": "Make sure to keep this json file in 2 Key/Value levels",
+    "solution": "**/*.sln",
+    "buildPlatform": "Any CPU",
+    "buildConfiguration": "Release",
+    "SourcesDirectory": "C:\\agent\\_work\\1\\s",
+    "BuildNumber": "$(Build.BuildNumber)",
+    "VersionNumber": "1.1.1"
+  },
+  "VersionUpdate": {
+	  "DataAccessPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.DataAccess",
+	  "DataAccessTitleProduct": "AAH_AutoSim.DataAccess",
+	  "ModelPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.Model",
+	  "ModelTitleProduct": "AAH_AutoSim.Model",
+	  "ModbusPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.Modbus",
+	  "ModbusTitleProduct": "AAH_AutoSim.Modbus",
+	  "RainbowPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.Rainbow",
+	  "RainbowTitleProduct": "AAH_AutoSim.Rainbow",
+	  "TestCasePath": "$(Build.SourcesDirectory)\\AAH_AutoSim.TestCase",
+	  "TestCaseTitleProduct": "AAH_AutoSim.TestCase",
+	  "ServerPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.Server",
+	  "ServerTitleProduct": "AAH_AutoSim.Server",
+	  "UIPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.UI",
+	  "UITitleProduct": "AAH_AutoSim",
+	  "UICompany": "Daikin Applied",
+	  "Company": "Daikin Applied Americas"
+  },
+  "Archive": {
+    "releaseDir": "$(Build.SourcesDirectory)\\AAH_AutoSim.UI\\bin\\Release",
+    "archivePathFile": "$(Build.ArtifactStagingDirectory)/AAH_AutoSim_$(Build.BuildNumber).zip"
+  },
+  "Wix": {
+    "src": "$(Build.SourcesDirectory)",
+	"solutionName": "AAH_AutoSim",
+    "WIX": "C:\\Program Files (x86)\\WiX Toolset v3.11",
+	"DevEnvDir": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\Professional\\Common7\\IDE\\",
+    "SIGNTOOL": "C:\\Program Files (x86)\\Microsoft SDKs\\ClickOnce\\SignTool\\signtool.exe",
+	"SIGNName": "Daikin Applied Americas Inc.",
+    "SIGNTime": "http://timestamp.comodoca.com",
+    "wixBuild": "$(Build.SourcesDirectory)\\azure-pipelines\\wix_build.bat",
+    "wixBuildPlatform": "AnyCPU",
+	"wixBuildDirProjectName": "AutoSimPackage",
+	"wixBuildNet6Dir": "net6.0-windows",
+    "wixExeDirProjectName": "AutoSimSetup",
+    "generateExe": "$(Build.SourcesDirectory)\\azure-pipelines\\generate_exe.bat"
+  },
+  "Publish": {
+    "copyExeFrom": "$(Build.SourcesDirectory)\\AutoSimSetup\\bin\\Release"
+  },
+  "DEV_Deployment": {
+	  "DEV_Client_ID": "servicetoolspipelinetst",
+	  "DEV_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
+	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
+	  "DEV_Grant_Type": "client_credentials",
+	  "DEV_Scope": "tahoeapistg",
+	  "DEV_SPODocId": "controlsuat",
+	  "DEV_UploadLocation": "Applications/AAH_AutoSim/Dev",
+	  "DEV_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber).$(BuildNumber).exe"
+  },
+  "QA_Deployment": {
+	  "QA_Client_ID": "servicetoolspipelinetst",
+	  "QA_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
+	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
+	  "QA_Grant_Type": "client_credentials",
+	  "QA_Scope": "tahoeapistg",
+	  "QA_SPODocId": "controlsuat",
+	  "QA_UploadLocation": "Applications/AAH_AutoSim/QA",
+	  "QA_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber).$(BuildNumber).exe"
+  },
+  "PROD_Deployment": {
+	  "PROD_Client_ID": "servicetoolspipelineprd",
+	  "PROD_Client_Secret": "/%QmrdZha3e4CQMUY`;+Zxzb?>`&h>HQ-=",
+	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token",
+	  "PROD_Grant_Type": "client_credentials",
+	  "PROD_Scope": "tahoeapiprd",
+	  "PROD_SPODocId": "controlsprd",
+	  "PROD_UploadLocation": "Applications/AAH_AutoSim/Prod",
+	  "PROD_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber).exe"
+  }
+}

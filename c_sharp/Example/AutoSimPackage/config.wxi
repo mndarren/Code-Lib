@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include>
+	<!--Directories defination-->
+	<?define AAH_AutoSim.DataAccess_TargetDir=$(var.AAH_AutoSim.DataAccess.TargetDir)?>
+	<?define AAH_AutoSim.Model_TargetDir=$(var.AAH_AutoSim.Model.TargetDir)?>
+	<?define AAH_AutoSim.Modbus_TargetDir=$(var.AAH_AutoSim.Modbus.TargetDir)?>
+	<?define AAH_AutoSim.Rainbow_TargetDir=$(var.AAH_AutoSim.Rainbow.TargetDir)?>
+	<?define AAH_AutoSim.TestCase_TargetDir=$(var.AAH_AutoSim.TestCase.TargetDir)?>
+	<?define AAH_AutoSim.Server_TargetDir=$(var.AAH_AutoSim.Server.TargetDir)?>
+	<?define AAH_AutoSim.UI_TargetDir=$(var.AAH_AutoSim.UI.TargetDir)?>
+	<?define AAH_AutoSim.UI_ProjectDir=$(var.AAH_AutoSim.UI.ProjectDir)?>
+	
+	<!--Product Variables defination-->
+	<?define ProductName="AAH Auto Simulation"?>
+	<?define Language="1033"?>
+	<?define Manufacturer="Daikin Applied"?>
+	<?define InstallFolderName="AAH_AutoSim"?>
+	
+	<!--Source files-->
+	<?define AppIconSourceFile="$(var.SolutionDir)InstallerFiles\DaikinApplied.ico"?>
+	<?define IOConfigSourceFile="$(var.SolutionDir)Config\2506036xxx IO Config DPSA.json"?>
+	<?define AppConfigSourceFile="$(var.SolutionDir)Config\AppConfig.json"?>
+	<?define ModbusPointsSourceFile="$(var.SolutionDir)Config\ModbusPoints.csv"?>
+	<?define CertPriKeySourceFile="$(var.SolutionDir)Config\mycertprivatekey.pfx"?>
+	<?define ChromeDriverSourceFile="$(var.SolutionDir)Config\chromedriver.exe"?>
+	<?define TestCaseSourceFile="$(var.SolutionDir)TestData\TC_MT4_RebApl_Regression_Test.xlsm"?>
+	<?define TestModuleSourceFile="$(var.SolutionDir)TestData\Modules_Template.xlsm"?>
+	<?define TestLogSourceFile="$(var.SolutionDir)TestData\Log.xlsx"?>
+	
+	<!--Make Build works locally-->
+	<?if $(env.USERNAME) != _serviceAzure ?>
+		<?define ProductVersion=1.0.0.0?>
+	<?endif ?>
+</Include>

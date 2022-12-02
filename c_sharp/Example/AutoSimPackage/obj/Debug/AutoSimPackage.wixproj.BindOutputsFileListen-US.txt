@@ -1,0 +1,2 @@
+C:\Users\XieZ\source\repos\AAH_AutoSim\AutoSimPackage\bin\Debug\AutoSimPackage.msi
+C:\Users\XieZ\source\repos\AAH_AutoSim\AutoSimPackage\bin\Debug\AutoSimPackage.wixpdb

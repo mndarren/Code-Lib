@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.6.0" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AAH_AutoSim.DataAccess\AAH_AutoSim.DataAccess.csproj" />
+    <ProjectReference Include="..\AAH_AutoSim.Model\AAH_AutoSim.Model.csproj" />
+    <ProjectReference Include="..\AAH_AutoSim.Server\AAH_AutoSim.Server.csproj" />
+  </ItemGroup>
+
+</Project>

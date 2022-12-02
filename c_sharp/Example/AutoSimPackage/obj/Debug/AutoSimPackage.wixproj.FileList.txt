@@ -1,0 +1,11 @@
+obj\Debug\Components.wixobj
+obj\Debug\Dependencies.wixobj
+obj\Debug\Directories.wixobj
+obj\Debug\Product.wixobj
+obj\Debug\Resources.wixobj
+obj\Debug\UserInterface.wixobj
+C:\Users\XieZ\source\repos\AAH_AutoSim\AutoSimPackage\bin\Debug\AutoSimPackage.msi
+C:\Users\XieZ\source\repos\AAH_AutoSim\AutoSimPackage\bin\Debug\AutoSimPackage.wixpdb
+obj\Debug\AutoSimPackage.wixproj.BindContentsFileListen-US.txt
+obj\Debug\AutoSimPackage.wixproj.BindOutputsFileListen-US.txt
+obj\Debug\AutoSimPackage.wixproj.BindBuiltOutputsFileListen-US.txt

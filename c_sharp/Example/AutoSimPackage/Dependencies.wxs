@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?include config.wxi ?>
+
+	<Fragment>
+
+		<ComponentGroup Id="DependencyComponents" Directory="INSTALLFOLDER">
+
+			<Component Id="c_Azure.Core.dll" Guid="3df5201c-8d04-4847-b1bc-b5793c202d9f">
+				<File Id="f_Azure.Core.dll" Name="Azure.Core.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Azure.Core.dll"/>
+			</Component>
+			
+			<Component Id="c_BouncyCastle.Crypto.dll" Guid="547f0a99-174c-4a87-bfb5-e653c0a9cdba">
+				<File Id="f_BouncyCastle.Crypto.dll" Name="BouncyCastle.Crypto.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)BouncyCastle.Crypto.dll"/>
+			</Component>
+			
+			<Component Id="c_Cosmos.CRTCompat.dll" Guid="2b36ab1e-b2f3-4ed4-8a0f-b951f24a00bd">
+				<File Id="f_Cosmos.CRTCompat.dll" Name="Cosmos.CRTCompat.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Cosmos.CRTCompat.dll"/>
+			</Component>
+			
+			<Component Id="c_Daikin.DotNetLib.Network.dll" Guid="adb52d5f-7ff7-4bda-9479-c516726315c6">
+				<File Id="f_Daikin.DotNetLib.Network.dll" Name="Daikin.DotNetLib.Network.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Daikin.DotNetLib.Network.dll"/>
+			</Component>
+			
+			<Component Id="c_Daikin.DotNetLib.Security.dll" Guid="2a852414-8c8c-46ca-8436-feb0c62cd668">
+				<File Id="f_Daikin.DotNetLib.Security.dll" Name="Daikin.DotNetLib.Security.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Daikin.DotNetLib.Security.dll"/>
+			</Component>
+			
+			<Component Id="c_Daikin.Tahoe.Client.dll" Guid="bb054b9e-82d6-441f-8557-40be26c62cb9">
+				<File Id="f_Daikin.Tahoe.Client.dll" Name="Daikin.Tahoe.Client.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Daikin.Tahoe.Client.dll"/>
+			</Component>
+			
+			<Component Id="c_Daikin.Tahoe.Models.dll" Guid="69e16862-8425-4b19-a7aa-bc7c2c42bd32">
+				<File Id="f_Daikin.Tahoe.Models.dll" Name="Daikin.Tahoe.Models.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Daikin.Tahoe.Models.dll"/>
+			</Component>
+			
+			<Component Id="c_ICSharpCode.SharpZipLib.dll" Guid="f6ad1ccb-5560-48ff-be2f-cf177dedb856">
+				<File Id="f_ICSharpCode.SharpZipLib.dll" Name="ICSharpCode.SharpZipLib.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)ICSharpCode.SharpZipLib.dll"/>
+			</Component>
+			
+			<Component Id="c_IdentityModel.dll" Guid="d335c41b-c948-475c-ad01-99a75b607414">
+				<File Id="f_IdentityModel.dll" Name="IdentityModel.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)IdentityModel.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.AspNetCore.Authentication.Abstractions.dll" Guid="ac07c30c-0170-4b1a-90ff-11eb34722c8d">
+				<File Id="f_Microsoft.AspNetCore.Authentication.Abstractions.dll" Name="Microsoft.AspNetCore.Authentication.Abstractions.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.AspNetCore.Authentication.Abstractions.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.AspNetCore.Authorization.dll" Guid="2b60af49-3003-4a1a-8be8-bc28da552438">
+				<File Id="f_Microsoft.AspNetCore.Authorization.dll" Name="Microsoft.AspNetCore.Authorization.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.AspNetCore.Authorization.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.AspNetCore.Http.Abstractions.dll" Guid="199cd28f-78fa-4ba7-a4fa-4ba6d2653f8d">
+				<File Id="f_Microsoft.AspNetCore.Http.Abstractions.dll" Name="Microsoft.AspNetCore.Http.Abstractions.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.AspNetCore.Http.Abstractions.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.AspNetCore.Http.Features.dll" Guid="cd4a0792-e0b7-44ab-a16a-65fc2e9a745d">
+				<File Id="f_Microsoft.AspNetCore.Http.Features.dll" Name="Microsoft.AspNetCore.Http.Features.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.AspNetCore.Http.Features.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.AspNetCore.Metadata.dll" Guid="4fa31c1d-6052-41f9-9440-cafcb47049b1">
+				<File Id="f_Microsoft.AspNetCore.Metadata.dll" Name="Microsoft.AspNetCore.Metadata.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.AspNetCore.Metadata.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Azure.Cosmos.Client.dll" Guid="531fc85d-ab5b-46e5-b128-3e7c9708594c">
+				<File Id="f_Microsoft.Azure.Cosmos.Client.dll" Name="Microsoft.Azure.Cosmos.Client.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Azure.Cosmos.Client.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Azure.Cosmos.Core.dll" Guid="9b42cb27-289e-4a03-b873-2dbe52dd96f7">
+				<File Id="f_Microsoft.Azure.Cosmos.Core.dll" Name="Microsoft.Azure.Cosmos.Core.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Azure.Cosmos.Core.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Azure.Cosmos.Direct.dll" Guid="cb85573f-3aed-4d68-9996-e4971f0e1643">
+				<File Id="f_Microsoft.Azure.Cosmos.Direct.dll" Name="Microsoft.Azure.Cosmos.Direct.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Azure.Cosmos.Direct.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Azure.Cosmos.Serialization.HybridRow.dll" Guid="f5a68145-935c-4000-bf46-3a2ce5ed8837">
+				<File Id="f_Microsoft.Azure.Cosmos.Serialization.HybridRow.dll" Name="Microsoft.Azure.Cosmos.Serialization.HybridRow.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Azure.Cosmos.Serialization.HybridRow.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Azure.Cosmos.ServiceInterop.dll" Guid="329fd703-e8e8-48a0-b4d8-2a1290b3e675">
+				<File Id="f_Microsoft.Azure.Cosmos.ServiceInterop.dll" Name="Microsoft.Azure.Cosmos.ServiceInterop.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Azure.Cosmos.ServiceInterop.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Bcl.AsyncInterfaces.dll" Guid="29f035c8-e5d3-4d57-8bda-22cc2ab7b105">
+				<File Id="f_Microsoft.Bcl.AsyncInterfaces.dll" Name="Microsoft.Bcl.AsyncInterfaces.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Bcl.AsyncInterfaces.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Bcl.HashCode.dll" Guid="233370e0-eeab-4017-b1fa-0e964d759b68">
+				<File Id="f_Microsoft.Bcl.HashCode.dll" Name="Microsoft.Bcl.HashCode.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Bcl.HashCode.dll"/>
+			</Component>
+
+			<Component Id="c_Microsoft.Extensions.Caching.Abstractions.dll" Guid="0da3dfc4-3829-49ff-99ee-b1e63639067b">
+				<File Id="f_Microsoft.Extensions.Caching.Abstractions.dll" Name="Microsoft.Extensions.Caching.Abstractions.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Extensions.Caching.Abstractions.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Extensions.Caching.Memory.dll" Guid="37b8b607-581b-458f-b1a5-49fbff870fc1">
+				<File Id="f_Microsoft.Extensions.Caching.Memory.dll" Name="Microsoft.Extensions.Caching.Memory.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Extensions.Caching.Memory.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Extensions.DependencyInjection.Abstractions.dll" Guid="65335533-d5e3-47ae-b363-2585a1d500ba">
+				<File Id="f_Microsoft.Extensions.DependencyInjection.Abstractions.dll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Extensions.Logging.Abstractions.dll" Guid="3bff6aaa-a6a3-4618-aded-df245f93b2cf">
+				<File Id="f_Microsoft.Extensions.Logging.Abstractions.dll" Name="Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Extensions.Logging.Abstractions.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Extensions.Options.dll" Guid="c986b15b-7723-4aa1-b5de-0e53fbf35384">
+				<File Id="f_Microsoft.Extensions.Options.dll" Name="Microsoft.Extensions.Options.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Extensions.Options.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Extensions.Primitives.dll" Guid="f8f3e630-ff43-448f-b057-feade8b85971">
+				<File Id="f_Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Extensions.Primitives.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.IdentityModel.JsonWebTokens.dll" Guid="ec261dcc-fcb2-40b7-b999-52c580c2e9df">
+				<File Id="f_Microsoft.IdentityModel.JsonWebTokens.dll" Name="Microsoft.IdentityModel.JsonWebTokens.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.IdentityModel.JsonWebTokens.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.IdentityModel.Logging.dll" Guid="a19ad1e7-6a31-4be4-a79e-5c3ffb233db0">
+				<File Id="f_Microsoft.IdentityModel.Logging.dll" Name="Microsoft.IdentityModel.Logging.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.IdentityModel.Logging.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.IdentityModel.Tokens.dll" Guid="a9e8fbb6-3c99-47b2-b95e-cd4191f57121">
+				<File Id="f_Microsoft.IdentityModel.Tokens.dll" Name="Microsoft.IdentityModel.Tokens.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.IdentityModel.Tokens.dll"/>
+			</Component>
+			
+			<Component Id="c_Microsoft.Xaml.Behaviors.dll" Guid="4cb9d12b-6473-4de1-a7c9-21745db2032b">
+				<File Id="f_Microsoft.Xaml.Behaviors.dll" Name="Microsoft.Xaml.Behaviors.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Microsoft.Xaml.Behaviors.dll"/>
+			</Component>
+
+			<Component Id="c_msvcp140.dll" Guid="ddac1cc4-be90-4a61-b882-a2f9d794f38b">
+				<File Id="f_msvcp140.dll" Name="msvcp140.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)msvcp140.dll"/>
+			</Component>
+			
+			<Component Id="c_Newtonsoft.Json.dll" Guid="f7cbb7e5-4ecc-4feb-b48a-7e3b2120b8b2">
+				<File Id="f_Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Newtonsoft.Json.dll"/>
+			</Component>
+			
+			<Component Id="c_NModbus.dll" Guid="75d61341-fa12-4430-b693-45ed2f5723dc">
+				<File Id="f_NModbus.dll" Name="NModbus.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)NModbus.dll"/>
+			</Component>
+			
+			<Component Id="c_NPOI.dll" Guid="742605f9-0821-4cae-8b05-d470f4cfeaf3">
+				<File Id="f_NPOI.dll" Name="NPOI.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)NPOI.dll"/>
+			</Component>
+			
+			<Component Id="c_NPOI.OOXML.dll" Guid="1140d71d-eaf5-4dc6-91e8-5da5b556fda2">
+				<File Id="f_NPOI.OOXML.dll" Name="NPOI.OOXML.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)NPOI.OOXML.dll"/>
+			</Component>
+			
+			<Component Id="c_NPOI.OpenXml4Net.dll" Guid="b5057f8e-e987-4689-8c02-f1d09dd3f71c">
+				<File Id="f_NPOI.OpenXml4Net.dll" Name="NPOI.OpenXml4Net.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)NPOI.OpenXml4Net.dll"/>
+			</Component>
+			
+			<Component Id="c_NPOI.OpenXmlFormats.dll" Guid="68dcd890-9ed4-42f0-8f32-b485aa8337ee">
+				<File Id="f_NPOI.OpenXmlFormats.dll" Name="NPOI.OpenXmlFormats.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)NPOI.OpenXmlFormats.dll"/>
+			</Component>
+			
+			<Component Id="c_Prism.dll" Guid="15f82999-5477-4411-be07-a6628bc1b961">
+				<File Id="f_Prism.dll" Name="Prism.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Prism.dll"/>
+			</Component>
+			
+			<Component Id="c_Prism.Unity.Wpf.dll" Guid="6852f9c4-3407-4f79-86a6-c5a6f6dce611">
+				<File Id="f_Prism.Unity.Wpf.dll" Name="Prism.Unity.Wpf.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Prism.Unity.Wpf.dll"/>
+			</Component>
+			
+			<Component Id="c_Prism.Wpf.dll" Guid="e6f0de39-20c6-4582-ba51-8e165e28d349">
+				<File Id="f_Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Prism.Wpf.dll"/>
+			</Component>
+			
+			<Component Id="c_System.IdentityModel.Tokens.Jwt.dll" Guid="87b1c7db-e909-4d20-bf27-9852d394f48b">
+				<File Id="f_System.IdentityModel.Tokens.Jwt.dll" Name="System.IdentityModel.Tokens.Jwt.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)System.IdentityModel.Tokens.Jwt.dll"/>
+			</Component>
+			
+			<Component Id="c_System.IO.Ports.dll" Guid="f8061657-90e9-407b-bee1-562ee9d09d30">
+				<File Id="f_System.IO.Ports.dll" Name="System.IO.Ports.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)System.IO.Ports.dll"/>
+			</Component>
+			
+			<Component Id="c_System.Management.dll" Guid="f85a6d15-05cc-481c-918e-320bbdd970e1">
+				<File Id="f_System.Management.dll" Name="System.Management.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)System.Management.dll"/>
+			</Component>
+			
+			<Component Id="c_System.Memory.Data.dll" Guid="650a405b-1538-4102-b216-18ff4923bb4f">
+				<File Id="f_System.Memory.Data.dll" Name="System.Memory.Data.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)System.Memory.Data.dll"/>
+			</Component>
+			
+			<Component Id="c_ToggleSwitch.dll" Guid="15fc3b8b-60d6-4d4b-98f2-45700b7732de">
+				<File Id="f_ToggleSwitch.dll" Name="ToggleSwitch.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)ToggleSwitch.dll"/>
+			</Component>
+			
+			<Component Id="c_Unity.Abstractions.dll" Guid="f8e52ecb-30aa-4803-aa21-9b12f577641d">
+				<File Id="f_Unity.Abstractions.dll" Name="Unity.Abstractions.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Unity.Abstractions.dll"/>
+			</Component>
+			
+			<Component Id="c_Unity.Container.dll" Guid="745a7aa4-eb07-4c1b-823f-d8bb17e3fd57">
+				<File Id="f_Unity.Container.dll" Name="Unity.Container.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Unity.Container.dll"/>
+			</Component>
+			
+			<Component Id="c_vcruntime140.dll" Guid="5cab77b0-38cc-4290-a70e-621da060a1ba">
+				<File Id="f_vcruntime140.dll" Name="vcruntime140.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)vcruntime140.dll"/>
+			</Component>
+			
+			<Component Id="c_vcruntime140_1.dll" Guid="ff6f8b9e-c88f-416a-adb4-0d9b15f49760">
+				<File Id="f_vcruntime140_1.dll" Name="vcruntime140_1.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)vcruntime140_1.dll"/>
+			</Component>
+			
+			<Component Id="c_Xceed.Wpf.AvalonDock.NET5.dll" Guid="9936911a-b4d5-439b-ab61-f17e149b2e55">
+				<File Id="f_Xceed.Wpf.AvalonDock.NET5.dll" Name="Xceed.Wpf.AvalonDock.NET5.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Xceed.Wpf.AvalonDock.NET5.dll"/>
+			</Component>
+			
+			<Component Id="c_Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll" Guid="b53cb6cb-5cff-4a10-806c-916324a4b9ea">
+				<File Id="f_Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll" Name="Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll"/>
+			</Component>
+			
+			<Component Id="c_Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll" Guid="6326df25-f0c0-4a1c-83c9-2f80103ae4d4">
+				<File Id="f_Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll" Name="Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll"/>
+			</Component>
+			
+			<Component Id="c_Xceed.Wpf.AvalonDock.Themes.VS2010.NET5.dll" Guid="5ec3dcd8-9c0d-4c53-b5ff-08a7d80eff31">
+				<File Id="f_Xceed.Wpf.AvalonDock.Themes.VS2010.NET5.dll" Name="Xceed.Wpf.AvalonDock.Themes.VS2010.NET5.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Xceed.Wpf.AvalonDock.Themes.VS2010.NET5.dll"/>
+			</Component>
+			
+			<Component Id="c_Xceed.Wpf.Toolkit.NET5.dll" Guid="8692a7d1-4cdc-433b-aed0-76bfd7843069">
+				<File Id="f_Xceed.Wpf.Toolkit.NET5.dll" Name="Xceed.Wpf.Toolkit.NET5.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Xceed.Wpf.Toolkit.NET5.dll"/>
+			</Component>
+			
+			<Component Id="c_Z.Expressions.Eval.dll" Guid="069889b8-9b3c-476a-8c86-a343e3ec46ad">
+				<File Id="f_Z.Expressions.Eval.dll" Name="Z.Expressions.Eval.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)Z.Expressions.Eval.dll"/>
+			</Component>
+
+		</ComponentGroup>
+
+		<ComponentGroup Id="csczFiles" Directory="csczDir">
+		<Component Id="c_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="de8ef463-1e4c-41c9-a847-50eae54b0752">
+			<File Id="f_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)cs-CZ\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+		</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="deFiles" Directory="deDir">
+		<Component Id="cde_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="d67daf2f-cb18-441d-aa53-0c808b547505">
+			<File Id="fde_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)de\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+		</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="esFiles" Directory="esDir">
+		<Component Id="ces_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="178d7221-cacd-4ebf-a4a2-2fee51381d1b">
+			<File Id="fes_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)es\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+		</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="frFiles" Directory="frDir">
+		<Component Id="cfr_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="f8491ae6-b99e-40c6-a806-c3a703d69069">
+			<File Id="ffr_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)fr\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+		</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="huFiles" Directory="huDir">
+			<Component Id="chu_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="f8b7662b-1b27-4304-b59a-3efe725a721f">
+				<File Id="fhu_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)hu\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="itFiles" Directory="itDir">
+			<Component Id="cit_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="da10bfcc-b5c6-49c8-9907-79b54ab1bb70">
+				<File Id="fit_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)it\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="jajpFiles" Directory="jajpDir">
+			<Component Id="cjajp_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="917aa251-210d-4dae-8239-3635d24e8ba0">
+				<File Id="fjajp_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)ja-JP\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="ptbrFiles" Directory="ptbrDir">
+			<Component Id="cptbr_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="f77fdfff-c2ef-4cc2-a71e-44f9410afbe3">
+				<File Id="fptbr_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)pt-BR\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="roFiles" Directory="roDir">
+			<Component Id="cro_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="a638df55-510c-4cf3-b0fa-9cebfe2eacdd">
+				<File Id="fro_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)ro\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="ruFiles" Directory="ruDir">
+			<Component Id="cru_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="71081b9a-7d7a-4b84-bed9-b925819903fe">
+				<File Id="fru_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)ru\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="net6Files" Directory="net6Dir">
+			<Component Id="cnet6_System.IO.Ports.dll" Guid="dc56e0af-7f36-4266-a3a9-874c3598db10">
+				<File Id="fnet6_System.IO.Ports.dll" Name="System.IO.Ports.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win\lib\net6.0\System.IO.Ports.dll"/>
+			</Component>
+			<Component Id="cnet6_System.Management.dll" Guid="15deb5bd-dbc9-4df5-8be4-d383e6939ba4">
+				<File Id="fnet6_System.Management.dll" Name="System.Management.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win\lib\net6.0\System.Management.dll"/>
+			</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="nativeFiles" Directory="nativeDir">
+			<Component Id="cCosmos.CRTCompat.dll" Guid="872f18a1-c5bc-486c-8226-106a8f5fb997">
+				<File Id="fCosmos.CRTCompat.dll" Name="Cosmos.CRTCompat.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win-x64\native\Cosmos.CRTCompat.dll"/>
+			</Component>
+			<Component Id="cMicrosoft.Azure.Cosmos.ServiceInterop.dll" Guid="830708a1-e435-41b3-a208-ece38bd54b6a">
+				<File Id="fMicrosoft.Azure.Cosmos.ServiceInterop.dll" Name="Microsoft.Azure.Cosmos.ServiceInterop.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win-x64\native\Microsoft.Azure.Cosmos.ServiceInterop.dll"/>
+			</Component>
+			<Component Id="cmsvcp140.dll" Guid="0fdde430-99a6-4cd9-bfa2-fac788b1a5fe">
+				<File Id="fmsvcp140.dll" Name="msvcp140.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win-x64\native\msvcp140.dll"/>
+			</Component>
+			<Component Id="cvcruntime140.dll" Guid="d119f9dd-62d1-4c4f-8863-1eeeaa2de89a">
+				<File Id="fvcruntime140.dll" Name="vcruntime140.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win-x64\native\vcruntime140.dll"/>
+			</Component>
+			<Component Id="cvcruntime140_1.dll" Guid="d2124aa0-19d6-49a4-8e48-d948d1942552">
+				<File Id="fvcruntime140_1.dll" Name="vcruntime140_1.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)runtimes\win-x64\native\vcruntime140_1.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="svFiles" Directory="svDir">
+			<Component Id="csv_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="626cc505-d631-40f0-b1d1-f2dcf2dfb9d1">
+				<File Id="fsv_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)sv\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="zhhansFiles" Directory="zhhansDir">
+			<Component Id="czhhans_Xceed.Wpf.AvalonDock.NET5.resources.dll" Guid="beba84f4-8eef-4423-8e27-3276c045804d">
+				<File Id="fzhhans_Xceed.Wpf.AvalonDock.NET5.resources.dll" Name="Xceed.Wpf.AvalonDock.NET5.resources.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)zh-Hans\Xceed.Wpf.AvalonDock.NET5.resources.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		
+	</Fragment>
+</Wix>
