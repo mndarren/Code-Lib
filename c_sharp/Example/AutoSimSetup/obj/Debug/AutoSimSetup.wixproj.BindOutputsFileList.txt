@@ -1,2 +1,0 @@
-C:\Users\XieZ\source\repos\AAH_AutoSim\AutoSimSetup\bin\Debug\AutoSimSetup.exe
-C:\Users\XieZ\source\repos\AAH_AutoSim\AutoSimSetup\bin\Debug\AutoSimSetup.wixpdb
