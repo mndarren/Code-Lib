@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<?include config.wxi ?>
+
+	<Fragment>
+		<DirectoryRef Id="ManufacturerDataFolder">
+			<Component Id="MfrFolderPermissions" Guid="f6b585e6-aff5-4606-85f9-6aa5e78aff71">
+				<CreateFolder>
+					<util:PermissionEx GenericAll="yes" User="Everyone"/>
+				</CreateFolder>
+			</Component>
+		</DirectoryRef>
+		<DirectoryRef Id="ApplicationData">
+			<Component Id="AppFolderPermissions" Guid="a626ce44-f15e-40ad-8f33-4b9981c721f3">
+				<CreateFolder>
+					<util:PermissionEx GenericAll="yes" User="Everyone"/>
+				</CreateFolder>
+			</Component>
+		</DirectoryRef>
+
+		<ComponentGroup Id="ConfigComponents" Directory="ApplicationData">
+			<Component Id="c_2506036xxx_IO_Config_DPSA">
+				<File Source="$(var.IOConfigSourceFile)" ReadOnly="no"/>
+			</Component>
+			<Component Id="c_AppConfig" NeverOverwrite='yes'>
+				<File Source="$(var.AppConfigSourceFile)" ReadOnly="no"/>
+			</Component>
+			<Component Id="c_ModbusPoints">
+				<File Source="$(var.ModbusPointsSourceFile)" ReadOnly="no"/>
+			</Component>
+			<Component Id="c_mycertprivatekey">
+				<File Source="$(var.CertPriKeySourceFile)" ReadOnly="yes"/>
+			</Component>
+			<Component Id="c_chromedriver">
+				<File Source="$(var.ChromeDriverSourceFile)" ReadOnly="yes"/>
+			</Component>
+			<?if $(env.USERNAME) != _serviceAzure ?>
+				<Component Id="c_TC_MT4_RebApl_Regression_Test">
+					<File Source="$(var.TestCaseSourceFile)" ReadOnly="no"/>
+				</Component>
+				<Component Id="c_Modules_Template">
+					<File Source="$(var.TestModuleSourceFile)" ReadOnly="no"/>
+				</Component>
+				<Component Id="c_Log">
+					<File Source="$(var.TestLogSourceFile)" ReadOnly="no"/>
+				</Component>
+			<?endif ?>
+		</ComponentGroup>
+
+	</Fragment>
+</Wix>

@@ -6,7 +6,7 @@
     "buildConfiguration": "Release",
     "SourcesDirectory": "C:\\agent\\_work\\1\\s",
     "BuildNumber": "$(Build.BuildNumber)",
-    "VersionNumber": "1.0.0"
+    "VersionNumber": "1.1.1"
   },
   "VersionUpdate": {
 	  "DataAccessPath": "$(Build.SourcesDirectory)\\AAH_AutoSim.DataAccess",
@@ -51,27 +51,27 @@
   "DEV_Deployment": {
 	  "DEV_Client_ID": "servicetoolspipelinetst",
 	  "DEV_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
-	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token_fake",
+	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
 	  "DEV_Grant_Type": "client_credentials",
 	  "DEV_Scope": "tahoeapistg",
 	  "DEV_SPODocId": "controlsuat",
 	  "DEV_UploadLocation": "Applications/AAH_AutoSim/Dev",
-	  "DEV_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber)_$(BuildNumber).exe"
+	  "DEV_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber).$(BuildNumber).exe"
   },
   "QA_Deployment": {
 	  "QA_Client_ID": "servicetoolspipelinetst",
 	  "QA_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
-	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token_fake",
+	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
 	  "QA_Grant_Type": "client_credentials",
 	  "QA_Scope": "tahoeapistg",
 	  "QA_SPODocId": "controlsuat",
 	  "QA_UploadLocation": "Applications/AAH_AutoSim/QA",
-	  "QA_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber).exe"
+	  "QA_ExeFilename": "DaikinAppliedAAH_AutoSim_$(VersionNumber).$(BuildNumber).exe"
   },
   "PROD_Deployment": {
 	  "PROD_Client_ID": "servicetoolspipelineprd",
 	  "PROD_Client_Secret": "/%QmrdZha3e4CQMUY`;+Zxzb?>`&h>HQ-=",
-	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token_fake",
+	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token",
 	  "PROD_Grant_Type": "client_credentials",
 	  "PROD_Scope": "tahoeapiprd",
 	  "PROD_SPODocId": "controlsprd",

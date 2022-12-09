@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+	 xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:difx="http://schemas.microsoft.com/wix/DifxAppExtension">
+	<?include config.wxi ?>
+	
+	<Product Id="*" Name="$(var.ProductName)" Language="$(var.Language)" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="d7e5dc84-7672-4124-ba15-486af518e4c6">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		
+		<MajorUpgrade AllowDowngrades="no"
+					  Schedule="afterInstallInitialize"
+					  DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed."
+					  AllowSameVersionUpgrades="yes"/>
+
+		<MediaTemplate EmbedCab="yes"/>
+		<UIRef Id="WixUI_Custom" />
+
+		<Icon Id="appicon.ico" SourceFile="$(var.AppIconSourceFile)"/>
+		<Property Id="ARPPRODUCTICON" Value="appicon.ico" />
+
+		<Feature Id="ProductFeature" Title="AAH AutoSim $(var.ProductVersion)" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="DependencyComponents"/>
+			<ComponentRef Id="MfrFolderPermissions" />
+			<ComponentRef Id="AppFolderPermissions" />
+			<ComponentGroupRef Id="csczFiles"/>
+			<ComponentGroupRef Id="deFiles"/>
+			<ComponentGroupRef Id="esFiles"/>
+			<ComponentGroupRef Id="frFiles"/>
+			<ComponentGroupRef Id="huFiles"/>
+			<ComponentGroupRef Id="itFiles"/>
+			<ComponentGroupRef Id="jajpFiles"/>
+			<ComponentGroupRef Id="ptbrFiles"/>
+			<ComponentGroupRef Id="roFiles"/>
+			<ComponentGroupRef Id="ruFiles"/>
+			<ComponentGroupRef Id="net6Files"/>
+			<ComponentGroupRef Id="nativeFiles"/>
+			<ComponentGroupRef Id="svFiles"/>
+			<ComponentGroupRef Id="zhhansFiles"/>
+			<ComponentGroupRef Id="ConfigComponents"/>
+		</Feature>
+
+	</Product>
+</Wix>

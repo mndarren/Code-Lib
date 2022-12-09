@@ -1,0 +1,65 @@
+﻿<Window x:Class="AAH_AutoSim.TestCase.Views.RunTestCaseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AAH_AutoSim.TestCase.Views"
+        xmlns:util="clr-namespace:AAH_AutoSim.TestCase.Util"
+        xmlns:commu="clr-namespace:AAH_AutoSim.TestCase.Communication"
+        xmlns:prism ="http://prismlibrary.com/" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="Run Test Case" 
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        d:DesignHeight="540" d:DesignWidth="960"
+        Height="540" Width="1220"
+        Background="White">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding RunWindowLoaded}"/>
+        </i:EventTrigger>
+        <!--<i:EventTrigger EventName="Closed">
+            <prism:InvokeCommandAction Command="{Binding RunWindowClosed}"/>
+        </i:EventTrigger>-->
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="202*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="RUN TEST CASES"  FontSize="{DynamicResource fontSizeXLarge}" 
+                       FontFamily="{StaticResource Normal}" FontWeight="Regular" 
+                      Foreground="#8C8C8C" HorizontalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding CurrTestCaseCmd}" TextWrapping="WrapWithOverflow" 
+                     Name="CurrTestCase" Background="#F2F2F2"/>
+            <StackPanel  Grid.Row="1">
+                <CheckBox Content="On Failure Stop" IsChecked="{Binding Path=(commu:TestCaseDataShop.IsOnFailureStop)}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                
+            </StackPanel>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding StatusCmdMessage}"
+                       FontFamily="{StaticResource Normal}" FontWeight="Bold" HorizontalAlignment="Center" Name="StatusMsg"/>
+
+        <DataGrid x:Name="dataGridTestCase" ItemsSource="{Binding Source={x:Static commu:TestCaseDataShop.testResultDataObjs}}" 
+                  AutoGenerateColumns="False" ColumnWidth="*"  RowBackground="#F2F2F2" FontFamily="Roboto"
+                  Grid.Row="2" Grid.ColumnSpan="3" Background="#F2F2F2" IsReadOnly="True" util:DataGridBehavior.AutoScroll="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Step" Binding="{Binding Step}" Width="60" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Task" Binding="{Binding Task}" Width="170"></DataGridTextColumn>
+                <DataGridTextColumn Header="Expected Result" Binding="{Binding ExpectedResult}" Width="140"></DataGridTextColumn>
+                <DataGridTextColumn Header="P/F" Binding="{Binding PassFail}" Width="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Notes" Binding="{Binding Note}" Width="170"></DataGridTextColumn>
+                <DataGridTextColumn Header="App Comments" Binding="{Binding AppComments}" Width="210"></DataGridTextColumn>
+                <DataGridTextColumn Header="Auto Sim Funciton" Binding="{Binding AutoSimFunction}" Width="300"></DataGridTextColumn>
+                <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}" Width="100"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

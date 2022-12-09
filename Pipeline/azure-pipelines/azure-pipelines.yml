@@ -306,3 +306,14 @@ jobs:
         -ssoScope $(QA_Scope)
         -spoDocId $(QA_SPODocId)
         -ssoGrantType $(QA_Grant_Type)
+        
+  - task: SendGridEmail@2
+    displayName: Send Notification Email to DVT Team
+    condition: and(succeeded(), eq(variables['IS_QA'], 'true'))
+    inputs:
+      SendGridApiKey: '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'
+      FromAddress: 'ControlsApplicationTeam@daikinapplied.com'
+      ToAddresses: 'Zhao.Xie@daikinapplied.com, Ronald.McDonald@daikinapplied.com, dan.streed@daikinapplied.com, Jeffrey.Quinby@daikinapplied.com, Craig.Starr@daikinapplied.com, Lonnie.Weyer@daikinapplied.com'
+      Subject: 'The AutoSim new version is available now'
+      emailBodyFormat: 'InLine'
+      EmailBody: 'The version [$(QA_ExeFilename)] is ready. Please download it from Sharepoint QA folder.'

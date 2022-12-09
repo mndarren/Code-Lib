@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?include config.wxi ?>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="CompanyNameFolder" Name="$(var.Manufacturer)">
+					<Directory Id="INSTALLFOLDER" Name="$(var.InstallFolderName)">
+						<Directory Id="csczDir" Name="cs-CZ" />
+						<Directory Id="deDir" Name="de" />
+						<Directory Id="esDir" Name="es" />
+						<Directory Id="frDir" Name="fr" />
+						<Directory Id="huDir" Name="hu" />
+						<Directory Id="itDir" Name="it" />
+						<Directory Id="jajpDir" Name="ja-JP" />
+						<Directory Id="ptbrDir" Name="pt-BR" />
+						<Directory Id="roDir" Name="ro" />
+						<Directory Id="ruDir" Name="ru" />
+						<Directory Id="runtimesDir" Name="runtimes">
+							<Directory Id="winDir" Name="win">
+								<Directory Id="libDir" Name="lib">
+									<Directory Id="net6Dir" Name="net6.0"/>
+								</Directory>
+							</Directory>
+							<Directory Id="win64Dir" Name="win-x64">
+								<Directory Id="nativeDir" Name="native">
+								</Directory>
+							</Directory>
+						</Directory>
+						<Directory Id="svDir" Name="sv" />
+						<Directory Id="zhhansDir" Name="zh-Hans" />
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="CommonAppDataFolder">
+				<Directory Id="ManufacturerDataFolder" Name="$(var.Manufacturer)">
+					<Directory Id="ApplicationData" Name="$(var.InstallFolderName)" />
+				</Directory>
+			</Directory>
+			<Directory Id="DesktopFolder" Name="Desktop" />
+
+			<Directory Id="ProgramMenuFolder" Name="Programs">
+				<Directory Id="ApplicationProgramsFolder" Name="$(var.Manufacturer)">
+				</Directory>
+			</Directory>
+
+		</Directory>
+	</Fragment>
+
+</Wix>

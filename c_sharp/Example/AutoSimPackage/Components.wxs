@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?include config.wxi ?>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
+			<Component Id="c_AAH_AutoSim.Model.dll" Guid="36f27b81-88bd-4c60-9ee1-392aff41da27">
+				<File Id="f_AAH_AutoSim.Model.dll" Name="AAH_AutoSim.Model.dll" Source="$(var.AAH_AutoSim.Model_TargetDir)AAH_AutoSim.Model.dll"/>
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.Modbus.dll" Guid="901f25c8-c8a3-45b2-a41e-7f36f155904c">
+				<File Id="f_AAH_AutoSim.Modbus.dll" Name="AAH_AutoSim.Modbus.dll" Source="$(var.AAH_AutoSim.Modbus_TargetDir)AAH_AutoSim.Modbus.dll"/>
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.Rainbow.dll" Guid="c8cf069a-6eef-4391-b162-a04cc714be3a">
+				<File Id="f_AAH_AutoSim.Rainbow.dll" Name="AAH_AutoSim.Rainbow.dll" Source="$(var.AAH_AutoSim.Rainbow_TargetDir)AAH_AutoSim.Rainbow.dll"/>
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.TestCase.dll" Guid="eac227be-b9d2-4bd6-a9e4-eaa3a2b6b9d0">
+				<File Id="f_AAH_AutoSim.TestCase.dll" Name="AAH_AutoSim.TestCase.dll" Source="$(var.AAH_AutoSim.TestCase_TargetDir)AAH_AutoSim.TestCase.dll"/>
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.Server.dll" Guid="1826a3b0-374e-4ace-9d4f-ebf52698a056">
+				<File Id="f_AAH_AutoSim.Server.dll" Name="AAH_AutoSim.Server.dll" Source="$(var.AAH_AutoSim.Server_TargetDir)AAH_AutoSim.Server.dll"/>
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.UI.dll" Guid="dacecb98-38b5-4ca6-8121-451a32260c33">
+				<File Id="f_AAH_AutoSim.UI.dll" Name="AAH_AutoSim.UI.dll" Source="$(var.AAH_AutoSim.UI_TargetDir)AAH_AutoSim.UI.dll"/>
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.DataAccess.dll" Guid="f2d5d220-b55d-44c9-bbac-8c0837c6c0ce">
+				<File Id="f_AAH_AutoSim.DataAccess.dll" Name="AAH_AutoSim.DataAccess.dll" Source="$(var.AAH_AutoSim.DataAccess_TargetDir)AAH_AutoSim.DataAccess.dll"/>
+			</Component>
+
+			<Component Id="MainApplication" Guid="6506a45f-6293-4ad1-ba29-02fc38e22264">
+				<File Id="f_AAH_AutoSim.UI.exe" Name="AAH_AutoSim.UI.exe" Source="$(var.AAH_AutoSim.UI_TargetDir)AAH_AutoSim.UI.exe" KeyPath="yes">
+
+					<Shortcut Id="desktopShortcut" Advertise="yes" Directory="DesktopFolder"
+							  Name="AAH AutoSim" WorkingDirectory="INSTALLFOLDER"
+							  Icon="desktopicon.exe" IconIndex="0">
+						<Icon Id="desktopicon.exe" SourceFile="$(var.SolutionDir)InstallerFiles\DaikinApplied.exe"/>
+					</Shortcut>
+
+					<Shortcut Id="startMenuShortcut"
+							  Directory="ApplicationProgramsFolder"
+							  Name="AAH AutoSim"
+							  Description="Application for servicing Daikin Applied Americas Auto Testing"
+							  WorkingDirectory="INSTALLFOLDER"
+							  Advertise="yes"
+							  Icon="shortcuticon.exe" IconIndex="0">
+						<Icon Id="shortcuticon.exe" SourceFile="$(var.SolutionDir)InstallerFiles\DaikinApplied.exe"/>
+					</Shortcut>
+				</File>
+
+				<RemoveFolder Id="ProgramMenuDir" Directory="ApplicationProgramsFolder" On="uninstall"/>
+
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.UI.runtimeconfig.json" Guid="fca314de-f006-4b9a-afb3-11bff5f82559">
+				<File Id="f_AAH_AutoSim.UI.runtimeconfig.json" Name="AAH_AutoSim.UI.runtimeconfig.json" Source="$(var.AAH_AutoSim.UI_TargetDir)AAH_AutoSim.UI.runtimeconfig.json" />
+			</Component>
+
+			<Component Id="c_AAH_AutoSim.UI.deps.json" Guid="cf717895-cef7-4067-af98-a56e2609ab8f">
+				<File Id="f_AAH_AutoSim.UI.deps.json" Name="AAH_AutoSim.UI.deps.json" Source="$(var.AAH_AutoSim.UI_TargetDir)AAH_AutoSim.UI.deps.json" />
+			</Component>
+
+		</ComponentGroup>
+
+	</Fragment>
+</Wix>

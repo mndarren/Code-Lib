@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Bundle Name="AAH AutoSim" Version="!(bind.packageVersion.main)"
+            Manufacturer="Daikin Applied"
+            UpgradeCode="8f522c63-e3b7-427a-81e5-15d6b67f22f8"
+            IconSourceFile="$(var.SolutionDir)InstallerFiles\DaikinApplied.ico"
+            DisableModify="yes">
+
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLargeLicense">
+
+			<bal:WixStandardBootstrapperApplication
+			  LicenseUrl=""
+			  ShowVersion="yes"
+			  SuppressOptionsUI="yes"
+			  SuppressRepair="yes"
+			  LogoFile="$(var.SolutionDir)InstallerFiles\InstallerLogo.bmp"
+			  LogoSideFile="$(var.SolutionDir)InstallerFiles\InstallerSideLogo.bmp"
+			  LocalizationFile="MyBootstrapperTheme.wxl"/>
+
+		</BootstrapperApplicationRef>
+
+		<Chain>
+			<PackageGroupRef Id="NetFx461Web" />
+			<MsiPackage Id="main"
+						SourceFile="$(var.AutoSimPackage.TargetPath)"
+						Visible="no"
+						Vital="yes">
+
+			</MsiPackage>
+		</Chain>
+	</Bundle>
+</Wix>
