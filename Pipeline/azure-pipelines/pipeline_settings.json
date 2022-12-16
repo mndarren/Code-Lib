@@ -50,8 +50,8 @@
   },
   "DEV_Deployment": {
 	  "DEV_Client_ID": "servicetoolspipelinetst",
-	  "DEV_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
-	  "DEV_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
+	  "DEV_Client_Secret": "secret",
+	  "DEV_Token_Endpoint_URL": "token_url",
 	  "DEV_Grant_Type": "client_credentials",
 	  "DEV_Scope": "tahoeapistg",
 	  "DEV_SPODocId": "controlsuat",
@@ -60,8 +60,8 @@
   },
   "QA_Deployment": {
 	  "QA_Client_ID": "servicetoolspipelinetst",
-	  "QA_Client_Secret": "sR%nmLY?L`}D`$6t=u3C`)`'c:<n[Skz`;B8a",
-	  "QA_Token_Endpoint_URL": "https://sso-test.daikinapplied.com/connect/token",
+	  "QA_Client_Secret": "secret",
+	  "QA_Token_Endpoint_URL": "token_url",
 	  "QA_Grant_Type": "client_credentials",
 	  "QA_Scope": "tahoeapistg",
 	  "QA_SPODocId": "controlsuat",
@@ -70,8 +70,8 @@
   },
   "PROD_Deployment": {
 	  "PROD_Client_ID": "servicetoolspipelineprd",
-	  "PROD_Client_Secret": "/%QmrdZha3e4CQMUY`;+Zxzb?>`&h>HQ-=",
-	  "PROD_Token_Endpoint_URL": "https://sso.daikinapplied.com/connect/token",
+	  "PROD_Client_Secret": "secret",
+	  "PROD_Token_Endpoint_URL": "token_url",
 	  "PROD_Grant_Type": "client_credentials",
 	  "PROD_Scope": "tahoeapiprd",
 	  "PROD_SPODocId": "controlsprd",

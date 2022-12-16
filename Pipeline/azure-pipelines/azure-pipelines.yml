@@ -6,7 +6,7 @@ trigger:
 
 variables:
   appSettingsFile: '$(System.DefaultWorkingDirectory)\azure-pipelines\pipeline_settings.json'
-  agentVM: 'WDT VM DD'
+  agentVM: 'agent_Id'
   IS_DEV: $[eq(variables['Build.SourceBranchName'], 'integration')]
   IS_QA: $[eq(variables['Build.SourceBranchName'], 'testing')]
   IS_PROD: $[eq(variables['Build.SourceBranchName'], 'master')]
@@ -311,9 +311,9 @@ jobs:
     displayName: Send Notification Email to DVT Team
     condition: and(succeeded(), eq(variables['IS_QA'], 'true'))
     inputs:
-      SendGridApiKey: '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'
+      SendGridApiKey: 'Token-Key'
       FromAddress: 'ControlsApplicationTeam@daikinapplied.com'
-      ToAddresses: 'Zhao.Xie@daikinapplied.com, Ronald.McDonald@daikinapplied.com, dan.streed@daikinapplied.com, Jeffrey.Quinby@daikinapplied.com, Craig.Starr@daikinapplied.com, Lonnie.Weyer@daikinapplied.com'
+      ToAddresses: 'Recievers_Email_list'
       Subject: 'The AutoSim new version is available now'
       emailBodyFormat: 'InLine'
       EmailBody: 'The version [$(QA_ExeFilename)] is ready. Please download it from Sharepoint QA folder.'
