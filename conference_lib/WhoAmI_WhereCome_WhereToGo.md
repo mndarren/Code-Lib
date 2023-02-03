@@ -43,7 +43,6 @@ Build better group norms (what unwritten rules)
 ```
 6. Further sources
 ```
-
 Why you should bring your whole self to work
 The bias against difference
 The path to inclusion and innovation

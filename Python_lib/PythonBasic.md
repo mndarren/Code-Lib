@@ -656,4 +656,12 @@
 ?= capture including the next char, like Isaac (?=Asimov) will match 'Isaac ' only if it’s followed by 'Asimov'.
 ?! capture excluding the next char, like Isaac (?!Asimov) will match 'Isaac ' only if it’s not followed by 'Asimov'.
 ```
-
+49. pip, venv
+```
+# list all pip.ini
+pip config -v list
+# .ps1 not loaded solution
+Set-ExecutionPolicy Unrestricted -Scope Process
+.\venv\Scripts\activate
+Set-ExecutionPolicy Default -Scope Process
+```
