@@ -35,6 +35,8 @@ git config --get remote.origin.url
 git remote show origin
 # SSL certificate problem: unable to get local issuer certificate
 git config --global http.sslVerify false
+# Get branch hash
+git rev-parse origin/master
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
