@@ -451,7 +451,7 @@ nmcli -L
 nmcli -m 0
 nmcli d
 systemctl list-units --all | grep rever
-journalctl -fu daikin-reverse-ssh-service-swgw.servic
+journalctl -fu daikin-reverse-ssh-service-swgw.service
 ip addr
 ```
 34. vim command
