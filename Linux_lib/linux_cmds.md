@@ -37,6 +37,11 @@ git remote show origin
 git config --global http.sslVerify false
 # Get branch hash
 git rev-parse origin/master
+# Change commit author
+git commit --amend --author 'DAAControlsPipeline <DAAControlsPipeline@mcquay.com>'
+git push -f
+# Git config file locations
+
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
@@ -463,4 +468,9 @@ ggy$
 gg99999yy
 # Select and copy current line
 $yy
+```
+35. Python
+```
+.\venv\Scripts\pyinstaller.exe --icon=mouse.ico --onefile -w .\main.py
+
 ```
