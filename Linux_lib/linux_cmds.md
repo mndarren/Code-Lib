@@ -2,7 +2,8 @@
 ===========================  
 1. Git Commands
 ```Git
-git remote update; git reset --hard origin/integration
+git remote update  # if need password, generate a token pass from the clone page
+git reset --hard origin/integration
 git config --global credential.helper store
 git clone <repo_url> local_dir_name                    # can rename the git repo local folder
 git reset --hard HEAD                                  # revert file change to origin
@@ -84,6 +85,9 @@ sudo reboot
 lsmod | grep vboxguest
 sudo mkdir /LinuxFolder1
 sudo mount -t vboxsf LinuxFolder1 /LinuxFolder1
+# use command
+df
+sudo cp xx.xx /media/sf_xxxfolder
 ```
 10. Firefox
 ```
@@ -472,5 +476,40 @@ $yy
 35. Python
 ```
 .\venv\Scripts\pyinstaller.exe --icon=mouse.ico --onefile -w .\main.py
+
+```
+36. PuTTY SSH connection with IP
+```
+# connect by wifi
+nmcli device wifi list
+nmcli device wifi connect MOTO4E78_ --ask
+# update sshd_config
+nano /etc/ssh/sshd_config
+
+PermitRootLogin yes
+PubkeyAuthentication yes
+UsePAM yes
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials no
+
+# .ssh/authorized_keys
+systemctl restart sshd
+echo "ssh-rsa ..." >> authorized_keys
+```
+37. Important path
+```
+# log
+/var/log
+# apt.conf
+/etc/apt/apt.conf.d
+
+```
+38. Service check
+```
+systemctl list-units --type=service
+systemctl list-units -a --state=active
+systemctl list-units -a --state=inactive
+systemctl list-units --type=service --state=running
+systemctl list-units --state=failed
 
 ```
