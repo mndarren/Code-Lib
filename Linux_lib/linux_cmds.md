@@ -81,7 +81,7 @@ cd /media
 sudo apt-get install -y make gcc linux-headers-$(uname -r)
 sudo ./VBoxLinuxAdditions.run
 sudo reboot
-# check if installed
+# check if installed shared folder
 lsmod | grep vboxguest
 sudo mkdir /LinuxFolder1
 sudo mount -t vboxsf LinuxFolder1 /LinuxFolder1
@@ -297,6 +297,9 @@ dd if=path/to/your-backup.img of=/dev/sdX
 # Backup to compress gz
 dd if=/dev/sdX | gzip -c > path/to/your-backup.img.gz
 gunzip -c /path/to/your-backup.img.gz | dd of=/dev/sdX
+# generate random file size 1MB
+dd if=/dev/zero of=output.txt count=1024 bs=1024
+dd bs=1024 count=1024 </dev/urandom >myfile
 ```
 23. SSH Key
 ```
@@ -494,7 +497,7 @@ GSSAPICleanupCredentials no
 
 # .ssh/authorized_keys
 systemctl restart sshd
-echo "ssh-rsa ..." >> authorized_keys
+# echo "ssh-rsa ..." >> authorized_keys
 ```
 37. Important path
 ```
@@ -502,14 +505,150 @@ echo "ssh-rsa ..." >> authorized_keys
 /var/log
 # apt.conf
 /etc/apt/apt.conf.d
+# source
+/etc/apt/sources.list
+deb http://deb.debian.org/debian/ buster main
+deb-src http://deb.debian.org/debian/ buster main
 
+deb http://security.debian.org/debian-security buster/updates main
+deb-src http://security.debian.org/debian-security buster/updates main
+
+deb http://ftp.se.debian.org/debian/ buster-updates main
+deb-src http://ftp.se.debian.org/debian/ buster-updates main
+
+# below is for bookworm version
+deb http://deb.debian.org/debian/ bookworm main non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware
+
+deb http://security.debian.org/debian-security bookworm-security main non-free-firmware
+deb-src http://security.debian.org/debian-security bookworm-security main non-free-firmware
+
+deb http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
 ```
 38. Service check
 ```
 systemctl list-units --type=service
 systemctl list-units -a --state=active
-systemctl list-units -a --state=inactive
+systemctl list-units -a --state=inactive --type=service
 systemctl list-units --type=service --state=running
 systemctl list-units --state=failed
 
+```
+39. unattended-upgrades package
+```
+# install package (updated package automatically)
+apt-get install unattended-upgrades apt-listchanges
+# configure the package
+nano /etc/apt/apt.conf.d/50unattended-upgrades 
+# auto activate package
+# command to generate: dpkg-reconfigure -plow unattended-upgrades
+# Alternative auto activate: nano /etc/apt/apt.conf.d/02periodic
+nano /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+# download and upgrade timer
+nano /lib/systemd/system/apt-daily.timer
+nano /lib/systemd/system/apt-daily-upgrade.timer
+# log
+/var/log/unattended-upgrades/
+```
+40. Build Debian package
+```
+sudo apt install dpkg-dev
+sudo apt install devscripts
+sudo apt source proftpd-basic
+sudo apt build-dep proftpd-basic
+sudo dpkg-buildpackage -rfakeroot -b -uc -us
+# dpkg-deb --build xxx
+# install built package
+sudo dpkg -i proftpd-basic_1.3.8+dfsg-4+deb12u2_all.deb
+# install missing libs/dependencies
+sudo apt install -f
+# remove package
+sudo dpkg --purge xxx
+```
+41. Create a Debian package for a Python script
+```
+# create changelog
+dch --create
+
+Pyscript_dir
+	|-debian
+		|-control
+		|-preinst
+		|-postinst
+		|-copyright
+		|-rules
+		|-compat
+		|-changelog
+		|-install
+```
+42. Debug script
+```
+# debug
+set -x
+# exit when error
+set -e
+#Treat unset variables as an error when performing parameter expansion.
+set -u
+# Assign the remaining arguments to the positional paramaters.
+set --
+```
+43. Special Dollar Sign
+```
+$1, $2, $3, ... are the positional parameters.
+"$@" is an array-like construct of all positional parameters, {$1, $2, $3 ...}.
+"$*" is the IFS expansion of all positional parameters, $1 $2 $3 ....
+$# is the number of positional parameters.
+$- current options set for the shell.
+$$ pid of the current shell (not subshell).
+$_ most recent parameter (or the abs path of the command to start the current shell immediately after startup).
+$IFS is the (input) field separator.
+$? is the most recent foreground pipeline exit status.
+$! is the PID of the most recent background command.
+$0 is the name of the shell or shell script.
+```
+44. Create a unique filename
+```
+ while true; do
+    local random_name=$(hexdump -e '/1 "%02x"' -n8 < /dev/urandom)
+    path_file="${file_dir}/${random_name}"
+    if [[ ! -f "${path_file}" ]]; then
+      break
+    fi
+  done
+mktemp -p "${file_dir}" XXXXXXXX
+```
+45. git multi-commit to one commit
+```
+git clean -dfx
+git pull
+git rebase -i origin/integration
+# replace all pick with f except the first line
+# save
+git log
+git rebase -i origin/integration
+# replace first pick with r (re-commit)
+# save
+# copy/paste description of the PR to below the only one commit
+# save
+git log
+git push --force
+```
+46. Install WSL2
+```
+# Install Windows terminal
+https://github.com/microsoft/terminal
+# Open Terminal as Admin
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All
+# reboot
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+# reboot
+wsl --shutdown
+wsl --update
+wsl --set-default-version 2
+wsl --status
+wsl --install
+# setup username and passwd
 ```
