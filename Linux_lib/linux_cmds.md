@@ -5,6 +5,7 @@
 git remote update  # if need password, generate a token pass from the clone page
 git reset --hard origin/integration
 git config --global credential.helper store
+git config --list --show-origin
 git clone <repo_url> local_dir_name                    # can rename the git repo local folder
 git reset --hard HEAD                                  # revert file change to origin
 git clean -ndx                                         # n: not really remove; d: recurse; x: don't use gitignore
@@ -36,6 +37,7 @@ git config --get remote.origin.url
 git remote show origin
 # SSL certificate problem: unable to get local issuer certificate
 git config --global http.sslVerify false
+git config --global http.sslbackend schannel  # for Windows
 # Get branch hash
 git rev-parse origin/master
 # Change commit author
@@ -479,6 +481,9 @@ $yy
 35. Python
 ```
 .\venv\Scripts\pyinstaller.exe --icon=mouse.ico --onefile -w .\main.py
+# Tkinter
+https://github.com/Dvlv/Tkinter-By-Example/tree/master/Code
+import this
 
 ```
 36. PuTTY SSH connection with IP
@@ -636,7 +641,7 @@ git rebase -i origin/integration
 git log
 git push --force
 ```
-46. Install WSL2
+46. Windows Install & Configure WSL2
 ```
 # Install Windows terminal
 https://github.com/microsoft/terminal
@@ -651,4 +656,44 @@ wsl --set-default-version 2
 wsl --status
 wsl --install
 # setup username and passwd
+# shared folder
+ln -sf /mnt/c/dahmi_share/ ~/dahmi_share
+ln -sf /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | sed -e 's/\r//g')/Downloads/ ~/Downloads
+# copy .files (.git*, .vimrc, .bash* ...)
+# Configure passwordless sudo
+echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER >/dev/null
+sudo chmod 600 /etc/sudoers.d/$USER
+# setup UTF-8 locale
+sudo locale-gen en_US.UTF-8
+sudo dpkg-reconfigure locales 
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+source /etc/default/locale
+
+```
+47. shutdown in one hour
+```
+shutdown -s -f -t 3600
+```
+48. RDP with diff port
+```
+MSTSC /v:192.168.0.150:33899
+```
+49. syntax checker
+```
+Import-Module PSScriptAnalyzer
+Invoke-ScriptAnalyzer -Path xxx
+```
+50. dotnet install
+```
+# install dotnet Runtime
+dotnet-install.ps1 -Runtime windowsdesktop
+dotnet-install.ps1 -Runtime aspnetcore
+winget install Microsoft.DotNet.DesktopRuntime.8
+winget install Microsoft.DotNet.AspNetCore.8
+# install dotnet SDK
+dotnet-install.ps1
+winget search Microsoft.DotNet.SDK
+winget install Microsoft.DotNet.DesktopRuntime.Preview
+# Where
+where.exe dotnet
 ```
