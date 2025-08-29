@@ -32,7 +32,7 @@ python-daemon==2.1.2
 python-dateutil==2.8.0
 python-interface==1.4.0
 pytz==2017.3
-requests==2.18.4
+requests==2.32.4
 six==1.11.0
 snowballstemmer==1.2.1
 Sphinx==1.6.7
