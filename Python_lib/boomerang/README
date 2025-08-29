@@ -1,0 +1,31 @@
+# Boomerang
+=============================================
+
+<img src="https://images.emojiterra.com/mozilla/512px/1f4e2.png" width="100">
+
+## Purpose
+```
+Boomerang is a project for reporting activities as ETL process is running. This standard utility
+helps user to know what happens, such as Warning, Error, Info, etc.
+```
+## How to Use
+```
+Import Reporter and other necessary class from boomerang modules;
+Define domains and related activities;
+Run task and collect activities that need to report out;
+Report the activities using reporter.
+```
+## Requirements
+```
+This application needs Python 3.6 to be run. In Ubuntu, to install Python 3 can run the command:
+    $ sudo apt-get install python3 python3-pip
+```
+
+## Examples
+
+[Collector Example][Collector], [ActivityHandler Example][ActivityHandler], [Reporter Example][Reporter]
+
+
+[Collector]: http://10.7.40.79:7990/projects/AFP/repos/boomerang/browse/tests/test_activity_collector.py
+[Reporter]: http://10.7.40.79:7990/projects/AFP/repos/boomerang/browse/tests/test_basic_reporter.py
+[ActivityHandler]: http://10.7.40.79:7990/projects/AFP/repos/boomerang/browse/tests/test_activity_handler.py
