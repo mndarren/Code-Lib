@@ -6,6 +6,7 @@ git remote update  # if need password, generate a token pass from the clone page
 git reset --hard origin/integration
 git config --global credential.helper store
 git config --list --show-origin
+git config --global core.longpaths true
 git clone <repo_url> local_dir_name                    # can rename the git repo local folder
 git reset --hard HEAD                                  # revert file change to origin
 git clean -ndx                                         # n: not really remove; d: recurse; x: don't use gitignore
@@ -44,7 +45,9 @@ git rev-parse origin/master
 git commit --amend --author 'DAAControlsPipeline <DAAControlsPipeline@mcquay.com>'
 git push -f
 # Git config file locations
-
+git config --list --show-origin
+# Get current branch
+git branch --show-current
 ```
 2. `losetup  -a`                                       # will show all /dev/loop
 3. `less file1.txt`                                    # view a file one screen at a time
@@ -696,4 +699,11 @@ winget search Microsoft.DotNet.SDK
 winget install Microsoft.DotNet.DesktopRuntime.Preview
 # Where
 where.exe dotnet
+dotnet --info
+dotnet --list-runtimes
+dotnet --list-sdks
+```
+51. List modems
+```
+mmcli -L
 ```
